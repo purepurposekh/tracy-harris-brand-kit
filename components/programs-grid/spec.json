@@ -1,0 +1,52 @@
+{
+  "name": "programs-grid",
+  "description": "Multi-card horizontal grid showcasing Tracy Harris Co's programs. Home page anchor section. Each card summarises one program with a CTA.",
+  "intent": "Make the visitor understand the pathway in 30 seconds: three programs, one direction, room for all starting points. Earn the click to the right program detail page.",
+  "whenToUse": "Homepage (Tracy parent brand) as the primary offer block. Program detail pages as a cross-link to sister programs. Not for funnel pages where you want a single CTA.",
+  "slots": {
+    "header": {
+      "eyebrow": "Small section label (e.g., 'The pathway')",
+      "title": "Section title, serif, italic emphasis on key phrase",
+      "sub": "One-sentence explanation of the grid"
+    },
+    "cards": {
+      "required": true,
+      "description": "Array of program cards. 2-4 cards works; 3 is the default.",
+      "fields": {
+        "accent": "sage | gold | green | navy — the brand accent colour for the card",
+        "title": "Program name with italic emphasis on differentiator word",
+        "tagline": "Short italic line beneath title (3-5 words)",
+        "desc": "2-3 sentence description",
+        "facts": "2-3 label+value pairs (Duration, Format, Investment)",
+        "cta": "{ label, href }"
+      }
+    }
+  },
+  "variants": {
+    "threeUp": "3 cards side-by-side. Default homepage layout.",
+    "twoUp": "2 cards. Used on product pages showing sister programs.",
+    "fourUp": "4 cards, tighter. Used if we add SMS back or similar."
+  },
+  "brandDefaults": {
+    "tracy": {
+      "eyebrow": "The pathway",
+      "title": "Three programs. One pathway.",
+      "sub": "Start where you are, choose the path that fits, build something that lets you live.",
+      "cards": [
+        { "accent": "sage", "program": "ffb", "cta": "Explore FFB" },
+        { "accent": "gold", "program": "ffm", "cta": "Apply for FFM" },
+        { "accent": "green", "program": "fresh", "cta": "Take the Quiz" }
+      ]
+    }
+  },
+  "avoid": [
+    "Cards with wildly different content lengths. Keep descriptions to similar line counts.",
+    "Generic icons on each card. Typography + accent colour carries the distinction.",
+    "Bright competing CTAs. Each card has one link, same visual weight, differentiated only by destination."
+  ],
+  "a11y": {
+    "heading": "Section <h2>, cards as <article> with internal <h3>",
+    "linkText": "Each CTA should include the program name so screen readers get context (not 'Learn more')",
+    "contrast": "Accent colours used only as thin decorative lines, never as type-background combinations that would fail contrast"
+  }
+}
