@@ -23,9 +23,8 @@
 
   /* Greens */
   --p-aztek: #1e3735;
-  --p-ffb-dark: #243531;
+  --p-ffb-dark: #1e3735;
   --p-sage: #6e8e77;
-  --p-sage-alt: #788e75;
 
   /* Golds (FFM) */
   --p-gold-dark: #7b623c;
@@ -136,7 +135,7 @@
 
   --accent: var(--p-ffb-dark);
   --accent-on: var(--p-oatmeal);
-  --accent-hover: var(--p-sage-alt);
+  --accent-hover: var(--p-sage);
   --accent-warmth: var(--p-fresh-peach);
 
   --border-hairline: rgba(36, 53, 49, 0.12);
@@ -146,7 +145,7 @@
   --type-display-color: var(--p-ffb-dark);
   --type-subheading-color: var(--p-ffb-dark);
   --type-script-family: var(--f-script);
-  --type-script-color: var(--p-sage-alt);
+  --type-script-color: var(--p-sage);
 }
 
 [data-brand="ffm"] {

@@ -16,9 +16,8 @@
     },
     "green": {
       "aztek": "#1e3735",
-      "ffbDark": "#243531",
-      "sage": "#6e8e77",
-      "sageAlt": "#788e75"
+      "ffbDark": "#1e3735",
+      "sage": "#6e8e77"
     },
     "gold": {
       "dark": "#7b623c",
@@ -35,7 +34,7 @@
     "family": {
       "serifDisplay": "'Editors Note Regular', 'Playfair Display', Georgia, serif",
       "serifItalic": "'Editors Note Light Italic', 'Playfair Display', Georgia, serif",
-      "script": "'Chic Societe Script', 'Great Vibes', cursive",
+      "script": "'Jhon Halend', 'Great Vibes', cursive",
       "sans": "'Poppins', 'Public Sans', system-ui, -apple-system, sans-serif",
       "sansAlt": "'Public Sans', 'Poppins', system-ui, sans-serif"
     },
