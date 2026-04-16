@@ -25,7 +25,9 @@ User asks for "a footer", "bottom of the page", or "closing section" for any of 
 
 ### Tracy Harris Co
 - Signature: "Peace, Profit and Presence."
-- Variant: full
+- Variant: full (no newsletter — Tracy doesn't currently send one)
+- CTA slot: "Take the Quiz" → /quiz (primary lead magnet, entry to FRESH)
+- Heading: "Not sure where to start? Take the quiz."
 - Columns: Programs, Resources, Connect
 
 ### FFB
