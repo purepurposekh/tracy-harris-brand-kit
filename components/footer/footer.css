@@ -12,27 +12,28 @@
   margin: 0 auto;
 }
 
-/* --- Top: brand block (logo + editorial paragraph) --- */
+/* --- Top: brand block (logo stacked above editorial paragraph) --- */
 .footer__brand-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-7);
-  margin-bottom: var(--sp-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 600px;
+  margin-bottom: var(--sp-8);
 }
 
 .footer__brand-logo {
-  height: 48px;
+  height: 44px;
   width: auto;
-  margin: 0 0 var(--sp-5) 0;
+  margin: 0;
 }
 
 .footer__brand-copy {
   font-family: var(--f-sans);
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.65;
   color: var(--ink-body);
   margin: 0;
-  max-width: 58ch;
+  max-width: 64ch;
 }
 
 .footer__brand-copy em {
