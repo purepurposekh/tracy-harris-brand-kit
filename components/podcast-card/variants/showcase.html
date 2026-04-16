@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Podcast Card — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../podcast-card.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FEATURED -->
+  <div class="brand-label"><span>FEATURED — large card, art left, details right</span><code>class="podcast-card__featured"</code></div>
+  <section class="podcast-card podcast-card--elevated" data-brand="tracy">
+    <div class="podcast-card__inner">
+      <header class="podcast-card__header">
+        <p class="podcast-card__eyebrow">The podcast</p>
+        <h2 class="podcast-card__title">500+ episodes of real <em>talk</em>.</h2>
+      </header>
+
+      <div class="podcast-card__featured">
+        <div class="podcast-card__art">
+          <img src="https://static.showit.co/1200/udTqPQZASNmQ_6Xn6lQKzg/173187/web_mwh_coralsea_271022_098.jpg" alt="Podcast cover art." />
+        </div>
+        <div class="podcast-card__details">
+          <p class="podcast-card__episode-label">Latest episode</p>
+          <h3 class="podcast-card__episode-title">[EPISODE TITLE] — The one thing that changed <em>everything</em></h3>
+          <p class="podcast-card__episode-desc">[EPISODE DESCRIPTION PLACEHOLDER] Short, honest, actionable. The way Tracy does everything.</p>
+          <a href="#" class="podcast-card__play-btn">
+            <span class="podcast-card__play-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            </span>
+            Listen now
+          </a>
+          <div class="podcast-card__platforms">
+            <a href="#" class="podcast-card__platform">Apple Podcasts</a>
+            <a href="#" class="podcast-card__platform">Spotify</a>
+            <a href="#" class="podcast-card__platform">YouTube</a>
+            <a href="#" class="podcast-card__platform">RSS</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPACT -->
+  <div class="brand-label"><span>COMPACT — small inline card for homepage</span><code>class="podcast-card__compact"</code></div>
+  <section class="podcast-card" data-brand="tracy">
+    <div class="podcast-card__inner">
+      <div class="podcast-card__compact">
+        <div class="podcast-card__art">
+          <img src="https://static.showit.co/1200/udTqPQZASNmQ_6Xn6lQKzg/173187/web_mwh_coralsea_271022_098.jpg" alt="Podcast cover." />
+        </div>
+        <div class="podcast-card__details">
+          <p class="podcast-card__episode-label">Latest episode</p>
+          <h3 class="podcast-card__episode-title">[EPISODE TITLE]</h3>
+          <a href="#" class="podcast-card__play-btn">
+            <span class="podcast-card__play-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            </span>
+            Listen now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

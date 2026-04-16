@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../pricing.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FFB: SIDE-BY-SIDE -->
+  <div class="brand-label"><span>SIDE-BY-SIDE — FFB payment options</span><code>class="pricing__options"</code></div>
+  <section class="pricing pricing--elevated" data-brand="ffb">
+    <div class="pricing__inner">
+      <header class="pricing__header">
+        <p class="pricing__eyebrow">Your investment</p>
+        <h2 class="pricing__title">Freedom Filled® <em>Business</em>™</h2>
+        <p class="pricing__sub">12 months of mentorship, frameworks, and a community of right-fit women. Choose the option that works for you.</p>
+      </header>
+
+      <div class="pricing__options">
+
+        <div class="pricing__card pricing__card--featured">
+          <span class="pricing__badge">Best value</span>
+          <p class="pricing__plan-name">Pay in full</p>
+          <p class="pricing__amount">$6,000</p>
+          <p class="pricing__amount-detail">AUD, one payment</p>
+          <hr class="pricing__divider" />
+          <ul class="pricing__features">
+            <li>Full 12-month curriculum</li>
+            <li>Group coaching calls with Tracy</li>
+            <li>Private community access</li>
+            <li>Million Dollar Message™ framework</li>
+            <li>Signature Model™ + Freedom Filled® Offers™</li>
+            <li>Ongoing support for 12 months</li>
+          </ul>
+          <a href="/ffb/apply" class="pricing__cta pricing__cta--primary">Apply Now</a>
+        </div>
+
+        <div class="pricing__card">
+          <p class="pricing__plan-name">Monthly</p>
+          <p class="pricing__amount">$550</p>
+          <p class="pricing__amount-detail">AUD/month for 12 months</p>
+          <hr class="pricing__divider" />
+          <ul class="pricing__features">
+            <li>Full 12-month curriculum</li>
+            <li>Group coaching calls with Tracy</li>
+            <li>Private community access</li>
+            <li>Million Dollar Message™ framework</li>
+            <li>Signature Model™ + Freedom Filled® Offers™</li>
+            <li>Ongoing support for 12 months</li>
+          </ul>
+          <a href="/ffb/apply" class="pricing__cta pricing__cta--secondary">Apply Now</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FFM: SINGLE CARD, DARK -->
+  <div class="brand-label"><span>SINGLE DARK — FFM premium positioning</span><code>class="pricing--dark pricing__single"</code></div>
+  <section class="pricing pricing--dark" data-brand="ffm">
+    <div class="pricing__inner">
+      <header class="pricing__header">
+        <p class="pricing__eyebrow">The investment</p>
+        <h2 class="pricing__title">Freedom Filled® <em>Mastermind</em></h2>
+        <p class="pricing__sub">Application-only. Maximum 20 women per cohort. Retreats, hot seats, and direct access to Tracy.</p>
+      </header>
+
+      <div class="pricing__single">
+        <div class="pricing__card pricing__card--featured">
+          <span class="pricing__badge">Application only</span>
+          <p class="pricing__plan-name">Your investment</p>
+
+          <div class="pricing__payment-options">
+            <div class="pricing__payment-row">
+              <span class="pricing__payment-label">Pay in full</span>
+              <span class="pricing__payment-value">$31,000 AUD <span class="pricing__payment-save">Save $2,000</span></span>
+            </div>
+            <div class="pricing__payment-row">
+              <span class="pricing__payment-label">Monthly</span>
+              <span class="pricing__payment-value">$2,750/mo x 12</span>
+            </div>
+            <div class="pricing__payment-row">
+              <span class="pricing__payment-label">Discovery call fee</span>
+              <span class="pricing__payment-value">$1,000 (refundable)</span>
+            </div>
+          </div>
+
+          <hr class="pricing__divider" />
+
+          <ul class="pricing__features">
+            <li>Maximum 20 women per cohort</li>
+            <li>In-person retreats (Bali, Australia)</li>
+            <li>1:1 hot seats with Tracy</li>
+            <li>Direct access to Tracy</li>
+            <li>12 months of FFB included</li>
+            <li>The Social Method® Society included</li>
+          </ul>
+
+          <a href="/ffm/apply" class="pricing__cta pricing__cta--primary">Book a Discovery Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FFB: SINGLE CARD, LIGHT -->
+  <div class="brand-label"><span>SINGLE LIGHT — compact pricing card</span><code>class="pricing__single"</code></div>
+  <section class="pricing" data-brand="tracy">
+    <div class="pricing__inner">
+      <header class="pricing__header">
+        <p class="pricing__eyebrow">Start building</p>
+        <h2 class="pricing__title">Choose your <em>path</em>.</h2>
+      </header>
+
+      <div class="pricing__single">
+        <div class="pricing__card">
+          <p class="pricing__plan-name">Freedom Filled® Business™</p>
+          <p class="pricing__amount">$6,000</p>
+          <p class="pricing__amount-detail">AUD pay in full, or from $550/mo</p>
+          <hr class="pricing__divider" />
+          <ul class="pricing__features">
+            <li>Full 12-month curriculum</li>
+            <li>Group coaching calls</li>
+            <li>Private community</li>
+            <li>Tracy's proven frameworks</li>
+          </ul>
+          <a href="/ffb/apply" class="pricing__cta pricing__cta--primary">Apply to FFB</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

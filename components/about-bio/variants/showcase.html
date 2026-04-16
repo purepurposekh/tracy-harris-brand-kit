@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Bio — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../about-bio.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SPLIT BIO -->
+  <div class="brand-label"><span>SPLIT — portrait left, editorial bio right</span><code>class="about-bio__split"</code></div>
+  <section class="about-bio" data-brand="tracy">
+    <div class="about-bio__split">
+      <div class="about-bio__portrait">
+        <img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Tracy Harris." />
+      </div>
+      <div class="about-bio__content">
+        <p class="about-bio__eyebrow">Meet Tracy</p>
+        <h2 class="about-bio__name">Tracy <em>Harris</em></h2>
+        <p class="about-bio__tagline">Mentor, speaker, mum of two, lover of freedom.</p>
+        <p class="about-bio__body">I spent years building a business that looked successful on the outside but felt like a cage on the inside. Overworked, overwhelmed, and constantly second-guessing whether I was doing it right.</p>
+        <p class="about-bio__body">Then I rebuilt everything. Not just the strategy, the entire foundation. I created a business that runs on my terms, generates revenue without burning me out, and gives me the freedom to be present for the people I love.</p>
+        <p class="about-bio__body"><strong>That's what I teach.</strong> Not hustle. Not grind. A business built by design, not by default. A Freedom Filled® life.</p>
+        <p class="about-bio__signature">Tracy</p>
+        <a href="/about" class="about-bio__cta">
+          Read Tracy's full story
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="about-bio__facts">
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">500+</span>
+            <span class="about-bio__fact-label">Podcast episodes</span>
+          </div>
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">7+</span>
+            <span class="about-bio__fact-label">Years running FFM</span>
+          </div>
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">20</span>
+            <span class="about-bio__fact-label">Max FFM cohort</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENTERED BIO -->
+  <div class="brand-label"><span>CENTERED — circle portrait, stacked text</span><code>class="about-bio__centered"</code></div>
+  <section class="about-bio about-bio--elevated" data-brand="tracy">
+    <div class="about-bio__centered">
+      <div class="about-bio__portrait">
+        <img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Tracy Harris." />
+      </div>
+      <p class="about-bio__eyebrow">Your mentor</p>
+      <h2 class="about-bio__name">Tracy <em>Harris</em></h2>
+      <p class="about-bio__body">Former teacher turned multi-seven-figure business builder. Tracy helps women create Freedom Filled® businesses that generate revenue without sacrificing the life they want. She lives between Australia and Bali, works Monday to Thursday, and takes a week off every month.</p>
+      <p class="about-bio__signature">Tracy</p>
+      <div class="about-bio__facts">
+        <div class="about-bio__fact">
+          <span class="about-bio__fact-value">500+</span>
+          <span class="about-bio__fact-label">Episodes</span>
+        </div>
+        <div class="about-bio__fact">
+          <span class="about-bio__fact-value">7+</span>
+          <span class="about-bio__fact-label">Years</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

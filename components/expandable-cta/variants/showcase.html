@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expandable CTA — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../expandable-cta.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+    .spacer { height: 200px; background: var(--p-oatmeal); display: flex; align-items: center; justify-content: center; color: var(--ink-mute); font-size: 14px; }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <div class="spacer">Page content above...</div>
+
+  <!-- EXPANDABLE CTA: Quiz -->
+  <div class="brand-label"><span>EXPANDABLE — button expands to full-screen form</span><code>class="expandable-cta"</code></div>
+  <div class="expandable-cta">
+    <div class="expandable-cta__trigger-wrap">
+      <h2 class="expandable-cta__trigger-title">Take the <em>quiz</em>.</h2>
+      <p class="expandable-cta__trigger-sub">Two minutes. Five pillars. One personalised recommendation for where to start building your Freedom Filled® business.</p>
+      <button class="expandable-cta__trigger-btn">Take the FRESH Quiz</button>
+    </div>
+
+    <div class="expandable-cta__overlay" data-open="false">
+      <button class="expandable-cta__close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="expandable-cta__overlay-inner">
+        <div class="expandable-cta__sales">
+          <h3 class="expandable-cta__sales-title">Find your <em>starting point</em></h3>
+          <div class="expandable-cta__benefits">
+            <div class="expandable-cta__benefit">
+              <div class="expandable-cta__benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <p class="expandable-cta__benefit-text">Get your personalised FRESH Score across Freedom, Revenue, Engagement, Strategy, and Heart.</p>
+            </div>
+            <div class="expandable-cta__benefit">
+              <div class="expandable-cta__benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="expandable-cta__benefit-text">Receive a clear next-step recommendation based on where your business is right now.</p>
+            </div>
+          </div>
+
+          <div class="expandable-cta__quote">
+            <p class="expandable-cta__quote-text">"I took the quiz expecting a lead magnet. I got a mirror. Haven't looked at my business the same way since."</p>
+            <p class="expandable-cta__quote-name">[MEMBER NAME]</p>
+            <p class="expandable-cta__quote-role">Service business owner</p>
+          </div>
+        </div>
+
+        <div class="expandable-cta__form-wrap">
+          <form class="expandable-cta__form" onsubmit="return false;">
+            <div>
+              <label class="expandable-cta__field-label">Full Name *</label>
+              <input type="text" class="expandable-cta__field-input" placeholder="Tracy Harris" />
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">Email *</label>
+              <input type="email" class="expandable-cta__field-input" placeholder="tracy@example.com" />
+            </div>
+            <div class="expandable-cta__field-row">
+              <div>
+                <label class="expandable-cta__field-label">Business type</label>
+                <input type="text" class="expandable-cta__field-input" placeholder="e.g., Coaching, Courses" />
+              </div>
+              <div>
+                <label class="expandable-cta__field-label">Stage</label>
+                <input type="text" class="expandable-cta__field-input" placeholder="e.g., Just starting" />
+              </div>
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">What's your biggest challenge right now?</label>
+              <textarea class="expandable-cta__field-textarea" placeholder="Tell us what's on your mind..."></textarea>
+            </div>
+            <button type="submit" class="expandable-cta__submit">Start the Quiz</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer">Page content below...</div>
+
+  <!-- EXPANDABLE CTA: FFM Apply -->
+  <div class="brand-label"><span>EXPANDABLE — FFM application variant</span><code>class="expandable-cta" (FFM)</code></div>
+  <div class="expandable-cta" data-brand="ffm">
+    <div class="expandable-cta__trigger-wrap" style="background: var(--surface-inverse);">
+      <h2 class="expandable-cta__trigger-title" style="color: var(--p-white);">The room is <em>everything</em>.</h2>
+      <p class="expandable-cta__trigger-sub" style="color: rgba(255,255,255,0.7);">Maximum 20 women. Application-only. If you're ready to lead at a higher level, we'd love to hear from you.</p>
+      <button class="expandable-cta__trigger-btn" style="background: var(--p-gold-mid); color: var(--p-charcoal);">Apply to the Mastermind</button>
+    </div>
+
+    <div class="expandable-cta__overlay" data-open="false" style="background: var(--p-gold-dark);">
+      <button class="expandable-cta__close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="expandable-cta__overlay-inner">
+        <div class="expandable-cta__sales">
+          <h3 class="expandable-cta__sales-title">Apply to Freedom Filled® <em>Mastermind</em></h3>
+          <div class="expandable-cta__benefits">
+            <div class="expandable-cta__benefit">
+              <div class="expandable-cta__benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <p class="expandable-cta__benefit-text">In-person retreats in Bali and Australia with women who refuse to settle.</p>
+            </div>
+            <div class="expandable-cta__benefit">
+              <div class="expandable-cta__benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="expandable-cta__benefit-text">Direct 1:1 access to Tracy plus hot seats and personalised strategy.</p>
+            </div>
+          </div>
+
+          <div class="expandable-cta__quote">
+            <p class="expandable-cta__quote-text">"Application-based is not a gimmick. It's why the room works."</p>
+            <p class="expandable-cta__quote-name">[MEMBER NAME]</p>
+            <p class="expandable-cta__quote-role">SaaS founder, 2025 cohort</p>
+          </div>
+        </div>
+
+        <div class="expandable-cta__form-wrap">
+          <form class="expandable-cta__form" onsubmit="return false;">
+            <div>
+              <label class="expandable-cta__field-label">Full Name *</label>
+              <input type="text" class="expandable-cta__field-input" />
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">Email *</label>
+              <input type="email" class="expandable-cta__field-input" />
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">Website / Instagram</label>
+              <input type="text" class="expandable-cta__field-input" placeholder="@handle or URL" />
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">Tell us about your business</label>
+              <textarea class="expandable-cta__field-textarea" placeholder="What do you do, who do you serve, where are you headed..."></textarea>
+            </div>
+            <button type="submit" class="expandable-cta__submit" style="background: var(--p-gold-mid); color: var(--p-charcoal);">Submit Application</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer">Page content below...</div>
+
+  <script src="../expandable-cta.js"></script>
+</body>
+</html>
