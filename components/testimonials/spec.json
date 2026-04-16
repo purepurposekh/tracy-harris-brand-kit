@@ -1,0 +1,48 @@
+{
+  "name": "testimonials",
+  "description": "Social proof section with member quotes. Masonry wall for high-density showcase, or featured trio for product pages.",
+  "intent": "Make the visitor see themselves in the story. Real women, specific results, editorial photography. Builds trust between hero and pricing.",
+  "whenToUse": "Homepage (between programs grid and footer), product pages (just before pricing / apply section), about page (showing community impact).",
+  "slots": {
+    "header": {
+      "eyebrow": "Small label (e.g., 'Member stories')",
+      "title": "Title with italic emphasis",
+      "sub": "Optional one-line framing"
+    },
+    "quotes": {
+      "required": true,
+      "minCount": 3,
+      "maxCount": 12,
+      "fields": {
+        "quote": "The testimonial. 1-3 sentences for wall, 2-4 for featured.",
+        "name": "Member name. Use [MEMBER NAME] as placeholder if unconfirmed.",
+        "title": "Business name, role, or descriptor.",
+        "photo": "Portrait URL. Optional. Use placeholder if unconfirmed.",
+        "program": "Which program they're from (FFB, FFM, FRESH). Shows as small tag.",
+        "featured": "Boolean. Larger card in masonry layout."
+      }
+    }
+  },
+  "variants": {
+    "wall": "8-12 quotes in a masonry grid, mixed card sizes. Homepage.",
+    "featured": "3 larger cards side-by-side. Product pages.",
+    "single": "One hero quote with big portrait, editorial spread. Between sections for emphasis."
+  },
+  "brandDefaults": {
+    "tracy": { "eyebrow": "Member stories", "title": "The women building it." },
+    "ffb": { "eyebrow": "From FFB members", "title": "Year one, reshaped." },
+    "ffm": { "eyebrow": "From the Mastermind", "title": "The room that builds you back." },
+    "fresh": { "eyebrow": "FRESH in practice", "title": "The foundation, alive." }
+  },
+  "avoid": [
+    "Fabricated quotes. Always use [MEMBER NAME PLACEHOLDER] or [CHECK: real quote] markers until verified.",
+    "Stock photography of women who aren't real members. Use placeholder avatars or real photography only.",
+    "Quotes longer than 4 sentences — reads like a case study, not a testimonial. Break into a case study block if longer.",
+    "Rating stars. Tracy's brand is editorial, not e-commerce review."
+  ],
+  "a11y": {
+    "semantics": "Each quote in <figure> with <blockquote> and <figcaption>",
+    "contrast": "Text against card background must hit 4.5:1",
+    "images": "alt text describes the person, e.g., 'Sarah Thompson, FFB member'"
+  }
+}
