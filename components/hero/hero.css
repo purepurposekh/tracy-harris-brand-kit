@@ -124,6 +124,25 @@
   color: var(--accent-on);
 }
 
+/* FFM dark variant — charcoal canvas, gold as primary visual */
+[data-brand="ffm"].hero--dark,
+.hero--dark[data-brand="ffm"] {
+  background: var(--p-charcoal);
+}
+[data-brand="ffm"].hero--dark .hero__eyebrow,
+[data-brand="ffm"].hero--dark .hero__title,
+[data-brand="ffm"].hero--dark .hero__title em {
+  color: var(--p-gold-mid);
+}
+[data-brand="ffm"].hero--dark .hero__supporting {
+  color: var(--p-oatmeal);
+  opacity: 0.85;
+}
+[data-brand="ffm"].hero--dark .hero__secondary {
+  color: var(--p-oatmeal);
+  border-bottom-color: var(--p-gold-mid);
+}
+
 .hero__secondary {
   font-family: var(--f-sans);
   font-size: var(--s-sm);
