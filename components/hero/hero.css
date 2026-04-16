@@ -59,9 +59,9 @@
 
 .hero__logo {
   display: block;
-  height: 48px;
+  height: 30px;
   width: auto;
-  margin: 0 0 var(--sp-5) 0;
+  margin: 0 0 var(--sp-8) 0;
 }
 
 .hero--text-only .hero__logo {

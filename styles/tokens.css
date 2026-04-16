@@ -37,10 +37,10 @@
   --p-fresh-peach: #cc9989;
 
   /* Font families */
-  --f-serif-display: 'Editors Note Regular', 'Playfair Display', Georgia, serif;
-  --f-serif-italic: 'Editors Note Light Italic', 'Playfair Display', Georgia, serif;
-  --f-script: 'Chic Societe Script', 'Great Vibes', cursive;
-  --f-sans: 'Poppins', 'Public Sans', system-ui, -apple-system, sans-serif;
+  --f-serif-display: 'Editors Note', Georgia, serif;
+  --f-serif-italic: 'Editors Note', Georgia, serif;
+  --f-script: 'Jhon Halend', cursive;
+  --f-sans: 'Poppins', system-ui, -apple-system, sans-serif;
 
   /* Weights */
   --w-regular: 400;
@@ -177,14 +177,14 @@
 [data-brand="fresh"] {
   --surface-canvas: var(--p-oatmeal);
   --surface-elevated: var(--p-white);
-  --surface-inverse: var(--p-fresh-navy);
+  --surface-inverse: var(--p-aztek);
 
-  --ink-heading: var(--p-fresh-navy);
+  --ink-heading: var(--p-aztek);
   --ink-body: var(--p-ink);
   --ink-mute: var(--p-mute);
   --ink-inverse: var(--p-oatmeal);
 
-  --accent: var(--p-fresh-navy);
+  --accent: var(--p-aztek);
   --accent-on: var(--p-oatmeal);
   --accent-hover: var(--p-fresh-orange);
 
@@ -192,10 +192,10 @@
   --pillar-relationships: var(--p-fresh-yellow);
   --pillar-environment: var(--p-fresh-peach);
   --pillar-self: var(--p-sage);
-  --pillar-hustle: var(--p-fresh-navy);
+  --pillar-hustle: var(--p-aztek);
 
-  --border-hairline: rgba(32, 49, 76, 0.12);
-  --border-divider: var(--p-fresh-navy);
+  --border-hairline: rgba(30, 55, 53, 0.12);
+  --border-divider: var(--p-aztek);
 
   --type-display-family: var(--f-serif-display);
   --type-display-color: var(--ink-heading);

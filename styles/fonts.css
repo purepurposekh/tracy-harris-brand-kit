@@ -1,21 +1,7 @@
 /*
- * Font faces — self-host where we have files, fall back to Google Fonts where we don't.
- *
- * Jhon Halend (script) — self-hosted from /assets/fonts/
- * Editor's Note Regular + Italic — files pending from designer. Playfair Display is the current fallback.
- * Poppins — loaded from Google Fonts in each HTML document.
+ * Font faces — all self-hosted from /assets/fonts/.
+ * Poppins is loaded from Google Fonts in each HTML document.
  */
-
-@font-face {
-  font-family: 'Jhon Halend';
-  src: url('../assets/fonts/jhon-halend-regular.woff2') format('woff2'),
-       url('../assets/fonts/jhon-halend-regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* When Editor's Note .woff2 files arrive, drop them into /assets/fonts/ and uncomment:
 
 @font-face {
   font-family: 'Editors Note';
@@ -35,5 +21,11 @@
   font-display: swap;
 }
 
-Once the above is active, remove Playfair Display from primitives.json font family stacks.
-*/
+@font-face {
+  font-family: 'Jhon Halend';
+  src: url('../assets/fonts/jhon-halend-regular.woff2') format('woff2'),
+       url('../assets/fonts/jhon-halend-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

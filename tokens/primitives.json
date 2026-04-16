@@ -32,11 +32,10 @@
   },
   "font": {
     "family": {
-      "serifDisplay": "'Editors Note Regular', 'Playfair Display', Georgia, serif",
-      "serifItalic": "'Editors Note Light Italic', 'Playfair Display', Georgia, serif",
-      "script": "'Jhon Halend', 'Great Vibes', cursive",
-      "sans": "'Poppins', 'Public Sans', system-ui, -apple-system, sans-serif",
-      "sansAlt": "'Public Sans', 'Poppins', system-ui, sans-serif"
+      "serifDisplay": "'Editors Note', Georgia, serif",
+      "serifItalic": "'Editors Note', Georgia, serif",
+      "script": "'Jhon Halend', cursive",
+      "sans": "'Poppins', system-ui, -apple-system, sans-serif"
     },
     "weight": {
       "regular": 400,
