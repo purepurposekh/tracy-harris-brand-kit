@@ -168,6 +168,113 @@
   </section>
 
   <div class="brand-label">
+    <span>FFM — <b>Freedom Filled® Mastermind</b> (silk variant) — animated canvas, full-viewport editorial type</span>
+    <code>data-brand="ffm" class="hero--silk"</code>
+  </div>
+  <section class="hero hero--silk" data-brand="ffm">
+    <canvas class="hero__silk-canvas" id="silk-canvas"></canvas>
+    <div class="hero__silk-veil"></div>
+    <div class="hero__silk-corner">Bali · 2026</div>
+    <img src="../../../assets/logos/ffm/ffm-primary.svg" alt="Freedom Filled® Mastermind" class="hero__silk-logo" />
+    <div class="hero__silk-content">
+      <h1 class="hero__silk-title"><em>mastermind</em></h1>
+      <p class="hero__silk-subtitle">
+        <span>intimate</span>
+        <span class="dot">·</span>
+        <span>premium</span>
+        <span class="dot">·</span>
+        <span>by invitation</span>
+      </p>
+      <div class="hero__silk-actions">
+        <a href="#apply" class="hero__cta">Apply for the 2026 cohort</a>
+      </div>
+    </div>
+  </section>
+  <script>
+    (function () {
+      const canvas = document.getElementById('silk-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let time = 0;
+      let raf;
+      const speed = 0.02;
+      const scale = 2;
+      const noiseIntensity = 0.8;
+
+      function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function noise(x, y) {
+        const G = 2.71828;
+        const rx = G * Math.sin(G * x);
+        const ry = G * Math.sin(G * y);
+        return (rx * ry * (1 + x)) % 1;
+      }
+
+      function animate() {
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Base gradient (near-black with subtle warm shift)
+        const g = ctx.createLinearGradient(0, 0, w, h);
+        g.addColorStop(0, '#0f0b05');
+        g.addColorStop(0.5, '#1a1308');
+        g.addColorStop(1, '#0a0705');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        // Silk pattern in FFM gold
+        const imageData = ctx.createImageData(w, h);
+        const data = imageData.data;
+        for (let x = 0; x < w; x += 2) {
+          for (let y = 0; y < h; y += 2) {
+            const u = (x / w) * scale;
+            const v = (y / h) * scale;
+            const tOffset = speed * time;
+            const tx = u;
+            const ty = v + 0.03 * Math.sin(8.0 * tx - tOffset);
+            const pattern = 0.6 + 0.4 * Math.sin(
+              5.0 * (tx + ty + Math.cos(3.0 * tx + 5.0 * ty) + 0.02 * tOffset) +
+              Math.sin(20.0 * (tx + ty - 0.1 * tOffset))
+            );
+            const rnd = noise(x, y);
+            const intensity = Math.max(0, pattern - (rnd / 15.0) * noiseIntensity);
+
+            // FFM gold tones: mid gold #c9a46c = rgb(201, 164, 108)
+            const r = Math.floor(201 * intensity);
+            const gg = Math.floor(164 * intensity);
+            const b = Math.floor(108 * intensity);
+
+            const idx = (y * w + x) * 4;
+            if (idx < data.length) {
+              data[idx] = r;
+              data[idx + 1] = gg;
+              data[idx + 2] = b;
+              data[idx + 3] = 255;
+            }
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+
+        // Radial darken for depth
+        const rg = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) / 2);
+        rg.addColorStop(0, 'rgba(0,0,0,0.05)');
+        rg.addColorStop(1, 'rgba(0,0,0,0.45)');
+        ctx.fillStyle = rg;
+        ctx.fillRect(0, 0, w, h);
+
+        time += 1;
+        raf = requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+  </script>
+
+  <div class="brand-label">
     <span>FRESH — <b>FRESH Framework™</b> — personal operating system, oatmeal + navy, five pillar colours</span>
     <code>data-brand="fresh"</code>
   </div>
