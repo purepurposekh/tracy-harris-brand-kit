@@ -33,10 +33,11 @@
       "title": "Three programs. One pathway.",
       "sub": "Start where you are, choose the path that fits, build something that lets you live.",
       "cards": [
+        { "accent": "green", "program": "fresh", "cta": "Take the Quiz" },
         { "accent": "sage", "program": "ffb", "cta": "Explore FFB" },
-        { "accent": "gold", "program": "ffm", "cta": "Apply for FFM" },
-        { "accent": "green", "program": "fresh", "cta": "Take the Quiz" }
-      ]
+        { "accent": "gold", "program": "ffm", "cta": "Apply for FFM" }
+      ],
+      "orderRationale": "Ascending pricing ladder (free → $6K → $31K) matches the natural pathway a visitor takes. FRESH is the entry point."
     }
   },
   "avoid": [

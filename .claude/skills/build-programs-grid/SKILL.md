@@ -15,7 +15,7 @@ User asks for "programs section", "pathway section", "programs grid", or "the th
 
 1. **Which brand page?** Tracy (parent, shows 3-up), or a product page (shows 2-up of sister programs)
 2. **Header copy?** Eyebrow, title (italic emphasis on a word), subline. Use brand default if unsure.
-3. **Which programs to feature?** Default is FFB, FFM, FRESH on Tracy homepage. For product pages, include the other two (e.g., from /ffb show FFM and FRESH).
+3. **Which programs to feature?** Default order on Tracy homepage: **FRESH → FFB → FFM** (ascending pricing ladder: free → $6K → $31K). For product pages, show the other two in the same ladder order.
 4. **Custom facts per card?** Default facts are Duration + Format + Investment. User can override.
 
 ## Card defaults
