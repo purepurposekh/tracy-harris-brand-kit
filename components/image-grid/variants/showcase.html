@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Grid — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../image-grid.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BENTO GRID -->
+  <div class="brand-label"><span>BENTO — asymmetric gallery grid</span><code>class="image-grid__bento"</code></div>
+  <section class="image-grid" data-brand="tracy">
+    <div class="image-grid__inner">
+      <header class="image-grid__header">
+        <p class="image-grid__eyebrow">Inside the world</p>
+        <h2 class="image-grid__title">Retreats, events, and the <em>everyday</em>.</h2>
+      </header>
+
+      <div class="image-grid__bento">
+        <div class="image-grid__cell image-grid__cell--large">
+          <img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="Bali retreat gathering." />
+          <div class="image-grid__cell-overlay">
+            <p class="image-grid__cell-label">Bali Retreat 2025</p>
+            <p class="image-grid__cell-sub">Freedom Filled® Mastermind</p>
+          </div>
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Tracy portrait." />
+          <div class="image-grid__cell-overlay">
+            <p class="image-grid__cell-label">Tracy Harris</p>
+          </div>
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/MJXzvmfxo5phsGlVN2WYGA/173187/062a4190.jpg" alt="Member working." />
+          <div class="image-grid__cell-overlay">
+            <p class="image-grid__cell-label">Behind the scenes</p>
+          </div>
+        </div>
+        <div class="image-grid__cell image-grid__cell--wide">
+          <img src="https://static.showit.co/1200/p09H_f6tQmqT5HYMzDhMvA/173187/web_mwh_coralsea_271022_375.jpg" alt="Group session at the retreat." />
+          <div class="image-grid__cell-overlay">
+            <p class="image-grid__cell-label">Coral Sea Retreat</p>
+            <p class="image-grid__cell-sub">October 2022</p>
+          </div>
+        </div>
+        <div class="image-grid__cell image-grid__cell--tall">
+          <img src="https://static.showit.co/1200/udTqPQZASNmQ_6Xn6lQKzg/173187/web_mwh_coralsea_271022_098.jpg" alt="Tracy speaking on stage." />
+          <div class="image-grid__cell-overlay">
+            <p class="image-grid__cell-label">Speaking</p>
+          </div>
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/vhbj_9UXRP-H9_WdD7wOyA/173187/web_mwh_coralsea_271022_164.jpg" alt="Member connection." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASONRY GRID -->
+  <div class="brand-label"><span>MASONRY — natural height columns</span><code>class="image-grid__masonry"</code></div>
+  <section class="image-grid image-grid--elevated" data-brand="tracy">
+    <div class="image-grid__inner">
+      <header class="image-grid__header image-grid__header--center">
+        <p class="image-grid__eyebrow">The community</p>
+        <h2 class="image-grid__title">Real women. <em>Real moments</em>.</h2>
+      </header>
+
+      <div class="image-grid__masonry">
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="Retreat gathering." />
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/800/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Tracy portrait." />
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/p09H_f6tQmqT5HYMzDhMvA/173187/web_mwh_coralsea_271022_375.jpg" alt="Group session." />
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/MJXzvmfxo5phsGlVN2WYGA/173187/062a4190.jpg" alt="Member working." />
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/udTqPQZASNmQ_6Xn6lQKzg/173187/web_mwh_coralsea_271022_098.jpg" alt="Tracy speaking." />
+        </div>
+        <div class="image-grid__cell">
+          <img src="https://static.showit.co/1200/vhbj_9UXRP-H9_WdD7wOyA/173187/web_mwh_coralsea_271022_164.jpg" alt="Connection moment." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

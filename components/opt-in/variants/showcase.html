@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Opt-in — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../opt-in.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SPLIT: title + portrait -->
+  <div class="brand-label"><span>SPLIT — big title left, portrait right</span><code>class="opt-in__split"</code></div>
+  <section class="opt-in opt-in--elevated" data-brand="tracy">
+    <div class="opt-in__split">
+      <div class="opt-in__content">
+        <h2 class="opt-in__title">Unlock weekly <em>business wins</em>.</h2>
+        <p class="opt-in__sub">Smart strategies, honest behind-the-scenes, and resources delivered to your inbox every Tuesday.</p>
+        <form class="opt-in__form" onsubmit="return false;">
+          <input type="text" class="opt-in__input" placeholder="First Name" aria-label="First name" />
+          <input type="email" class="opt-in__input" placeholder="Your Email" aria-label="Email address" />
+          <button type="submit" class="opt-in__btn">Subscribe</button>
+        </form>
+        <p class="opt-in__fine">Your privacy is sacred. Unsubscribe anytime with one click. No spam, ever.</p>
+      </div>
+      <div class="opt-in__portrait">
+        <img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Tracy Harris smiling." />
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT ACCENT: dark green bg -->
+  <div class="brand-label"><span>SPLIT ACCENT — dark background variant</span><code>class="opt-in opt-in--accent"</code></div>
+  <section class="opt-in opt-in--accent" data-brand="tracy">
+    <div class="opt-in__split">
+      <div class="opt-in__content">
+        <h2 class="opt-in__title">Not sure where to <em>start</em>?</h2>
+        <p class="opt-in__sub">Take the FRESH Quiz. Two minutes. Personalised recommendation. No fluff.</p>
+        <form class="opt-in__form" onsubmit="return false;">
+          <input type="email" class="opt-in__input" placeholder="Your Email" aria-label="Email address" />
+          <button type="submit" class="opt-in__btn">Take the Quiz</button>
+        </form>
+        <p class="opt-in__fine">We'll send your results straight to your inbox. Unsubscribe anytime.</p>
+      </div>
+      <div class="opt-in__portrait">
+        <img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="Tracy at the retreat." />
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER: centered, minimal -->
+  <div class="brand-label"><span>BANNER — centered full-width</span><code>class="opt-in__banner"</code></div>
+  <section class="opt-in opt-in--canvas" data-brand="ffb">
+    <div class="opt-in__banner">
+      <p class="opt-in__sub">Join the community</p>
+      <h2 class="opt-in__title">Letters from <em>Tracy</em>.</h2>
+      <form class="opt-in__form" onsubmit="return false;">
+        <input type="email" class="opt-in__input" placeholder="Your Email" aria-label="Email address" />
+        <button type="submit" class="opt-in__btn">Subscribe</button>
+      </form>
+      <p class="opt-in__fine">Weekly insights on building a Freedom Filled® business. No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- CARD: compact accent card -->
+  <div class="brand-label"><span>CARD — compact mid-page interrupt</span><code>class="opt-in__card"</code></div>
+  <section class="opt-in opt-in--elevated" data-brand="tracy">
+    <div class="opt-in__card">
+      <p class="opt-in__sub" style="color: rgba(255,255,255,0.7);">Free resource</p>
+      <h2 class="opt-in__title">Download the FRESH <em>framework</em>.</h2>
+      <form class="opt-in__form" onsubmit="return false;">
+        <input type="email" class="opt-in__input" placeholder="Your Email" aria-label="Email address" />
+        <button type="submit" class="opt-in__btn">Get it Free</button>
+      </form>
+      <p class="opt-in__fine">Instant access. No credit card required.</p>
+    </div>
+  </section>
+
+</body>
+</html>
