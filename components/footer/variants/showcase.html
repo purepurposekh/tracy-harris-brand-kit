@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Footer — Four Brand Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../footer.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    .brand-label {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand-label"><span>TRACY HARRIS CO — full footer with newsletter</span><code>data-brand="tracy"</code></div>
+  <footer class="footer" data-brand="tracy" role="contentinfo">
+    <div class="footer__inner">
+      <h2 class="footer__signature">Peace, Profit <em>and Presence</em>.</h2>
+
+      <div class="footer__newsletter">
+        <h3 class="footer__newsletter-heading">Weekly letters from <em>Tracy</em>.</h3>
+        <form class="footer__newsletter-form" action="#" method="post">
+          <input type="email" class="footer__newsletter-input" placeholder="Your email" aria-label="Email address" required />
+          <button type="submit" class="footer__newsletter-submit">Subscribe
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="footer__columns">
+        <div class="footer__brand">
+          <img src="../../../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris" class="footer__brand-logo" />
+          <p class="footer__brand-copy">A suite of programs for women building freedom-filled businesses. Start where you are, choose the path that fits.</p>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Programs</h2>
+          <ul class="footer__col-list">
+            <li><a href="/ffb">Freedom Filled® Business</a></li>
+            <li><a href="/ffm">Freedom Filled® Mastermind</a></li>
+            <li><a href="/fresh">The FRESH Framework™</a></li>
+            <li><a href="/quiz">Take the Quiz</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Resources</h2>
+          <ul class="footer__col-list">
+            <li><a href="/podcast">Podcast</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/letters">Letters</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Connect</h2>
+          <ul class="footer__col-list">
+            <li><a href="/about">Tracy's story</a></li>
+            <li><a href="/speaking">Speaking</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Tracy Harris Co · Pure Purpose Pty Ltd</p>
+        <ul class="footer__legal-links">
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+        <div class="footer__social">
+          <a href="https://instagram.com/tracyharrisco" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="brand-label"><span>FFB — columns variant (no newsletter)</span><code>data-brand="ffb"</code></div>
+  <footer class="footer" data-brand="ffb" role="contentinfo">
+    <div class="footer__inner">
+      <h2 class="footer__signature">Build a business <em>that lets you live</em>.</h2>
+      <div class="footer__columns">
+        <div class="footer__brand">
+          <img src="../../../assets/logos/ffb/ffb-primary.svg" alt="Freedom Filled® Business" class="footer__brand-logo" style="height: 56px;" />
+          <p class="footer__brand-copy">A 12-month mentorship for women ready to build a profitable, scalable online business.</p>
+        </div>
+        <div>
+          <h2 class="footer__col-title">The program</h2>
+          <ul class="footer__col-list">
+            <li><a href="/ffb">Overview</a></li>
+            <li><a href="/ffb/curriculum">Curriculum</a></li>
+            <li><a href="/ffb/apply">Apply</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">About</h2>
+          <ul class="footer__col-list">
+            <li><a href="/about">Tracy's story</a></li>
+            <li><a href="/stories">Member stories</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Connect</h2>
+          <ul class="footer__col-list">
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/podcast">Podcast</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Tracy Harris Co · Freedom Filled® is a registered trademark</p>
+        <ul class="footer__legal-links">
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+        <div class="footer__social">
+          <a href="https://instagram.com/tracyharrisco" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="brand-label"><span>FFM — dark charcoal variant, premium</span><code>data-brand="ffm" class="footer--dark"</code></div>
+  <footer class="footer footer--dark" data-brand="ffm" role="contentinfo">
+    <div class="footer__inner">
+      <h2 class="footer__signature">Intentionally small. <em>Quietly expensive</em>.</h2>
+      <div class="footer__newsletter">
+        <h3 class="footer__newsletter-heading">Get the Mastermind <em>dossier</em>.</h3>
+        <form class="footer__newsletter-form" action="#" method="post">
+          <input type="email" class="footer__newsletter-input" placeholder="Your email" aria-label="Email address" required />
+          <button type="submit" class="footer__newsletter-submit">Request
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+      <div class="footer__columns">
+        <div class="footer__brand">
+          <img src="../../../assets/logos/ffm/ffm-primary.svg" alt="Freedom Filled® Mastermind" class="footer__brand-logo" style="height: 34px;" />
+          <p class="footer__brand-copy">Tracy's most intimate and premium offering. Application-based, 20 seats, Bali retreats.</p>
+        </div>
+        <div>
+          <h2 class="footer__col-title">The mastermind</h2>
+          <ul class="footer__col-list">
+            <li><a href="/ffm">Overview</a></li>
+            <li><a href="/ffm/apply">Apply</a></li>
+            <li><a href="/ffm/retreats">Retreats</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Tracy</h2>
+          <ul class="footer__col-list">
+            <li><a href="/about">Her story</a></li>
+            <li><a href="/podcast">Podcast</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Connect</h2>
+          <ul class="footer__col-list">
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Tracy Harris Co · By application only</p>
+        <ul class="footer__legal-links">
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+        <div class="footer__social">
+          <a href="https://instagram.com/tracyharrisco" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="brand-label"><span>FRESH — minimal variant</span><code>data-brand="fresh"</code></div>
+  <footer class="footer" data-brand="fresh" role="contentinfo">
+    <div class="footer__inner">
+      <h2 class="footer__signature">Start with <em>you</em>.</h2>
+      <div class="footer__columns">
+        <div class="footer__brand">
+          <img src="../../../assets/logos/fresh/fresh-primary.svg" alt="FRESH Framework™" class="footer__brand-logo" style="height: 48px;" />
+          <p class="footer__brand-copy">The FRESH Framework™ is Tracy's personal operating system. Fitness, Relationships, Environment, Self, Hustle.</p>
+        </div>
+        <div>
+          <h2 class="footer__col-title">The framework</h2>
+          <ul class="footer__col-list">
+            <li><a href="/fresh">Overview</a></li>
+            <li><a href="/quiz">Take the Quiz</a></li>
+            <li><a href="/reset">Reset Challenge</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="footer__col-title">Connect</h2>
+          <ul class="footer__col-list">
+            <li><a href="/about">Tracy</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Tracy Harris Co · FRESH Framework™ is a trademark of Tracy Harris Co</p>
+        <ul class="footer__legal-links">
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+        <div class="footer__social">
+          <a href="https://instagram.com/tracyharrisco" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tracy Harris Co — Brand Kit · Components Catalog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      background: var(--surface-canvas);
+      color: var(--ink-body);
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--sp-8) var(--sp-5);
+    }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin: 0 0 var(--sp-4) 0;
+    }
+    h1 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--sp-5) 0;
+      color: var(--ink-heading);
+    }
+    h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .intro {
+      font-size: 18px;
+      line-height: 1.65;
+      max-width: 62ch;
+      margin: 0 0 var(--sp-8) 0;
+      color: var(--ink-body);
+    }
+    h2 {
+      font-family: var(--f-serif-display);
+      font-size: 28px;
+      font-weight: 400;
+      margin: var(--sp-8) 0 var(--sp-5) 0;
+      color: var(--ink-heading);
+    }
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .item {
+      display: block;
+      padding: var(--sp-5) 0;
+      border-top: 1px solid var(--border-hairline);
+      text-decoration: none;
+      color: var(--ink-heading);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--sp-5);
+      transition: padding-left 0.2s ease;
+    }
+    .item:hover {
+      padding-left: var(--sp-3);
+    }
+    .item:last-child { border-bottom: 1px solid var(--border-hairline); }
+    .item-title {
+      font-family: var(--f-serif-display);
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0 0 4px 0;
+      color: var(--ink-heading);
+    }
+    .item-title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .item-desc {
+      font-size: 14px;
+      color: var(--ink-mute);
+      margin: 0;
+    }
+    .item-arrow {
+      flex: 0 0 auto;
+      color: var(--ink-mute);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .item:hover .item-arrow {
+      transform: translateX(4px);
+      color: var(--ink-heading);
+    }
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: var(--r-pill);
+      margin-left: var(--sp-2);
+    }
+    .tag--built { background: rgba(30,55,53,0.1); color: var(--p-aztek); }
+    .tag--soon { background: rgba(114,114,114,0.12); color: var(--ink-mute); }
+  </style>
+</head>
+<body data-brand="tracy">
+  <div class="wrap">
+    <p class="eyebrow">Tracy Harris Co Brand Kit</p>
+    <h1>Components, built to <em>compose</em>.</h1>
+    <p class="intro">Four brands (Tracy Harris Co, FFB, FFM, FRESH), one token system, one growing library of brand-agnostic components. Each one works across all four brands via <code>data-brand</code>. Each one has a skill. Click into any component below to see its showcase.</p>
+
+    <h2>Built</h2>
+    <ul class="list">
+      <li>
+        <a class="item" href="components/hero/variants/showcase.html">
+          <span>
+            <h3 class="item-title">Hero <em>section</em><span class="tag tag--built">5 variants</span></h3>
+            <p class="item-desc">Above-the-fold opener. textOnly, splitRight, splitLeft, marquee, silk (animated canvas).</p>
+          </span>
+          <svg class="item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+      <li>
+        <a class="item" href="components/navigation/variants/showcase.html">
+          <span>
+            <h3 class="item-title">Navigation<span class="tag tag--built">desktop + mobile</span></h3>
+            <p class="item-desc">Sticky top-bar with mega-menu dropdowns. Mobile drawer with accordion sub-menus.</p>
+          </span>
+          <svg class="item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+      <li>
+        <a class="item" href="components/footer/variants/showcase.html">
+          <span>
+            <h3 class="item-title">Footer<span class="tag tag--built">3 variants</span></h3>
+            <p class="item-desc">Signature statement + newsletter + columns + legal. Dark variant for FFM.</p>
+          </span>
+          <svg class="item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+    </ul>
+
+    <h2>Next up</h2>
+    <ul class="list">
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">Programs grid<span class="tag tag--soon">next</span></h3><p class="item-desc">3-card block for FFB / FFM / FRESH on the homepage.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">Testimonial wall<span class="tag tag--soon">queued</span></h3><p class="item-desc">Social proof grid with member quotes, real photos.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">Newsletter opt-in<span class="tag tag--soon">queued</span></h3><p class="item-desc">Standalone email capture block for mid-page placement.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">Pricing / offer stack<span class="tag tag--soon">queued</span></h3><p class="item-desc">FFB and FFM pricing cards with the ® symbol handling built-in.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">FAQ<span class="tag tag--soon">queued</span></h3><p class="item-desc">Accordion with smooth reveal.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">Mid-page CTA block<span class="tag tag--soon">queued</span></h3><p class="item-desc">Big interrupt-style call-to-action between content sections.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">Podcast card<span class="tag tag--soon">queued</span></h3><p class="item-desc">Latest episode + listen-on links, for homepage and podcast page.</p></span></span></li>
+      <li><span class="item" style="cursor: default;"><span><h3 class="item-title">About / Tracy bio block<span class="tag tag--soon">queued</span></h3><p class="item-desc">Portrait + editorial bio + signature, for the About page.</p></span></span></li>
+    </ul>
+
+    <h2>Examples</h2>
+    <ul class="list">
+      <li>
+        <a class="item" href="examples/tracy-homepage/">
+          <span>
+            <h3 class="item-title">Tracy Harris Co <em>homepage</em></h3>
+            <p class="item-desc">Full page: nav + Tracy-branded marquee hero, mobile drawer, Apply CTA.</p>
+          </span>
+          <svg class="item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{
+  "name": "footer",
+  "description": "Bottom-of-page footer with signature statement, link columns, and fine print. Site-wide component.",
+  "intent": "Close the page gracefully. Offer a last chance to navigate or subscribe. Reinforce brand tone without competing with the main content.",
+  "whenToUse": "Every page on tracyharris.co and every brand sub-site. Only page where it's optional is a single-focus opt-in funnel.",
+  "slots": {
+    "signature": {
+      "required": false,
+      "description": "Large serif statement at the top of the footer. Usually the brand tagline or a closing thought. Skippable for minimal pages.",
+      "maxChars": 60
+    },
+    "newsletter": {
+      "required": false,
+      "description": "Email capture block. Optional. Posts to ActiveCampaign.",
+      "fields": ["heading", "placeholder", "buttonLabel", "formAction"]
+    },
+    "columns": {
+      "required": true,
+      "description": "Array of link columns. Each has a title + array of links.",
+      "minCount": 2,
+      "maxCount": 4
+    },
+    "social": {
+      "required": false,
+      "description": "Social icons. For Tracy Harris Co primary: Instagram only. Other brands may add LinkedIn, YouTube."
+    },
+    "legal": {
+      "required": true,
+      "description": "Copyright line + links to privacy, terms."
+    }
+  },
+  "variants": {
+    "full": "Signature + newsletter + columns + social + legal. Homepage, long pages.",
+    "columns": "Columns + social + legal only. Product pages.",
+    "minimal": "Logo + legal + social only. Funnel pages, checkouts."
+  },
+  "brandDefaults": {
+    "tracy": {
+      "signature": "Peace, Profit and Presence.",
+      "columns": ["Programs", "Resources", "About", "Connect"],
+      "social": ["instagram"]
+    },
+    "ffb": {
+      "signature": "Build a business that lets you live.",
+      "columns": ["The program", "About", "Connect"],
+      "social": ["instagram"]
+    },
+    "ffm": {
+      "signature": "Intentionally small. Quietly expensive.",
+      "columns": ["The mastermind", "Tracy", "Connect"],
+      "social": ["instagram"]
+    },
+    "fresh": {
+      "signature": "Start with you.",
+      "columns": ["The framework", "Resources", "Connect"],
+      "social": ["instagram"]
+    }
+  },
+  "avoid": [
+    "Four or more columns cluttering the space. Two or three columns reads cleaner.",
+    "Repeating the top nav word-for-word. Footer is where secondary links live (privacy, terms, contact, press).",
+    "Heavy visuals, background images, patterns. Footer should feel like a calm exhale."
+  ],
+  "a11y": {
+    "landmark": "Wrap in <footer role='contentinfo'>",
+    "headings": "Column titles as <h2> with proper hierarchy",
+    "contrast": "All links must hit 4.5:1 against the footer background"
+  }
+}
