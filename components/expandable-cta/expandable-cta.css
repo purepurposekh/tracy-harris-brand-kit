@@ -97,7 +97,26 @@
 
 @media (max-width: 820px) {
   .expandable-cta__overlay-inner { grid-template-columns: 1fr; gap: var(--sp-6); }
-  .expandable-cta__overlay { padding: var(--sp-5); }
+  .expandable-cta__overlay { padding: var(--sp-5); align-items: flex-start; }
+  .expandable-cta__overlay-inner { padding-top: 60px; padding-bottom: var(--sp-7); }
+  .expandable-cta__trigger-wrap { min-height: 50vh; padding: var(--sp-7) var(--sp-5); }
+  .expandable-cta__trigger-sub { font-size: 15px; }
+  .expandable-cta__sales-title { font-size: 28px; }
+  .expandable-cta__quote { display: none; }
+  .expandable-cta__benefit-icon { width: 36px; height: 36px; }
+  .expandable-cta__benefit-text { font-size: 13px; padding-top: 6px; }
+}
+
+@media (max-width: 500px) {
+  .expandable-cta__overlay { padding: var(--sp-4); }
+  .expandable-cta__overlay-inner { padding-top: 56px; gap: var(--sp-5); }
+  .expandable-cta__trigger-wrap { min-height: 40vh; padding: var(--sp-6) var(--sp-4); }
+  .expandable-cta__trigger-title { font-size: 36px; }
+  .expandable-cta__trigger-btn { padding: 16px 32px; font-size: 13px; width: 100%; }
+  .expandable-cta__close { top: var(--sp-3); right: var(--sp-3); }
+  .expandable-cta__field-input,
+  .expandable-cta__field-textarea { font-size: 16px; padding: 14px 16px; }
+  .expandable-cta__submit { padding: 16px 24px; font-size: 14px; }
 }
 
 /* Close button */
