@@ -1,0 +1,65 @@
+{
+  "name": "navigation",
+  "description": "Top-of-page primary navigation with hover-to-open mega-menu dropdowns. For the Tracy Harris Co main site.",
+  "intent": "Give visitors one clear way to find every product, resource, and page on the site. Signal brand at a glance. Make the primary call-to-action (Apply) the visual anchor.",
+  "whenToUse": "Every page on tracyharris.co root and parent brand sections. Product-specific funnel pages use a simpler, stripped-back version.",
+  "slots": {
+    "logo": {
+      "required": true,
+      "description": "Brand logo, top-left. SVG. 30px height default."
+    },
+    "navItems": {
+      "required": true,
+      "description": "Array of nav items. Each item is either a direct link or a dropdown with sub-items grouped by title."
+    },
+    "primaryCta": {
+      "required": false,
+      "description": "Call-to-action on the right. For Tracy Harris Co main nav, this is 'Apply' (leads to FFB application). Stands out with filled accent."
+    }
+  },
+  "navItemShape": {
+    "label": "string (Programs, Podcast, etc.)",
+    "href": "string (optional — if no subMenus, behaves as direct link)",
+    "subMenus": [{
+      "title": "string (section heading inside dropdown)",
+      "items": [{
+        "label": "string (e.g. FFB)",
+        "description": "string (one-line explainer)",
+        "href": "string",
+        "icon": "string (SVG path name or inline SVG)"
+      }]
+    }]
+  },
+  "interactions": {
+    "desktop": "Hover on nav item opens dropdown. Mouse off closes. Click pill anywhere to keep open.",
+    "mobile": "Dropdowns don't exist on mobile. Hamburger opens full-screen menu that lists all items flat. Use disclosure pattern."
+  },
+  "brandDefaults": {
+    "tracy": {
+      "items": ["Programs", "Podcast", "Blog", "About"],
+      "cta": "Apply"
+    },
+    "ffb": {
+      "items": ["About", "Curriculum", "Mentorship", "Apply"],
+      "cta": "Apply for FFB"
+    },
+    "ffm": {
+      "items": ["The Mastermind", "Retreats", "Tracy"],
+      "cta": "Apply for the Mastermind"
+    },
+    "fresh": {
+      "items": ["The Framework", "Quiz", "Reset Challenge"],
+      "cta": "Take the Quiz"
+    }
+  },
+  "avoid": [
+    "More than 5 top-level nav items. If you have more, group them under dropdowns.",
+    "Three levels of nesting. Max two: top-level → dropdown group → item.",
+    "Icons that don't match brand style. Tracy/FFB/FFM use outline line icons. FRESH uses filled pillar dots."
+  ],
+  "a11y": {
+    "keyboard": "Tab to focus nav item, Enter/Space to open dropdown, Escape to close, Arrow keys to move between sub-items.",
+    "ariaExpanded": "true/false on nav button",
+    "contrast": "Nav text must hit 4.5:1 against canvas. Hover states also."
+  }
+}
