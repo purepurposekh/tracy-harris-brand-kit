@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tracy Harris Co — Peace, Profit and Presence</title>
+  <meta name="description" content="A suite of programs for women building freedom-filled businesses. Start where you are, choose the path that fits, build something that lets you live." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../styles/tokens.css" />
+  <link rel="stylesheet" href="../../components/navigation/navigation.css" />
+  <link rel="stylesheet" href="../../components/hero/hero.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      color: var(--ink-body);
+      background: var(--surface-canvas);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Tracy marquee tweaks: lighter canvas, darker accents, less dramatic spacing */
+    [data-brand="tracy"] .hero--marquee {
+      background: var(--surface-canvas);
+    }
+    [data-brand="tracy"] .hero--marquee .hero__pill {
+      color: var(--ink-heading);
+      background: rgba(30, 55, 53, 0.04);
+      border-color: rgba(30, 55, 53, 0.2);
+    }
+    [data-brand="tracy"] .hero--marquee .hero__title {
+      color: var(--ink-heading);
+    }
+    [data-brand="tracy"] .hero--marquee .hero__title em {
+      color: var(--p-aztek);
+    }
+    [data-brand="tracy"] .hero__marquee-strip {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 80%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 80%, transparent 100%);
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <!-- NAV -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav__inner">
+      <a href="/" aria-label="Tracy Harris Co home">
+        <img src="../../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris" class="nav__logo" />
+      </a>
+
+      <ul class="nav__list" role="menubar">
+        <li class="nav__item" data-has-panel="true" data-open="false" role="none">
+          <button class="nav__trigger" aria-expanded="false" aria-haspopup="true" role="menuitem">
+            Programs
+            <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav__panel" role="menu">
+            <div>
+              <h3 class="nav__group-title">Build the business</h3>
+              <ul class="nav__sub-list">
+                <li><a href="/ffb" class="nav__sub-link">
+                  <span class="nav__sub-label">Freedom Filled® <em>Business</em></span>
+                  <span class="nav__sub-desc">12-month flagship mentorship</span>
+                </a></li>
+                <li><a href="/ffm" class="nav__sub-link">
+                  <span class="nav__sub-label">Freedom Filled® <em>Mastermind</em></span>
+                  <span class="nav__sub-desc">Intimate, premium, by application</span>
+                </a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="nav__group-title">Foundation</h3>
+              <ul class="nav__sub-list">
+                <li><a href="/fresh" class="nav__sub-link">
+                  <span class="nav__sub-label">The FRESH <em>Framework™</em></span>
+                  <span class="nav__sub-desc">Tracy's operating system for life and work</span>
+                </a></li>
+                <li><a href="/quiz" class="nav__sub-link">
+                  <span class="nav__sub-label">Take the <em>Quiz</em></span>
+                  <span class="nav__sub-desc">Where are you in the FRESH framework?</span>
+                </a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="nav__item" role="none"><a href="/podcast" class="nav__trigger" role="menuitem">Podcast</a></li>
+        <li class="nav__item" role="none"><a href="/blog" class="nav__trigger" role="menuitem">Blog</a></li>
+        <li class="nav__item" data-has-panel="true" data-open="false" data-align="right" role="none">
+          <button class="nav__trigger" aria-expanded="false" aria-haspopup="true" role="menuitem">
+            About
+            <svg class="nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav__panel" role="menu">
+            <div>
+              <h3 class="nav__group-title">Tracy Harris Co</h3>
+              <ul class="nav__sub-list">
+                <li><a href="/about" class="nav__sub-link">
+                  <span class="nav__sub-label">Tracy's <em>story</em></span>
+                  <span class="nav__sub-desc">How Tracy built a freedom-filled business</span>
+                </a></li>
+                <li><a href="/speaking" class="nav__sub-link">
+                  <span class="nav__sub-label"><em>Speaking</em></span>
+                  <span class="nav__sub-desc">Book Tracy for your event or stage</span>
+                </a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="nav__group-title">Get in touch</h3>
+              <ul class="nav__sub-list">
+                <li><a href="/contact" class="nav__sub-link">
+                  <span class="nav__sub-label"><em>Contact</em></span>
+                  <span class="nav__sub-desc">Questions or press enquiries</span>
+                </a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <a href="/ffb/apply" class="nav__cta">Apply</a>
+
+      <button class="nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <aside class="nav__drawer" id="mobile-drawer" data-open="false" aria-label="Mobile menu">
+    <div class="nav__drawer-header">
+      <img src="../../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris" class="nav__logo" />
+      <button class="nav__drawer-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <ul class="nav__drawer-list">
+      <li class="nav__drawer-item" data-has-panel="true" data-open="false">
+        <button class="nav__drawer-link"><span>Programs</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav__drawer-sub">
+          <a href="/ffb">Freedom Filled® <em>Business</em><span class="nav__drawer-sub-desc">12-month mentorship</span></a>
+          <a href="/ffm">Freedom Filled® <em>Mastermind</em><span class="nav__drawer-sub-desc">Premium, by application</span></a>
+          <a href="/fresh">The FRESH <em>Framework™</em><span class="nav__drawer-sub-desc">Operating system for life and work</span></a>
+          <a href="/quiz">Take the <em>Quiz</em><span class="nav__drawer-sub-desc">Where are you in FRESH?</span></a>
+        </div>
+      </li>
+      <li class="nav__drawer-item"><a href="/podcast" class="nav__drawer-link"><span>Podcast</span></a></li>
+      <li class="nav__drawer-item"><a href="/blog" class="nav__drawer-link"><span>Blog</span></a></li>
+      <li class="nav__drawer-item" data-has-panel="true" data-open="false">
+        <button class="nav__drawer-link"><span>About</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav__drawer-sub">
+          <a href="/about">Tracy's <em>story</em></a>
+          <a href="/speaking"><em>Speaking</em></a>
+          <a href="/contact"><em>Contact</em></a>
+        </div>
+      </li>
+    </ul>
+    <a href="/ffb/apply" class="nav__drawer-cta">Apply</a>
+  </aside>
+
+  <!-- HERO: marquee with Tracy branding -->
+  <section class="hero hero--marquee" data-brand="tracy">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <span class="hero__pill">A suite of programs · for women · by design</span>
+        <h1 class="hero__title">Peace, Profit <em>and Presence</em>.</h1>
+        <p class="hero__supporting">Build a business that lets you live. Start where you are, choose the path that fits, build something you're proud of without trading your life for it.</p>
+        <div class="hero__actions">
+          <a href="#programs" class="hero__cta">Explore the programs</a>
+          <a href="/about" class="hero__secondary">Tracy's story</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__marquee-strip" aria-hidden="true">
+      <div class="hero__marquee-track">
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/4FGR7zMJBKKFrUqovjcm5g/173187/062a4042-enhanced-nr.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/RzgNfOS8hzrskisIlnpPOg/173187/062a4096-enhanced-nr.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/7ovB7oYgNamUgOY6IuGZDw/173187/062a4152.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Jj87VKhSSn5Dj4NScIOonA/173187/th-event-2024-135.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/MJXzvmfxo5phsGlVN2WYGA/173187/062a4190.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/8OJ46n0KTEhRl4KEkGGjeQ/173187/062a4504.jpg" alt="" /></div>
+        <!-- duplicated for loop -->
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/4FGR7zMJBKKFrUqovjcm5g/173187/062a4042-enhanced-nr.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/RzgNfOS8hzrskisIlnpPOg/173187/062a4096-enhanced-nr.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/7ovB7oYgNamUgOY6IuGZDw/173187/062a4152.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Jj87VKhSSn5Dj4NScIOonA/173187/th-event-2024-135.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/MJXzvmfxo5phsGlVN2WYGA/173187/062a4190.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/8OJ46n0KTEhRl4KEkGGjeQ/173187/062a4504.jpg" alt="" /></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../../components/navigation/navigation.js"></script>
+</body>
+</html>
