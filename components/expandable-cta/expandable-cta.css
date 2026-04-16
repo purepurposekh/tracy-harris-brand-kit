@@ -105,6 +105,8 @@
   .expandable-cta__quote { display: none; }
   .expandable-cta__benefit-icon { width: 36px; height: 36px; }
   .expandable-cta__benefit-text { font-size: 13px; padding-top: 6px; }
+  .expandable-cta__field-input,
+  .expandable-cta__field-textarea { font-size: 16px; }
 }
 
 @media (max-width: 500px) {
@@ -121,13 +123,13 @@
 
 /* Close button */
 .expandable-cta__close {
-  position: absolute;
-  top: var(--sp-5);
-  right: var(--sp-5);
-  width: 44px;
-  height: 44px;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
   border: none;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -135,11 +137,15 @@
   justify-content: center;
   color: var(--accent-on);
   transition: background 0.2s;
+  z-index: 1002;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.expandable-cta__close:hover { background: rgba(255,255,255,0.2); }
+.expandable-cta__close:hover,
+.expandable-cta__close:active { background: rgba(255,255,255,0.3); }
 
-.expandable-cta__close svg { width: 18px; height: 18px; }
+.expandable-cta__close svg { width: 20px; height: 20px; }
 
 /* Left side: sales copy */
 .expandable-cta__sales {

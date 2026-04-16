@@ -9,10 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function open() {
       overlay.dataset.open = 'true';
       document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        const first = overlay.querySelector('input, textarea');
-        if (first) first.focus();
-      }, 400);
+      if (window.innerWidth > 820) {
+        setTimeout(() => {
+          const first = overlay.querySelector('input, textarea');
+          if (first) first.focus();
+        }, 400);
+      }
     }
 
     function shut() {
