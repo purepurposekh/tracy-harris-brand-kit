@@ -1,0 +1,70 @@
+{
+  "name": "hero",
+  "description": "First section above the fold. Establishes brand + offer + primary CTA in a single glance.",
+  "intent": "Make the visitor know which brand they're on, what's being offered, and where to click — in under 5 seconds.",
+  "whenToUse": "As the first section of any landing page. Not a content divider — heroes are the page's opening statement.",
+  "slots": {
+    "eyebrow": {
+      "required": false,
+      "description": "Sub-heading above the main title. Usually the product name or a 3-word positioner.",
+      "maxChars": 60
+    },
+    "title": {
+      "required": true,
+      "description": "The single biggest statement on the page. Usually 4-8 words.",
+      "maxChars": 80,
+      "typeToken": "display"
+    },
+    "supporting": {
+      "required": true,
+      "description": "One-sentence explanation of who it's for + what they get. 15-30 words.",
+      "maxChars": 180,
+      "typeToken": "body"
+    },
+    "primaryCta": {
+      "required": true,
+      "description": "Button label + href. Language varies by brand (Apply vs Start vs Discover).",
+      "fields": ["label", "href"]
+    },
+    "secondaryCta": {
+      "required": false,
+      "description": "Optional link below the primary (e.g., 'See the curriculum' or 'Listen to the podcast').",
+      "fields": ["label", "href"]
+    },
+    "image": {
+      "required": false,
+      "description": "Brand photography. For Tracy: portrait. For FFB: warm editorial. For FFM: high-polish editorial. For FRESH: lifestyle + pillar iconography.",
+      "fields": ["src", "alt"]
+    }
+  },
+  "variants": {
+    "layout": {
+      "splitRight": "Image right, copy left. Default for FFB, FFM.",
+      "splitLeft": "Image left, copy right. Alternate for editorial feel.",
+      "stacked": "Full-width image + centred copy below. For FRESH multi-pillar content.",
+      "textOnly": "No image, centred copy + space. For Tracy's editorial minimalism."
+    },
+    "tone": {
+      "confident": "FFB, Tracy — quiet, grounded, editorial",
+      "premium": "FFM — intimate, gold-accented, application-based",
+      "vibrant": "FRESH — multi-colour, human, framework-led"
+    }
+  },
+  "brandCtaLanguage": {
+    "tracy": ["Explore the programs", "Read the story"],
+    "ffb": ["Apply for FFB", "Join the mentorship", "See the curriculum"],
+    "ffm": ["Apply for the Mastermind", "Request the details", "Book a discovery call"],
+    "fresh": ["Start the FRESH Reset", "Take the Quiz", "See the framework"]
+  },
+  "avoid": [
+    "Multiple competing CTAs. One primary, optionally one secondary.",
+    "Stock photography that doesn't feature Tracy or real members.",
+    "Em dashes in copy.",
+    "The word 'Buy' on FFM — use 'Apply'."
+  ],
+  "a11y": {
+    "titleAsH1": true,
+    "imageAltRequired": true,
+    "ctaMinContrast": "4.5:1 against its background"
+  }
+}

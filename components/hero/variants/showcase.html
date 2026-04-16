@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero Component — Four Brand Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../hero.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    .brand-label {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-label b {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand-label">
+    <span>TRACY HARRIS CO — <b>parent brand</b> — editorial, quiet, dark green on white</span>
+    <code>data-brand="tracy"</code>
+  </div>
+  <section class="hero hero--text-only" data-brand="tracy">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Tracy Harris Co</p>
+        <h1 class="hero__title">Peace, Profit <em>and Presence</em>.</h1>
+        <p class="hero__supporting">
+          A suite of programs for women building freedom-filled businesses. Start where you are, choose the path that fits, and build something that lets you live.
+        </p>
+        <div class="hero__actions">
+          <a href="#programs" class="hero__cta">Explore the programs</a>
+          <a href="#story" class="hero__secondary">Read the story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="brand-label">
+    <span>FFB — <b>Freedom Filled® Business</b> — mentorship, cream canvas, dark teal + sage</span>
+    <code>data-brand="ffb"</code>
+  </div>
+  <section class="hero hero--split-right" data-brand="ffb">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Freedom Filled® Business</p>
+        <h1 class="hero__title">A 12-month mentorship for the <em>woman building something real</em>.</h1>
+        <p class="hero__supporting">
+          This is not a course you consume. It is a mentorship experience you move through with Tracy's guidance, strategic thinking, and personal investment in your outcome.
+        </p>
+        <div class="hero__actions">
+          <a href="#apply" class="hero__cta">Apply for FFB</a>
+          <a href="#curriculum" class="hero__secondary">See the curriculum</a>
+        </div>
+      </div>
+      <div class="hero__media">
+        <img src="https://images.unsplash.com/photo-1573496546620-c4f8d5b4d8bc?w=800&q=80" alt="Placeholder — Tracy in editorial setting. Replace with real member photography." />
+      </div>
+    </div>
+  </section>
+
+  <div class="brand-label">
+    <span>FFM — <b>Freedom Filled® Mastermind</b> — premium, charcoal + gold, application-based</span>
+    <code>data-brand="ffm"</code>
+  </div>
+  <section class="hero hero--split-left" data-brand="ffm">
+    <div class="hero__inner">
+      <div class="hero__media">
+        <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=800&q=80" alt="Placeholder — mastermind retreat setting. Replace with real Bali retreat photography." />
+      </div>
+      <div class="hero__content">
+        <p class="hero__eyebrow">Freedom Filled® Mastermind</p>
+        <h1 class="hero__title">Intentionally small. <em>Quietly expensive</em>. Application-based.</h1>
+        <p class="hero__supporting">
+          Tracy's most intimate and premium offering. Application-based and intentionally small, for women already in business and ready to lead at a higher level.
+        </p>
+        <div class="hero__actions">
+          <a href="#apply" class="hero__cta">Apply for the Mastermind</a>
+          <a href="#details" class="hero__secondary">Request the details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="brand-label">
+    <span>FRESH — <b>FRESH Framework™</b> — personal operating system, oatmeal + navy, five pillar colours</span>
+    <code>data-brand="fresh"</code>
+  </div>
+  <section class="hero hero--split-right" data-brand="fresh">
+    <div class="hero__inner">
+      <div class="hero__content">
+        <p class="hero__eyebrow">The FRESH Framework™</p>
+        <h1 class="hero__title">Most business programs start with strategy. <em>FRESH starts with you</em>.</h1>
+        <p class="hero__supporting">
+          Tracy's personal operating system, covering Fitness and Nutrition, Relationships, Environment, Self, and Hustle. The foundation that makes sustainable growth possible.
+        </p>
+        <div class="hero__actions">
+          <a href="#quiz" class="hero__cta">Take the Quiz</a>
+          <a href="#framework" class="hero__secondary">See the framework</a>
+        </div>
+        <div class="hero__pillars" aria-hidden="true">
+          <span class="hero__pillar" style="background: var(--pillar-fitness)"></span>
+          <span class="hero__pillar" style="background: var(--pillar-relationships)"></span>
+          <span class="hero__pillar" style="background: var(--pillar-environment)"></span>
+          <span class="hero__pillar" style="background: var(--pillar-self)"></span>
+          <span class="hero__pillar" style="background: var(--pillar-hustle)"></span>
+        </div>
+      </div>
+      <div class="hero__media">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="Placeholder — FRESH lifestyle photography. Replace with real pillar imagery." />
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

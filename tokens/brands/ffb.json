@@ -1,0 +1,80 @@
+{
+  "_meta": {
+    "brand": "ffb",
+    "name": "Freedom Filled® Business",
+    "trademark": "Freedom Filled® Business",
+    "description": "Flagship mentorship program. Warm cream canvas, dark green authority, sage accent, copper warmth, Chic Societe script accent for personal moments. Mentorship tone, not course tone.",
+    "source": "Tracy Harris Co Brand Guidelines v.1 + live ffb-components.html"
+  },
+  "color": {
+    "surface": {
+      "canvas": "{color.neutral.oatmeal}",
+      "elevated": "{color.neutral.cream}",
+      "inverse": "{color.green.ffbDark}"
+    },
+    "ink": {
+      "heading": "{color.neutral.charcoal}",
+      "body": "{color.neutral.ink}",
+      "mute": "{color.neutral.mute}",
+      "inverse": "{color.neutral.oatmeal}"
+    },
+    "accent": {
+      "primary": "{color.green.ffbDark}",
+      "onPrimary": "{color.neutral.oatmeal}",
+      "hover": "{color.green.sageAlt}",
+      "warmth": "{color.fresh.peach}"
+    },
+    "border": {
+      "hairline": "rgba(36,53,49,0.12)",
+      "divider": "{color.green.ffbDark}"
+    }
+  },
+  "type": {
+    "display": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.tight}",
+      "color": "{color.green.ffbDark}"
+    },
+    "displayItalic": {
+      "family": "{font.family.serifItalic}",
+      "weight": "{font.weight.regular}",
+      "style": "italic",
+      "color": "{color.green.ffbDark}"
+    },
+    "script": {
+      "family": "{font.family.script}",
+      "weight": "{font.weight.regular}",
+      "color": "{color.green.sageAlt}"
+    },
+    "heading": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.snug}",
+      "color": "{color.green.ffbDark}"
+    },
+    "subheading": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.medium}",
+      "tracking": "{font.tracking.widest}",
+      "case": "uppercase",
+      "color": "{color.green.ffbDark}"
+    },
+    "body": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.relaxed}",
+      "color": "{color.neutral.ink}"
+    }
+  },
+  "logo": {
+    "primary": "assets/logos/ffb/ffb-primary.svg",
+    "secondary": "assets/logos/ffb/ffb-secondary.svg",
+    "brandmark": "assets/logos/ffb/ffb-monogram.svg"
+  },
+  "voice": {
+    "tone": "warm, confident, mentorship-led, personal",
+    "useScriptFor": "handwritten personal moments only (tagline accents, signature phrases), never body copy",
+    "exampleCopy": "A 12-month mentorship for women ready to build a beautiful, profitable business."
+  }
+}

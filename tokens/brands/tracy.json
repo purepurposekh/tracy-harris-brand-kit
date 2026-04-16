@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "brand": "tracy",
+    "name": "Tracy Harris Co (parent brand)",
+    "tagline": "Peace, Profit and Presence",
+    "description": "The parent brand. Quiet authority, editorial, grounded. Dark green + warm cream. No script font outside logos. Minimal ornament.",
+    "source": "Tracy Harris Co Brand Guidelines v.1",
+    "pendingRefinement": "Primary colour AZTEK (#1e3735) may be adjusted by designer. When updated, change only primitives.json.color.green.aztek — every reference inherits."
+  },
+  "color": {
+    "surface": {
+      "canvas": "{color.neutral.white}",
+      "elevated": "{color.neutral.oatmeal}",
+      "inverse": "{color.green.aztek}"
+    },
+    "ink": {
+      "heading": "{color.neutral.charcoal}",
+      "body": "{color.neutral.ink}",
+      "mute": "{color.neutral.mute}",
+      "inverse": "{color.neutral.white}"
+    },
+    "accent": {
+      "primary": "{color.green.aztek}",
+      "onPrimary": "{color.neutral.white}",
+      "hover": "{color.green.sage}"
+    },
+    "border": {
+      "hairline": "rgba(16,16,16,0.08)",
+      "divider": "{color.green.aztek}"
+    }
+  },
+  "type": {
+    "display": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.tight}",
+      "tracking": "{font.tracking.tight}",
+      "color": "{color.neutral.charcoal}"
+    },
+    "heading": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.snug}",
+      "color": "{color.neutral.charcoal}"
+    },
+    "subheading": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.medium}",
+      "tracking": "{font.tracking.widest}",
+      "case": "uppercase",
+      "color": "{color.neutral.charcoal}"
+    },
+    "body": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.relaxed}",
+      "color": "{color.neutral.ink}"
+    }
+  },
+  "logo": {
+    "primary": "assets/logos/tracy/tracy-harris-primary.svg",
+    "secondary": "assets/logos/tracy/tracy-harris-secondary.svg",
+    "brandmark": "assets/logos/tracy/tracy-harris-brandmark.svg"
+  },
+  "voice": {
+    "tone": "editorial, warm, quiet authority, grounded",
+    "avoidFor": "fitness, wellness, high-energy sales — that's FRESH or FFB territory",
+    "exampleCopy": "Peace, Profit and Presence. A suite of programs for women building freedom-filled businesses."
+  }
+}

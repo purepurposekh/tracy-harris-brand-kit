@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "brand": "fresh",
+    "name": "FRESH by Tracy",
+    "trademark": "The FRESH Framework™",
+    "description": "Personal operating system, not a program to sell. Navy + warm multi-colour palette. Vibrant, human, framework-led. Stands for Fitness and Nutrition, Relationships, Environment, Self, Hustle.",
+    "source": "Tracy Harris Co Brand Guidelines v.1"
+  },
+  "color": {
+    "surface": {
+      "canvas": "{color.neutral.oatmeal}",
+      "elevated": "{color.neutral.white}",
+      "inverse": "{color.fresh.navy}"
+    },
+    "ink": {
+      "heading": "{color.fresh.navy}",
+      "body": "{color.neutral.ink}",
+      "mute": "{color.neutral.mute}",
+      "inverse": "{color.neutral.oatmeal}"
+    },
+    "accent": {
+      "primary": "{color.fresh.navy}",
+      "onPrimary": "{color.neutral.oatmeal}",
+      "hover": "{color.fresh.orange}",
+      "pillars": {
+        "fitness": "{color.fresh.orange}",
+        "relationships": "{color.fresh.yellow}",
+        "environment": "{color.fresh.peach}",
+        "self": "{color.green.sage}",
+        "hustle": "{color.fresh.navy}"
+      }
+    },
+    "border": {
+      "hairline": "rgba(32,49,76,0.12)",
+      "divider": "{color.fresh.navy}"
+    }
+  },
+  "type": {
+    "display": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.tight}",
+      "color": "{color.fresh.navy}"
+    },
+    "heading": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.snug}",
+      "color": "{color.fresh.navy}"
+    },
+    "subheading": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.medium}",
+      "tracking": "{font.tracking.widest}",
+      "case": "uppercase",
+      "color": "{color.fresh.navy}"
+    },
+    "body": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.relaxed}",
+      "color": "{color.neutral.ink}"
+    }
+  },
+  "logo": {
+    "primary": "assets/logos/fresh/fresh-by-tracy-primary.svg",
+    "dotsOnly": "assets/logos/fresh/fresh-dots.svg"
+  },
+  "voice": {
+    "tone": "grounded, multi-dimensional, framework-led, human",
+    "pillars": ["Fitness and Nutrition", "Relationships", "Environment", "Self", "Hustle"],
+    "exampleCopy": "Most business programs start with strategy. FRESH starts with you."
+  }
+}

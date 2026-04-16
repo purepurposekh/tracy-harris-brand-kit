@@ -1,0 +1,82 @@
+{
+  "_meta": {
+    "brand": "ffm",
+    "name": "Freedom Filled® Mastermind",
+    "trademark": "Freedom Filled® Mastermind",
+    "description": "Premium mastermind. Charcoal canvas for intimacy, oatmeal alt canvas for lightness, gold gradient as the hero signal. Application-based language, never 'buy'. Chic Societe script accents. Minimal, confident, quietly expensive.",
+    "source": "Tracy Harris Co Brand Guidelines v.1 + freedom.tracyharris.co/ffm-2026"
+  },
+  "color": {
+    "surface": {
+      "canvas": "{color.neutral.oatmeal}",
+      "elevated": "{color.neutral.white}",
+      "inverse": "{color.neutral.charcoal}"
+    },
+    "ink": {
+      "heading": "{color.neutral.charcoal}",
+      "body": "{color.neutral.ink}",
+      "mute": "{color.neutral.mute}",
+      "inverse": "{color.neutral.oatmeal}"
+    },
+    "accent": {
+      "primary": "{color.gold.dark}",
+      "primaryLight": "{color.gold.mid}",
+      "gradient": "linear-gradient(135deg, {color.gold.dark} 0%, {color.gold.mid} 100%)",
+      "onPrimary": "{color.neutral.oatmeal}",
+      "hover": "{color.gold.mid}"
+    },
+    "border": {
+      "hairline": "rgba(16,16,16,0.1)",
+      "divider": "{color.gold.dark}"
+    }
+  },
+  "type": {
+    "display": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.tight}",
+      "tracking": "{font.tracking.tight}",
+      "color": "{color.neutral.charcoal}"
+    },
+    "displayGold": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "color": "{color.gold.dark}",
+      "fallbackColor": "{color.gold.dark}"
+    },
+    "script": {
+      "family": "{font.family.script}",
+      "weight": "{font.weight.regular}",
+      "color": "{color.gold.dark}"
+    },
+    "heading": {
+      "family": "{font.family.serifDisplay}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.snug}",
+      "color": "{color.neutral.charcoal}"
+    },
+    "subheading": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.medium}",
+      "tracking": "{font.tracking.widest}",
+      "case": "uppercase",
+      "color": "{color.gold.dark}"
+    },
+    "body": {
+      "family": "{font.family.sans}",
+      "weight": "{font.weight.regular}",
+      "leading": "{font.leading.relaxed}",
+      "color": "{color.neutral.ink}"
+    }
+  },
+  "logo": {
+    "primary": "assets/logos/ffm/ffm-primary.svg",
+    "secondary": "assets/logos/ffm/ffm-secondary.svg",
+    "brandmark": "assets/logos/ffm/ffm-monogram-m.svg"
+  },
+  "voice": {
+    "tone": "intimate, premium, application-based, quietly confident",
+    "ctaLanguage": "Apply for the Mastermind — never Buy, Enrol, or Get access",
+    "exampleCopy": "Intentionally small. Application-based. For women ready to lead at a higher level."
+  }
+}
