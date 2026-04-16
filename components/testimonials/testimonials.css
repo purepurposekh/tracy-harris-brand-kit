@@ -55,16 +55,18 @@
 /* ============================================================ */
 
 .testimonial {
-  background: var(--surface-canvas);
-  border: 1px solid var(--border-hairline);
+  background: var(--p-white);
+  border: 1px solid rgba(16, 16, 16, 0.04);
+  border-radius: 6px;
   padding: var(--sp-6);
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
+  box-shadow: 0 2px 12px rgba(16, 16, 16, 0.04);
 }
 
 .testimonials--elevated .testimonial {
-  background: var(--surface-elevated);
+  background: var(--p-white);
 }
 
 .testimonial__mark {
@@ -149,19 +151,19 @@
 /* ============================================================ */
 
 .testimonials__wall {
-  column-count: 3;
-  column-gap: var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  align-items: start;
 }
 
 .testimonials__wall .testimonial {
-  break-inside: avoid;
-  margin: 0 0 var(--sp-6) 0;
-  display: inline-block;
+  margin: 0;
   width: 100%;
 }
 
-@media (max-width: 1000px) { .testimonials__wall { column-count: 2; } }
-@media (max-width: 600px) { .testimonials__wall { column-count: 1; } }
+@media (max-width: 1000px) { .testimonials__wall { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .testimonials__wall { grid-template-columns: 1fr; } }
 
 /* ============================================================ */
 /* VARIANT: FEATURED (3 equal columns, grid) — product pages    */
@@ -397,27 +399,44 @@
 .testimonials__columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-5);
-  height: 720px;
+  gap: var(--sp-6);
+  height: 680px;
   overflow: hidden;
   position: relative;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
 .testimonials__columns > .testimonials__column {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
-  animation: testimonials-scroll 30s linear infinite;
+  gap: var(--sp-6);
+  animation: testimonials-scroll 40s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.testimonials__columns > .testimonials__column--fast { animation-duration: 22s; }
-.testimonials__columns > .testimonials__column--slow { animation-duration: 40s; }
+.testimonials__columns > .testimonials__column--fast { animation-duration: 32s; }
+.testimonials__columns > .testimonials__column--slow { animation-duration: 52s; }
+
+.testimonials__columns > .testimonials__column:hover {
+  animation-play-state: paused;
+}
 
 @keyframes testimonials-scroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -50%, 0); }
+}
+
+/* Cards inside the marquee: more elevated, whiter, rounder for Showit-style feel */
+.testimonials__columns .testimonial {
+  background: var(--p-white);
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(16, 16, 16, 0.06);
+  padding: var(--sp-6);
 }
 
 @media (max-width: 960px) {
