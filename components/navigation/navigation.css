@@ -96,6 +96,20 @@
   min-width: 480px;
 }
 
+.nav__item[data-align="right"] .nav__panel {
+  left: auto;
+  right: 0;
+}
+
+.nav__item[data-align="center"] .nav__panel {
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.nav__item[data-align="center"][data-open="true"] .nav__panel {
+  transform: translateX(-50%) translateY(0);
+}
+
 .nav__item[data-open="true"] .nav__panel {
   opacity: 1;
   pointer-events: auto;
