@@ -124,23 +124,31 @@
   color: var(--accent-on);
 }
 
-/* FFM dark variant — charcoal canvas, gold as primary visual */
-[data-brand="ffm"].hero--dark,
-.hero--dark[data-brand="ffm"] {
+/* FFM dark variant — charcoal canvas, white body text, gold as accent */
+[data-brand="ffm"].hero--dark {
   background: var(--p-charcoal);
 }
-[data-brand="ffm"].hero--dark .hero__eyebrow,
-[data-brand="ffm"].hero--dark .hero__title,
+[data-brand="ffm"].hero--dark .hero__eyebrow {
+  color: var(--p-gold-mid);
+}
+[data-brand="ffm"].hero--dark .hero__title {
+  color: var(--p-white);
+}
 [data-brand="ffm"].hero--dark .hero__title em {
   color: var(--p-gold-mid);
 }
 [data-brand="ffm"].hero--dark .hero__supporting {
-  color: var(--p-oatmeal);
-  opacity: 0.85;
+  color: var(--p-white);
+  opacity: 0.92;
 }
 [data-brand="ffm"].hero--dark .hero__secondary {
-  color: var(--p-oatmeal);
+  color: var(--p-white);
   border-bottom-color: var(--p-gold-mid);
+}
+[data-brand="ffm"].hero--dark .hero__cta {
+  background: var(--accent-gradient);
+  color: var(--p-charcoal);
+  font-weight: var(--w-semibold);
 }
 
 .hero__secondary {
