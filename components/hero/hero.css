@@ -116,6 +116,16 @@
   align-items: center;
 }
 
+.hero--text-only .hero__actions {
+  justify-content: center;
+}
+
+@media (max-width: 820px) {
+  .hero--text-only .hero__actions {
+    justify-content: flex-start;
+  }
+}
+
 .hero__cta {
   display: inline-block;
   background: var(--accent);
