@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card Flip — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../card-flip.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="brand-label"><span>CARD FLIP — 3D flip programs grid</span><code>class="card-flip-grid"</code></div>
+  <section class="card-flip-section card-flip-section--elevated" data-brand="tracy">
+    <div class="card-flip-section__inner">
+      <header class="card-flip-section__header">
+        <p class="card-flip-section__eyebrow">Your pathway</p>
+        <h2 class="card-flip-section__title">Three ways to build <em>Freedom Filled®</em>.</h2>
+      </header>
+
+      <div class="card-flip-grid">
+
+        <!-- FRESH -->
+        <div class="card-flip" data-program="fresh" tabindex="0" role="button" aria-label="FRESH Framework. Click to see details.">
+          <div class="card-flip__inner">
+            <div class="card-flip__face card-flip__front">
+              <div>
+                <div class="card-flip__accent card-flip__accent--fresh"></div>
+                <h3 class="card-flip__program-name">FRESH <em>Framework</em>™</h3>
+                <p class="card-flip__tagline">Start with you.</p>
+                <p class="card-flip__summary">The free diagnostic that shows you exactly where your business stands across five pillars: Freedom, Revenue, Engagement, Strategy, and Heart.</p>
+              </div>
+              <p class="card-flip__hint">
+                Flip for details
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              </p>
+            </div>
+            <div class="card-flip__face card-flip__back">
+              <div>
+                <h3 class="card-flip__back-title">What you <em>get</em></h3>
+                <ul class="card-flip__back-list">
+                  <li>Personalised FRESH Score across 5 pillars</li>
+                  <li>Clear next-step recommendation</li>
+                  <li>Immediate, actionable insights</li>
+                  <li>No fluff, no generic advice</li>
+                </ul>
+                <p class="card-flip__back-price">Free. Always.</p>
+              </div>
+              <a href="/quiz" class="card-flip__back-cta">Take the Quiz</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FFB -->
+        <div class="card-flip" data-program="ffb" tabindex="0" role="button" aria-label="Freedom Filled Business. Click to see details.">
+          <div class="card-flip__inner">
+            <div class="card-flip__face card-flip__front">
+              <div>
+                <div class="card-flip__accent card-flip__accent--ffb"></div>
+                <h3 class="card-flip__program-name">Freedom Filled® <em>Business</em>™</h3>
+                <p class="card-flip__tagline">Build the business.</p>
+                <p class="card-flip__summary">12-month mentorship for women ready to build or grow a coaching, course, membership, or digital service business. Tracy's frameworks, a curated community, and structured support.</p>
+              </div>
+              <p class="card-flip__hint">
+                Flip for details
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              </p>
+            </div>
+            <div class="card-flip__face card-flip__back">
+              <div>
+                <h3 class="card-flip__back-title">What's <em>inside</em></h3>
+                <ul class="card-flip__back-list">
+                  <li>Full curriculum + implementation guides</li>
+                  <li>Group coaching calls with Tracy</li>
+                  <li>Private community of right-fit women</li>
+                  <li>Million Dollar Message™ framework</li>
+                  <li>Signature Model™ + Freedom Filled® Offers™</li>
+                  <li>12 months of ongoing support</li>
+                </ul>
+                <p class="card-flip__back-price">From $6,000 AUD</p>
+              </div>
+              <a href="/ffb" class="card-flip__back-cta">Apply Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FFM -->
+        <div class="card-flip" data-program="ffm" tabindex="0" role="button" aria-label="Freedom Filled Mastermind. Click to see details.">
+          <div class="card-flip__inner">
+            <div class="card-flip__face card-flip__front">
+              <div>
+                <div class="card-flip__accent card-flip__accent--ffm"></div>
+                <h3 class="card-flip__program-name">Freedom Filled® <em>Mastermind</em></h3>
+                <p class="card-flip__tagline">Lead at a higher level.</p>
+                <p class="card-flip__summary">The premium, application-only container for established business owners. Maximum 20 women per cohort. Retreats, hot seats, and direct access to Tracy.</p>
+              </div>
+              <p class="card-flip__hint">
+                Flip for details
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+              </p>
+            </div>
+            <div class="card-flip__face card-flip__back">
+              <div>
+                <h3 class="card-flip__back-title">The <em>experience</em></h3>
+                <ul class="card-flip__back-list">
+                  <li>Maximum 20 women per cohort</li>
+                  <li>In-person retreats (Bali, Australia)</li>
+                  <li>1:1 hot seats with Tracy</li>
+                  <li>Direct access to Tracy</li>
+                  <li>12 months of FFB included</li>
+                  <li>The Social Method® Society included</li>
+                </ul>
+                <p class="card-flip__back-price">From $31,000 AUD</p>
+              </div>
+              <a href="/ffm" class="card-flip__back-cta">Apply Now</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="../card-flip.js"></script>
+</body>
+</html>

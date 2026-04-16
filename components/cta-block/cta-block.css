@@ -1,0 +1,140 @@
+/* CTA Block — mid-page interrupt call-to-action */
+
+.cta-block {
+  padding: var(--sp-9) var(--sp-7);
+}
+
+.cta-block--canvas { background: var(--surface-canvas); }
+.cta-block--elevated { background: var(--surface-elevated); }
+.cta-block--accent { background: var(--accent); }
+.cta-block--dark { background: var(--surface-inverse); }
+
+.cta-block__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+}
+
+.cta-block__eyebrow {
+  font-family: var(--f-sans);
+  font-size: 11px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0;
+}
+
+.cta-block--accent .cta-block__eyebrow,
+.cta-block--dark .cta-block__eyebrow {
+  color: rgba(255,255,255,0.6);
+}
+
+.cta-block__title {
+  font-family: var(--f-serif-display);
+  font-weight: var(--w-regular);
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink-heading);
+  margin: 0;
+  max-width: 18ch;
+}
+
+.cta-block--accent .cta-block__title,
+.cta-block--dark .cta-block__title {
+  color: var(--p-white);
+}
+
+.cta-block__title em { font-family: var(--f-serif-italic); font-style: italic; }
+
+.cta-block__body {
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-body);
+  margin: 0;
+  max-width: 52ch;
+}
+
+.cta-block--accent .cta-block__body,
+.cta-block--dark .cta-block__body {
+  color: rgba(255,255,255,0.8);
+}
+
+.cta-block__actions {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-block__btn {
+  font-family: var(--f-sans);
+  font-size: 13px;
+  font-weight: var(--w-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: var(--r-md);
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.cta-block__btn--primary {
+  background: var(--accent);
+  color: var(--accent-on);
+}
+
+.cta-block__btn--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.cta-block--accent .cta-block__btn--primary,
+.cta-block--dark .cta-block__btn--primary {
+  background: var(--p-white);
+  color: var(--accent);
+}
+
+.cta-block__btn--secondary {
+  background: transparent;
+  color: var(--ink-heading);
+  border: 1px solid var(--border-hairline);
+}
+
+.cta-block__btn--secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cta-block--accent .cta-block__btn--secondary,
+.cta-block--dark .cta-block__btn--secondary {
+  color: var(--p-white);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.cta-block--accent .cta-block__btn--secondary:hover,
+.cta-block--dark .cta-block__btn--secondary:hover {
+  border-color: var(--p-white);
+}
+
+/* Divider variant: thin rule above and below */
+.cta-block--ruled {
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+/* Script accent word */
+.cta-block__script {
+  font-family: var(--f-script);
+  font-size: 1.2em;
+  font-weight: var(--w-regular);
+  font-style: normal;
+}

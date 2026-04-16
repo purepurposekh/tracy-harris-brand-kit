@@ -1,0 +1,233 @@
+/* Card Flip — 3D flip cards for programs grid alternative */
+
+.card-flip-section {
+  background: var(--surface-canvas);
+  padding: var(--sp-9) var(--sp-7);
+}
+
+.card-flip-section--elevated {
+  background: var(--surface-elevated);
+}
+
+.card-flip-section__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card-flip-section__header {
+  text-align: center;
+  margin: 0 0 var(--sp-8) 0;
+}
+
+.card-flip-section__eyebrow {
+  font-family: var(--f-sans);
+  font-size: 11px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0 0 var(--sp-3) 0;
+}
+
+.card-flip-section__title {
+  font-family: var(--f-serif-display);
+  font-weight: var(--w-regular);
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ink-heading);
+  margin: 0;
+}
+
+.card-flip-section__title em { font-family: var(--f-serif-italic); font-style: italic; }
+
+/* Grid */
+.card-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-5);
+}
+
+@media (max-width: 900px) { .card-flip-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; } }
+
+/* Individual card container */
+.card-flip {
+  perspective: 1200px;
+  height: 420px;
+  cursor: pointer;
+}
+
+.card-flip__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card-flip.is-flipped .card-flip__inner {
+  transform: rotateY(180deg);
+}
+
+.card-flip__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Front face */
+.card-flip__front {
+  background: var(--p-white);
+  border: 1px solid rgba(16,16,16,0.04);
+  box-shadow: 0 2px 12px rgba(16,16,16,0.04);
+  padding: var(--sp-6);
+  justify-content: space-between;
+}
+
+.card-flip__accent {
+  height: 3px;
+  border-radius: 2px;
+  margin-bottom: var(--sp-4);
+}
+
+.card-flip__accent--fresh { background: var(--p-aztek); }
+.card-flip__accent--ffb { background: var(--p-sage); }
+.card-flip__accent--ffm { background: var(--p-gold-mid); }
+
+.card-flip__program-name {
+  font-family: var(--f-serif-display);
+  font-weight: var(--w-regular);
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink-heading);
+  margin: 0 0 var(--sp-2) 0;
+}
+
+.card-flip__program-name em { font-family: var(--f-serif-italic); font-style: italic; }
+
+.card-flip__tagline {
+  font-family: var(--f-serif-italic);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-mute);
+  margin: 0 0 var(--sp-4) 0;
+}
+
+.card-flip__summary {
+  font-family: var(--f-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-body);
+  margin: 0;
+  flex: 1;
+}
+
+.card-flip__hint {
+  font-family: var(--f-sans);
+  font-size: 11px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-flip__hint svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s;
+}
+
+.card-flip:hover .card-flip__hint svg {
+  transform: rotate(180deg);
+}
+
+/* Back face */
+.card-flip__back {
+  background: var(--accent);
+  color: var(--accent-on);
+  transform: rotateY(180deg);
+  padding: var(--sp-6);
+  justify-content: space-between;
+}
+
+.card-flip__back-title {
+  font-family: var(--f-serif-display);
+  font-weight: var(--w-regular);
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 var(--sp-4) 0;
+}
+
+.card-flip__back-title em { font-family: var(--f-serif-italic); font-style: italic; }
+
+.card-flip__back-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.card-flip__back-list li {
+  font-family: var(--f-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  padding-left: 20px;
+  position: relative;
+}
+
+.card-flip__back-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  opacity: 0.7;
+}
+
+.card-flip__back-price {
+  font-family: var(--f-sans);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  margin: var(--sp-4) 0 0 0;
+  opacity: 0.7;
+}
+
+.card-flip__back-cta {
+  display: inline-block;
+  font-family: var(--f-sans);
+  font-size: 13px;
+  font-weight: var(--w-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  background: var(--accent-on);
+  padding: 12px 24px;
+  border-radius: var(--r-md);
+  margin-top: var(--sp-4);
+  text-align: center;
+  transition: opacity 0.2s;
+}
+
+.card-flip__back-cta:hover { opacity: 0.9; }
+
+/* Brand-specific back colors */
+.card-flip[data-program="fresh"] .card-flip__back { background: var(--p-aztek); color: var(--p-white); }
+.card-flip[data-program="fresh"] .card-flip__back-cta { color: var(--p-aztek); background: var(--p-white); }
+
+.card-flip[data-program="ffb"] .card-flip__back { background: var(--p-sage); color: var(--p-white); }
+.card-flip[data-program="ffb"] .card-flip__back-cta { color: var(--p-sage); background: var(--p-white); }
+
+.card-flip[data-program="ffm"] .card-flip__back { background: var(--p-gold-dark); color: var(--p-white); }
+.card-flip[data-program="ffm"] .card-flip__back-cta { color: var(--p-gold-dark); background: var(--p-white); }

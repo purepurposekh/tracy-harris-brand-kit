@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block — Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../cta-block.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+    .brand-label {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      font-family: var(--f-sans); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 10px 24px;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LIGHT -->
+  <div class="brand-label"><span>LIGHT — centered on white</span><code>class="cta-block--canvas"</code></div>
+  <section class="cta-block cta-block--canvas" data-brand="tracy">
+    <div class="cta-block__inner">
+      <p class="cta-block__eyebrow">Ready to begin?</p>
+      <h2 class="cta-block__title">Your next chapter starts with a <em>conversation</em>.</h2>
+      <p class="cta-block__body">Take the FRESH Quiz to find out which program fits where you are right now. Two minutes. Personalised results. No pressure.</p>
+      <div class="cta-block__actions">
+        <a href="/quiz" class="cta-block__btn cta-block__btn--primary">Take the Quiz</a>
+        <a href="/about" class="cta-block__btn cta-block__btn--secondary">Learn more</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELEVATED -->
+  <div class="brand-label"><span>ELEVATED — oatmeal background</span><code>class="cta-block--elevated"</code></div>
+  <section class="cta-block cta-block--elevated" data-brand="tracy">
+    <div class="cta-block__inner">
+      <p class="cta-block__eyebrow">Freedom Filled® Business</p>
+      <h2 class="cta-block__title">Build a business that lets you <em>live</em>.</h2>
+      <p class="cta-block__body">12 months of mentorship, Tracy's proven frameworks, and a community of women who get it. Applications are open.</p>
+      <div class="cta-block__actions">
+        <a href="/ffb" class="cta-block__btn cta-block__btn--primary">Apply to FFB</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCENT -->
+  <div class="brand-label"><span>ACCENT — brand color background</span><code>class="cta-block--accent"</code></div>
+  <section class="cta-block cta-block--accent" data-brand="tracy">
+    <div class="cta-block__inner">
+      <p class="cta-block__eyebrow">Limited to 20 women</p>
+      <h2 class="cta-block__title">The room is <em>everything</em>.</h2>
+      <p class="cta-block__body">Freedom Filled® Mastermind is application-only because the room matters. If you're ready, we'd love to hear from you.</p>
+      <div class="cta-block__actions">
+        <a href="/ffm" class="cta-block__btn cta-block__btn--primary">Apply to FFM</a>
+        <a href="/ffm#faq" class="cta-block__btn cta-block__btn--secondary">Read the FAQ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK -->
+  <div class="brand-label"><span>DARK — inverse background (FFM style)</span><code>class="cta-block--dark"</code></div>
+  <section class="cta-block cta-block--dark" data-brand="ffm">
+    <div class="cta-block__inner">
+      <p class="cta-block__eyebrow">By invitation</p>
+      <h2 class="cta-block__title">Lead at a <em>higher level</em>.</h2>
+      <p class="cta-block__body">Retreats, hot seats, direct access to Tracy, and a cohort of twenty women who refuse to settle. This is the Mastermind.</p>
+      <div class="cta-block__actions">
+        <a href="/ffm" class="cta-block__btn cta-block__btn--primary">Book a Discovery Call</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULED (minimal) -->
+  <div class="brand-label"><span>RULED — thin borders, minimal</span><code>class="cta-block--ruled"</code></div>
+  <section class="cta-block cta-block--canvas cta-block--ruled" data-brand="tracy">
+    <div class="cta-block__inner">
+      <h2 class="cta-block__title">Not sure? <em>Start here</em>.</h2>
+      <div class="cta-block__actions">
+        <a href="/quiz" class="cta-block__btn cta-block__btn--primary">Take the FRESH Quiz</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
