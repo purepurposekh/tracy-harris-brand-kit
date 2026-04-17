@@ -496,6 +496,75 @@
       .intention { padding: var(--sp-4); }
       .recipe-intent { display: none; }
     }
+
+    /* ---------- page-type filter ---------- */
+    .pt-filter {
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      padding: var(--sp-5);
+      margin-bottom: var(--sp-7);
+    }
+    .pt-filter__label {
+      font-family: var(--f-serif-display);
+      font-size: 20px;
+      color: var(--ink-heading);
+      margin: 0 0 4px 0;
+    }
+    .pt-filter__hint {
+      font-size: 12px;
+      color: var(--ink-mute);
+      margin: 0 0 var(--sp-4) 0;
+      line-height: 1.5;
+    }
+    .pt-filter__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pt-btn {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 8px 16px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      background: var(--p-oatmeal);
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pt-btn:hover {
+      border-color: var(--p-aztek);
+      color: var(--p-aztek);
+    }
+    .pt-btn.is-active {
+      background: var(--p-aztek);
+      border-color: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .pt-btn--show-all {
+      margin-left: auto;
+      background: transparent;
+      border-style: dashed;
+    }
+    .pt-btn--show-all.is-active {
+      background: transparent;
+      color: var(--p-aztek);
+      border-color: var(--p-aztek);
+      border-style: solid;
+    }
+
+    /* hidden slots/tiles from filter */
+    .slot[data-filtered="hidden"],
+    .tile[data-filtered="hidden"] {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      .pt-btn--show-all { margin-left: 0; }
+    }
   </style>
 </head>
 <body data-brand="tracy">
@@ -521,6 +590,13 @@
     <p class="eyebrow">Build a page</p>
     <h1>Compose. <em>Then brief.</em></h1>
     <p class="intro">Visually assemble a page from the component library, then write a short intention so Kira knows what this page is <em>for</em>. Hit Submit and paste the recipe in Discord.</p>
+
+    <!-- PAGE TYPE FILTER -->
+    <div class="pt-filter" id="ptFilter">
+      <p class="pt-filter__label">What type of page are you building?</p>
+      <p class="pt-filter__hint">Filters slots and variants to what's relevant. "Show all" returns to the unfiltered view.</p>
+      <div class="pt-filter__buttons" id="ptButtons"></div>
+    </div>
 
     <!-- INTENTION BRIEF -->
     <div class="intention">
@@ -563,9 +639,8 @@
     //  to the right section inside the iframe thumbnail.
     // `key` = stable string written into the JSON recipe.
     //
-    // TODO (v2): Filter variants by approvals.json status once review flow
-    // stabilizes. Only expose variants whose variant_id is marked "approved"
-    // in ../review/approvals.json. See /review/ for the approval flow.
+    // variantId on each variant matches /review/approvals.json keys, used by
+    // the page-type filter and the (Track 3) approvals integration.
     // ----------------------------------------------------------------------
     const SLOTS = [
       {
@@ -574,8 +649,8 @@
         sub: 'Optional. Thin top bar, overlay menu, or skip if the hero handles it.',
         display: 'Nav',
         variants: [
-          { key: 'martini',  name: 'Martini overlay',    file: '../navigation/variants/martini.html' },
-          { key: 'showcase', name: 'Sticky + mega menu', file: '../navigation/variants/showcase.html' },
+          { key: 'martini',  name: 'Martini overlay',    file: '../navigation/variants/martini.html',  variantId: 'navigation.martini' },
+          { key: 'showcase', name: 'Sticky + mega menu', file: '../navigation/variants/showcase.html', variantId: 'navigation.showcase' },
         ],
         skippable: true,
       },
@@ -585,11 +660,13 @@
         sub: 'The first thing they see. Sets the tone for everything that follows.',
         display: 'Hero',
         variants: [
-          { key: 'martini',  name: 'Martini full-bleed portrait', file: '../hero/variants/martini.html' },
-          { key: 'split',    name: 'Split text + photo',          file: '../hero/variants/split.html' },
-          { key: 'amaretto', name: 'Amaretto wordmark',           file: '../hero/variants/amaretto.html' },
-          { key: 'tony',     name: 'Tony stage',                  file: '../hero/variants/tony.html' },
-          { key: 'showcase', name: 'Classic (5 variants)',        file: '../hero/variants/showcase.html' },
+          { key: 'martini',  name: 'Martini full-bleed portrait', file: '../hero/variants/martini.html',  variantId: 'hero.martini' },
+          { key: 'split',    name: 'Split text + photo',          file: '../hero/variants/split.html',    variantId: 'hero.split' },
+          { key: 'amaretto', name: 'Amaretto wordmark',           file: '../hero/variants/amaretto.html', variantId: 'hero.amaretto' },
+          { key: 'tony',     name: 'Tony stage',                  file: '../hero/variants/tony.html',     variantId: 'hero.tony' },
+          { key: 'showcase', name: 'Classic (5 variants)',        file: '../hero/variants/showcase.html', variantId: 'hero.showcase' },
+          { key: 'results',  name: 'Results / confirmation',      file: '../hero/variants/results.html',  variantId: 'hero.results' },
+          { key: 'oto',      name: 'One-time offer',              file: '../hero/variants/oto.html',      variantId: 'hero.oto' },
         ],
         skippable: false,
       },
@@ -599,10 +676,21 @@
         sub: 'The money moment. Where the offer earns its keep.',
         display: 'Callout',
         variants: [
-          { key: 'bento-ffb',   name: 'Bento · FFB',      file: '../product-callout/variants/showcase.html', hash: 'pc-ffb-title' },
-          { key: 'bento-elite', name: 'Bento · Elite',    file: '../product-callout/variants/showcase.html', hash: 'pc-elite-title' },
-          { key: 'editorial',   name: 'Editorial',        file: '../product-callout/variants/showcase.html', hash: 'pce-ffb-title' },
-          { key: 'clearer',     name: 'Clearer bento',    file: '../product-callout/variants/showcase.html', hash: 'pcc-ffb-title' },
+          { key: 'bento-ffb',   name: 'Bento · FFB',      file: '../product-callout/variants/showcase.html', hash: 'pc-ffb-title',   variantId: 'product-callout.bento-ffb' },
+          { key: 'bento-elite', name: 'Bento · Elite',    file: '../product-callout/variants/showcase.html', hash: 'pc-elite-title', variantId: 'product-callout.bento-elite' },
+          { key: 'editorial',   name: 'Editorial',        file: '../product-callout/variants/showcase.html', hash: 'pce-ffb-title',  variantId: 'product-callout.editorial' },
+          { key: 'clearer',     name: 'Clearer bento',    file: '../product-callout/variants/showcase.html', hash: 'pcc-ffb-title',  variantId: 'product-callout.clearer' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'offer_stack',
+        label: 'Offer stack',
+        sub: "What's-included bullets. Detailed with values, or minimal.",
+        display: 'Offer',
+        variants: [
+          { key: 'detailed', name: 'Detailed (with values)',  file: '../offer-stack/variants/showcase.html', hash: 'detailed', variantId: 'offer-stack.detailed' },
+          { key: 'minimal',  name: 'Minimal (benefits only)', file: '../offer-stack/variants/showcase.html', hash: 'minimal',  variantId: 'offer-stack.minimal' },
         ],
         skippable: true,
       },
@@ -612,12 +700,23 @@
         sub: 'Proof. Real women, real results.',
         display: 'Proof',
         variants: [
-          { key: 'wall',      name: 'Masonry wall',   file: '../testimonials/variants/showcase.html' },
-          { key: 'featured',  name: 'Featured trio',  file: '../testimonials/variants/showcase.html#featured' },
-          { key: 'single',    name: 'Single hero',    file: '../testimonials/variants/showcase.html#single' },
-          { key: 'editorial', name: 'Editorial',      file: '../testimonials/variants/showcase.html#editorial' },
-          { key: 'results',   name: 'Real results',   file: '../testimonials/variants/showcase.html#results' },
-          { key: 'columns',   name: 'Columns marquee',file: '../testimonials/variants/showcase.html#columns' },
+          { key: 'wall',      name: 'Masonry wall',   file: '../testimonials/variants/showcase.html',            variantId: 'testimonials.wall' },
+          { key: 'featured',  name: 'Featured trio',  file: '../testimonials/variants/showcase.html#featured',    variantId: 'testimonials.featured-trio' },
+          { key: 'single',    name: 'Single hero',    file: '../testimonials/variants/showcase.html#single',      variantId: 'testimonials.single-hero' },
+          { key: 'editorial', name: 'Editorial',      file: '../testimonials/variants/showcase.html#editorial',   variantId: 'testimonials.editorial-centered' },
+          { key: 'results',   name: 'Real results',   file: '../testimonials/variants/showcase.html#results',     variantId: 'testimonials.real-results' },
+          { key: 'columns',   name: 'Columns marquee',file: '../testimonials/variants/showcase.html#columns',     variantId: 'testimonials.columns-marquee' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'guarantee',
+        label: 'Guarantee',
+        sub: 'Risk reversal. Editorial promise, or dark badge.',
+        display: 'Promise',
+        variants: [
+          { key: 'editorial', name: 'Editorial promise',  file: '../guarantee/variants/showcase.html', hash: 'editorial', variantId: 'guarantee.editorial' },
+          { key: 'badge',     name: 'Dark badge / seal',  file: '../guarantee/variants/showcase.html', hash: 'badge',     variantId: 'guarantee.badge' },
         ],
         skippable: true,
       },
@@ -627,10 +726,10 @@
         sub: 'Email capture. Split, banner, card, or dark accent.',
         display: 'Opt-in',
         variants: [
-          { key: 'split',        name: 'Split + portrait', file: '../opt-in/variants/showcase.html' },
-          { key: 'split-accent', name: 'Split · dark',     file: '../opt-in/variants/showcase.html#accent' },
-          { key: 'banner',       name: 'Banner centered',  file: '../opt-in/variants/showcase.html#banner' },
-          { key: 'card',         name: 'Compact card',     file: '../opt-in/variants/showcase.html#card' },
+          { key: 'split',        name: 'Split + portrait', file: '../opt-in/variants/showcase.html',         variantId: 'opt-in.split' },
+          { key: 'split-accent', name: 'Split · dark',     file: '../opt-in/variants/showcase.html#accent',  variantId: 'opt-in.accent-dark' },
+          { key: 'banner',       name: 'Banner centered',  file: '../opt-in/variants/showcase.html#banner',  variantId: 'opt-in.banner' },
+          { key: 'card',         name: 'Compact card',     file: '../opt-in/variants/showcase.html#card',    variantId: 'opt-in.card' },
         ],
         skippable: true,
       },
@@ -640,8 +739,28 @@
         sub: 'Tabbed with categories, or a simple stacked list.',
         display: 'FAQ',
         variants: [
-          { key: 'tabbed', name: 'Tabbed + accordion', file: '../faq/variants/showcase.html' },
-          { key: 'simple', name: 'Simple list',        file: '../faq/variants/showcase.html#simple' },
+          { key: 'tabbed', name: 'Tabbed + accordion', file: '../faq/variants/showcase.html',          variantId: 'faq.tabbed' },
+          { key: 'simple', name: 'Simple list',        file: '../faq/variants/showcase.html#simple',    variantId: 'faq.simple' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'next_steps',
+        label: 'Next steps',
+        sub: 'Three-step reassurance card for TY / download / results pages.',
+        display: 'Steps',
+        variants: [
+          { key: 'default', name: 'Three numbered steps', file: '../next-steps/variants/showcase.html', variantId: 'next-steps.default' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'soft_upsell',
+        label: 'Soft upsell',
+        sub: 'Whisper-quiet cross-sell. Post-delivery teaser card.',
+        display: 'Upsell',
+        variants: [
+          { key: 'default', name: 'Editorial teaser card', file: '../soft-upsell/variants/showcase.html', variantId: 'soft-upsell.default' },
         ],
         skippable: true,
       },
@@ -651,7 +770,7 @@
         sub: 'Optional floating teaser promoting the next workshop.',
         display: 'Event',
         variants: [
-          { key: 'inline', name: 'Floating teaser', file: '../event-widget/variants/showcase.html' },
+          { key: 'inline', name: 'Floating teaser', file: '../event-widget/variants/showcase.html', variantId: 'event-widget.floating' },
         ],
         skippable: true,
       },
@@ -661,12 +780,83 @@
         sub: 'The last word on the page.',
         display: 'Footer',
         variants: [
-          { key: 'martini',  name: 'Martini statement', file: '../footer/variants/martini.html' },
-          { key: 'showcase', name: 'Classic (4 variants)', file: '../footer/variants/showcase.html' },
+          { key: 'martini',  name: 'Martini statement',     file: '../footer/variants/martini.html',  variantId: 'footer.martini' },
+          { key: 'showcase', name: 'Classic (4 variants)',  file: '../footer/variants/showcase.html', variantId: 'footer.showcase' },
         ],
         skippable: true,
       },
     ];
+
+    // ----------------------------------------------------------------------
+    // Page-type filter map
+    // Each page type lists: slots to show, and optionally `variants` per slot
+    // (if omitted, show all variants for that slot).
+    // ----------------------------------------------------------------------
+    const PAGE_TYPES = {
+      'all': { label: 'Show all', slots: null },
+      'sales': {
+        label: 'Sales / Home',
+        slots: {
+          nav: null,
+          hero: ['martini', 'amaretto', 'split', 'tony'],
+          product_callout: null,
+          testimonials: null,
+          event_widget: null,
+          faq: null,
+          opt_in: null,
+          footer: null,
+        },
+      },
+      'short': {
+        label: 'Short landing',
+        slots: {
+          hero: ['split', 'amaretto'],
+          opt_in: null,
+          testimonials: ['featured', 'single'],
+          footer: ['showcase'],
+        },
+      },
+      'long': {
+        label: 'Long landing',
+        slots: {
+          hero: ['split', 'amaretto'],
+          offer_stack: null,
+          testimonials: ['wall', 'columns'],
+          faq: null,
+          opt_in: null,
+          guarantee: null,
+          footer: null,
+        },
+      },
+      'ty': {
+        label: 'TY / Results',
+        slots: {
+          hero: ['results'],
+          next_steps: null,
+          soft_upsell: null,
+          footer: ['showcase'],
+        },
+      },
+      'blog': {
+        label: 'Blog',
+        slots: {
+          nav: null,
+          hero: ['showcase'],
+          opt_in: null,
+          footer: null,
+        },
+      },
+      'oto': {
+        label: 'OTO',
+        slots: {
+          hero: ['oto'],
+          offer_stack: null,
+          guarantee: null,
+          testimonials: ['single'],
+          footer: ['showcase'],
+        },
+      },
+    };
 
     // ----------------------------------------------------------------------
     // State
@@ -706,6 +896,7 @@
         tile.className = 'tile';
         tile.dataset.slotId = slot.id;
         tile.dataset.key = v.key;
+        if (v.variantId) tile.dataset.variantId = v.variantId;
 
         const thumbSrc = v.hash ? `${v.file}#${v.hash}` : v.file;
 
@@ -774,6 +965,82 @@
     }, { rootMargin: '300px' });
 
     document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => io.observe(f));
+
+    // ----------------------------------------------------------------------
+    // Page-type filter (Track 2)
+    // Purely additive: sets data-filtered="hidden|visible" on slot sections
+    // and their tiles. CSS handles the display toggle.
+    // ----------------------------------------------------------------------
+    let currentPageType = 'all';
+    const ptButtonsEl = document.getElementById('ptButtons');
+
+    function renderPtButtons() {
+      ptButtonsEl.innerHTML = '';
+      Object.entries(PAGE_TYPES).forEach(([key, cfg]) => {
+        if (key === 'all') return; // render last
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pt-btn' + (currentPageType === key ? ' is-active' : '');
+        btn.dataset.ptKey = key;
+        btn.textContent = cfg.label;
+        btn.addEventListener('click', () => applyPageType(key));
+        ptButtonsEl.appendChild(btn);
+      });
+
+      // Show all always last + right-aligned
+      const showAll = document.createElement('button');
+      showAll.type = 'button';
+      showAll.className = 'pt-btn pt-btn--show-all' + (currentPageType === 'all' ? ' is-active' : '');
+      showAll.dataset.ptKey = 'all';
+      showAll.textContent = 'Show all';
+      showAll.addEventListener('click', () => applyPageType('all'));
+      ptButtonsEl.appendChild(showAll);
+    }
+
+    function applyPageType(key) {
+      currentPageType = key;
+      renderPtButtons();
+
+      const cfg = PAGE_TYPES[key];
+      const allSlots = cfg.slots;
+
+      SLOTS.forEach(slot => {
+        const section = document.querySelector(`.slot[data-slot-id="${slot.id}"]`);
+        if (!section) return;
+
+        // No config = show all slots + all variants
+        if (!allSlots) {
+          section.dataset.filtered = 'visible';
+          section.querySelectorAll('.tile').forEach(t => { t.dataset.filtered = 'visible'; });
+          return;
+        }
+
+        // Slot not in page-type config = hide whole slot
+        if (!(slot.id in allSlots)) {
+          section.dataset.filtered = 'hidden';
+          return;
+        }
+
+        section.dataset.filtered = 'visible';
+        const allowedVariantKeys = allSlots[slot.id]; // null = all; array = filter
+
+        section.querySelectorAll('.tile').forEach(tile => {
+          const tKey = tile.dataset.key;
+          // Skip tile always shown when slot is visible
+          if (tKey === '__skip__') {
+            tile.dataset.filtered = 'visible';
+            return;
+          }
+          if (!allowedVariantKeys || allowedVariantKeys.includes(tKey)) {
+            tile.dataset.filtered = 'visible';
+          } else {
+            tile.dataset.filtered = 'hidden';
+          }
+        });
+      });
+    }
+
+    renderPtButtons();
 
     // ----------------------------------------------------------------------
     // Selection handling
