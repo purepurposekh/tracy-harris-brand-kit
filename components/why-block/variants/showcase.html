@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why Block — Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .section {
+      padding: clamp(56px, 8vw, 120px) clamp(20px, 5vw, 64px);
+    }
+
+    /* Variant anchors — used by /review/ and /compose/ hashes */
+    .anchor {
+      position: relative;
+      scroll-margin-top: 20px;
+    }
+
+    /* -------- EDITORIAL (cream, script eyebrow, Tracy voice) -------- */
+    .wb-editorial {
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+    }
+    .wb-editorial .wb__wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .wb-editorial .wb__eyebrow {
+      font-family: var(--f-script);
+      font-size: clamp(28px, 3.2vw, 40px);
+      color: var(--p-sage);
+      line-height: 1;
+      margin: 0 0 22px;
+    }
+    .wb-editorial .wb__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(34px, 4.6vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--p-charcoal);
+      margin: 0 0 28px;
+      max-width: 20ch;
+    }
+    .wb-editorial .wb__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+    .wb-editorial .wb__body {
+      font-family: var(--f-sans);
+      font-size: clamp(16px, 1.2vw, 18px);
+      line-height: 1.75;
+      color: var(--p-ink);
+      margin: 0 0 18px;
+      max-width: 58ch;
+    }
+    .wb-editorial .wb__body + .wb__body { margin-top: 0; }
+    .wb-editorial .wb__body strong {
+      font-weight: 600;
+      color: var(--p-charcoal);
+    }
+    .wb-editorial .wb__body em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+    .wb-editorial .wb__sig {
+      font-family: var(--f-script);
+      font-size: clamp(28px, 3vw, 38px);
+      color: var(--p-charcoal);
+      line-height: 1;
+      margin: 36px 0 0;
+    }
+    .wb-editorial .wb__rule {
+      width: 48px;
+      height: 1px;
+      background: var(--p-sage);
+      margin: 0 0 24px;
+      opacity: 0.7;
+    }
+
+    /* -------- DARK (aztek canvas, oatmeal text, for between bright sections) -------- */
+    .wb-dark {
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+    }
+    .wb-dark .wb__wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .wb-dark .wb__eyebrow {
+      font-family: var(--f-script);
+      font-size: clamp(28px, 3.2vw, 40px);
+      color: var(--p-gold-mid);
+      line-height: 1;
+      margin: 0 0 22px;
+    }
+    .wb-dark .wb__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(34px, 4.6vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--p-oatmeal);
+      margin: 0 0 28px;
+      max-width: 20ch;
+    }
+    .wb-dark .wb__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+    .wb-dark .wb__body {
+      font-family: var(--f-sans);
+      font-size: clamp(16px, 1.2vw, 18px);
+      line-height: 1.75;
+      color: var(--p-oatmeal);
+      opacity: 0.92;
+      margin: 0 0 18px;
+      max-width: 58ch;
+    }
+    .wb-dark .wb__body strong {
+      font-weight: 600;
+      color: var(--p-oatmeal);
+      opacity: 1;
+    }
+    .wb-dark .wb__body em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+    .wb-dark .wb__sig {
+      font-family: var(--f-script);
+      font-size: clamp(28px, 3vw, 38px);
+      color: var(--p-gold-mid);
+      line-height: 1;
+      margin: 36px 0 0;
+    }
+    .wb-dark .wb__rule {
+      width: 48px;
+      height: 1px;
+      background: var(--p-gold-mid);
+      margin: 0 0 24px;
+      opacity: 0.6;
+    }
+
+    /* -------- SECTION LABELS (for this showcase page) -------- */
+    .showcase-label {
+      max-width: 760px;
+      margin: 0 auto 18px;
+      padding: 0 clamp(20px, 5vw, 64px);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+    }
+    .wb-dark + .showcase-label,
+    .wb-editorial + .showcase-label {
+      margin-top: 48px;
+    }
+
+    @media (max-width: 640px) {
+      .section { padding: 56px 20px; }
+    }
+    @media (max-width: 430px) {
+      .section { padding: 48px 18px; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <p class="showcase-label" style="margin-top: 48px;">Variant · editorial</p>
+  <section class="section wb-editorial anchor" id="editorial" aria-label="Why block — editorial">
+    <div class="wb__wrap">
+      <p class="wb__eyebrow">Let me be straight with you.</p>
+      <div class="wb__rule" aria-hidden="true"></div>
+      <h2 class="wb__title">
+        Because building a business while raising a family isn't the same as <em>building one at 25</em>.
+      </h2>
+      <p class="wb__body">
+        You don't have 70 hours a week to throw at a funnel.
+      </p>
+      <p class="wb__body">
+        You have <strong>school pickup, dinner on the stove, a nervous system that's been through it</strong>, and a gut feeling that the version of success you've been chasing isn't the one you actually want.
+      </p>
+      <p class="wb__body">
+        I built this for the woman who's done pretending. The one who knows she's meant for more, and refuses to burn down her life to reach it. <em>Freedom Filled®</em> means your business serves your life, not the other way around.
+      </p>
+      <p class="wb__sig">Xx Tracy</p>
+    </div>
+  </section>
+
+  <p class="showcase-label">Variant · dark</p>
+  <section class="section wb-dark anchor" id="dark" aria-label="Why block — dark">
+    <div class="wb__wrap">
+      <p class="wb__eyebrow">Here's the truth I keep coming back to.</p>
+      <div class="wb__rule" aria-hidden="true"></div>
+      <h2 class="wb__title">
+        Most women don't need another <em>strategy stack</em>. They need a strategy that fits their life.
+      </h2>
+      <p class="wb__body">
+        You've done the courses. You've bookmarked the posts. You've got enough tabs open to sink a laptop.
+      </p>
+      <p class="wb__body">
+        The problem was never a lack of information. It was a lack of <strong>a container built for how you actually work</strong>. Four-day weeks. School holidays. Seasons when life gets loud.
+      </p>
+      <p class="wb__body">
+        <em>Freedom Filled®</em> is built around the real rhythm of your week, not someone else's hustle calendar. That's why it actually lands.
+      </p>
+      <p class="wb__sig">Xx Tracy</p>
+    </div>
+  </section>
+
+</body>
+</html>

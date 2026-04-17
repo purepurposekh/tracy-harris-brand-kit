@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Content Section — Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .section {
+      padding: clamp(56px, 6vw, 96px) clamp(20px, 5vw, 64px);
+      background: var(--p-oatmeal);
+    }
+
+    .article {
+      max-width: 62ch;
+      margin: 0 auto;
+    }
+
+    /* -------- HEADER -------- */
+    .article__meta {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--p-aztek);
+      margin: 0 0 18px;
+    }
+    .article__h1 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(34px, 4.4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--p-charcoal);
+      margin: 0 0 16px;
+    }
+    .article__h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .article__byline {
+      font-size: 13px;
+      color: var(--p-mute);
+      margin: 0 0 44px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(30,55,53,0.12);
+    }
+    .article__byline span + span::before { content: "·"; margin: 0 10px; opacity: 0.5; }
+
+    /* -------- PROSE -------- */
+    .article p {
+      font-family: var(--f-sans);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--p-ink);
+      margin: 0 0 24px;
+    }
+    .article p em { font-family: var(--f-serif-italic); font-style: italic; }
+    .article p strong { color: var(--p-charcoal); font-weight: 600; }
+
+    /* DROP CAP on first paragraph */
+    .article__lead::first-letter {
+      font-family: var(--f-serif-display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 72px;
+      line-height: 0.88;
+      color: var(--p-aztek);
+      float: left;
+      padding: 6px 12px 0 0;
+      margin: 0;
+    }
+
+    /* SUBHEADING H2 */
+    .article h2 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(24px, 2.6vw, 30px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--p-charcoal);
+      margin: 44px 0 18px;
+    }
+    .article h2 em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    .article h3 {
+      font-family: var(--f-sans);
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--p-charcoal);
+      margin: 32px 0 12px;
+    }
+
+    /* PULL QUOTE */
+    .pullquote {
+      margin: 44px 0;
+      padding: 20px 0 20px 32px;
+      border-left: 2px solid var(--p-sage);
+    }
+    .pullquote blockquote {
+      font-family: var(--f-script);
+      font-size: clamp(28px, 3.4vw, 42px);
+      line-height: 1.2;
+      color: var(--p-charcoal);
+      margin: 0 0 14px;
+      font-style: normal;
+    }
+    .pullquote cite {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      font-style: normal;
+    }
+
+    /* INLINE IMAGE */
+    figure.article__figure {
+      margin: 44px 0;
+    }
+    figure.article__figure .figure__img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, var(--p-sage), var(--p-aztek));
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    figure.article__figure .figure__img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(246,244,241,0.2), transparent 45%),
+        radial-gradient(circle at 70% 75%, rgba(201,164,108,0.18), transparent 45%);
+    }
+    figure.article__figure figcaption {
+      font-size: 13px;
+      color: var(--p-mute);
+      line-height: 1.5;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* LIST */
+    .article ul,
+    .article ol {
+      padding-left: 22px;
+      margin: 0 0 24px;
+    }
+    .article li {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--p-ink);
+      margin-bottom: 10px;
+    }
+
+    /* SIG LINE */
+    .article__sig {
+      font-family: var(--f-script);
+      font-size: 34px;
+      color: var(--p-charcoal);
+      line-height: 1;
+      margin: 40px 0 8px;
+    }
+
+    /* AUTHOR BIO BLOCK */
+    .author-bio {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 24px;
+      align-items: start;
+      margin: 56px 0 0;
+      padding: 32px 28px;
+      background: var(--p-cream);
+      border-radius: 14px;
+    }
+    .author-bio__photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: url("../../../assets/photos/tracy-outfit8-39.jpg") center 20% / cover;
+      background-color: var(--p-sage);
+      flex-shrink: 0;
+    }
+    .author-bio__name {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--p-charcoal);
+      margin: 0 0 6px;
+    }
+    .author-bio__name em { font-family: var(--f-serif-italic); font-style: italic; }
+    .author-bio__blurb {
+      font-family: var(--f-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--p-ink);
+      margin: 0 0 14px;
+    }
+    .author-bio__social {
+      display: flex;
+      gap: 12px;
+    }
+    .author-bio__social a {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(30,55,53,0.25);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--p-aztek);
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .author-bio__social a:hover {
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+      border-color: var(--p-aztek);
+    }
+    .author-bio__social svg { width: 14px; height: 14px; }
+
+    @media (max-width: 640px) {
+      .article__lead::first-letter { font-size: 56px; }
+      .author-bio { grid-template-columns: 64px 1fr; gap: 18px; padding: 22px; }
+      .author-bio__photo { width: 64px; height: 64px; }
+      .pullquote { padding-left: 20px; }
+    }
+    @media (max-width: 430px) {
+      .section { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <section class="section anchor" id="default" aria-label="Content section">
+    <article class="article">
+
+      <p class="article__meta">Strategy</p>
+      <h1 class="article__h1">What nobody tells you about <em>peaceful scale</em>.</h1>
+      <p class="article__byline">
+        <span>By Tracy Harris</span>
+        <span>April 14, 2026</span>
+        <span>8 min read</span>
+      </p>
+
+      <p class="article__lead">
+        Seven years ago I sold my first mastermind seat. A woman I'd never met wired $18,000 into my account on a Tuesday afternoon, while I was folding washing with one eye on my toddler. I remember standing in the laundry and feeling two things at once. <em>Wonder</em>, that this was actually possible. And <strong>terror</strong>, that I now had to deliver.
+      </p>
+
+      <p>
+        That was the beginning of what I now call peaceful scale. Back then I didn't have a name for it. I just knew I didn't want to grow a business that required me to disappear from my own life.
+      </p>
+
+      <h2>The myth of the <em>seven-figure hustle</em>.</h2>
+
+      <p>
+        There's a story we've all been sold: to hit seven figures, you need seven-figure hours. You need the 5am club, the 80-hour week, the "sleep when you're dead" ethos. For some women, that story works. For most of the women I coach, it's the thing quietly killing them.
+      </p>
+
+      <div class="pullquote">
+        <blockquote>Scaling peacefully means you get to keep <em>yourself</em> as you grow.</blockquote>
+        <cite>— Tracy Harris</cite>
+      </div>
+
+      <p>
+        The women in my Freedom Filled® Mastermind aren't working 80-hour weeks. Most are working four days, taking a full week off each month, and still adding <strong>six figures of revenue per year</strong> to their businesses. How? Because we optimised for the right thing from the start.
+      </p>
+
+      <figure class="article__figure">
+        <div class="figure__img" role="img" aria-label="A laptop on a linen-covered table with a ceramic mug beside it"></div>
+        <figcaption>Most of my best business decisions have been made at this exact table, with this exact cup of tea. Peaceful scale starts in the ordinary moments.</figcaption>
+      </figure>
+
+      <h2>Three rules I won't break.</h2>
+
+      <p>
+        Over seven years of scaling, these are the three principles I've refused to trade away, even when the short-term numbers tempted me to.
+      </p>
+
+      <ol>
+        <li><strong>One signature offer.</strong> I resist the pull to add more, more, more. Less, sharper, deeper.</li>
+        <li><strong>A four-day week.</strong> Fridays are Freedom Fridays. For reflection, rest, or the things that don't fit a work calendar.</li>
+        <li><strong>A week off every month.</strong> Non-negotiable. My team runs the container while I rest.</li>
+      </ol>
+
+      <h3>What this looks like in practice.</h3>
+
+      <p>
+        It means saying no to opportunities that would require me to break these rules, even good ones. It means trusting that the right-fit women will still find me. It means letting the business serve the life, not the other way around.
+      </p>
+
+      <p>
+        Seven years in, I can tell you: it works. Not because it's easy. Because it's <em>stewarded</em>.
+      </p>
+
+      <p class="article__sig">Xx Tracy</p>
+
+      <!-- AUTHOR BIO -->
+      <aside class="author-bio" aria-label="About the author">
+        <div class="author-bio__photo" role="img" aria-label="Tracy Harris portrait"></div>
+        <div>
+          <p class="author-bio__name">Tracy <em>Harris</em></p>
+          <p class="author-bio__blurb">
+            Founder of Tracy Harris Co, host of the Mums With Hustle Podcast, and creator of Freedom Filled® Business™ Mentorship. Helps women build beautiful, <em>Freedom Filled®</em> businesses that serve their lives. Based between Australia and Bali.
+          </p>
+          <div class="author-bio__social">
+            <a href="https://instagram.com/tracyharrisco" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://tracyharris.co" aria-label="Website">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </a>
+            <a href="/podcast" aria-label="Podcast">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </article>
+  </section>
+
+</body>
+</html>
