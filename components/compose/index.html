@@ -301,21 +301,22 @@
     .tile__thumb {
       position: relative;
       width: 100%;
-      aspect-ratio: 1400 / 880;
+      /* Height is set by JS fitThumb() based on iframe source aspect. */
+      height: 220px;
       overflow: hidden;
       background: var(--p-oatmeal);
       border-bottom: 1px solid var(--border-hairline);
-      transition: aspect-ratio 220ms ease, height 220ms ease;
+      transition: height 220ms ease;
     }
     .tile__thumb iframe {
       position: absolute;
       top: 0;
       left: 0;
       border: 0;
+      /* Width/height/transform are all set by JS fitThumb(). These are
+         sensible fallbacks in case JS is late or disabled. */
       width: 1400px;
       height: 880px;
-      /* Auto-fit scale is set by JS via ResizeObserver so iframes always
-         fill the tile width regardless of grid column size. */
       transform: scale(0.3);
       transform-origin: top left;
       pointer-events: none;
@@ -366,25 +367,10 @@
       --card-preview-scale: 0.17;
     }
 
-    /* Mobile mode: tiles shrink + flip tall. Compose tiles only.
-       Scale is set by JS fitThumbs() which reads iframe width from the
-       data-iframe-w attr on the thumb. */
-    body[data-preview-mode="mobile"] .tile__thumb {
-      aspect-ratio: 390 / 844;
-    }
-    body[data-preview-mode="mobile"] .tile__thumb iframe {
-      width: 390px;
-      height: 844px;
-    }
+    /* Mobile preview mode: grid re-flows to narrower tiles. JS handles
+       the iframe dimension swap (1400x880 -> 390x844). */
     body[data-preview-mode="mobile"] .tiles {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-    body[data-preview-mode="mobile"] .preset-slot__thumb {
-      aspect-ratio: 390 / 844;
-    }
-    body[data-preview-mode="mobile"] .preset-slot__thumb iframe {
-      width: 390px;
-      height: 844px;
     }
 
     /* Both mode: tile thumb becomes a 2-col flex of mini iframes. */
@@ -1148,10 +1134,11 @@
     .preset-slot__thumb {
       position: relative;
       width: 100%;
-      aspect-ratio: 1360 / 800;
+      /* Height set by JS fitThumb() */
+      height: 200px;
       background: var(--p-oatmeal);
       overflow: hidden;
-      transition: aspect-ratio 220ms ease;
+      transition: height 220ms ease;
     }
     .preset-slot__thumb iframe {
       position: absolute;
@@ -1160,7 +1147,6 @@
       border: 0;
       width: 1360px;
       height: 800px;
-      /* Auto-fit scale is set by JS fitThumbs(). */
       transform: scale(0.25);
       transform-origin: top left;
       pointer-events: none;
@@ -4173,56 +4159,71 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       bindToggle('mobilePreviewBar');
 
       // ------------------------------------------------------------------
-      // Auto-fit thumbnails: set transform: scale on each iframe so it
-      // fills the thumb container width perfectly. Responds to resize.
+      // Thumbnail fitting — sets BOTH the thumb height AND the iframe
+      // transform deterministically. The iframe is rendered at its full
+      // src dimensions internally (so variant HTML CSS sees a desktop
+      // viewport); it's then visually scaled to fill the thumb's width,
+      // and the thumb's height is set to match the scaled iframe height.
+      //
+      // Runs on:
+      //  - initial page render
+      //  - window resize (via ResizeObserver)
+      //  - new tiles added to the DOM (via MutationObserver)
+      //  - preview-mode flips (applyMode() calls __thcRefitThumbs)
       // ------------------------------------------------------------------
-      var fitRO = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function (entries) {
-        entries.forEach(function (e) {
-          var el = e.target;
-          var iframe = el.querySelector('iframe');
-          if (!iframe) return;
-          var w = e.contentRect.width;
-          var srcW = parseFloat(el.getAttribute('data-iframe-w')) || 1400;
-          if (w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
-        });
-      }) : null;
-      function tagAndObserve(el) {
-        if (el.dataset.fitObserved === '1') return;
-        el.dataset.fitObserved = '1';
-        var cls = el.className || '';
-        var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
-        var srcW;
-        if (cls.indexOf('preset-slot__thumb') !== -1) srcW = isMobileMode ? 390 : 1360;
-        else srcW = isMobileMode ? 390 : 1400;
-        el.setAttribute('data-iframe-w', srcW);
-        if (fitRO) fitRO.observe(el);
-        // Immediate sync in case RO fires later
+      function thumbSrcDims(el) {
+        var isBoth = document.body.getAttribute('data-preview-mode') === 'both';
+        if (isBoth) return null; // both-mode uses its own pane layout
+        var isMobile = document.body.getAttribute('data-preview-mode') === 'mobile';
+        if (el.classList.contains('preset-slot__thumb')) {
+          return isMobile ? { w: 390, h: 844 } : { w: 1360, h: 800 };
+        }
+        return isMobile ? { w: 390, h: 844 } : { w: 1400, h: 880 };
+      }
+      function fitThumb(el) {
+        var dims = thumbSrcDims(el);
+        if (!dims) return; // both-mode: skip
+        var iframe = el.querySelector(':scope > iframe');
+        if (!iframe) return;
         var w = el.getBoundingClientRect().width;
-        var iframe = el.querySelector('iframe');
-        if (iframe && w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+        if (w <= 0) return;
+        var scale = w / dims.w;
+        var h = Math.round(dims.h * scale);
+        el.style.height = h + 'px';
+        iframe.style.width = dims.w + 'px';
+        iframe.style.height = dims.h + 'px';
+        iframe.style.transform = 'scale(' + scale + ')';
+        iframe.style.transformOrigin = 'top left';
+      }
+      var fitRO = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function (entries) {
+        entries.forEach(function (e) { fitThumb(e.target); });
+      }) : null;
+      function observeThumb(el) {
+        if (el.dataset.fitObserved === '1') { fitThumb(el); return; }
+        el.dataset.fitObserved = '1';
+        if (fitRO) fitRO.observe(el);
+        fitThumb(el);
       }
       window.__thcFitThumbs = function () {
-        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(tagAndObserve);
+        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(observeThumb);
       };
-      // Refresh all scales when preview-mode flips (mobile vs desktop
-      // changes the source iframe width).
       window.__thcRefitThumbs = function () {
-        var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
-        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(function (el) {
-          var cls = el.className || '';
-          var srcW;
-          if (cls.indexOf('preset-slot__thumb') !== -1) srcW = isMobileMode ? 390 : 1360;
-          else srcW = isMobileMode ? 390 : 1400;
-          el.setAttribute('data-iframe-w', srcW);
-          var w = el.getBoundingClientRect().width;
-          var iframe = el.querySelector('iframe');
-          if (iframe && w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
-        });
+        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(fitThumb);
       };
-      // Observe DOM for new thumbs (tiles are rendered by JS after preset/
-      // page-type filters re-render).
-      new MutationObserver(function () {
-        window.__thcFitThumbs();
+      // Watch for new thumbs (rendered by JS after preset/filter changes).
+      new MutationObserver(function (muts) {
+        for (var i = 0; i < muts.length; i++) {
+          var added = muts[i].addedNodes;
+          for (var j = 0; j < added.length; j++) {
+            var n = added[j];
+            if (n.nodeType !== 1) continue;
+            if (n.matches && (n.matches('.tile__thumb') || n.matches('.preset-slot__thumb'))) {
+              observeThumb(n);
+            } else if (n.querySelectorAll) {
+              n.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(observeThumb);
+            }
+          }
+        }
       }).observe(document.body, { childList: true, subtree: true });
       window.__thcFitThumbs();
       window.addEventListener('load', window.__thcFitThumbs);
