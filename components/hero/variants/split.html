@@ -88,13 +88,17 @@
       background: var(--p-charcoal);
     }
 
-    /* Photo layer: full-bleed, positioned so Tracy is centered within the RIGHT half */
+    /* Photo layer: full-bleed, zoomed wider than viewport so Tracy's center
+       lands at ~75% of viewport width (centre of the right quadrant).
+       Math: with background-size: 180% auto, position 19% places a subject
+       that's at 50% of the image at 75% of the container, at any viewport width. */
     .shero__image {
       position: absolute;
       inset: 0;
       background-image: url("../../../assets/photos/tracy-outfit8-39.jpg");
-      background-size: cover;
-      background-position: 92% 28%;
+      background-size: 180% auto;
+      background-position: 19% 28%;
+      background-repeat: no-repeat;
       filter: saturate(0.95) contrast(1.02);
       z-index: 1;
     }
