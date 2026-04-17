@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Moodboard · Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/fonts.css" />
+  <link rel="stylesheet" href="../styles/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 32px 96px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      margin: 0 0 16px 0;
+    }
+    h1 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(44px, 5.5vw, 72px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 16px 0;
+      color: var(--p-aztek);
+    }
+    h1 em { font-style: italic; }
+    .intro {
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 64ch;
+      margin: 0 0 48px 0;
+      color: var(--p-ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+    .card {
+      background: var(--p-cream);
+      border: 1px solid rgba(110, 142, 119, 0.35);
+      border-radius: 24px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--p-sage);
+    }
+    .card .rank {
+      font-family: var(--f-serif-display);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--p-sage);
+      margin-bottom: 8px;
+    }
+    .card h2 {
+      font-family: var(--f-serif-display);
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 8px 0;
+      color: var(--p-aztek);
+      letter-spacing: -0.01em;
+    }
+    .card h2 em { font-style: italic; }
+    .card .tagline {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--p-mute);
+      margin: 0 0 20px 0;
+    }
+    .card .shot {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--p-oatmeal);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .card .shot iframe,
+    .card .shot img {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      object-fit: cover;
+    }
+    .card .shot .label {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 8px 12px;
+      background: linear-gradient(to top, rgba(30,55,53,0.78), rgba(30,55,53,0));
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .card .notes {
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0 0 16px 0;
+    }
+    .card .notes strong { color: var(--p-aztek); font-weight: 600; }
+    .card .meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(110, 142, 119, 0.2);
+      font-size: 13px;
+    }
+    .card .meta .complexity {
+      color: var(--p-mute);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .card .meta .link {
+      color: var(--p-aztek);
+      font-weight: 500;
+    }
+
+    /* Bento sizing */
+    .card.big   { grid-column: span 8; }
+    .card.mid   { grid-column: span 6; }
+    .card.small { grid-column: span 4; }
+    @media (max-width: 960px) {
+      .card.big, .card.mid, .card.small { grid-column: span 12; }
+    }
+
+    .divider {
+      grid-column: span 12;
+      border: 0;
+      height: 1px;
+      background: rgba(110, 142, 119, 0.3);
+      margin: 32px 0 8px;
+    }
+    .section-title {
+      grid-column: span 12;
+      font-family: var(--f-serif-display);
+      font-style: italic;
+      font-size: 28px;
+      color: var(--p-aztek);
+      margin: 0 0 8px 0;
+      font-weight: 400;
+    }
+    .avoid .card {
+      background: #f0ebe2;
+      border-color: rgba(202, 107, 77, 0.35);
+    }
+    .avoid .card h2 { color: #8a3a1f; }
+    .avoid .card .rank { color: #ca6b4d; }
+
+    .rec {
+      grid-column: span 12;
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+      border-radius: 24px;
+      padding: 40px 44px;
+      margin-top: 24px;
+    }
+    .rec h3 {
+      font-family: var(--f-serif-display);
+      font-size: 40px;
+      font-weight: 400;
+      margin: 0 0 12px 0;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .rec h3 em { font-style: italic; }
+    .rec p {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 72ch;
+      margin: 0 0 12px 0;
+      color: rgba(246, 244, 241, 0.88);
+    }
+    .rec a { color: var(--p-gold-mid); font-weight: 500; }
+
+    .foot {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(110, 142, 119, 0.3);
+      font-size: 13px;
+      color: var(--p-mute);
+    }
+    .foot a { color: var(--p-aztek); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Research · 2026-04-17</p>
+    <h1>Dashboard <em>moodboard</em></h1>
+    <p class="intro">
+      Five picks for how the Tracy Harris Co internal dashboard could look and feel. Ranked by fit to the brief: clean, professional, whitespace-heavy, bento. Grown-up, not playtoy. Editorial, not Bloomberg.
+    </p>
+
+    <div class="grid">
+
+      <!-- 1. Linear -->
+      <a class="card big" href="https://linear.app/now/dashboards-best-practices" target="_blank" rel="noopener">
+        <div class="rank">pick 01 · top recommendation</div>
+        <h2>Linear <em>Dashboards</em></h2>
+        <p class="tagline">Calm monochrome with a single restrained accent. 2026 UI refresh shifted to warmer grays. Bento cards with generous air.</p>
+        <div class="shot">
+          <img src="https://linear.app/_next/image?url=%2Fnow%2Fdashboards-best-practices%2Fhero.webp&w=1920&q=90" alt="Linear Dashboards hero screenshot" onerror="this.style.display='none'" />
+          <span class="label">linear.app/now/dashboards-best-practices</span>
+        </div>
+        <p class="notes">
+          <strong>Why it fits:</strong> every axis of Karl's brief. Bento, whitespace, restrained palette, grown-up type. Their changelog already uses bento sizing to signal importance, exactly the pattern for KPIs.<br><br>
+          <strong>Tracy adaptation:</strong> Linear's cool gray to oatmeal canvas. Cream cards + sage hairlines. Aztek green as the single accent. Editors Note serif for the hero numbers (56 to 72px). Poppins everywhere else.
+        </p>
+        <div class="meta">
+          <span class="complexity">complexity · S</span>
+          <span class="link">Visit linear.app/now &rarr;</span>
+        </div>
+      </a>
+
+      <!-- 2. Vercel -->
+      <a class="card small" href="https://vercel.com/blog/dashboard-redesign" target="_blank" rel="noopener">
+        <div class="rank">pick 02</div>
+        <h2>Vercel <em>Dashboard</em></h2>
+        <p class="tagline">Pure mono, Geist, sidebar-led. The platonic ideal of clean + serious.</p>
+        <div class="shot">
+          <img src="https://vercel.com/api/og?title=Dashboard%20redesign&amp;type=blog" alt="Vercel dashboard redesign" onerror="this.style.display='none'" />
+          <span class="label">vercel.com/blog/dashboard-redesign</span>
+        </div>
+        <p class="notes">
+          <strong>Why it fits:</strong> restraint benchmark. Karl will see it and go "that."<br>
+          <strong>Adapt:</strong> black to aztek green, white to cream, Geist to Poppins + Editors Note italic for section heads.
+        </p>
+        <div class="meta">
+          <span class="complexity">complexity · M</span>
+          <span class="link">vercel.com &rarr;</span>
+        </div>
+      </a>
+
+      <!-- 3. Stripe -->
+      <a class="card small" href="https://www.saasframe.io/examples/stripe-payments-dashboard" target="_blank" rel="noopener">
+        <div class="rank">pick 03</div>
+        <h2>Stripe <em>Dashboard</em></h2>
+        <p class="tagline">Editorial typography, big numbers, tables done right. Looks expensive without trying.</p>
+        <div class="shot">
+          <img src="https://www.saasframe.io/_next/image?url=%2Fimages%2Fexamples%2Fstripe-payments-dashboard.png&w=1920&q=85" alt="Stripe dashboard reference" onerror="this.style.display='none'" />
+          <span class="label">saasframe.io · stripe</span>
+        </div>
+        <p class="notes">
+          <strong>Why it fits:</strong> polished without being corporate. Tracy is a premium brand.<br>
+          <strong>Adapt:</strong> big-number-small-label pattern. Gold delta arrows. Tables 14px Poppins, hairlines only.
+        </p>
+        <div class="meta">
+          <span class="complexity">complexity · M</span>
+          <span class="link">dashboard.stripe.com &rarr;</span>
+        </div>
+      </a>
+
+      <!-- 4. Plausible -->
+      <a class="card mid" href="https://plausible.io/plausible.io" target="_blank" rel="noopener">
+        <div class="rank">pick 04</div>
+        <h2>Plausible <em>Analytics</em></h2>
+        <p class="tagline">Single page, no sub-menus, sparse and confident. Open-source, deeply un-toylike.</p>
+        <div class="shot">
+          <img src="https://plausible.io/assets/images/screenshot-1240x672-93b6a7e8.png" alt="Plausible analytics dashboard" onerror="this.style.display='none'" />
+          <span class="label">plausible.io/plausible.io · live demo</span>
+        </div>
+        <p class="notes">
+          <strong>Why it fits:</strong> whitespace philosophy taken to its logical end.<br>
+          <strong>Adapt:</strong> keep the single-page structure. Blue to sage. Add an Editors Note italic header band for personality.
+        </p>
+        <div class="meta">
+          <span class="complexity">complexity · S</span>
+          <span class="link">plausible.io &rarr;</span>
+        </div>
+      </a>
+
+      <!-- 5. Cal.com -->
+      <a class="card mid" href="https://design.cal.com/" target="_blank" rel="noopener">
+        <div class="rank">pick 05</div>
+        <h2>Cal.com <em>+ design system</em></h2>
+        <p class="tagline">Warmer than Linear/Vercel but still grown-up. Empty states with personality.</p>
+        <div class="shot">
+          <img src="https://cal.com/api/og?type=generic&title=Design%20System" alt="Cal.com design system" onerror="this.style.display='none'" />
+          <span class="label">design.cal.com</span>
+        </div>
+        <p class="notes">
+          <strong>Why it fits:</strong> closest to Tracy's brand temperature. Warm, human, not cute.<br>
+          <strong>Adapt:</strong> rewrite empty states in Tracy's voice. Borrow card sizing.
+        </p>
+        <div class="meta">
+          <span class="complexity">complexity · S to M</span>
+          <span class="link">cal.com &rarr;</span>
+        </div>
+      </a>
+
+      <hr class="divider" />
+      <h2 class="section-title">What to <em>avoid</em></h2>
+
+      <div class="avoid" style="grid-column: span 12; display: contents;">
+
+        <a class="card small" href="https://medium.com/@studie-gelatine0z/neumorphism-dashboard-design-21e0aecc5356" target="_blank" rel="noopener">
+          <div class="rank">avoid · 01</div>
+          <h2>Neumorphism</h2>
+          <p class="tagline">Puffy soft shadows, low contrast, toy aesthetic.</p>
+          <p class="notes">This is the literal "playtoy, kid-like" Karl is calling out. Accessibility nightmare.</p>
+          <div class="meta"><span class="complexity">do not</span><span class="link">reference &rarr;</span></div>
+        </a>
+
+        <a class="card small" href="https://www.datadoghq.com/dashboards/" target="_blank" rel="noopener">
+          <div class="rank">avoid · 02</div>
+          <h2>Datadog density</h2>
+          <p class="tagline">14 charts, 12 colours, Bloomberg terminal energy.</p>
+          <p class="notes">Tracy tracks ~20 numbers that matter, not 200. Density signals "engineer built this for myself."</p>
+          <div class="meta"><span class="complexity">do not</span><span class="link">reference &rarr;</span></div>
+        </a>
+
+        <a class="card small" href="https://tailadmin.com/blog/saas-dashboard-templates" target="_blank" rel="noopener">
+          <div class="rank">avoid · 03</div>
+          <h2>SaaS template look</h2>
+          <p class="tagline">Purple-pink gradients, rainbow charts, "Welcome back, John 👋".</p>
+          <p class="notes">Reads as "I downloaded a template." Generic 2024 startup aesthetic, a tier below Tracy's brand.</p>
+          <div class="meta"><span class="complexity">do not</span><span class="link">reference &rarr;</span></div>
+        </a>
+
+      </div>
+
+      <!-- Recommendation -->
+      <div class="rec">
+        <h3>The call: <em>go Linear</em></h3>
+        <p>Linear's 2026 refresh is the cleanest 1:1 match for the brief on every axis, and the lowest-effort path from where the dashboard sits today. It is shadcn cards, more air, fewer colours, bigger numbers.</p>
+        <p><strong style="color:#fff">Moves:</strong> card padding 16 to 32px · grid gap 16 to 24px · hero metrics in Editors Note serif at 56 to 72px · cut palette to oatmeal + cream + aztek + gold + sage · kill drop shadows, use 1px sage hairlines · asymmetric bento (2/3 hero + three 1/3 tiles beneath) · Recharts to single-colour lines, no gridlines.</p>
+        <p>1 to 2 days of polish. Not a rebuild. Ship, look, iterate. <a href="./dashboard-moodboard-2026-04-17.md">Full writeup &rarr;</a></p>
+      </div>
+
+    </div>
+
+    <p class="foot">
+      Sources: <a href="https://linear.app/now/dashboards-best-practices">Linear</a> · <a href="https://vercel.com/blog/dashboard-redesign">Vercel</a> · <a href="https://www.saasframe.io/examples/stripe-payments-dashboard">Stripe ref</a> · <a href="https://plausible.io/plausible.io">Plausible live demo</a> · <a href="https://design.cal.com/">Cal.com</a> · <a href="https://www.saasframe.io/blog/designing-bento-grids-that-actually-work-a-2026-practical-guide">SaaSFrame bento 2026</a> · <a href="https://think.design/blog/dashboard-design-in-2026-dos-and-donts/">think.design</a>.
+      Curated for Karl Harris, Tracy Harris Co. Kira, 2026-04-17.
+    </p>
+  </div>
+</body>
+</html>
