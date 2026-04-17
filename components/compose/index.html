@@ -562,6 +562,41 @@
       display: none !important;
     }
 
+    /* approvals status styling on tiles */
+    .tile[data-approval="rejected"] {
+      display: none !important;
+    }
+    .tile[data-approval="revise"] {
+      opacity: 0.55;
+    }
+    .tile__approval-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      color: var(--ink-mute);
+      pointer-events: none;
+    }
+    .tile__approval-badge--approved {
+      background: var(--p-sage);
+      border-color: var(--p-sage);
+      color: var(--p-white);
+    }
+    .tile__approval-badge--revise {
+      background: var(--p-gold-mid);
+      border-color: var(--p-gold-dark);
+      color: var(--p-charcoal);
+    }
+
     @media (max-width: 640px) {
       .pt-btn--show-all { margin-left: 0; }
     }
@@ -1041,6 +1076,62 @@
     }
 
     renderPtButtons();
+
+    // ----------------------------------------------------------------------
+    // Approvals integration (Track 3)
+    // On boot, fetch ../review/approvals.json. Apply status to each tile:
+    //  - rejected  => hidden (display:none via CSS)
+    //  - revise    => dimmed + "Needs work" gold badge
+    //  - approved  => sage "Approved" pill
+    //  - unreviewed (not in file) => normal, no pill
+    // Empty {} treats every variant as unreviewed. Missing file = same.
+    // Does not change how /review/ works - just consumes its output.
+    // ----------------------------------------------------------------------
+    async function loadApprovals() {
+      try {
+        const res = await fetch('../review/approvals.json', { cache: 'no-store' });
+        if (!res.ok) return {};
+        const json = await res.json();
+        return (json && typeof json === 'object') ? json : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function applyApprovalsToDOM(approvals) {
+      document.querySelectorAll('.tile[data-variant-id]').forEach(tile => {
+        const vid = tile.dataset.variantId;
+        const entry = approvals[vid];
+
+        // Clean any existing badge first
+        const existing = tile.querySelector('.tile__approval-badge');
+        if (existing) existing.remove();
+
+        if (!entry || !entry.status) {
+          tile.dataset.approval = 'unreviewed';
+          return;
+        }
+        tile.dataset.approval = entry.status;
+
+        if (entry.status === 'approved') {
+          const badge = document.createElement('span');
+          badge.className = 'tile__approval-badge tile__approval-badge--approved';
+          badge.textContent = 'Approved';
+          tile.querySelector('.tile__thumb').appendChild(badge);
+        } else if (entry.status === 'revise') {
+          const badge = document.createElement('span');
+          badge.className = 'tile__approval-badge tile__approval-badge--revise';
+          badge.textContent = 'Needs work';
+          tile.querySelector('.tile__thumb').appendChild(badge);
+        }
+        // rejected: CSS rule [data-approval="rejected"] hides the tile
+      });
+    }
+
+    (async function initApprovals() {
+      const approvals = await loadApprovals();
+      applyApprovalsToDOM(approvals);
+    })();
 
     // ----------------------------------------------------------------------
     // Selection handling
