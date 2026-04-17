@@ -305,7 +305,6 @@
       overflow: hidden;
       background: var(--p-oatmeal);
       border-bottom: 1px solid var(--border-hairline);
-      container-type: inline-size;
       transition: aspect-ratio 220ms ease, height 220ms ease;
     }
     .tile__thumb iframe {
@@ -315,8 +314,9 @@
       border: 0;
       width: 1400px;
       height: 880px;
-      /* Auto-fit: scale the 1400px iframe to fill 100% of the tile width. */
-      transform: scale(calc(100cqi / 1400));
+      /* Auto-fit scale is set by JS via ResizeObserver so iframes always
+         fill the tile width regardless of grid column size. */
+      transform: scale(0.3);
       transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
@@ -366,26 +366,25 @@
       --card-preview-scale: 0.17;
     }
 
-    /* Mobile mode: tiles shrink + flip tall. Compose tiles only. */
+    /* Mobile mode: tiles shrink + flip tall. Compose tiles only.
+       Scale is set by JS fitThumbs() which reads iframe width from the
+       data-iframe-w attr on the thumb. */
     body[data-preview-mode="mobile"] .tile__thumb {
       aspect-ratio: 390 / 844;
     }
     body[data-preview-mode="mobile"] .tile__thumb iframe {
       width: 390px;
       height: 844px;
-      transform: scale(calc(100cqi / 390));
     }
     body[data-preview-mode="mobile"] .tiles {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
     body[data-preview-mode="mobile"] .preset-slot__thumb {
       aspect-ratio: 390 / 844;
-      height: auto;
     }
     body[data-preview-mode="mobile"] .preset-slot__thumb iframe {
       width: 390px;
       height: 844px;
-      transform: scale(calc(100cqi / 390));
     }
 
     /* Both mode: tile thumb becomes a 2-col flex of mini iframes. */
@@ -1152,7 +1151,6 @@
       aspect-ratio: 1360 / 800;
       background: var(--p-oatmeal);
       overflow: hidden;
-      container-type: inline-size;
       transition: aspect-ratio 220ms ease;
     }
     .preset-slot__thumb iframe {
@@ -1162,7 +1160,8 @@
       border: 0;
       width: 1360px;
       height: 800px;
-      transform: scale(calc(100cqi / 1360));
+      /* Auto-fit scale is set by JS fitThumbs(). */
+      transform: scale(0.25);
       transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
@@ -4019,6 +4018,11 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
 
         // Rebuild thumb panes for Both, or clean up if leaving Both.
         updateThumbPanes(effective);
+
+        // Refit iframe scales (source width changes between desktop/mobile).
+        if (window.__thcRefitThumbs) {
+          setTimeout(window.__thcRefitThumbs, 30);
+        }
       }
 
       // Both mode needs two iframes per thumb. We inject/remove pane markup
@@ -4167,6 +4171,61 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       bindToggle('sbPreviewSizeToggle');
       bindToggle('sheetPreviewSizeToggle');
       bindToggle('mobilePreviewBar');
+
+      // ------------------------------------------------------------------
+      // Auto-fit thumbnails: set transform: scale on each iframe so it
+      // fills the thumb container width perfectly. Responds to resize.
+      // ------------------------------------------------------------------
+      var fitRO = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function (entries) {
+        entries.forEach(function (e) {
+          var el = e.target;
+          var iframe = el.querySelector('iframe');
+          if (!iframe) return;
+          var w = e.contentRect.width;
+          var srcW = parseFloat(el.getAttribute('data-iframe-w')) || 1400;
+          if (w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+        });
+      }) : null;
+      function tagAndObserve(el) {
+        if (el.dataset.fitObserved === '1') return;
+        el.dataset.fitObserved = '1';
+        var cls = el.className || '';
+        var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
+        var srcW;
+        if (cls.indexOf('preset-slot__thumb') !== -1) srcW = isMobileMode ? 390 : 1360;
+        else srcW = isMobileMode ? 390 : 1400;
+        el.setAttribute('data-iframe-w', srcW);
+        if (fitRO) fitRO.observe(el);
+        // Immediate sync in case RO fires later
+        var w = el.getBoundingClientRect().width;
+        var iframe = el.querySelector('iframe');
+        if (iframe && w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+      }
+      window.__thcFitThumbs = function () {
+        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(tagAndObserve);
+      };
+      // Refresh all scales when preview-mode flips (mobile vs desktop
+      // changes the source iframe width).
+      window.__thcRefitThumbs = function () {
+        var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
+        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(function (el) {
+          var cls = el.className || '';
+          var srcW;
+          if (cls.indexOf('preset-slot__thumb') !== -1) srcW = isMobileMode ? 390 : 1360;
+          else srcW = isMobileMode ? 390 : 1400;
+          el.setAttribute('data-iframe-w', srcW);
+          var w = el.getBoundingClientRect().width;
+          var iframe = el.querySelector('iframe');
+          if (iframe && w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+        });
+      };
+      // Observe DOM for new thumbs (tiles are rendered by JS after preset/
+      // page-type filters re-render).
+      new MutationObserver(function () {
+        window.__thcFitThumbs();
+      }).observe(document.body, { childList: true, subtree: true });
+      window.__thcFitThumbs();
+      window.addEventListener('load', window.__thcFitThumbs);
 
       // ------------------------------------------------------------------
       // Layout viewport toggle (Device vs Desktop) — swaps the viewport

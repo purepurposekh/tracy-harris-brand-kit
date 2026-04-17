@@ -252,7 +252,6 @@
       background: var(--p-oatmeal);
       border-right: 1px solid var(--border-hairline);
       overflow: hidden;
-      container-type: inline-size;
       transition: aspect-ratio 220ms ease;
     }
     .card__preview iframe {
@@ -262,7 +261,8 @@
       border: 0;
       width: 1440px;
       height: 1000px;
-      transform: scale(calc(100cqi / 1440));
+      /* Auto-fit scale is set by JS fitThumbs() below. */
+      transform: scale(0.34);
       transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
@@ -298,7 +298,6 @@
     body[data-preview-mode="mobile"] .card__preview iframe {
       width: 390px;
       height: 844px;
-      transform: scale(calc(100cqi / 390));
     }
 
     /* Both mode: card preview hosts two panes */
@@ -2238,6 +2237,7 @@
         }
 
         updatePreviewPanes(effective);
+        if (window.__thcRefitCards) setTimeout(window.__thcRefitCards, 30);
       }
 
       // Expose for boot() to call after initial render of cards
@@ -2283,6 +2283,50 @@
       }
       bindToggle('previewSizeToggle');
       bindToggle('mobilePreviewBar');
+
+      // Auto-fit card__preview iframes so they fill the card width.
+      // CSS scale(calc(cqi / N)) can't produce a unitless number, so JS.
+      var fitRO = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function (entries) {
+        entries.forEach(function (e) {
+          var el = e.target;
+          var iframe = el.querySelector('iframe:not(.thumb-pane iframe)');
+          if (!iframe || iframe.closest('.thumb-pane')) {
+            iframe = el.querySelector(':scope > iframe');
+          }
+          if (!iframe) return;
+          var w = e.contentRect.width;
+          var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
+          var srcW = isMobileMode ? 390 : 1440;
+          if (w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+        });
+      }) : null;
+      function tagAndObserve(el) {
+        if (el.dataset.fitObserved === '1') return;
+        el.dataset.fitObserved = '1';
+        if (fitRO) fitRO.observe(el);
+        var iframe = el.querySelector(':scope > iframe');
+        var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
+        var srcW = isMobileMode ? 390 : 1440;
+        var w = el.getBoundingClientRect().width;
+        if (iframe && w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+      }
+      window.__thcFitCards = function () {
+        document.querySelectorAll('.card__preview').forEach(tagAndObserve);
+      };
+      window.__thcRefitCards = function () {
+        var isMobileMode = document.body.getAttribute('data-preview-mode') === 'mobile';
+        var srcW = isMobileMode ? 390 : 1440;
+        document.querySelectorAll('.card__preview').forEach(function (el) {
+          var iframe = el.querySelector(':scope > iframe');
+          if (!iframe) return;
+          var w = el.getBoundingClientRect().width;
+          if (w > 0) iframe.style.transform = 'scale(' + (w / srcW) + ')';
+        });
+      };
+      new MutationObserver(function () { window.__thcFitCards(); })
+        .observe(document.body, { childList: true, subtree: true });
+      window.__thcFitCards();
+      window.addEventListener('load', window.__thcFitCards);
 
       // Layout viewport toggle (Device vs Desktop). Swaps the viewport
       // meta so the page reflows to 1400px. Browser "Request Desktop Site"
