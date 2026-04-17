@@ -201,3 +201,16 @@
   --type-display-color: var(--ink-heading);
   --type-subheading-color: var(--ink-heading);
 }
+
+/* ---------- 4. GLOBAL GUARDRAILS ----------
+   Prevent horizontal scroll + rubber-band bounce on mobile.
+   Any element wider than the viewport gets clipped here.
+   Scope overflow-x: auto inside a wrapper if horizontal scroll is wanted. */
+html, body {
+  overflow-x: hidden;
+  overscroll-behavior-x: contain;
+  max-width: 100vw;
+}
+img, svg, video, iframe {
+  max-width: 100%;
+}
