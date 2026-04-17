@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guarantee · Badge — Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: var(--f-sans); background: var(--p-oatmeal); color: var(--p-charcoal); -webkit-font-smoothing: antialiased; }
+    .page { padding: clamp(14px, 1.6vw, 24px); }
+
+    .badge-card { background: var(--p-aztek); color: var(--p-oatmeal); border-radius: 14px; padding: clamp(48px, 6vw, 72px) clamp(24px, 5vw, 56px); max-width: 720px; margin: 0 auto 32px; display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 48px); align-items: center; position: relative; overflow: hidden; }
+    .badge-card::after { content: ""; position: absolute; inset: -30% auto auto -20%; width: 380px; height: 380px; background: radial-gradient(circle, rgba(110,142,119,0.18) 0%, transparent 70%); pointer-events: none; }
+
+    .badge { position: relative; z-index: 1; width: clamp(140px, 16vw, 180px); aspect-ratio: 1 / 1; border-radius: 50%; background: var(--p-oatmeal); color: var(--p-aztek); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 16px; box-shadow: 0 14px 32px rgba(0,0,0,0.18); border: 2px solid var(--p-oatmeal); outline: 2px dashed rgba(246,244,241,0.35); outline-offset: 8px; }
+    .badge__num { font-family: var(--f-serif-display); font-weight: 400; font-size: clamp(40px, 5vw, 54px); line-height: 1; color: var(--p-aztek); margin: 0; }
+    .badge__unit { font-family: var(--f-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; margin: 4px 0 10px; }
+    .badge__line { width: 30px; height: 1px; background: var(--p-aztek); margin: 0 0 10px; opacity: 0.4; }
+    .badge__label { font-family: var(--f-sans); font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-aztek); line-height: 1.3; opacity: 0.75; }
+
+    .badge-card__copy { position: relative; z-index: 1; min-width: 0; }
+    .badge-card__eyebrow { font-family: var(--f-sans); font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--p-sage); margin: 0 0 10px; }
+    .badge-card__title { font-family: var(--f-serif-display); font-weight: 400; font-size: clamp(26px, 3vw, 36px); line-height: 1.15; letter-spacing: -0.01em; color: var(--p-oatmeal); margin: 0 0 12px; }
+    .badge-card__title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .badge-card__body { font-family: var(--f-sans); font-size: 15px; line-height: 1.6; color: var(--p-oatmeal); opacity: 0.82; margin: 0 0 14px; }
+    .badge-card__legal { font-family: var(--f-sans); font-size: 11px; line-height: 1.55; color: var(--p-oatmeal); opacity: 0.6; margin: 0; }
+
+    @media (max-width: 640px) {
+      .badge-card { grid-template-columns: 1fr; text-align: center; padding: 40px 24px; }
+      .badge { margin: 0 auto; }
+      .badge-card__copy { text-align: center; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <div class="page">
+    <section class="badge-card" aria-label="Badge guarantee">
+      <div class="badge" aria-hidden="true">
+        <p class="badge__num">14</p>
+        <p class="badge__unit">Days</p>
+        <div class="badge__line"></div>
+        <p class="badge__label">No-questions refund</p>
+      </div>
+
+      <div class="badge-card__copy">
+        <p class="badge-card__eyebrow">Risk-reversal</p>
+        <h2 class="badge-card__title">A full <em>14 days</em> to be sure.</h2>
+        <p class="badge-card__body">
+          If the intensive isn't what you needed, email me within 14 days of purchase and I'll refund you in full. That's it. No clauses, no interviews, no proof required.
+        </p>
+        <p class="badge-card__legal">
+          Email hello@tracyharris.co with your order number. Refunds processed within 5 business days.
+        </p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

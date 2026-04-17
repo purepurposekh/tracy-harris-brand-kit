@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Post Grid · Masonry — Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: var(--f-sans); background: var(--p-oatmeal); color: var(--p-charcoal); -webkit-font-smoothing: antialiased; }
+
+    .section { padding: clamp(56px, 7vw, 104px) clamp(20px, 5vw, 64px); background: var(--p-oatmeal); }
+    .pg__wrap { max-width: 1200px; margin: 0 auto; }
+
+    .pg__header { margin: 0 0 56px; display: flex; align-items: end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .pg__header-copy { max-width: 56ch; }
+    .pg__eyebrow { font-family: var(--f-script); font-size: clamp(26px, 3vw, 36px); color: var(--p-sage); line-height: 1; margin: 0 0 12px; }
+    .pg__title { font-family: var(--f-serif-display); font-weight: 400; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.06; letter-spacing: -0.015em; color: var(--p-charcoal); margin: 0; }
+    .pg__title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .pg__view-all { font-family: var(--f-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-aztek); text-decoration: none; border-bottom: 1px solid var(--p-aztek); padding-bottom: 3px; transition: gap .2s; display: inline-flex; align-items: center; gap: 8px; }
+    .pg__view-all:hover { gap: 14px; }
+    .pg__view-all svg { width: 12px; height: 12px; }
+
+    .post { display: block; text-decoration: none; color: inherit; transition: transform .25s ease; }
+    .post:hover { transform: translateY(-3px); }
+    .post:hover .post__img { transform: scale(1.03); }
+    .post__thumb { aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; background: var(--p-cream); position: relative; margin-bottom: 18px; }
+    .post__img { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .4s ease; }
+    .post__img--1 { background-image: linear-gradient(135deg, var(--p-sage), var(--p-aztek)); }
+    .post__img--2 { background-image: linear-gradient(135deg, var(--p-fresh-peach), var(--p-fresh-orange)); }
+    .post__img--3 { background-image: linear-gradient(135deg, var(--p-gold-mid), var(--p-gold-dark)); }
+    .post__img--4 { background-image: linear-gradient(135deg, var(--p-cream), var(--p-sage)); }
+    .post__img--5 { background-image: linear-gradient(135deg, var(--p-aztek), var(--p-charcoal)); }
+    .post__img--6 { background-image: linear-gradient(135deg, var(--p-fresh-yellow), var(--p-fresh-peach)); }
+    .post__cat { display: inline-block; font-family: var(--f-sans); font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-aztek); margin: 0 0 10px; }
+    .post__h { font-family: var(--f-serif-display); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; color: var(--p-charcoal); margin: 0 0 12px; }
+    .post__h em { font-family: var(--f-serif-italic); font-style: italic; }
+    .post__meta { font-family: var(--f-sans); font-size: 12px; color: var(--p-mute); letter-spacing: 0.05em; margin: 0; }
+    .post__meta span + span::before { content: "·"; margin: 0 8px; opacity: 0.6; }
+
+    .pg-masonry .pg__masonry { column-count: 3; column-gap: clamp(20px, 2.5vw, 32px); }
+    .pg-masonry .post { display: inline-block; width: 100%; margin-bottom: clamp(28px, 3vw, 40px); break-inside: avoid; }
+    .pg-masonry .post--tall .post__thumb { aspect-ratio: 3 / 4; }
+    .pg-masonry .post--wide .post__thumb { aspect-ratio: 4 / 3; }
+    .pg-masonry .post--square .post__thumb { aspect-ratio: 1 / 1; }
+    .pg-masonry .post__h { font-size: clamp(19px, 1.6vw, 22px); }
+
+    @media (max-width: 900px) { .pg-masonry .pg__masonry { column-count: 2; } }
+    @media (max-width: 560px) { .pg-masonry .pg__masonry { column-count: 1; } }
+    @media (max-width: 430px) { .section { padding: 48px 18px; } }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="section pg-masonry" aria-label="Post grid — masonry">
+    <div class="pg__wrap">
+      <div class="pg__header">
+        <div class="pg__header-copy">
+          <p class="pg__eyebrow">From the archive.</p>
+          <h2 class="pg__title">Twelve years of <em>building</em>, all in one place.</h2>
+        </div>
+        <a href="/blog/all" class="pg__view-all">
+          View all posts
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <div class="pg__masonry">
+        <a href="/blog/1" class="post post--tall">
+          <div class="post__thumb"><div class="post__img post__img--1"></div></div>
+          <span class="post__cat">Strategy</span>
+          <h3 class="post__h">The quarterly <em>review</em> I do every season.</h3>
+          <p class="post__meta"><span>Apr 14, 2026</span><span>7 min</span></p>
+        </a>
+
+        <a href="/blog/2" class="post post--square">
+          <div class="post__thumb"><div class="post__img post__img--6"></div></div>
+          <span class="post__cat">Motherhood</span>
+          <h3 class="post__h">Raising boys while building a business.</h3>
+          <p class="post__meta"><span>Apr 9, 2026</span><span>5 min</span></p>
+        </a>
+
+        <a href="/blog/3" class="post post--wide">
+          <div class="post__thumb"><div class="post__img post__img--3"></div></div>
+          <span class="post__cat">Launches</span>
+          <h3 class="post__h">The 300/100/10 <em>workshop math</em> that pays off.</h3>
+          <p class="post__meta"><span>Apr 2, 2026</span><span>6 min</span></p>
+        </a>
+
+        <a href="/blog/4" class="post post--tall">
+          <div class="post__thumb"><div class="post__img post__img--2"></div></div>
+          <span class="post__cat">Messaging</span>
+          <h3 class="post__h">Writing like <em>you</em>, not like everyone else.</h3>
+          <p class="post__meta"><span>Mar 26, 2026</span><span>4 min</span></p>
+        </a>
+
+        <a href="/blog/5" class="post post--wide">
+          <div class="post__thumb"><div class="post__img post__img--5"></div></div>
+          <span class="post__cat">Leadership</span>
+          <h3 class="post__h">What I learned from my <em>first</em> six-figure year.</h3>
+          <p class="post__meta"><span>Mar 19, 2026</span><span>8 min</span></p>
+        </a>
+
+        <a href="/blog/6" class="post post--square">
+          <div class="post__thumb"><div class="post__img post__img--4"></div></div>
+          <span class="post__cat">Community</span>
+          <h3 class="post__h">Why I stopped chasing followers.</h3>
+          <p class="post__meta"><span>Mar 12, 2026</span><span>5 min</span></p>
+        </a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
