@@ -551,6 +551,58 @@
       opacity: 0.45;
       cursor: not-allowed;
     }
+
+    /* ----------------------------------------------------------------
+       Mobile inline preview bar (≤820px only)
+       Sits at the top of the main content so the Preview-size toggle
+       is reachable in one tap without opening the bottom sheet.
+       ---------------------------------------------------------------- */
+    .mobile-preview-bar {
+      display: none;
+    }
+    @media (max-width: 820px) {
+      .mobile-preview-bar {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: var(--sp-3);
+        background: var(--p-cream);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--r-pill);
+        padding: 6px 10px 6px 14px;
+        margin: 0 0 var(--sp-3);
+      }
+      .mobile-preview-bar__label {
+        font-family: var(--f-sans);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-mute);
+      }
+      .mobile-preview-bar__btns {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        background: var(--p-oatmeal);
+        border-radius: var(--r-pill);
+        padding: 3px;
+      }
+      /* Inherit .preview-size-toggle__btn base styles, override for 44px targets */
+      .mobile-preview-bar .preview-size-toggle__btn {
+        min-height: 44px;
+        min-width: 64px;
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+      /* Bump bottom-sheet + sidebar toggle targets too, for consistency */
+      .preview-size-toggle__btn {
+        min-height: 44px;
+        padding: 12px 8px;
+        font-size: 12px;
+      }
+    }
+
     .tile__thumb-placeholder {
       position: absolute;
       inset: 0;
@@ -2279,6 +2331,22 @@
       </a>
     </div>
 
+    <!-- Mobile only: inline Preview-size toggle so it's one tap away, -->
+    <!-- without burying it at the bottom of the filter sheet. Hidden >820px. -->
+    <div
+      class="mobile-preview-bar"
+      id="mobilePreviewBar"
+      role="radiogroup"
+      aria-label="Preview size"
+    >
+      <span class="mobile-preview-bar__label">Preview</span>
+      <div class="mobile-preview-bar__btns">
+        <button type="button" class="mobile-preview-bar__btn preview-size-toggle__btn is-active" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
+        <button type="button" class="mobile-preview-bar__btn preview-size-toggle__btn"           role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
+        <button type="button" class="mobile-preview-bar__btn preview-size-toggle__btn"           role="radio" aria-checked="false" data-preview-mode="both">Both</button>
+      </div>
+    </div>
+
     <!-- Mobile only: active filter chips under the shrunk header. -->
     <div class="filter-chips" id="filterChips" aria-label="Active filters" role="group"></div>
 
@@ -2370,15 +2438,6 @@
     <div class="filter-sheet__scroll">
       <h2 id="filter-sheet-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">Filters</h2>
 
-      <p class="filter-sheet__section-label">Mode</p>
-      <div class="sheet-mode-toggle" role="tablist" aria-label="Composer mode">
-        <button type="button" class="sheet-mode-toggle__btn" id="sheetModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">Build your own</button>
-        <button type="button" class="sheet-mode-toggle__btn" id="sheetModePresetsBtn" role="tab" aria-selected="false" data-mode="presets">Presets</button>
-      </div>
-
-      <p class="filter-sheet__section-label">Page type</p>
-      <ul class="sheet-pt-list" id="sheetPtList" role="group" aria-label="Page type filter"></ul>
-
       <p class="filter-sheet__section-label" id="sheetPreviewSizeLabel">Preview size</p>
       <div
         class="preview-size-toggle"
@@ -2391,6 +2450,15 @@
         <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
         <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="both">Both</button>
       </div>
+
+      <p class="filter-sheet__section-label">Mode</p>
+      <div class="sheet-mode-toggle" role="tablist" aria-label="Composer mode">
+        <button type="button" class="sheet-mode-toggle__btn" id="sheetModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">Build your own</button>
+        <button type="button" class="sheet-mode-toggle__btn" id="sheetModePresetsBtn" role="tab" aria-selected="false" data-mode="presets">Presets</button>
+      </div>
+
+      <p class="filter-sheet__section-label">Page type</p>
+      <ul class="sheet-pt-list" id="sheetPtList" role="group" aria-label="Page type filter"></ul>
     </div>
 
     <div class="filter-sheet__footer">
@@ -3986,6 +4054,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       }
       bindToggle('sbPreviewSizeToggle');
       bindToggle('sheetPreviewSizeToggle');
+      bindToggle('mobilePreviewBar');
 
       // React to viewport changes: if "both" was requested but viewport shrank,
       // collapse effective mode to mobile (and vice versa).
