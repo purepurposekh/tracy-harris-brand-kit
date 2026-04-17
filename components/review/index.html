@@ -421,14 +421,15 @@
     }
 
     /* ----------------------------------------------------------------
-       Mobile inline preview bar (≤820px only), mirrors /compose/
+       Mobile inline preview bar — retired 2026-04-17 (see /compose/).
+       Preview mode is locked to Desktop on small viewports now.
        ---------------------------------------------------------------- */
     .mobile-preview-bar {
       display: none;
     }
     @media (max-width: 820px) {
       .mobile-preview-bar {
-        display: grid;
+        display: none;
         grid-template-columns: auto 1fr;
         align-items: center;
         gap: var(--sp-3);
@@ -2025,8 +2026,11 @@
         if (raw && VALID_MODES.indexOf(raw) !== -1) stored = raw;
       } catch (e) {}
 
+      // On small screens (<=819px), lock effective mode to 'desktop'.
+      // Mobile-scaled thumbnails render tiny on mobile viewports — bad UX.
+      // Stored preference is still remembered for when user returns to desktop.
       function effectiveMode(mode) {
-        if (mode === 'both' && window.matchMedia('(max-width: 819px)').matches) return 'mobile';
+        if (window.matchMedia('(max-width: 819px)').matches) return 'desktop';
         return mode;
       }
 
@@ -2106,20 +2110,22 @@
         bodyEl.setAttribute('data-preview-mode', effective);
         try { localStorage.setItem(LS_KEY, requested); } catch (e) {}
 
+        // Highlight matches EFFECTIVE mode so the pill never lies.
+        var isSmall = window.matchMedia('(max-width: 819px)').matches;
         document.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
           var m = btn.getAttribute('data-preview-mode');
-          var active = m === requested;
+          var active = m === effective;
           btn.classList.toggle('is-active', active);
           btn.setAttribute('aria-checked', active ? 'true' : 'false');
-          if (m === 'both' && window.matchMedia('(max-width: 819px)').matches) {
+          if (isSmall && (m === 'mobile' || m === 'both')) {
             btn.setAttribute('aria-disabled', 'true');
           } else {
             btn.removeAttribute('aria-disabled');
           }
         });
 
-        if (!opts.silent && requested === 'both' && effective !== 'both') {
-          showToast('Both mode switches to Mobile on small screens');
+        if (!opts.silent && isSmall && requested !== 'desktop') {
+          showToast('Preview locked to Desktop on small screens');
         }
 
         updatePreviewPanes(effective);
