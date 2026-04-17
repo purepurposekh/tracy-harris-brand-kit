@@ -1147,6 +1147,169 @@
     @media (prefers-reduced-motion: reduce) {
       .app-sidebar, .app-sidebar__backdrop { transition: none; }
     }
+
+    /* ---------- Nested "Build a page" section in sidebar (compose only) ---------- */
+    .app-sidebar__subsection {
+      padding: 14px 24px 8px;
+      border-top: 1px solid var(--border-hairline);
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    body.sidebar-collapsed .app-sidebar__subsection { display: none; }
+    .app-sidebar__subheader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 2px;
+    }
+    .app-sidebar__sublabel {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin: 6px 0 4px;
+    }
+    .sidebar-mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--p-cream);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill);
+      padding: 3px;
+      gap: 3px;
+    }
+    .sidebar-mode-toggle__btn {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 7px 10px;
+      border-radius: var(--r-pill);
+      border: 0;
+      background: transparent;
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      text-align: center;
+    }
+    .sidebar-mode-toggle__btn:hover { color: var(--p-aztek); }
+    .sidebar-mode-toggle__btn.is-active {
+      background: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .sidebar-mode-toggle__btn:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 2px;
+    }
+    .sidebar-pt-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-pt-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 12px;
+      border: 0;
+      background: transparent;
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      text-align: left;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .sidebar-pt-btn:hover { background: var(--p-cream); color: var(--p-aztek); }
+    .sidebar-pt-btn:focus-visible { outline: 2px solid var(--p-aztek); outline-offset: -2px; }
+    .sidebar-pt-btn__dot {
+      flex: 0 0 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid var(--p-mute);
+      background: transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .sidebar-pt-btn.is-active {
+      background: var(--p-cream);
+      color: var(--p-aztek);
+      font-weight: 600;
+    }
+    .sidebar-pt-btn.is-active .sidebar-pt-btn__dot {
+      background: var(--p-sage);
+      border-color: var(--p-sage);
+      box-shadow: 0 0 0 3px rgba(110,142,119,0.22);
+    }
+
+    /* Shrunk compose header */
+    .compose-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      padding: var(--sp-3) 0 var(--sp-4);
+      margin-bottom: var(--sp-5);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .compose-header__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .compose-header__label strong {
+      color: var(--ink-heading);
+      font-weight: 600;
+    }
+    .compose-header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--ink-mute);
+      text-decoration: none;
+    }
+    .compose-header__back:hover { color: var(--p-aztek); }
+    .compose-header__back svg { width: 12px; height: 12px; }
+
+    /* Hide original inline mode-toggle + pt-filter on /compose/ since they live in the sidebar now. */
+    body[data-compose] .mode-toggle,
+    body[data-compose] .pt-filter { display: none !important; }
+    /* Also hide the preset gallery's h2 lede duplication — keep copy tight */
+    body[data-compose] .presets__head h2 { font-size: 26px; }
+
+    /* Mobile: nested sidebar section uses more generous touch targets */
+    @media (max-width: 819px) {
+      .app-sidebar__subsection {
+        padding: 20px 28px 12px;
+        border-top: 1px solid var(--border-hairline);
+        gap: 14px;
+      }
+      .sidebar-mode-toggle__btn { padding: 11px 14px; font-size: 13px; }
+      .sidebar-pt-btn { padding: 12px 14px; font-size: 16px; }
+    }
   </style>
 
   <button type="button" class="app-sidebar__hamburger" id="appSidebarHamburger" aria-label="Open navigation" aria-controls="appSidebar" aria-expanded="false">
@@ -1221,6 +1384,22 @@
         </a>
       </li>
     </ul>
+
+    <!-- Nested "Build a page" section. Only rendered on /compose/ pages. -->
+    <section class="app-sidebar__subsection" id="composeSidebarSection" aria-label="Build-a-page filters" hidden>
+      <div class="app-sidebar__subheader">
+        <span>Build a page</span>
+      </div>
+
+      <p class="app-sidebar__sublabel">Mode</p>
+      <div class="sidebar-mode-toggle" role="tablist" aria-label="Composer mode">
+        <button type="button" class="sidebar-mode-toggle__btn" id="sbModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">Build your own</button>
+        <button type="button" class="sidebar-mode-toggle__btn" id="sbModePresetsBtn" role="tab" aria-selected="false" data-mode="presets">Presets</button>
+      </div>
+
+      <p class="app-sidebar__sublabel">Page type</p>
+      <ul class="sidebar-pt-list" id="sbPtList" role="group" aria-label="Page type filter"></ul>
+    </section>
 
     <div class="app-sidebar__bottom">
       <button type="button" class="app-sidebar__toggle" id="appSidebarToggle" aria-expanded="true" aria-controls="appSidebar">
@@ -1306,29 +1485,17 @@
 
   <div class="wrap">
 
-    <!-- HEADER -->
-    <div class="header">
-      <div>
-        <a href="../../index.html" class="header__mark" aria-label="Tracy Harris Co">
-          <img src="../../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris Co" style="width:100%; height:auto; display:block;" />
-        </a>
-        <a href="../../index.html" class="header__back">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-          Back to catalog
-        </a>
-      </div>
-      <div style="text-align:right; max-width:340px;">
-        <p class="eyebrow">Composer</p>
-        <p style="font-size:13px; line-height:1.55; color:var(--ink-mute); margin:0;">Pick the variants. Add the intent. Ship a recipe to Kira.</p>
-      </div>
+    <!-- SHRUNK HEADER (filters now live in the sidebar) -->
+    <div class="compose-header">
+      <div class="compose-header__label"><strong>Build a page</strong></div>
+      <a href="../../index.html" class="compose-header__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to catalog
+      </a>
     </div>
 
-    <p class="eyebrow">Build a page</p>
-    <h1>Compose. <em>Then brief.</em></h1>
-    <p class="intro">Visually assemble a page from the component library, then write a short intention so Kira knows what this page is <em>for</em>. Hit Submit and paste the recipe in Discord.</p>
-
-    <!-- MODE TOGGLE -->
-    <div class="mode-toggle" role="tablist" aria-label="Composer mode">
+    <!-- Original mode toggle: hidden by CSS on /compose/ but kept for state/event handlers -->
+    <div class="mode-toggle" role="tablist" aria-label="Composer mode" aria-hidden="true">
       <button class="mode-toggle__btn" id="modeBuildBtn" type="button" role="tab" aria-selected="true" data-mode="build">Build your own</button>
       <button class="mode-toggle__btn" id="modePresetsBtn" type="button" role="tab" aria-selected="false" data-mode="presets">Start from a preset</button>
     </div>
@@ -1827,9 +1994,13 @@
       ptButtonsEl.appendChild(showAll);
     }
 
+    // Hooks fired whenever applyPageType runs — used by the sidebar mirror.
+    const pageTypeHooks = [];
+
     function applyPageType(key) {
       currentPageType = key;
       renderPtButtons();
+      pageTypeHooks.forEach(fn => { try { fn(key); } catch (e) {} });
 
       const cfg = PAGE_TYPES[key];
       const allSlots = cfg.slots;
@@ -2402,6 +2573,99 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     (async function initPresets() {
       const presets = await loadPresets();
       renderPresets(presets);
+    })();
+
+    // ----------------------------------------------------------------------
+    // Nested sidebar "Build a page" section — route-aware.
+    // The original inline .mode-toggle and .pt-filter are hidden via CSS on
+    // /compose/ pages, but still exist in the DOM. We render sidebar buttons
+    // here and proxy interactions to the original buttons so every bit of
+    // state (localStorage persistence, preset loading, page-type filter,
+    // mode persistence) keeps working exactly as before.
+    // ----------------------------------------------------------------------
+    (function initComposeSidebar() {
+      var path = window.location.pathname;
+      var isComposeRoute = path.indexOf('/components/compose/') !== -1
+        || /\/components\/compose\/?$/.test(path);
+      if (!isComposeRoute) return;
+
+      document.body.setAttribute('data-compose', '');
+
+      var section = document.getElementById('composeSidebarSection');
+      if (!section) return;
+      section.hidden = false;
+
+      // Mode toggle proxy
+      var sbBuild = document.getElementById('sbModeBuildBtn');
+      var sbPresets = document.getElementById('sbModePresetsBtn');
+      var origBuild = document.getElementById('modeBuildBtn');
+      var origPresets = document.getElementById('modePresetsBtn');
+
+      function syncSidebarMode() {
+        var m = document.body.dataset.mode === 'presets' ? 'presets' : 'build';
+        sbBuild.classList.toggle('is-active', m === 'build');
+        sbPresets.classList.toggle('is-active', m === 'presets');
+        sbBuild.setAttribute('aria-selected', m === 'build' ? 'true' : 'false');
+        sbPresets.setAttribute('aria-selected', m === 'presets' ? 'true' : 'false');
+      }
+
+      if (sbBuild && origBuild) {
+        sbBuild.addEventListener('click', function () { origBuild.click(); syncSidebarMode(); });
+      }
+      if (sbPresets && origPresets) {
+        sbPresets.addEventListener('click', function () { origPresets.click(); syncSidebarMode(); });
+      }
+
+      // Watch body[data-mode] to keep sidebar state in sync when mode changes
+      // via applyPreset or other flows.
+      var modeObserver = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+          if (m.attributeName === 'data-mode') syncSidebarMode();
+        });
+      });
+      modeObserver.observe(document.body, { attributes: true });
+      syncSidebarMode();
+
+      // Page-type list — mirror PAGE_TYPES order, with "Show all" last.
+      var sbPtList = document.getElementById('sbPtList');
+      if (!sbPtList) return;
+
+      function buildPtList() {
+        sbPtList.innerHTML = '';
+        var entries = Object.entries(PAGE_TYPES);
+        var nonAll = entries.filter(function (e) { return e[0] !== 'all'; });
+        var all = entries.find(function (e) { return e[0] === 'all'; });
+
+        function addItem(key, label) {
+          var li = document.createElement('li');
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'sidebar-pt-btn' + (currentPageType === key ? ' is-active' : '');
+          btn.dataset.ptKey = key;
+          btn.innerHTML = '<span class="sidebar-pt-btn__dot" aria-hidden="true"></span><span>' + label + '</span>';
+          btn.addEventListener('click', function () {
+            applyPageType(key);
+            syncSidebarPt();
+          });
+          li.appendChild(btn);
+          sbPtList.appendChild(li);
+        }
+
+        nonAll.forEach(function (e) { addItem(e[0], e[1].label); });
+        if (all) addItem('all', all[1].label);
+      }
+
+      function syncSidebarPt() {
+        var btns = sbPtList.querySelectorAll('.sidebar-pt-btn');
+        btns.forEach(function (b) {
+          b.classList.toggle('is-active', b.dataset.ptKey === currentPageType);
+        });
+      }
+
+      buildPtList();
+      // Keep sidebar state in sync with any other caller of applyPageType
+      // (preset apply, page-type button clicks, etc.).
+      pageTypeHooks.push(syncSidebarPt);
     })();
   </script>
 </body>
