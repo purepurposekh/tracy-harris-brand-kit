@@ -495,6 +495,439 @@
   </style>
 </head>
 <body data-brand="tracy">
+
+  <!-- ================================================================== -->
+  <!-- APP SIDEBAR (shared nav across catalog / compose / review) -->
+  <!-- Source of truth duplicated in index.html, components/compose/,    -->
+  <!-- components/review/. Change in all three if you touch it.          -->
+  <!-- ================================================================== -->
+  <style>
+    :root {
+      --sidebar-width: 240px;
+      --sidebar-collapsed-width: 64px;
+      --sidebar-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media (min-width: 820px) {
+      body.has-sidebar { padding-left: var(--sidebar-width); transition: padding-left 220ms var(--sidebar-ease); }
+      body.has-sidebar.sidebar-collapsed { padding-left: var(--sidebar-collapsed-width); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body.has-sidebar { transition: none; }
+    }
+
+    .app-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--p-oatmeal);
+      border-right: 1px solid var(--border-hairline);
+      display: flex;
+      flex-direction: column;
+      z-index: 60;
+      transition: width 220ms var(--sidebar-ease);
+      font-family: var(--f-sans);
+      overflow: hidden;
+    }
+    body.sidebar-collapsed .app-sidebar { width: var(--sidebar-collapsed-width); }
+    @media (prefers-reduced-motion: reduce) {
+      .app-sidebar { transition: none; }
+    }
+
+    .app-sidebar__top {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-hairline);
+      min-height: 92px;
+    }
+    body.sidebar-collapsed .app-sidebar__top {
+      padding: 20px 12px;
+      align-items: center;
+    }
+
+    .app-sidebar__mark {
+      display: block;
+      color: var(--p-charcoal);
+      text-decoration: none;
+      line-height: 0;
+    }
+    .app-sidebar__mark svg { display: block; height: 22px; width: auto; fill: currentColor; }
+    body.sidebar-collapsed .app-sidebar__mark svg { height: 28px; }
+
+    .app-sidebar__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0;
+    }
+    body.sidebar-collapsed .app-sidebar__eyebrow { display: none; }
+
+    .app-sidebar__nav {
+      list-style: none;
+      padding: 12px 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .app-sidebar__link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 24px;
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--p-charcoal);
+      text-decoration: none;
+      opacity: 0.72;
+      transition: opacity 180ms ease, background-color 180ms ease;
+      white-space: nowrap;
+      border-left: 3px solid transparent;
+    }
+    .app-sidebar__link:hover {
+      opacity: 1;
+      background: var(--p-cream);
+    }
+    .app-sidebar__link:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: -2px;
+    }
+    .app-sidebar__link.is-active {
+      opacity: 1;
+      border-left-color: var(--p-sage);
+      font-weight: 600;
+    }
+    .app-sidebar__icon {
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: currentColor;
+    }
+    .app-sidebar__icon svg { width: 20px; height: 20px; display: block; }
+    .app-sidebar__label { flex: 1; }
+    body.sidebar-collapsed .app-sidebar__link {
+      padding: 16px 0;
+      justify-content: center;
+      gap: 0;
+    }
+    body.sidebar-collapsed .app-sidebar__label { display: none; }
+    body.sidebar-collapsed .app-sidebar__link { border-left-width: 0; border-right: 3px solid transparent; }
+    body.sidebar-collapsed .app-sidebar__link.is-active { border-right-color: var(--p-sage); border-left-color: transparent; }
+
+    .app-sidebar__bottom {
+      margin-top: auto;
+      padding: 16px 24px 20px;
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    body.sidebar-collapsed .app-sidebar__bottom { padding: 16px 12px 20px; align-items: center; }
+
+    .app-sidebar__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 36px;
+      width: 100%;
+      padding: 0 14px;
+      background: transparent;
+      border: 1px solid var(--p-sage);
+      border-radius: var(--r-pill);
+      color: var(--p-aztek);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .app-sidebar__toggle:hover { background: var(--p-sage); color: var(--p-white); }
+    .app-sidebar__toggle:focus-visible { outline: 2px solid var(--p-aztek); outline-offset: 2px; }
+    body.sidebar-collapsed .app-sidebar__toggle { width: 40px; padding: 0; }
+    body.sidebar-collapsed .app-sidebar__toggle-label { display: none; }
+
+    .app-sidebar__footer {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin: 0;
+      text-align: center;
+      opacity: 0.72;
+    }
+    body.sidebar-collapsed .app-sidebar__footer { display: none; }
+
+    .app-sidebar__hamburger {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 70;
+      box-shadow: 0 2px 8px rgba(16,16,16,0.06);
+    }
+    .app-sidebar__hamburger:focus-visible { outline: 2px solid var(--p-aztek); outline-offset: 2px; }
+    .app-sidebar__hamburger svg { width: 20px; height: 20px; }
+
+    @media (max-width: 819px) {
+      .app-sidebar {
+        width: 100%;
+        max-width: 420px;
+        transform: translateX(-100%);
+        transition: transform 260ms var(--sidebar-ease);
+        border-right: none;
+        box-shadow: 18px 0 40px rgba(16,16,16,0.12);
+      }
+      body.sidebar-mobile-open .app-sidebar { transform: translateX(0); }
+      .app-sidebar__hamburger { display: inline-flex; }
+      body.has-sidebar { padding-left: 0; }
+      body.sidebar-mobile-open { overflow: hidden; }
+
+      .app-sidebar__top { padding: 28px 28px 20px; min-height: 0; }
+      .app-sidebar__nav { padding: 20px 0; gap: 4px; }
+      .app-sidebar__link {
+        font-family: var(--f-serif-display);
+        font-size: clamp(28px, 7vw, 40px);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        text-transform: none;
+        padding: 10px 28px;
+        opacity: 0.9;
+        border-left: none;
+        color: var(--p-charcoal);
+      }
+      .app-sidebar__link:hover { background: transparent; opacity: 1; }
+      .app-sidebar__link.is-active { font-weight: 400; color: var(--p-aztek); border-left: none; }
+      .app-sidebar__link.is-active::after {
+        content: "";
+        display: inline-block;
+        width: 8px; height: 8px;
+        margin-left: 12px;
+        background: var(--p-sage);
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+      .app-sidebar__icon { display: none; }
+      .app-sidebar__bottom { padding: 20px 28px 28px; }
+      .app-sidebar__toggle { display: none; }
+      .app-sidebar__footer { text-align: left; opacity: 0.72; }
+
+      .app-sidebar__close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 44px;
+        height: 44px;
+        border: none;
+        background: transparent;
+        color: var(--p-charcoal);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .app-sidebar__close svg { width: 20px; height: 20px; }
+      .app-sidebar__backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(16,16,16,0.32);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 260ms ease;
+        z-index: 55;
+      }
+      body.sidebar-mobile-open .app-sidebar__backdrop { opacity: 1; pointer-events: auto; }
+    }
+    @media (min-width: 820px) {
+      .app-sidebar__close, .app-sidebar__backdrop, .app-sidebar__hamburger { display: none !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .app-sidebar, .app-sidebar__backdrop { transition: none; }
+    }
+  </style>
+
+  <button type="button" class="app-sidebar__hamburger" id="appSidebarHamburger" aria-label="Open navigation" aria-controls="appSidebar" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <div class="app-sidebar__backdrop" id="appSidebarBackdrop" aria-hidden="true"></div>
+
+  <aside class="app-sidebar" id="appSidebar" role="navigation" aria-label="Brand kit">
+    <button type="button" class="app-sidebar__close" id="appSidebarClose" aria-label="Close navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+
+    <div class="app-sidebar__top">
+      <a href="../../" class="app-sidebar__mark" aria-label="Tracy Harris Co">
+        <svg class="app-sidebar__mark-wordmark" viewBox="0 0 951.88 385.78" aria-hidden="true">
+          <g>
+            <path d="M0,68.37V9.26L55.14,0v68.37h52.49l-1.77,7.5h-50.72v131.45c0,24.7,10.59,37.49,32.64,37.49,12.79,0,22.5-8.82,26.47-15.44l6.62,3.97c-8.82,20.73-35.73,42.79-65.28,42.79-34.85,0-55.58-14.12-55.58-67.49V68.37Z"/>
+            <path d="M296.86,72.34c13.67,11.91,15,33.08,3.09,46.32-11.91,13.67-32.2,15.44-46.31,3.53-6.62-6.18-10.15-13.67-10.15-21.61,0-4.85-18.08-.44-34.4,26.03v91.75c0,24.7,2.21,41.9,18.08,46.32v7.5h-91.31v-7.5c17.2-5.29,17.64-23.38,17.64-46.32v-97.92c0-15-3.97-21.61-22.06-30.88v-7.5l77.63-17.64v49.84c23.38-36.61,41.46-43.23,52.05-47.64,9.26-3.97,26.02-2.21,35.73,5.73Z"/>
+            <path d="M514.31,241.72l7.5,3.09c-3.53,14.12-23.82,31.32-51.61,31.32,0,0-39.26,0-44.11-35.73-6.62,19.41-32.64,35.73-63.96,35.73,0,0-50.73,0-50.73-44.99,0-48.08,37.05-52.49,114.25-71.9v-27.35c0-45.87-25.58-68.81-56.02-52.93-14.12,7.06-15.88,14.56-12.79,15,6.62.88,12.35,3.97,16.32,9.7,7.94,11.47,4.85,26.91-6.62,34.85-11.47,7.5-26.91,4.85-34.85-6.62-5.29-8.38-5.73-18.97-1.32-26.47,4.41-7.5,10.15-19.41,34.41-32.2,19.85-10.59,42.79-8.82,42.79-8.82,57.78,0,73.66,36.17,73.66,88.22v65.72s-.44,30.88,21.17,30.88c0,0,9.26,0,11.91-7.5ZM425.65,167.18c-43.23,9.7-57.78,30.44-57.78,52.93,0,0,0,29.11,28.67,29.11,15,0,25.14-11.91,29.11-22.5v-59.55Z"/>
+            <path d="M712.81,219.23c-6.18,22.5-32.64,56.9-87.78,56.9s-97.04-55.14-97.04-106.75,38.82-104.98,114.24-104.98c31.32,0,50.29,12.79,57.78,19.41,7.5,6.62,11.91,18.97,8.82,29.55-4.41,15.44-20.29,25.58-36.17,21.17-15.88-3.97-25.14-20.29-20.73-35.73,1.77-8.38,7.06-14.12,13.67-17.64,3.97-1.76-5.73-9.26-23.38-9.26-15.88,0-58.67,13.67-58.67,89.54,0,47.64,25.58,68.81,56.02,75.43,22.06,4.85,56.9-7.06,67.05-21.61l6.18,3.97Z"/>
+            <path d="M951.88,68.37v7.5c-9.26,0-29.55.88-57.78,68.81l-67.49,177.76c-11.47,30-24.7,42.35-33.08,48.96-7.94,6.62-23.38,9.26-33.97,4.41-15.44-7.06-22.05-25.14-15.44-40.58,7.06-15.44,25.14-22.5,40.58-15.44,7.94,3.53,12.79,10.59,15,18.08,1.77,5.29,12.35,2.21,19.41-16.32l16.76-45.43c-27.35-63.08-83.37-183.06-83.37-183.06-7.06-17.2-21.17-17.2-27.79-17.2v-7.5h104.1v7.5c-22.93,0-11.47,26.91-11.47,26.91l46.76,99.69,23.38-59.55s29.11-67.49-22.05-67.05v-7.5h86.45Z"/>
+            <circle cx="913.63" cy="254.68" r="21.87"/>
+          </g>
+        </svg>
+        <svg class="app-sidebar__mark-brandmark" viewBox="0 0 263.98 382.72" aria-hidden="true" style="display:none;">
+          <path d="M0,94.76V12.84L76.42,0v94.76h72.75l-2.45,10.39h-70.3v182.19c0,34.24,14.67,51.97,45.24,51.97,17.73,0,31.18-12.23,36.68-21.4l9.17,5.5c-12.23,28.73-49.52,59.3-90.48,59.3-48.3,0-77.03-19.56-77.03-93.54V94.76Z"/>
+          <circle cx="233.68" cy="352.41" r="30.31"/>
+        </svg>
+      </a>
+      <p class="app-sidebar__eyebrow">Brand Kit</p>
+    </div>
+
+    <ul class="app-sidebar__nav" id="appSidebarNav">
+      <li>
+        <a class="app-sidebar__link" data-nav="catalog" href="../../">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="4" height="4"/><rect x="8" y="2.5" width="4" height="4"/><rect x="13.5" y="2.5" width="4" height="4"/><rect x="2.5" y="8" width="4" height="4"/><rect x="8" y="8" width="4" height="4"/><rect x="13.5" y="8" width="4" height="4"/><rect x="2.5" y="13.5" width="4" height="4"/><rect x="8" y="13.5" width="4" height="4"/><rect x="13.5" y="13.5" width="4" height="4"/></svg>
+          </span>
+          <span class="app-sidebar__label">Catalog</span>
+        </a>
+      </li>
+      <li>
+        <a class="app-sidebar__link" data-nav="compose" href="../../components/compose/">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><line x1="10" y1="6.5" x2="10" y2="13.5"/><line x1="6.5" y1="10" x2="13.5" y2="10"/></svg>
+          </span>
+          <span class="app-sidebar__label">Build a page</span>
+        </a>
+      </li>
+      <li>
+        <a class="app-sidebar__link" data-nav="review" href="../../components/review/">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="15" height="15" rx="2"/><polyline points="6.5 10.5 9 13 14 7.5"/></svg>
+          </span>
+          <span class="app-sidebar__label">Review variants</span>
+        </a>
+      </li>
+      <li>
+        <a class="app-sidebar__link" data-nav="pages" href="../../pages/">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="11" height="13" rx="1"/><path d="M3.5 5v11a1 1 0 0 0 1 1h10"/></svg>
+          </span>
+          <span class="app-sidebar__label">Pages</span>
+        </a>
+      </li>
+      <li>
+        <a class="app-sidebar__link" data-nav="docs" href="../../docs/">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3.5h9a2.5 2.5 0 0 1 2.5 2.5v11.5H6.5A2.5 2.5 0 0 1 4 15V3.5z"/><line x1="4" y1="15" x2="15.5" y2="15"/><line x1="7" y1="7" x2="12.5" y2="7"/><line x1="7" y1="10" x2="12.5" y2="10"/></svg>
+          </span>
+          <span class="app-sidebar__label">Docs</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="app-sidebar__bottom">
+      <button type="button" class="app-sidebar__toggle" id="appSidebarToggle" aria-expanded="true" aria-controls="appSidebar">
+        <span class="app-sidebar__toggle-label" id="appSidebarToggleLabel">Collapse</span>
+        <span aria-hidden="true" id="appSidebarToggleGlyph">&lsaquo;</span>
+      </button>
+      <p class="app-sidebar__footer">v1.2 · 2026</p>
+    </div>
+  </aside>
+
+  <script>
+    (function () {
+      var body = document.body;
+      body.classList.add('has-sidebar');
+
+      var LS_KEY = 'thc-sidebar-collapsed';
+      var initialCollapsed = false;
+      try { initialCollapsed = localStorage.getItem(LS_KEY) === 'true'; } catch (e) {}
+      if (initialCollapsed) body.classList.add('sidebar-collapsed');
+
+      var toggle = document.getElementById('appSidebarToggle');
+      var toggleLabel = document.getElementById('appSidebarToggleLabel');
+      var toggleGlyph = document.getElementById('appSidebarToggleGlyph');
+      var wordmark = document.querySelector('.app-sidebar__mark-wordmark');
+      var brandmark = document.querySelector('.app-sidebar__mark-brandmark');
+
+      function syncCollapsedUI() {
+        var collapsed = body.classList.contains('sidebar-collapsed');
+        if (toggle) toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        if (toggleLabel) toggleLabel.textContent = collapsed ? '' : 'Collapse';
+        if (toggleGlyph) toggleGlyph.textContent = collapsed ? '\u203A' : '\u2039';
+        if (wordmark && brandmark) {
+          wordmark.style.display = collapsed ? 'none' : 'block';
+          brandmark.style.display = collapsed ? 'block' : 'none';
+        }
+      }
+      syncCollapsedUI();
+
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          body.classList.toggle('sidebar-collapsed');
+          var collapsed = body.classList.contains('sidebar-collapsed');
+          try { localStorage.setItem(LS_KEY, collapsed ? 'true' : 'false'); } catch (e) {}
+          syncCollapsedUI();
+        });
+      }
+
+      var path = window.location.pathname;
+      var active = 'catalog';
+      if (path.indexOf('/components/compose/') !== -1) active = 'compose';
+      else if (path.indexOf('/components/review/') !== -1) active = 'review';
+      else if (path.indexOf('/pages/') !== -1) active = 'pages';
+      else if (path.indexOf('/docs/') !== -1) active = 'docs';
+      var links = document.querySelectorAll('.app-sidebar__link');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('is-active');
+          links[i].setAttribute('aria-current', 'page');
+        }
+      }
+
+      var hamburger = document.getElementById('appSidebarHamburger');
+      var closeBtn = document.getElementById('appSidebarClose');
+      var backdrop = document.getElementById('appSidebarBackdrop');
+
+      function openMobile() {
+        body.classList.add('sidebar-mobile-open');
+        if (hamburger) hamburger.setAttribute('aria-expanded', 'true');
+      }
+      function closeMobile() {
+        body.classList.remove('sidebar-mobile-open');
+        if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
+      }
+      if (hamburger) hamburger.addEventListener('click', openMobile);
+      if (closeBtn) closeBtn.addEventListener('click', closeMobile);
+      if (backdrop) backdrop.addEventListener('click', closeMobile);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && body.classList.contains('sidebar-mobile-open')) closeMobile();
+      });
+    })();
+  </script>
+  <!-- /APP SIDEBAR -->
+
   <div class="wrap">
 
     <!-- HEADER -->
