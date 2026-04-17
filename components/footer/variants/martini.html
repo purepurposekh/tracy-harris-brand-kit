@@ -188,20 +188,24 @@
         max-width: none;
       }
       .mfoot__sec-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px 24px;
+        grid-template-columns: auto auto;
+        justify-content: flex-start;
+        gap: 12px 40px;
       }
-      .mfoot__word { padding: 16px 0 24px; }
+      .mfoot__word {
+        justify-content: flex-start;
+        padding: 20px 0 28px;
+      }
       .mfoot__word .t-wordmark { height: clamp(56px, 16vw, 84px); }
       .mfoot__lockup {
         grid-template-columns: 1fr;
-        gap: 24px;
-        text-align: center;
-        padding: 20px 0 8px;
+        gap: 18px;
+        text-align: left;
+        padding: 4px 0 8px;
       }
-      /* One continuous nav row on mobile — easier to read, bigger tap targets */
+      /* Nav rows stay left-aligned on mobile — no centering */
       .mfoot__bottom-nav {
-        justify-content: center;
+        justify-content: flex-start;
         gap: 0;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -209,17 +213,23 @@
       }
       .mfoot__bottom-nav a {
         font-size: 12px;
-        padding: 12px 8px;
+        padding: 12px 0;
         opacity: 0.95;
         border-bottom: 1px solid rgba(246,244,241,0.08);
+        text-align: left;
       }
-      .mfoot__bottom-nav--right { justify-content: center; }
+      .mfoot__bottom-nav--right { justify-content: flex-start; }
+      .mfoot__mark {
+        justify-content: flex-start;
+        align-items: center;
+      }
       .mfoot__legal {
         flex-direction: column;
+        align-items: flex-start;
         gap: 10px;
-        text-align: center;
+        text-align: left;
         font-size: 9px;
-        padding: 16px 0 22px;
+        padding: 18px 0 22px;
       }
     }
 
