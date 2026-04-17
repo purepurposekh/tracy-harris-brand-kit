@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero — Results &amp; Confirmation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      background: var(--p-oatmeal);
+      padding: clamp(14px, 1.6vw, 24px);
+      min-height: 100vh;
+    }
+
+    .section-label {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      margin: 0 0 8px;
+      padding: 10px 12px;
+    }
+
+    /* -------- HERO SHELL (editorial, framed, cream canvas) -------- */
+    .hero {
+      position: relative;
+      background: var(--p-oatmeal);
+      border: 1px solid var(--border-hairline);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 64px);
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(32px, 5vw, 64px);
+      align-items: center;
+      min-height: 620px;
+    }
+
+    .hero--single { grid-template-columns: 1fr; max-width: 920px; margin-left: auto; margin-right: auto; text-align: center; padding-block: clamp(72px, 9vw, 120px); }
+
+    .hero__content { max-width: 560px; }
+    .hero--single .hero__content { max-width: 720px; margin: 0 auto; }
+
+    .hero__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 18px;
+    }
+    .hero__eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--p-sage);
+      vertical-align: middle;
+      margin-right: 12px;
+    }
+
+    .hero__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(44px, 6vw, 84px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--p-charcoal);
+      margin: 0 0 20px;
+    }
+    .hero__title em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    .hero__script {
+      font-family: var(--f-script);
+      font-weight: 400;
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height: 1;
+      color: var(--p-sage);
+      margin: 0 0 28px;
+    }
+
+    .hero__body {
+      font-family: var(--f-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--p-ink);
+      margin: 0 0 32px;
+      max-width: 48ch;
+    }
+    .hero--single .hero__body { margin-inline: auto; }
+    .hero__body em { font-family: var(--f-serif-italic); font-style: italic; }
+    .hero__body strong { font-weight: 600; color: var(--p-charcoal); }
+
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .hero--single .hero__ctas { justify-content: center; }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: var(--r-pill);
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+      border: 1px solid transparent;
+    }
+    .hero__cta--primary {
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      border-color: var(--p-charcoal);
+      background: var(--p-cream);
+    }
+    .hero__cta--primary:hover {
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+      border-color: var(--p-aztek);
+      transform: translateY(-1px);
+    }
+    .hero__cta--ghost {
+      background: transparent;
+      color: var(--p-ink);
+      border-color: transparent;
+      padding: 14px 16px;
+      letter-spacing: 0.12em;
+      border-bottom: 1px solid var(--p-ink);
+      border-radius: 0;
+    }
+    .hero__cta--ghost:hover { color: var(--p-aztek); border-bottom-color: var(--p-aztek); }
+
+    /* -------- PORTRAIT FRAME -------- */
+    .hero__portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--p-cream);
+      box-shadow: 0 24px 48px rgba(16,16,16,0.08);
+    }
+    .hero__portrait-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center 25%;
+      filter: contrast(1.02) saturate(1.02);
+    }
+    .hero__portrait--results .hero__portrait-img {
+      background-image: url("../../../assets/photos/tracy-outfit8-39.jpg");
+    }
+    .hero__portrait--confirm .hero__portrait-img {
+      background-image: url("../../../assets/photos/tracy-outfit8-49.jpg");
+    }
+    /* soft vignette */
+    .hero__portrait::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.18) 100%);
+      pointer-events: none;
+    }
+    .hero__portrait-tag {
+      position: absolute;
+      left: 16px; bottom: 16px;
+      z-index: 2;
+      font-family: var(--f-script);
+      font-size: 22px;
+      color: var(--p-oatmeal);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+      line-height: 1;
+    }
+
+    /* -------- ARCHETYPE STAMP (quiz result only) -------- */
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(110,142,119,0.12);
+      border: 1px solid rgba(110,142,119,0.35);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-aztek);
+      margin: 0 0 20px;
+    }
+    .stamp::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--p-sage);
+    }
+
+    /* -------- CONFIRMATION CHECKLIST (inbox box) -------- */
+    .inbox {
+      margin: 32px 0 0;
+      background: var(--p-cream);
+      border-radius: 10px;
+      padding: 20px 22px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--p-ink);
+      max-width: 48ch;
+    }
+    .hero--single .inbox { margin-inline: auto; text-align: left; }
+    .inbox__label {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-aztek);
+      margin: 0 0 10px;
+    }
+    .inbox__rows { display: grid; gap: 8px; }
+    .inbox__row {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+    .inbox__tick {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--p-sage);
+      color: var(--p-oatmeal);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .inbox__tick svg { width: 9px; height: 9px; }
+    .inbox__row strong { color: var(--p-charcoal); font-weight: 600; }
+    .inbox__row code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      padding: 1px 6px;
+      background: var(--p-oatmeal);
+      border-radius: 3px;
+    }
+
+    /* -------- MOBILE -------- */
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: clamp(32px, 6vw, 48px) clamp(20px, 5vw, 28px);
+        min-height: 0;
+        gap: 32px;
+      }
+      .hero__portrait { max-width: 360px; margin: 0 auto; order: -1; }
+      .hero__title { font-size: clamp(34px, 10vw, 54px); }
+      .hero__script { font-size: 28px; }
+    }
+    @media (max-width: 430px) {
+      .page { padding: 10px; }
+      .hero { padding: 32px 20px; }
+      .hero__title { font-size: 34px; }
+      .hero__ctas { flex-direction: column; align-items: stretch; }
+      .hero__cta { justify-content: center; }
+      .hero__cta--ghost { border-bottom: 0; padding: 12px; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <div class="page">
+
+    <!-- ================================================= -->
+    <!-- VARIANT A: QUIZ RESULT HERO                        -->
+    <!-- ================================================= -->
+    <p class="section-label">Variant · Quiz result hero</p>
+    <section class="hero" id="results" aria-label="Quiz result hero">
+      <div class="hero__content">
+        <span class="stamp">Your FRESH archetype</span>
+        <h1 class="hero__title">You're a <em>Strategy</em> archetype.</h1>
+        <p class="hero__script">Vision-led. Plan-wanting.</p>
+        <p class="hero__body">
+          You see the whole picture before anyone else does. You've got the heart, the vision, the people who love what you do. What's missing is the <em>plan</em> that turns all of that into a beautiful business with real revenue.
+        </p>
+        <p class="hero__body">
+          I've pulled together a full profile for you, lovely. Your strengths, your next three moves, and the <strong>Freedom Filled®</strong> pathway that matches you.
+        </p>
+        <div class="hero__ctas">
+          <a href="#profile" class="hero__cta hero__cta--primary">See your full profile</a>
+          <a href="/fresh-quiz" class="hero__cta hero__cta--ghost">Return to the quiz</a>
+        </div>
+      </div>
+      <div class="hero__portrait hero__portrait--results" role="img" aria-label="Tracy Harris portrait">
+        <div class="hero__portrait-img"></div>
+        <span class="hero__portrait-tag">Xx Tracy</span>
+      </div>
+    </section>
+
+    <!-- ================================================= -->
+    <!-- VARIANT B: OPT-IN CONFIRMATION HERO                -->
+    <!-- ================================================= -->
+    <p class="section-label">Variant · Opt-in confirmation hero</p>
+    <section class="hero hero--single" id="confirm" aria-label="Opt-in confirmation hero">
+      <div class="hero__content">
+        <p class="hero__eyebrow">You're on the list</p>
+        <h1 class="hero__title">You're <em>in</em>.</h1>
+        <p class="hero__script">Check your inbox, lovely.</p>
+        <p class="hero__body">
+          Your free guide is on its way right now. If it's not there in the next few minutes, have a quick peek in Promotions or Spam. Nothing is broken, Gmail is just being Gmail.
+        </p>
+
+        <div class="inbox">
+          <p class="inbox__label">While the email lands</p>
+          <div class="inbox__rows">
+            <div class="inbox__row">
+              <span class="inbox__tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Add <code>hello@tracyharris.co</code> to your contacts so every future email lands in the main inbox.</span>
+            </div>
+            <div class="inbox__row">
+              <span class="inbox__tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Look for the subject line <strong>"Your guide is here, lovely"</strong>.</span>
+            </div>
+            <div class="inbox__row">
+              <span class="inbox__tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>Save this page. The link inside takes you back if you need it.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__ctas" style="margin-top: 28px;">
+          <a href="/podcast/latest" class="hero__cta hero__cta--primary">Listen while you wait</a>
+          <a href="https://instagram.com/tracyharrisco" class="hero__cta hero__cta--ghost">Come say hi on Instagram</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
