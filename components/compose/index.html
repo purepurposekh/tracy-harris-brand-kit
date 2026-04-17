@@ -2,7 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1" />
+  <script>
+    // Apply stored "force desktop layout" preference BEFORE first paint, so the
+    // browser reflows at 1400px without a flash of device-width layout.
+    (function () {
+      try {
+        if (localStorage.getItem('thc-force-desktop-layout') === '1') {
+          var m = document.getElementById('viewport-meta');
+          if (m) m.setAttribute('content', 'width=1400');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <title>Build a page · Tracy Harris Co Brand Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,10 +301,11 @@
     .tile__thumb {
       position: relative;
       width: 100%;
-      height: 220px;
+      aspect-ratio: 1400 / 880;
       overflow: hidden;
       background: var(--p-oatmeal);
       border-bottom: 1px solid var(--border-hairline);
+      container-type: inline-size;
       transition: aspect-ratio 220ms ease, height 220ms ease;
     }
     .tile__thumb iframe {
@@ -300,9 +313,10 @@
       top: 0;
       left: 0;
       border: 0;
-      width: var(--preview-w, 1400px);
-      height: var(--preview-h, 880px);
-      transform: scale(var(--preview-scale, 0.28));
+      width: 1400px;
+      height: 880px;
+      /* Auto-fit: scale the 1400px iframe to fill 100% of the tile width. */
+      transform: scale(calc(100cqi / 1400));
       transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
@@ -354,18 +368,24 @@
 
     /* Mobile mode: tiles shrink + flip tall. Compose tiles only. */
     body[data-preview-mode="mobile"] .tile__thumb {
-      height: 390px;
+      aspect-ratio: 390 / 844;
+    }
+    body[data-preview-mode="mobile"] .tile__thumb iframe {
+      width: 390px;
+      height: 844px;
+      transform: scale(calc(100cqi / 390));
     }
     body[data-preview-mode="mobile"] .tiles {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
     body[data-preview-mode="mobile"] .preset-slot__thumb {
-      height: 340px;
+      aspect-ratio: 390 / 844;
+      height: auto;
     }
     body[data-preview-mode="mobile"] .preset-slot__thumb iframe {
-      width: var(--preset-preview-w);
-      height: var(--preset-preview-h);
-      transform: scale(var(--preset-preview-scale));
+      width: 390px;
+      height: 844px;
+      transform: scale(calc(100cqi / 390));
     }
 
     /* Both mode: tile thumb becomes a 2-col flex of mini iframes. */
@@ -550,6 +570,110 @@
     .preview-size-toggle__btn[aria-disabled="true"] {
       opacity: 0.45;
       cursor: not-allowed;
+    }
+
+    /* ----------------------------------------------------------------
+       Layout toggle bar — "Device vs Desktop" viewport switcher.
+       Tapping Desktop swaps the <meta name="viewport"> to width=1400,
+       forcing the browser to reflow as if on a 1400px desktop. Like
+       the browser's "Request Desktop Site" feature.
+       Pinned to top of main content on small screens only.
+       ---------------------------------------------------------------- */
+    .layout-toggle-bar {
+      display: none;
+    }
+    @media (max-width: 820px) {
+      .layout-toggle-bar {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: var(--sp-3);
+        background: var(--p-cream);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--r-pill);
+        padding: 6px 10px 6px 14px;
+        margin: 0 0 var(--sp-3);
+      }
+      .layout-toggle-bar__label {
+        font-family: var(--f-sans);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-mute);
+      }
+      .layout-toggle-bar__btns {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+        background: var(--p-oatmeal);
+        border-radius: var(--r-pill);
+        padding: 3px;
+      }
+      .layout-toggle-bar__btn {
+        font-family: var(--f-sans);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ink-mute);
+        background: transparent;
+        border: 0;
+        border-radius: var(--r-pill);
+        min-height: 44px;
+        padding: 10px 8px;
+        cursor: pointer;
+        transition: background 160ms ease, color 160ms ease;
+      }
+      .layout-toggle-bar__btn.is-active {
+        background: var(--p-aztek);
+        color: #fff;
+      }
+    }
+    /* When forced to desktop viewport (width=1400), also show the pill so
+       the user can toggle back. The phone renders the page at 1400px wide,
+       but the toggle still needs to be visible and tappable. */
+    body.is-forced-desktop .layout-toggle-bar {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: var(--sp-3);
+      background: var(--p-cream);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill);
+      padding: 6px 10px 6px 14px;
+      margin: 0 0 var(--sp-3);
+      max-width: 420px;
+    }
+    body.is-forced-desktop .layout-toggle-bar__label {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    body.is-forced-desktop .layout-toggle-bar__btns {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      background: var(--p-oatmeal);
+      border-radius: var(--r-pill);
+      padding: 3px;
+    }
+    body.is-forced-desktop .layout-toggle-bar__btn {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-mute);
+      background: transparent;
+      border: 0;
+      border-radius: var(--r-pill);
+      min-height: 32px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+    body.is-forced-desktop .layout-toggle-bar__btn.is-active {
+      background: var(--p-aztek);
+      color: #fff;
     }
 
     /* ----------------------------------------------------------------
@@ -796,7 +920,7 @@
 
     @media (max-width: 640px) {
       .tiles { grid-template-columns: 1fr; }
-      .tile__thumb { height: 180px; }
+      /* tile__thumb height now auto-drives from aspect-ratio */
       .wrap { padding: var(--sp-5) var(--sp-4) var(--sp-8); }
       .intention { padding: var(--sp-4); }
       .recipe-intent { display: none; }
@@ -1025,24 +1149,23 @@
     .preset-slot__thumb {
       position: relative;
       width: 100%;
-      height: 200px;
+      aspect-ratio: 1360 / 800;
       background: var(--p-oatmeal);
       overflow: hidden;
+      container-type: inline-size;
+      transition: aspect-ratio 220ms ease;
     }
     .preset-slot__thumb iframe {
       position: absolute;
       top: 0;
       left: 0;
       border: 0;
-      width: var(--preset-preview-w, 1360px);
-      height: var(--preset-preview-h, 800px);
-      transform: scale(var(--preset-preview-scale, 0.25));
+      width: 1360px;
+      height: 800px;
+      transform: scale(calc(100cqi / 1360));
       transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
-    }
-    .preset-slot__thumb {
-      transition: height 220ms ease;
     }
     .preset-slot__thumb-placeholder {
       position: absolute;
@@ -1267,9 +1390,7 @@
       .tile {
         min-height: 200px;
       }
-      .tile__thumb {
-        height: 180px;
-      }
+      /* tile__thumb height now auto-drives from aspect-ratio 1400/880 */
       .tile__body {
         padding: var(--sp-4);
         min-height: 60px;
@@ -1339,19 +1460,8 @@
         max-width: 100%;
         overflow: hidden;
       }
-      .preset-slot__thumb {
-        height: 160px;
-      }
-      /* Scale the internal iframe so the full-width thumbnail fits phone viewport.
-         Viewport width minus card padding (32) minus card border + scroll buffer. */
-      .preset-slot__thumb iframe {
-        width: 1360px;
-        height: 780px;
-        /* scale ratio tuned for 375px: (375 - 32 - 2) / 1360 ≈ 0.25 still works
-           but a slightly larger scale makes text more readable on phones */
-        transform: scale(0.23);
-        transform-origin: top left;
-      }
+      /* Preset-slot thumbs auto-fit via container-query on base rule;
+         no mobile override needed — container width drives the scale. */
       .preset-card__actions {
         flex-direction: column;
         gap: 10px;
@@ -2332,19 +2442,14 @@
       </a>
     </div>
 
-    <!-- Mobile only: inline Preview-size toggle so it's one tap away, -->
-    <!-- without burying it at the bottom of the filter sheet. Hidden >820px. -->
-    <div
-      class="mobile-preview-bar"
-      id="mobilePreviewBar"
-      role="radiogroup"
-      aria-label="Preview size"
-    >
-      <span class="mobile-preview-bar__label">Preview</span>
-      <div class="mobile-preview-bar__btns">
-        <button type="button" class="mobile-preview-bar__btn preview-size-toggle__btn is-active" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
-        <button type="button" class="mobile-preview-bar__btn preview-size-toggle__btn"           role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
-        <button type="button" class="mobile-preview-bar__btn preview-size-toggle__btn"           role="radio" aria-checked="false" data-preview-mode="both">Both</button>
+    <!-- Layout toggle: forces the /compose/ PAGE itself to render at a -->
+    <!-- 1400px desktop viewport (pinch/zoom to navigate). Like a browser's -->
+    <!-- "Request Desktop Site". Persisted. Always visible. -->
+    <div class="layout-toggle-bar" id="layoutToggleBar" role="group" aria-label="Page layout">
+      <span class="layout-toggle-bar__label">Layout</span>
+      <div class="layout-toggle-bar__btns">
+        <button type="button" class="layout-toggle-bar__btn is-active" data-layout="mobile" aria-pressed="true">Device</button>
+        <button type="button" class="layout-toggle-bar__btn"            data-layout="desktop" aria-pressed="false">Desktop</button>
       </div>
     </div>
 
@@ -4062,6 +4167,49 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       bindToggle('sbPreviewSizeToggle');
       bindToggle('sheetPreviewSizeToggle');
       bindToggle('mobilePreviewBar');
+
+      // ------------------------------------------------------------------
+      // Layout viewport toggle (Device vs Desktop) — swaps the viewport
+      // meta tag so the page itself reflows to 1400px (browser "Request
+      // Desktop Site" equivalent). Independent of the preview-size toggle.
+      // ------------------------------------------------------------------
+      (function initLayoutToggle() {
+        var LS = 'thc-force-desktop-layout';
+        var meta = document.getElementById('viewport-meta');
+        var bar = document.getElementById('layoutToggleBar');
+        if (!meta || !bar) return;
+
+        function isForced() {
+          try { return localStorage.getItem(LS) === '1'; } catch (e) { return false; }
+        }
+        function apply(forced) {
+          if (forced) {
+            meta.setAttribute('content', 'width=1400');
+            document.body.classList.add('is-forced-desktop');
+            try { localStorage.setItem(LS, '1'); } catch (e) {}
+          } else {
+            meta.setAttribute('content', 'width=device-width, initial-scale=1');
+            document.body.classList.remove('is-forced-desktop');
+            try { localStorage.removeItem(LS); } catch (e) {}
+          }
+          bar.querySelectorAll('.layout-toggle-bar__btn').forEach(function (btn) {
+            var layout = btn.getAttribute('data-layout');
+            var active = (layout === 'desktop') === forced;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+        }
+
+        bar.querySelectorAll('.layout-toggle-bar__btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            apply(btn.getAttribute('data-layout') === 'desktop');
+          });
+        });
+
+        // Initial sync (viewport meta was set by pre-paint inline script;
+        // here we mirror state into the body class + button styles).
+        apply(isForced());
+      })();
 
       // React to viewport changes: if "both" was requested but viewport shrank,
       // collapse effective mode to mobile (and vice versa).
