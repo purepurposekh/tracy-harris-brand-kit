@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero — Tony variant (bold stage hero + inline event widget)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Tracy marks ---- */
+    .t-mark { width: auto; fill: currentColor; display: block; }
+    .t-mark path, .t-mark circle { fill: currentColor; }
+    .t-wordmark { width: auto; fill: currentColor; display: block; }
+    .t-wordmark path, .t-wordmark polygon, .t-wordmark rect, .t-wordmark circle { fill: currentColor; }
+
+    /* -------- PAGE FRAME -------- */
+    .tpage {
+      background: var(--p-charcoal);
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 16px;
+      color: var(--p-oatmeal);
+    }
+
+    /* -------- THIN TOP BAR -------- */
+    .tnav {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 12px 22px;
+      color: var(--p-oatmeal);
+    }
+    .tnav__mark {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tnav__mark .t-wordmark { height: 22px; }
+
+    .tnav__links {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      align-items: center;
+    }
+    .tnav__link {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--p-oatmeal);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.92;
+      transition: opacity .2s ease;
+    }
+    .tnav__link:hover { opacity: 1; }
+    .tnav__link svg { opacity: 0.7; }
+
+    .tnav__right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      justify-content: flex-end;
+    }
+    .tnav__icon {
+      background: none;
+      border: 0;
+      color: inherit;
+      padding: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tnav__login {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--p-oatmeal);
+      text-decoration: none;
+    }
+    .tnav__cta {
+      padding: 10px 22px;
+      border-radius: var(--r-pill);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .2s ease, transform .2s ease;
+      white-space: nowrap;
+    }
+    .tnav__cta:hover { background: #fff; transform: translateY(-1px); }
+
+    /* -------- HERO STAGE -------- */
+    .thero {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 78vh;
+      background: linear-gradient(135deg, #142421 0%, #1e3735 55%, #233635 100%);
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Portrait */
+    .thero__image {
+      position: absolute;
+      inset: 0;
+      background: url("../../../assets/photos/tracy-outfit8-39.jpg") center 22% / cover;
+      z-index: 1;
+      filter: saturate(0.9) contrast(1.05);
+    }
+    /* Sage/aztek wash — tints everything on-brand (replaces Tony's blue) */
+    .thero__wash {
+      position: absolute; inset: 0; z-index: 2;
+      background:
+        linear-gradient(135deg,
+          rgba(30,55,53,0.55) 0%,
+          rgba(30,55,53,0.25) 40%,
+          rgba(110,142,119,0.30) 80%,
+          rgba(30,55,53,0.55) 100%);
+      mix-blend-mode: multiply;
+    }
+    /* Scan-line texture */
+    .thero__lines {
+      position: absolute; inset: 0; z-index: 3;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(246,244,241,0) 0px,
+          rgba(246,244,241,0) 32px,
+          rgba(246,244,241,0.045) 32px,
+          rgba(246,244,241,0.045) 33px
+        );
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    /* Soft edge vignette so corners feel deeper */
+    .thero__vignette {
+      position: absolute; inset: 0; z-index: 4;
+      background:
+        radial-gradient(ellipse 100% 80% at 50% 50%,
+          rgba(0,0,0,0) 45%,
+          rgba(0,0,0,0.35) 100%);
+      pointer-events: none;
+    }
+
+    /* Content layer */
+    .thero__body {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: clamp(28px, 4vw, 48px);
+    }
+    .thero__bottom {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 32px;
+    }
+    .thero__copy {
+      max-width: 680px;
+    }
+    .thero__title {
+      font-family: var(--f-sans);
+      font-weight: 800;
+      font-size: clamp(40px, 6.4vw, 96px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      color: var(--p-oatmeal);
+      margin: 0 0 24px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .thero__title span { display: block; }
+    .thero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: var(--r-pill);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .thero__cta:hover { background: #fff; transform: translateY(-1px); }
+
+    /* -------- INLINE EVENT WIDGET (bottom-right of hero) -------- */
+    .tew {
+      width: 300px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .tew:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(0,0,0,0.45); }
+    .tew__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px 6px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      opacity: 0.9;
+    }
+    .tew__label::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--p-sage);
+      box-shadow: 0 0 0 0 rgba(110,142,119,0.6);
+      animation: tewBlink 1.8s ease-in-out infinite;
+    }
+    @keyframes tewBlink {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(110,142,119,0.6); }
+      50%      { box-shadow: 0 0 0 6px rgba(110,142,119,0); }
+    }
+    .tew__thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: url("../../../assets/photos/tracy-outfit8-49.jpg") center 25% / cover;
+      margin: 0 10px 10px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .tew__thumb::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(16,16,16,0) 50%, rgba(16,16,16,0.6) 100%);
+    }
+    .tew__caption {
+      position: absolute;
+      left: 10px; bottom: 10px;
+      z-index: 2;
+      font-family: var(--f-serif-display);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--p-oatmeal);
+      max-width: 70%;
+    }
+    .tew__caption em { font-family: var(--f-serif-italic); font-style: italic; }
+    .tew__watch {
+      position: absolute;
+      right: 10px; bottom: 10px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px 6px 10px;
+      border-radius: var(--r-pill);
+      background: rgba(246,244,241,0.94);
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* -------- MOBILE -------- */
+    @media (max-width: 900px) {
+      .tnav__links { display: none; }
+      .tnav { padding-bottom: 14px; }
+      .tnav__login { display: none; }
+    }
+    @media (max-width: 820px) {
+      .tpage { padding: 10px; }
+      .thero {
+        min-height: 88vh;
+        border-radius: 18px;
+      }
+      .thero__image { background-position: 65% 22%; }
+      .thero__body { padding: 22px 18px; }
+      .thero__bottom {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .thero__title {
+        font-size: clamp(38px, 11vw, 64px);
+      }
+      .thero__cta { padding: 14px 22px; font-size: 13px; }
+      .tew { width: 100%; max-width: 340px; }
+      .tew__thumb { aspect-ratio: 16 / 9; }
+    }
+
+    @media (max-width: 380px) {
+      .thero__title { font-size: 36px; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <div class="tpage">
+    <!-- THIN TOP BAR -->
+    <nav class="tnav" aria-label="Primary">
+      <a href="/" class="tnav__mark" aria-label="Tracy Harris home">
+        <svg class="t-wordmark" viewBox="0 0 951.88 385.78" aria-hidden="true">
+          <path d="M0,68.37V9.26L55.14,0v68.37h52.49l-1.77,7.5h-50.72v131.45c0,24.7,10.59,37.49,32.64,37.49,12.79,0,22.5-8.82,26.47-15.44l6.62,3.97c-8.82,20.73-35.73,42.79-65.28,42.79-34.85,0-55.58-14.12-55.58-67.49V68.37Z"/>
+          <path d="M296.86,72.34c13.67,11.91,15,33.08,3.09,46.32-11.91,13.67-32.2,15.44-46.31,3.53-6.62-6.18-10.15-13.67-10.15-21.61,0-4.85-18.08-.44-34.4,26.03v91.75c0,24.7,2.21,41.9,18.08,46.32v7.5h-91.31v-7.5c17.2-5.29,17.64-23.38,17.64-46.32v-97.92c0-15-3.97-21.61-22.06-30.88v-7.5l77.63-17.64v49.84c23.38-36.61,41.46-43.23,52.05-47.64,9.26-3.97,26.02-2.21,35.73,5.73Z"/>
+          <path d="M514.31,241.72l7.5,3.09c-3.53,14.12-23.82,31.32-51.61,31.32,0,0-39.26,0-44.11-35.73-6.62,19.41-32.64,35.73-63.96,35.73,0,0-50.73,0-50.73-44.99,0-48.08,37.05-52.49,114.25-71.9v-27.35c0-45.87-25.58-68.81-56.02-52.93-14.12,7.06-15.88,14.56-12.79,15,6.62.88,12.35,3.97,16.32,9.7,7.94,11.47,4.85,26.91-6.62,34.85-11.47,7.5-26.91,4.85-34.85-6.62-5.29-8.38-5.73-18.97-1.32-26.47,4.41-7.5,10.15-19.41,34.41-32.2,19.85-10.59,42.79-8.82,42.79-8.82,57.78,0,73.66,36.17,73.66,88.22v65.72s-.44,30.88,21.17,30.88c0,0,9.26,0,11.91-7.5ZM425.65,167.18c-43.23,9.7-57.78,30.44-57.78,52.93,0,0,0,29.11,28.67,29.11,15,0,25.14-11.91,29.11-22.5v-59.55Z"/>
+          <path d="M712.81,219.23c-6.18,22.5-32.64,56.9-87.78,56.9s-97.04-55.14-97.04-106.75,38.82-104.98,114.24-104.98c31.32,0,50.29,12.79,57.78,19.41,7.5,6.62,11.91,18.97,8.82,29.55-4.41,15.44-20.29,25.58-36.17,21.17-15.88-3.97-25.14-20.29-20.73-35.73,1.77-8.38,7.06-14.12,13.67-17.64,3.97-1.76-5.73-9.26-23.38-9.26-15.88,0-58.67,13.67-58.67,89.54,0,47.64,25.58,68.81,56.02,75.43,22.06,4.85,56.9-7.06,67.05-21.61l6.18,3.97Z"/>
+          <path d="M951.88,68.37v7.5c-9.26,0-29.55.88-57.78,68.81l-67.49,177.76c-11.47,30-24.7,42.35-33.08,48.96-7.94,6.62-23.38,9.26-33.97,4.41-15.44-7.06-22.05-25.14-15.44-40.58,7.06-15.44,25.14-22.5,40.58-15.44,7.94,3.53,12.79,10.59,15,18.08,1.77,5.29,12.35,2.21,19.41-16.32l16.76-45.43c-27.35-63.08-83.37-183.06-83.37-183.06-7.06-17.2-21.17-17.2-27.79-17.2v-7.5h104.1v7.5c-22.93,0-11.47,26.91-11.47,26.91l46.76,99.69,23.38-59.55s29.11-67.49-22.05-67.05v-7.5h86.45Z"/>
+          <polygon points="53.73 318.72 53.73 384.88 46.04 384.88 46.04 355.28 8.61 355.28 8.61 384.88 .92 384.88 .92 318.72 8.61 318.72 8.61 347.95 46.04 347.95 46.04 318.72 53.73 318.72"/>
+          <path d="M168.14,318.26h-6.43l-30.8,66.62h8.19l8.02-17.69h35.34l8.03,17.69h8.45l-30.8-66.62ZM179.11,359.95h-28.63l14.35-31.42,14.28,31.42Z"/>
+          <path d="M310.92,357.45c10.88-2.28,17.29-9.28,17.29-19.1v-.18c0-4.81-1.9-9.47-5.22-12.79-4.3-4.3-10.99-6.66-18.84-6.66h-28.03v66.16h7.69v-26.17h18.43l20.12,26.17h9.75l-21.19-27.43ZM283.81,326.05h20.07c10.42,0,16.64,4.6,16.64,12.3v.18c0,7.86-6.64,12.94-16.91,12.94h-19.8v-25.42Z"/>
+          <path d="M443.83,357.45c10.88-2.28,17.29-9.28,17.29-19.1v-.18c0-4.81-1.9-9.47-5.22-12.79-4.3-4.3-10.99-6.66-18.84-6.66h-28.03v66.16h7.69v-26.17h18.43l20.12,26.17h9.75l-21.19-27.43ZM416.72,326.05h20.07c10.42,0,16.64,4.6,16.64,12.3v.18c0,7.86-6.64,12.94-16.91,12.94h-19.8v-25.42Z"/>
+          <rect x="542.57" y="318.72" width="7.69" height="66.16"/>
+          <path d="M679.65,366.86v.18c0,11.04-9.22,18.74-22.43,18.74-10.16,0-18.32-3.24-26.45-10.49l-1.1-.99,5.06-5.79,1.13,1.04c7.01,6.47,13.08,8.99,21.63,8.99s14.47-4.54,14.47-11.04v-.18c0-5.6-2.65-9.16-16.66-11.98-15.77-3.19-22.5-8.94-22.5-19.24v-.18c0-10.32,9.37-18.11,21.8-18.11,8.97,0,15.52,2.32,22.6,8l1.17.94-4.89,6.08-1.18-1.01c-5.41-4.68-10.93-6.77-17.88-6.77-8.07,0-13.93,4.38-13.93,10.41v.18c0,4.83,1.3,9.08,17.21,12.34,15.18,3.09,21.95,8.92,21.95,18.88Z"/>
+          <circle cx="913.63" cy="254.68" r="21.87"/>
+        </svg>
+      </a>
+
+      <div class="tnav__links">
+        <a href="/about" class="tnav__link">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="/programs" class="tnav__link">Programs <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="/events" class="tnav__link">Events <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="/podcast" class="tnav__link">Podcast</a>
+        <a href="/blog" class="tnav__link">Blog</a>
+      </div>
+
+      <div class="tnav__right">
+        <button class="tnav__icon" type="button" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <a href="/login" class="tnav__login">Log in</a>
+        <a href="/apply" class="tnav__cta">Apply now</a>
+      </div>
+    </nav>
+
+    <!-- HERO STAGE -->
+    <section class="thero" aria-label="Hero">
+      <div class="thero__image" role="img" aria-label="Tracy Harris portrait"></div>
+      <div class="thero__wash" aria-hidden="true"></div>
+      <div class="thero__lines" aria-hidden="true"></div>
+      <div class="thero__vignette" aria-hidden="true"></div>
+
+      <div class="thero__body">
+        <div></div>
+
+        <div class="thero__bottom">
+          <div class="thero__copy">
+            <h1 class="thero__title">
+              <span>A beautiful business.</span>
+              <span>A life <em style="font-style:italic; font-family:var(--f-serif-italic); font-weight:400;">by design</em>.</span>
+            </h1>
+            <a href="/apply" class="thero__cta">
+              Start here
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+
+          <a href="/workshop" class="tew" aria-label="Watch the next Tracy Harris workshop teaser">
+            <span class="tew__label">Next workshop</span>
+            <div class="tew__thumb">
+              <span class="tew__caption">The <em>Million Dollar</em> Message</span>
+              <span class="tew__watch">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                Watch
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>

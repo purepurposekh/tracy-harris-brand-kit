@@ -256,26 +256,59 @@
       background: var(--p-charcoal);
       color: var(--p-oatmeal);
       border-radius: 22px;
-      max-width: 920px;
+      max-width: min(960px, 100%);
       width: 100%;
-      max-height: 92vh;
+      max-height: calc(100vh - 48px);
+      max-height: calc(100svh - 48px);
       overflow: hidden;
       position: relative;
       display: grid;
-      grid-template-columns: 1.2fr 0.9fr;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.9fr);
       box-shadow: 0 30px 80px rgba(16,16,16,0.5);
     }
+    .ewm__dialog > * { min-width: 0; min-height: 0; }
     .ewm__video {
       position: relative;
       background: #000;
       aspect-ratio: 16 / 9;
+      overflow: hidden;
     }
     .ewm__video-frame {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
     }
+    .ewm__poster {
+      position: absolute; inset: 0;
+      background: url("../../../assets/photos/tracy-outfit8-49.jpg") center 25% / cover;
+    }
+    .ewm__poster::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(16,16,16,0) 50%, rgba(16,16,16,0.65) 100%);
+    }
+    .ewm__poster-play {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 22px 12px 18px;
+      border: 0; cursor: pointer;
+      border-radius: var(--r-pill);
+      background: rgba(246,244,241,0.96);
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background .2s, transform .2s;
+    }
+    .ewm__poster-play:hover { background: #fff; transform: translate(-50%, -50%) scale(1.04); }
     .ewm__copy {
       padding: 40px 36px;
       display: flex;
@@ -369,7 +402,20 @@
 
     body.ewm-open { overflow: hidden; }
 
-    /* -------- MOBILE -------- */
+    /* -------- MOBILE / smaller viewports -------- */
+    @media (max-width: 900px) {
+      .ewm { padding: 16px; }
+      .ewm__dialog {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        max-height: calc(100svh - 32px);
+        overflow-y: auto;
+      }
+      .ewm__video { aspect-ratio: 16 / 10; }
+      .ewm__copy { padding: 24px 22px; gap: 12px; }
+      .ewm__title { font-size: clamp(22px, 6vw, 30px); }
+    }
+
     @media (max-width: 820px) {
       .ew {
         right: 12px;
@@ -377,12 +423,21 @@
         width: calc(100vw - 24px);
         max-width: 360px;
       }
+    }
+
+    /* Landscape phones: keep it scrollable, tighter padding */
+    @media (max-height: 520px) {
+      .ewm { padding: 8px; }
       .ewm__dialog {
         grid-template-columns: 1fr;
-        max-height: 94vh;
+        grid-template-rows: auto auto;
+        max-height: calc(100svh - 16px);
+        overflow-y: auto;
       }
-      .ewm__video { aspect-ratio: 16 / 10; }
-      .ewm__copy { padding: 24px 20px; }
+      .ewm__video { aspect-ratio: 16 / 7; }
+      .ewm__copy { padding: 16px 18px; gap: 8px; }
+      .ewm__title { font-size: 22px; }
+      .ewm__desc { font-size: 13px; }
     }
   </style>
 </head>
@@ -427,15 +482,19 @@
       <button class="ewm__close" type="button" aria-label="Close workshop preview" id="ewm-close"></button>
 
       <div class="ewm__video">
-        <!-- Replace src with the actual YouTube/Vimeo embed of the replay snippet -->
-        <iframe class="ewm__video-frame" id="ewm-frame"
+        <!-- Poster shows by default; when a real embed URL is available, replace this block with an iframe. -->
+        <div class="ewm__poster" id="ewm-poster" role="img" aria-label="Workshop preview"></div>
+        <button class="ewm__poster-play" id="ewm-poster-play" type="button" aria-label="Play preview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+          Play preview
+        </button>
+        <!-- Hidden iframe; populated with data-src if provided on the parent -->
+        <iframe class="ewm__video-frame" id="ewm-frame" style="display:none;"
           src=""
-          data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
           title="The Million Dollar Message — preview"
           loading="lazy"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+          allowfullscreen></iframe>
       </div>
 
       <div class="ewm__copy">
@@ -464,23 +523,40 @@
     const ewmClose = document.getElementById('ewm-close');
     const ewmFrame = document.getElementById('ewm-frame');
 
+    const ewmPoster = document.getElementById('ewm-poster');
+    const ewmPosterPlay = document.getElementById('ewm-poster-play');
+
     function openModal() {
       ewm.classList.add('is-open');
       ewm.setAttribute('aria-hidden', 'false');
       document.body.classList.add('ewm-open');
-      // Lazy-load the iframe only when modal opens
-      if (!ewmFrame.src) ewmFrame.src = ewmFrame.dataset.src;
     }
     function closeModal() {
       ewm.classList.remove('is-open');
       ewm.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('ewm-open');
-      // Stop the video playback
+      // Stop any video playback, reset back to poster
       if (ewmFrame.src) {
-        const src = ewmFrame.src;
         ewmFrame.src = '';
-        ewmFrame.dataset.src = src.replace(/\?.*$/, '?rel=0&modestbranding=1');
+        ewmFrame.style.display = 'none';
       }
+      if (ewmPoster) ewmPoster.style.display = '';
+      if (ewmPosterPlay) ewmPosterPlay.style.display = '';
+    }
+
+    // When a real video URL is set on ewmFrame.dataset.src, the poster play button loads it
+    if (ewmPosterPlay) {
+      ewmPosterPlay.addEventListener('click', () => {
+        const src = ewmFrame.dataset.src;
+        if (!src) {
+          window.location.href = '/workshop/register';
+          return;
+        }
+        ewmFrame.src = src;
+        ewmFrame.style.display = 'block';
+        ewmPoster.style.display = 'none';
+        ewmPosterPlay.style.display = 'none';
+      });
     }
     function dismissWidget() {
       ew.classList.add('is-hidden');

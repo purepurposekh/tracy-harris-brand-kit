@@ -88,17 +88,17 @@
       background: var(--p-charcoal);
     }
 
-    /* Photo layer: full-bleed, positioned so Tracy lives on the right */
+    /* Photo layer: full-bleed, positioned so Tracy is centered within the RIGHT half */
     .shero__image {
       position: absolute;
       inset: 0;
       background-image: url("../../../assets/photos/tracy-outfit8-39.jpg");
       background-size: cover;
-      background-position: 72% 32%;
+      background-position: 92% 28%;
       filter: saturate(0.95) contrast(1.02);
       z-index: 1;
     }
-    /* Horizontal gradient: fully dark on the LEFT, clear on the RIGHT */
+    /* Horizontal gradient: dark on the LEFT, clears well BEFORE Tracy so her face is fully visible */
     .shero__scrim {
       position: absolute;
       inset: 0;
@@ -106,11 +106,53 @@
       pointer-events: none;
       background:
         linear-gradient(90deg,
-          rgba(16,16,16,0.96) 0%,
-          rgba(16,16,16,0.9)  28%,
-          rgba(16,16,16,0.55) 44%,
-          rgba(16,16,16,0.18) 62%,
-          rgba(16,16,16,0.0)  78%);
+          rgba(16,16,16,0.97) 0%,
+          rgba(16,16,16,0.94) 28%,
+          rgba(16,16,16,0.65) 42%,
+          rgba(16,16,16,0.20) 54%,
+          rgba(16,16,16,0.0)  64%);
+    }
+    /* LIGHT variant: cream-to-clear gradient, charcoal text */
+    .shero.shero--light { background: var(--p-oatmeal); }
+    .shero.shero--light .shero__scrim {
+      background:
+        linear-gradient(90deg,
+          rgba(246,244,241,0.98) 0%,
+          rgba(246,244,241,0.95) 28%,
+          rgba(246,244,241,0.7)  42%,
+          rgba(246,244,241,0.25) 54%,
+          rgba(246,244,241,0.0)  64%);
+    }
+    .shero.shero--light .shero__vignette {
+      background: linear-gradient(180deg,
+        rgba(246,244,241,0.5) 0%,
+        rgba(246,244,241,0.0) 18%,
+        rgba(246,244,241,0.0) 82%,
+        rgba(246,244,241,0.35) 100%);
+    }
+    .shero.shero--light .shero__content,
+    .shero.shero--light .shero__eyebrow,
+    .shero.shero--light .shero__title,
+    .shero.shero--light .shero__sub,
+    .shero.shero--light .shero__meta,
+    .shero.shero--light .shero__nav {
+      color: var(--p-charcoal);
+    }
+    .shero.shero--light .shero__cta--primary {
+      background: var(--p-ffb-dark);
+      color: var(--p-oatmeal);
+      border-color: var(--p-ffb-dark);
+    }
+    .shero.shero--light .shero__cta--primary:hover {
+      background: #122624;
+      border-color: #122624;
+    }
+    .shero.shero--light .shero__cta--ghost {
+      color: var(--p-charcoal);
+      border-color: rgba(16,16,16,0.3);
+    }
+    .shero.shero--light .shero__cta--ghost:hover {
+      border-color: var(--p-charcoal);
     }
     /* Subtle top/bottom vignette to keep nav + legal margins readable */
     .shero__vignette {
@@ -192,7 +234,12 @@
       color: var(--p-charcoal);
       border: 1px solid var(--p-oatmeal);
     }
-    .shero__cta--primary:hover { transform: translateY(-1px); background: #fff; }
+    .shero__cta--primary:hover {
+      background: var(--p-ffb-dark);
+      color: var(--p-oatmeal);
+      border-color: var(--p-ffb-dark);
+      transform: translateY(-1px);
+    }
     .shero__cta--ghost {
       background: transparent;
       color: var(--p-oatmeal);
@@ -263,6 +310,15 @@
             rgba(16,16,16,0.15) 45%,
             rgba(16,16,16,0.78) 70%,
             rgba(16,16,16,0.92) 100%);
+      }
+      .shero.shero--light .shero__scrim {
+        background:
+          linear-gradient(180deg,
+            rgba(246,244,241,0.35) 0%,
+            rgba(246,244,241,0.0)  25%,
+            rgba(246,244,241,0.25) 45%,
+            rgba(246,244,241,0.8)  70%,
+            rgba(246,244,241,0.95) 100%);
       }
       .shero__content {
         max-width: none;
@@ -343,6 +399,57 @@
       <em>Quietly</em> profitable. <em>Intentionally</em> small.
       A business by <em>design</em>, not by default.
     </p>
+  </section>
+
+  <!-- LIGHT VARIATION — same layout, inverted -->
+  <section class="shero shero--light">
+    <div class="shero__image" role="img" aria-label="Tracy Harris portrait"></div>
+    <div class="shero__scrim" aria-hidden="true"></div>
+    <div class="shero__vignette" aria-hidden="true"></div>
+
+    <nav class="shero__nav" aria-label="Primary">
+      <div class="shero__nav-group">
+        <a href="/" class="shero__nav-link">Home</a>
+        <a href="/about" class="shero__nav-link">About</a>
+        <a href="/programs" class="shero__nav-link">Programs</a>
+      </div>
+
+      <a href="/" class="shero__nav-mark" aria-label="Tracy Harris home">
+        <svg class="t-mark t-mark--bar" viewBox="0 0 263.98 382.72" aria-hidden="true">
+          <path d="M0,94.76V12.84L76.42,0v94.76h72.75l-2.45,10.39h-70.3v182.19c0,34.24,14.67,51.97,45.24,51.97,17.73,0,31.18-12.23,36.68-21.4l9.17,5.5c-12.23,28.73-49.52,59.3-90.48,59.3-48.3,0-77.03-19.56-77.03-93.54V94.76Z"/>
+          <circle cx="233.68" cy="352.41" r="30.31"/>
+        </svg>
+      </a>
+
+      <div class="shero__nav-group shero__nav-group--right">
+        <a href="/podcast" class="shero__nav-link">Podcast</a>
+        <a href="/blog" class="shero__nav-link">Blog</a>
+        <a href="/apply" class="shero__nav-link">Apply</a>
+        <button class="shero__menu" type="button" aria-label="Open menu">
+          <span>Menu</span>
+          <span class="shero__menu-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="shero__content">
+      <p class="shero__eyebrow">Peace, Profit, Presence.</p>
+      <h1 class="shero__title">
+        Build a <em>beautiful business</em> that lets you live.
+      </h1>
+      <p class="shero__sub">
+        Mentorship, mastermind and community for women building <em>Freedom Filled®</em> businesses — grounded in story, strategy and spaciousness.
+      </p>
+      <div class="shero__ctas">
+        <a href="/apply" class="shero__cta shero__cta--primary">Apply for FFB</a>
+        <a href="/fresh-quiz" class="shero__cta shero__cta--ghost">Take the FRESH Quiz</a>
+      </div>
+    </div>
+
+    <div class="shero__meta">
+      <span>Est. 2016</span>
+      <span>Coaching · Mastermind · Community</span>
+    </div>
   </section>
 
 </body>
