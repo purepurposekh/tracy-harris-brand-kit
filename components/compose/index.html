@@ -1532,15 +1532,306 @@
     /* Also hide the preset gallery's h2 lede duplication — keep copy tight */
     body[data-compose] .presets__head h2 { font-size: 26px; }
 
-    /* Mobile: nested sidebar section uses more generous touch targets */
+    /* Mobile: nested sidebar section moves OUT of the sidebar overlay and
+       into a dedicated bottom-sheet pattern. The .app-sidebar__subsection
+       element is kept in the DOM so desktop still uses it, but it's hidden
+       on mobile — filters live in #filterSheet instead. */
     @media (max-width: 819px) {
-      .app-sidebar__subsection {
-        padding: 20px 28px 12px;
-        border-top: 1px solid var(--border-hairline);
-        gap: 14px;
+      .app-sidebar__subsection { display: none !important; }
+    }
+
+    /* ---------- Mobile filter pill (trigger) ---------- */
+    .filter-pill {
+      display: none; /* mobile only; shown via @media below */
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%);
+      max-width: calc(100vw - 40px);
+      min-height: 52px;
+      padding: 10px 18px;
+      align-items: center;
+      gap: 10px;
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      border: 1px solid var(--p-aztek);
+      border-radius: var(--r-pill);
+      box-shadow: 0 16px 40px rgba(16,16,16,0.22);
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      z-index: 70;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .filter-pill:active { transform: translateX(-50%) scale(0.98); }
+    .filter-pill__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 72vw;
+    }
+    .filter-pill__label strong { font-weight: 600; color: var(--p-aztek); }
+    .filter-pill__sep {
+      display: inline-block;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--p-mute);
+      margin: 0 2px;
+      flex: 0 0 3px;
+    }
+    .filter-pill__caret {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      color: var(--p-aztek);
+      flex: 0 0 16px;
+    }
+    .filter-pill__caret svg { width: 14px; height: 14px; display: block; }
+    @media (max-width: 819px) {
+      body[data-compose] .filter-pill { display: inline-flex; }
+    }
+
+    /* ---------- Mobile active-filter chips (under shrunk header) ---------- */
+    .filter-chips {
+      display: none; /* mobile only; shown via @media below */
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: -8px 0 var(--sp-4);
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px 5px 12px;
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--p-aztek);
+      background: var(--p-cream);
+      border: 1px solid rgba(30,55,53,0.18);
+      border-radius: var(--r-pill);
+      cursor: pointer;
+      line-height: 1.2;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .filter-chip em { font-style: normal; color: var(--ink-mute); font-weight: 500; margin-right: 2px; }
+    .filter-chip__x {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(30,55,53,0.12);
+      color: var(--p-aztek);
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 600;
+    }
+    .filter-chip:active { transform: scale(0.97); }
+    @media (max-width: 819px) {
+      body[data-compose] .filter-chips.is-visible { display: flex; }
+    }
+
+    /* ---------- Mobile filter bottom-sheet ---------- */
+    .filter-sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(16,16,16,0.42);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 90;
+    }
+    body.filter-sheet-open .filter-sheet-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .filter-sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-height: 75vh;
+      background: var(--p-cream);
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -18px 50px rgba(16,16,16,0.22);
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 95;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+    body.filter-sheet-open .filter-sheet {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .filter-sheet { transition: opacity 180ms ease; transform: none; }
+      body.filter-sheet-open .filter-sheet { transform: none; }
+    }
+    .filter-sheet__handle {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0 4px;
+    }
+    .filter-sheet__handle-pill {
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--p-sage);
+      opacity: 0.5;
+    }
+    .filter-sheet__scroll {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 22px 16px;
+    }
+    .filter-sheet__section-label {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 14px 0 10px;
+    }
+    .filter-sheet__section-label:first-of-type { margin-top: 6px; }
+    .sheet-mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--p-oatmeal);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill);
+      padding: 4px;
+      gap: 4px;
+    }
+    .sheet-mode-toggle__btn {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 12px 14px;
+      min-height: 48px;
+      border-radius: var(--r-pill);
+      border: 0;
+      background: transparent;
+      color: var(--p-charcoal);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      text-align: center;
+    }
+    .sheet-mode-toggle__btn.is-active {
+      background: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .sheet-mode-toggle__btn:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 2px;
+    }
+    .sheet-pt-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sheet-pt-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px 18px;
+      min-height: 52px;
+      border: 1px solid var(--border-hairline);
+      background: transparent;
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 15px;
+      font-weight: 500;
+      text-align: left;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .sheet-pt-btn:focus-visible { outline: 2px solid var(--p-aztek); outline-offset: -2px; }
+    .sheet-pt-btn__dot {
+      flex: 0 0 12px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid var(--p-mute);
+      background: transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .sheet-pt-btn.is-active {
+      background: var(--p-sage);
+      color: var(--p-white);
+      border-color: var(--p-sage);
+      font-weight: 600;
+    }
+    .sheet-pt-btn.is-active .sheet-pt-btn__dot {
+      background: var(--p-white);
+      border-color: var(--p-white);
+    }
+    .filter-sheet__footer {
+      flex: 0 0 auto;
+      padding: 12px 22px 16px;
+      border-top: 1px solid rgba(30,55,53,0.10);
+      background: var(--p-cream);
+    }
+    .filter-sheet__done {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 18px;
+      border-radius: var(--r-pill);
+      border: 1.5px solid var(--p-sage);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      font-family: var(--f-sans);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .filter-sheet__done:hover,
+    .filter-sheet__done:focus-visible {
+      background: var(--p-sage);
+      color: var(--p-white);
+    }
+    .filter-sheet__done:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 2px;
+    }
+
+    /* Desktop: sheet + pill + chips are never shown. */
+    @media (min-width: 820px) {
+      .filter-pill,
+      .filter-chips,
+      .filter-sheet,
+      .filter-sheet-backdrop {
+        display: none !important;
       }
-      .sidebar-mode-toggle__btn { padding: 11px 14px; font-size: 13px; }
-      .sidebar-pt-btn { padding: 12px 14px; font-size: 16px; }
     }
   </style>
 
@@ -1717,7 +2008,7 @@
 
   <div class="wrap">
 
-    <!-- SHRUNK HEADER (filters now live in the sidebar) -->
+    <!-- SHRUNK HEADER (filters live in the sidebar on desktop, bottom-sheet on mobile) -->
     <div class="compose-header">
       <div class="compose-header__label"><strong>Build a page</strong></div>
       <a href="../../index.html" class="compose-header__back">
@@ -1725,6 +2016,9 @@
         Back to catalog
       </a>
     </div>
+
+    <!-- Mobile only: active filter chips under the shrunk header. -->
+    <div class="filter-chips" id="filterChips" aria-label="Active filters" role="group"></div>
 
     <!-- Original mode toggle: hidden by CSS on /compose/ but kept for state/event handlers -->
     <div class="mode-toggle" role="tablist" aria-label="Composer mode" aria-hidden="true">
@@ -1779,6 +2073,55 @@
   </div>
 
   <div class="toast" id="toast">Recipe copied. Paste it in Discord.</div>
+
+  <!-- ================================================================ -->
+  <!-- Mobile filter bottom-sheet (trigger + backdrop + sheet)           -->
+  <!-- Visible only on mobile (≤819px). Desktop keeps the nested sidebar -->
+  <!-- filter section and never shows this.                              -->
+  <!-- ================================================================ -->
+  <button type="button" class="filter-pill" id="filterPill" aria-controls="filterSheet" aria-expanded="false">
+    <span class="filter-pill__label" id="filterPillLabel">
+      <strong>Build</strong>
+      <span class="filter-pill__sep" aria-hidden="true"></span>
+      Show all
+    </span>
+    <span class="filter-pill__caret" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </span>
+  </button>
+
+  <div class="filter-sheet-backdrop" id="filterSheetBackdrop" aria-hidden="true"></div>
+
+  <div
+    class="filter-sheet"
+    id="filterSheet"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="filter-sheet-title"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="filter-sheet__handle" aria-hidden="true">
+      <div class="filter-sheet__handle-pill"></div>
+    </div>
+
+    <div class="filter-sheet__scroll">
+      <h2 id="filter-sheet-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">Filters</h2>
+
+      <p class="filter-sheet__section-label">Mode</p>
+      <div class="sheet-mode-toggle" role="tablist" aria-label="Composer mode">
+        <button type="button" class="sheet-mode-toggle__btn" id="sheetModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">Build your own</button>
+        <button type="button" class="sheet-mode-toggle__btn" id="sheetModePresetsBtn" role="tab" aria-selected="false" data-mode="presets">Presets</button>
+      </div>
+
+      <p class="filter-sheet__section-label">Page type</p>
+      <ul class="sheet-pt-list" id="sheetPtList" role="group" aria-label="Page type filter"></ul>
+    </div>
+
+    <div class="filter-sheet__footer">
+      <button type="button" class="filter-sheet__done" id="filterSheetDone">Done</button>
+    </div>
+  </div>
 
   <script>
     // ----------------------------------------------------------------------
@@ -2924,6 +3267,237 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       // Keep sidebar state in sync with any other caller of applyPageType
       // (preset apply, page-type button clicks, etc.).
       pageTypeHooks.push(syncSidebarPt);
+    })();
+
+    // ----------------------------------------------------------------------
+    // Mobile filter bottom-sheet
+    // Replaces the sidebar nested filter section on ≤819px. Pill trigger
+    // opens a bottom-sheet with Mode toggle + Page type list + Done button.
+    // Selection does NOT auto-close — user taps Done (or backdrop/Escape).
+    // Desktop sidebar filters continue to work unchanged.
+    // ----------------------------------------------------------------------
+    (function initMobileFilterSheet() {
+      var path = window.location.pathname;
+      var isComposeRoute = path.indexOf('/components/compose/') !== -1
+        || /\/components\/compose\/?$/.test(path);
+      if (!isComposeRoute) return;
+
+      var pill         = document.getElementById('filterPill');
+      var pillLabel    = document.getElementById('filterPillLabel');
+      var chipsEl      = document.getElementById('filterChips');
+      var sheet        = document.getElementById('filterSheet');
+      var backdrop     = document.getElementById('filterSheetBackdrop');
+      var doneBtn      = document.getElementById('filterSheetDone');
+      var sheetBuild   = document.getElementById('sheetModeBuildBtn');
+      var sheetPresets = document.getElementById('sheetModePresetsBtn');
+      var sheetPtList  = document.getElementById('sheetPtList');
+      var origBuild    = document.getElementById('modeBuildBtn');
+      var origPresets  = document.getElementById('modePresetsBtn');
+      if (!pill || !sheet || !sheetPtList) return;
+
+      var bodyEl = document.body;
+      var lastFocus = null;
+
+      // ---------- Helpers: read current mode / page-type label ----------
+      function currentMode() {
+        return bodyEl.dataset.mode === 'presets' ? 'presets' : 'build';
+      }
+      function currentPtLabel() {
+        var cfg = PAGE_TYPES[currentPageType];
+        return cfg ? cfg.label : 'Show all';
+      }
+      function modeLabel(m) {
+        return m === 'presets' ? 'Presets' : 'Build';
+      }
+
+      // ---------- Sync visible state: pill label + chips ----------
+      function syncPillLabel() {
+        var m = currentMode();
+        pillLabel.innerHTML =
+          '<strong>' + modeLabel(m) + '</strong>' +
+          '<span class="filter-pill__sep" aria-hidden="true"></span>' +
+          escapeHtml(currentPtLabel());
+      }
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function syncChips() {
+        // Only page-type renders as a removable chip. Mode is always set
+        // (one of two) so showing it as a "removable" chip is misleading —
+        // it lives in the pill label instead.
+        chipsEl.innerHTML = '';
+        var chips = [];
+        if (currentPageType && currentPageType !== 'all') {
+          var label = (PAGE_TYPES[currentPageType] && PAGE_TYPES[currentPageType].label) || currentPageType;
+          chips.push({ kind: 'pagetype', label: label });
+        }
+        if (!chips.length) {
+          chipsEl.classList.remove('is-visible');
+          return;
+        }
+        chips.forEach(function (c) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filter-chip';
+          btn.setAttribute('aria-label', 'Remove filter: ' + c.label);
+          btn.innerHTML =
+            '<em>Page:</em>' + escapeHtml(c.label) +
+            '<span class="filter-chip__x" aria-hidden="true">×</span>';
+          btn.addEventListener('click', function () {
+            if (c.kind === 'pagetype') {
+              applyPageType('all');
+            }
+          });
+          chipsEl.appendChild(btn);
+        });
+        chipsEl.classList.add('is-visible');
+      }
+
+      // ---------- Sheet: mode buttons ----------
+      function syncSheetMode() {
+        var m = currentMode();
+        sheetBuild.classList.toggle('is-active', m === 'build');
+        sheetPresets.classList.toggle('is-active', m === 'presets');
+        sheetBuild.setAttribute('aria-selected', m === 'build' ? 'true' : 'false');
+        sheetPresets.setAttribute('aria-selected', m === 'presets' ? 'true' : 'false');
+      }
+      if (sheetBuild && origBuild) {
+        sheetBuild.addEventListener('click', function () {
+          origBuild.click();
+          syncSheetMode();
+          syncPillLabel();
+          // No auto-close. User keeps exploring.
+        });
+      }
+      if (sheetPresets && origPresets) {
+        sheetPresets.addEventListener('click', function () {
+          origPresets.click();
+          syncSheetMode();
+          syncPillLabel();
+        });
+      }
+
+      // ---------- Sheet: page type list ----------
+      function buildSheetPtList() {
+        sheetPtList.innerHTML = '';
+        var entries = Object.entries(PAGE_TYPES);
+        var nonAll = entries.filter(function (e) { return e[0] !== 'all'; });
+        var all    = entries.find(function (e) { return e[0] === 'all'; });
+
+        function addItem(key, label) {
+          var li = document.createElement('li');
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'sheet-pt-btn' + (currentPageType === key ? ' is-active' : '');
+          btn.dataset.ptKey = key;
+          btn.innerHTML = '<span class="sheet-pt-btn__dot" aria-hidden="true"></span><span>' + escapeHtml(label) + '</span>';
+          btn.addEventListener('click', function () {
+            applyPageType(key);
+            // No auto-close. Sheet stays open for further tweaks.
+          });
+          li.appendChild(btn);
+          sheetPtList.appendChild(li);
+        }
+
+        nonAll.forEach(function (e) { addItem(e[0], e[1].label); });
+        if (all) addItem('all', all[1].label);
+      }
+      function syncSheetPt() {
+        var btns = sheetPtList.querySelectorAll('.sheet-pt-btn');
+        btns.forEach(function (b) {
+          b.classList.toggle('is-active', b.dataset.ptKey === currentPageType);
+        });
+      }
+
+      buildSheetPtList();
+
+      // Hook into page-type changes so pill label, chips, and sheet all sync
+      // when state mutates from any caller (chip removal, preset apply, etc.).
+      pageTypeHooks.push(function () {
+        syncSheetPt();
+        syncPillLabel();
+        syncChips();
+      });
+
+      // Watch body[data-mode] so pill label updates on preset apply / other.
+      var modeObs = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+          if (m.attributeName === 'data-mode') {
+            syncSheetMode();
+            syncPillLabel();
+          }
+        });
+      });
+      modeObs.observe(bodyEl, { attributes: true });
+
+      // ---------- Open / close ----------
+      function openSheet() {
+        if (bodyEl.classList.contains('filter-sheet-open')) return;
+        lastFocus = document.activeElement;
+        bodyEl.classList.add('filter-sheet-open');
+        pill.setAttribute('aria-expanded', 'true');
+        sheet.setAttribute('aria-hidden', 'false');
+        // Lock background scroll on mobile.
+        bodyEl.style.overflow = 'hidden';
+        // Focus first focusable control inside the sheet.
+        requestAnimationFrame(function () {
+          var first = sheet.querySelector('.sheet-mode-toggle__btn.is-active')
+            || sheet.querySelector('.sheet-mode-toggle__btn');
+          if (first) first.focus({ preventScroll: true });
+        });
+      }
+      function closeSheet() {
+        if (!bodyEl.classList.contains('filter-sheet-open')) return;
+        bodyEl.classList.remove('filter-sheet-open');
+        pill.setAttribute('aria-expanded', 'false');
+        sheet.setAttribute('aria-hidden', 'true');
+        bodyEl.style.overflow = '';
+        // Return focus to the trigger.
+        if (lastFocus && typeof lastFocus.focus === 'function') {
+          lastFocus.focus({ preventScroll: true });
+        } else {
+          pill.focus({ preventScroll: true });
+        }
+      }
+
+      pill.addEventListener('click', openSheet);
+      if (backdrop) backdrop.addEventListener('click', closeSheet);
+      if (doneBtn) doneBtn.addEventListener('click', closeSheet);
+
+      // Escape closes the sheet.
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && bodyEl.classList.contains('filter-sheet-open')) {
+          e.stopPropagation();
+          closeSheet();
+        }
+      });
+
+      // Simple focus trap while the sheet is open.
+      sheet.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        if (!bodyEl.classList.contains('filter-sheet-open')) return;
+        var focusables = sheet.querySelectorAll(
+          'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last  = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+      // Initial render.
+      syncSheetMode();
+      syncSheetPt();
+      syncPillLabel();
+      syncChips();
     })();
   </script>
 </body>
