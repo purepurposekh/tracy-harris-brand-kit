@@ -267,6 +267,14 @@
     @media (prefers-reduced-motion: reduce) {
       .mnav__primary a.prog { transition: color .2s ease, -webkit-text-fill-color .2s ease, transform .2s ease; background-size: 100% 100%; background-position: 0 0; }
     }
+    /* Touch devices (iOS / Android): no :hover — show the gradient text permanently */
+    @media (hover: none) {
+      .mnav__primary a.prog {
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        background-position: 0 0;
+      }
+    }
     .mnav__secondary-group-title {
       font-family: var(--f-sans);
       font-size: 10px;
