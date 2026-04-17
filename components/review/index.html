@@ -242,17 +242,176 @@
       background: var(--p-oatmeal);
       border-right: 1px solid var(--border-hairline);
       overflow: hidden;
+      transition: min-height 220ms ease;
     }
     .card__preview iframe {
       position: absolute;
       top: 0;
       left: 0;
       border: 0;
-      width: 1440px;
-      height: 1000px;
-      transform: scale(0.34);
+      width: var(--card-preview-w, 1440px);
+      height: var(--card-preview-h, 1000px);
+      transform: scale(var(--card-preview-scale, 0.34));
       transform-origin: top left;
       pointer-events: none;
+      transition: opacity 160ms ease;
+    }
+
+    /* ----------------------------------------------------------------
+       Preview-size toggle (desktop | mobile | both)
+       ---------------------------------------------------------------- */
+    body[data-preview-mode="desktop"],
+    body:not([data-preview-mode]) {
+      --card-preview-w: 1440px;
+      --card-preview-h: 1000px;
+      --card-preview-scale: 0.34;
+    }
+    body[data-preview-mode="mobile"] {
+      --card-preview-w: 390px;
+      --card-preview-h: 844px;
+      --card-preview-scale: 0.70;
+    }
+    body[data-preview-mode="both"] {
+      --card-preview-w: 1440px;
+      --card-preview-h: 1000px;
+      --card-preview-scale: 0.17;
+    }
+
+    /* Mobile mode: card preview becomes taller+narrower */
+    body[data-preview-mode="mobile"] .card {
+      grid-template-columns: minmax(220px, 0.6fr) minmax(320px, 1.4fr);
+    }
+    body[data-preview-mode="mobile"] .card__preview {
+      min-height: 600px;
+    }
+
+    /* Both mode: card preview hosts two panes */
+    body[data-preview-mode="both"] .card__preview {
+      min-height: 360px;
+      display: flex;
+      gap: 0;
+    }
+    body[data-preview-mode="both"] .card__preview > iframe,
+    body[data-preview-mode="both"] .card__preview > .card__preview-placeholder {
+      display: none;
+    }
+    body[data-preview-mode="both"] .card__preview .thumb-pane {
+      position: relative;
+      flex: 1 1 50%;
+      min-width: 0;
+      overflow: hidden;
+      background: var(--p-oatmeal);
+    }
+    body[data-preview-mode="both"] .card__preview .thumb-pane--mobile {
+      flex: 0 0 38%;
+      border-right: 1px solid var(--border-hairline);
+    }
+    body[data-preview-mode="both"] .card__preview .thumb-pane iframe {
+      position: absolute;
+      top: 0; left: 0;
+      border: 0;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    body[data-preview-mode="both"] .card__preview .thumb-pane--mobile iframe {
+      width: 390px;
+      height: 844px;
+      transform: scale(0.42);
+    }
+    body[data-preview-mode="both"] .card__preview .thumb-pane--desktop iframe {
+      width: 1440px;
+      height: 1000px;
+      transform: scale(0.22);
+    }
+    body[data-preview-mode="both"] .card__preview .thumb-pane__label {
+      position: absolute;
+      bottom: 4px;
+      left: 6px;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      background: rgba(255,255,255,0.8);
+      padding: 2px 6px;
+      border-radius: 3px;
+      z-index: 2;
+    }
+    body[data-preview-mode="both"] .card__preview .card__open {
+      z-index: 3;
+    }
+
+    /* Below 820px: both collapses to mobile */
+    @media (max-width: 819px) {
+      body[data-preview-mode="both"] {
+        --card-preview-w: 390px;
+        --card-preview-h: 844px;
+        --card-preview-scale: 0.60;
+      }
+      body[data-preview-mode="both"] .card__preview {
+        display: block;
+        min-height: 480px;
+      }
+      body[data-preview-mode="both"] .card__preview .thumb-pane--desktop { display: none; }
+      body[data-preview-mode="both"] .card__preview .thumb-pane--mobile {
+        flex: 1 1 100%;
+        border-right: 0;
+      }
+    }
+
+    body.is-preview-switching .card__preview iframe {
+      opacity: 0.7;
+    }
+
+    /* ---------- preview size toggle row (above families) ---------- */
+    .preview-size-row {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0 var(--sp-4);
+    }
+    .preview-size-toggle {
+      display: inline-grid;
+      grid-template-columns: repeat(3, auto);
+      background: var(--p-oatmeal);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill);
+      padding: 3px;
+      gap: 3px;
+    }
+    .preview-size-toggle__label {
+      display: none;
+    }
+    .preview-size-toggle__btn {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 8px 18px;
+      border-radius: var(--r-pill);
+      border: 0;
+      background: transparent;
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      text-align: center;
+    }
+    .preview-size-toggle__btn:hover { color: var(--p-aztek); }
+    .preview-size-toggle__btn.is-active {
+      background: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .preview-size-toggle__btn:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 2px;
+    }
+    .preview-size-toggle__btn[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    @media (max-width: 430px) {
+      .preview-size-toggle__btn {
+        padding: 10px 14px;
+        min-height: 44px;
+      }
     }
     .card__preview-placeholder {
       position: absolute;
@@ -459,7 +618,8 @@
         border-bottom: 1px solid var(--border-hairline);
         min-height: 240px;
       }
-      .card__preview iframe {
+      body[data-preview-mode="desktop"] .card__preview iframe,
+      body:not([data-preview-mode]) .card__preview iframe {
         transform: scale(0.26);
       }
       .card__actions { justify-content: flex-start; }
@@ -472,7 +632,10 @@
       .counters { gap: var(--sp-3); font-size: 12px; }
       .card__body { padding: var(--sp-4); }
       .card__name { font-size: 19px; }
-      .card__preview iframe { transform: scale(0.22); }
+      body[data-preview-mode="desktop"] .card__preview iframe,
+      body:not([data-preview-mode]) .card__preview iframe {
+        transform: scale(0.22);
+      }
     }
 
     /* ---------- toast ---------- */
@@ -564,7 +727,8 @@
         border-right: 0;
         border-bottom: 1px solid var(--border-hairline);
       }
-      .card__preview iframe {
+      body[data-preview-mode="desktop"] .card__preview iframe,
+      body:not([data-preview-mode]) .card__preview iframe {
         transform: scale(0.22);
       }
       .card__body {
@@ -645,7 +809,7 @@
     }
   </style>
 </head>
-<body data-brand="tracy">
+<body data-brand="tracy" data-preview-mode="desktop">
 
   <!-- ================================================================== -->
   <!-- APP SIDEBAR (shared nav across catalog / compose / review) -->
@@ -1121,6 +1285,22 @@
       <div class="strip__actions">
         <button class="btn--ghost" id="copySummaryBtn" type="button">Copy summary</button>
         <button id="exportBtn" type="button">Export approvals.json</button>
+      </div>
+    </div>
+
+    <!-- PREVIEW SIZE TOGGLE (desktop / mobile / both) -->
+    <div class="preview-size-row">
+      <span class="preview-size-toggle__label" id="previewSizeLabel">Preview size</span>
+      <div
+        class="preview-size-toggle"
+        id="previewSizeToggle"
+        role="radiogroup"
+        aria-labelledby="previewSizeLabel"
+        aria-label="Preview size"
+      >
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="both">Both</button>
       </div>
     </div>
 
@@ -1759,6 +1939,177 @@
 
       render();
       updateDirtyFlag();
+
+      // Apply whatever preview mode is active now that cards exist.
+      if (window.__thcApplyPreviewMode) window.__thcApplyPreviewMode();
+    })();
+
+    // -------------------------------------------------------------------
+    // Preview-size toggle (desktop / mobile / both)
+    // Persists to localStorage (thc-preview-mode) and mirrors /compose/.
+    // Both mode renders two iframes side-by-side inside each .card__preview.
+    // On <=819px the toggle collapses "both" to mobile automatically.
+    // -------------------------------------------------------------------
+    (function initPreviewSizeToggle() {
+      var LS_KEY = 'thc-preview-mode';
+      var VALID_MODES = ['desktop', 'mobile', 'both'];
+      var bodyEl = document.body;
+
+      var stored = 'desktop';
+      try {
+        var raw = localStorage.getItem(LS_KEY);
+        if (raw && VALID_MODES.indexOf(raw) !== -1) stored = raw;
+      } catch (e) {}
+
+      function effectiveMode(mode) {
+        if (mode === 'both' && window.matchMedia('(max-width: 819px)').matches) return 'mobile';
+        return mode;
+      }
+
+      var currentRequested = stored;
+
+      function buildPane(which, src, title, label) {
+        var pane = document.createElement('div');
+        pane.className = 'thumb-pane thumb-pane--' + which;
+        var frame = document.createElement('iframe');
+        frame.setAttribute('loading', 'lazy');
+        frame.setAttribute('title', title + ' (' + label + ')');
+        frame.setAttribute('aria-hidden', 'true');
+        if (src) frame.setAttribute('src', src);
+        var tag = document.createElement('span');
+        tag.className = 'thumb-pane__label';
+        tag.textContent = label;
+        pane.appendChild(frame);
+        pane.appendChild(tag);
+        return pane;
+      }
+
+      function updatePreviewPanes(mode) {
+        var wantPanes = mode === 'both';
+        document.querySelectorAll('.card__preview').forEach(function (preview) {
+          var legacyIframe = preview.querySelector(':scope > iframe');
+          if (!legacyIframe) return;
+          var src = legacyIframe.getAttribute('src') || legacyIframe.getAttribute('data-src') || '';
+          // Note: data-src is present when the iframe is still lazy-pending.
+          // Panes inherit the src immediately if known, and the MutationObserver
+          // below mirrors the legacy iframe's real src once the IO hydrates it.
+          var title = legacyIframe.getAttribute('title') || '';
+          var panes = preview.querySelectorAll(':scope > .thumb-pane');
+          if (wantPanes) {
+            if (panes.length) {
+              panes.forEach(function (p) {
+                var frame = p.querySelector('iframe');
+                if (frame && src && !frame.getAttribute('src')) frame.setAttribute('src', src);
+              });
+              return;
+            }
+            var mPane = buildPane('mobile', src, title, 'Mobile');
+            var dPane = buildPane('desktop', src, title, 'Desktop');
+            // Insert before the .card__open link so the link floats on top.
+            var openLink = preview.querySelector(':scope > .card__open');
+            if (openLink) {
+              preview.insertBefore(mPane, openLink);
+              preview.insertBefore(dPane, openLink);
+            } else {
+              preview.appendChild(mPane);
+              preview.appendChild(dPane);
+            }
+          } else {
+            panes.forEach(function (p) { p.remove(); });
+            // If the legacy iframe never hydrated (IO didn't fire while hidden),
+            // promote its data-src now so the visible preview loads.
+            if (legacyIframe.dataset && legacyIframe.dataset.src && !legacyIframe.getAttribute('src')) {
+              legacyIframe.setAttribute('src', legacyIframe.dataset.src);
+              legacyIframe.removeAttribute('data-src');
+              legacyIframe.addEventListener('load', function () {
+                var ph = preview.querySelector('.card__preview-placeholder');
+                if (ph) ph.remove();
+              }, { once: true });
+            }
+          }
+        });
+      }
+
+      function applyMode(requested, opts) {
+        opts = opts || {};
+        if (VALID_MODES.indexOf(requested) === -1) requested = 'desktop';
+        currentRequested = requested;
+        var effective = effectiveMode(requested);
+
+        bodyEl.classList.add('is-preview-switching');
+        setTimeout(function () { bodyEl.classList.remove('is-preview-switching'); }, 220);
+
+        bodyEl.setAttribute('data-preview-mode', effective);
+        try { localStorage.setItem(LS_KEY, requested); } catch (e) {}
+
+        document.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
+          var m = btn.getAttribute('data-preview-mode');
+          var active = m === requested;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-checked', active ? 'true' : 'false');
+          if (m === 'both' && window.matchMedia('(max-width: 819px)').matches) {
+            btn.setAttribute('aria-disabled', 'true');
+          } else {
+            btn.removeAttribute('aria-disabled');
+          }
+        });
+
+        if (!opts.silent && requested === 'both' && effective !== 'both') {
+          showToast('Both mode switches to Mobile on small screens');
+        }
+
+        updatePreviewPanes(effective);
+      }
+
+      // Expose for boot() to call after initial render of cards
+      window.__thcApplyPreviewMode = function () { applyMode(currentRequested, { silent: true }); };
+
+      // Mirror src attribute changes (lazy-load) to panes
+      var srcWatcher = new MutationObserver(function (mutations) {
+        if (bodyEl.getAttribute('data-preview-mode') !== 'both') return;
+        mutations.forEach(function (m) {
+          if (m.attributeName !== 'src') return;
+          var target = m.target;
+          if (!target.tagName || target.tagName !== 'IFRAME') return;
+          var parent = target.parentElement;
+          if (!parent || !parent.classList.contains('card__preview')) return;
+          var src = target.getAttribute('src');
+          if (!src) return;
+          parent.querySelectorAll(':scope > .thumb-pane iframe').forEach(function (f) {
+            if (!f.getAttribute('src')) f.setAttribute('src', src);
+          });
+        });
+      });
+      srcWatcher.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['src'] });
+
+      var toggleContainer = document.getElementById('previewSizeToggle');
+      if (toggleContainer) {
+        toggleContainer.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            applyMode(btn.getAttribute('data-preview-mode'));
+          });
+          btn.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            e.preventDefault();
+            var buttons = Array.prototype.slice.call(toggleContainer.querySelectorAll('.preview-size-toggle__btn'));
+            var i = buttons.indexOf(btn);
+            var next = e.key === 'ArrowRight'
+              ? buttons[(i + 1) % buttons.length]
+              : buttons[(i - 1 + buttons.length) % buttons.length];
+            next.focus();
+            applyMode(next.getAttribute('data-preview-mode'));
+          });
+        });
+      }
+
+      var mq = window.matchMedia('(max-width: 819px)');
+      function onMqChange() { applyMode(currentRequested, { silent: true }); }
+      if (mq.addEventListener) mq.addEventListener('change', onMqChange);
+      else if (mq.addListener) mq.addListener(onMqChange);
+
+      // Apply immediately so the body attribute is set before cards exist.
+      // Card-level pane setup runs again after render() completes via boot().
+      applyMode(stored, { silent: true });
     })();
   </script>
 </body>
