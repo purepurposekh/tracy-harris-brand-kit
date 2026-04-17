@@ -66,7 +66,6 @@ From the audit, flagged as variants worth adding to existing families:
 
 ## Blocked — waiting on Karl
 
-- [ ] **PostHog WP snippet install** — paste `<script src="https://purepurposekh.github.io/tracy-harris-brand-kit/assets/js/thc-analytics.js"></script>` into WP header via "Insert Headers and Footers" plugin or `header.php`. See `docs/wordpress-install.md`
 - [ ] **/review/ approval walkthrough** — stamp each of 44 (soon 54) variants as approved / revise / rejected. Click Export to lock state in
 
 ---
@@ -90,3 +89,4 @@ From the audit, flagged as variants worth adding to existing families:
 - [x] **Phase 1 (6 new components shipped)**: `hero/results`, `hero/oto`, `offer-stack`, `guarantee`, `next-steps`, `soft-upsell` — unlocks TY/Results and OTO page types end-to-end
 - [x] **/compose/ page-type filter** (Sales · Short · Long · TY · Blog · OTO · Show all)
 - [x] **/compose/ reads /review/approvals.json** — rejected variants hidden, approved variants tagged with sage pill
+- [x] **PostHog Cloud EU installed on tracyharris.co** — script live, pageviews confirmed in Live Events, recipe_id auto-attribution wired
