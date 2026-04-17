@@ -6,26 +6,23 @@ Last updated: 2026-04-17
 
 ---
 
-## In flight (agent building now)
+## In flight
 
-- [ ] **`hero/results`** — quiz-result + opt-in-confirmation sub-variants
-- [ ] **`hero/oto`** — one-time offer hero
-- [ ] **`offer-stack`** — detailed + minimal variants
-- [ ] **`guarantee`** — editorial signed + aztek badge variants
-- [ ] **`next-steps`** — results-page 3-step card
-- [ ] **`soft-upsell`** — whisper-quiet cross-sell
-- [ ] **/compose/ page-type filter** — Sales · Short · Long · TY · Blog · OTO · Show all
-- [ ] **/compose/ reads /review/approvals.json** — hide rejected, tag approved
+*(nothing currently — next build ready to start when Karl greenlights)*
 
 ---
 
-## Phase 2 — high-leverage new components
+## Phase 2 — high-leverage new components (NEXT UP)
 
-From the 10-ref-pages audit. Build next pass.
+Needed to bring **Long landing** and **Blog** page types to full fidelity (they render sparse today).
 
 - [ ] **`why-block`** — narrative problem/purpose explainer. Serves sales-home, long-landing, short-landing, OTO (4 page types)
 - [ ] **`benefit-trio`** — 3 outcome promises with icons. Serves sales-home, long-landing, OTO
 - [ ] **`curriculum-preview`** — what's-inside contents list. Serves long-landing, short-landing, sales-home
+- [ ] **`feature-grid`** — long-landing fills out properly (audit flag)
+- [ ] **`post-grid`** — blog post card grid for `/blog` index
+- [ ] **`content-section`** — blog article body section (typographic-only hero + long-form prose)
+- [ ] **`hero/textonly`** — dedicated text-only hero variant (currently aliased to hero.showcase)
 
 ---
 
@@ -90,3 +87,6 @@ From the audit, flagged as variants worth adding to existing families:
 - [x] Deep research report on self-hosted analytics (PostHog Cloud chosen)
 - [x] 10-ref-pages audit report
 - [x] First real recipe → page loop closed: FFB Strategy Archetype preview at `/pages/ffb-strategy-archetype.html`
+- [x] **Phase 1 (6 new components shipped)**: `hero/results`, `hero/oto`, `offer-stack`, `guarantee`, `next-steps`, `soft-upsell` — unlocks TY/Results and OTO page types end-to-end
+- [x] **/compose/ page-type filter** (Sales · Short · Long · TY · Blog · OTO · Show all)
+- [x] **/compose/ reads /review/approvals.json** — rejected variants hidden, approved variants tagged with sage pill
