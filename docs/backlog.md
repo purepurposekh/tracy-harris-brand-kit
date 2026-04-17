@@ -8,37 +8,21 @@ Last updated: 2026-04-17
 
 ## In flight
 
-*(nothing currently — next build ready to start when Karl greenlights)*
+*(nothing currently — Phase 2 shipped, Phase 3 ready to start on greenlight)*
 
 ---
 
-## Phase 2 — high-leverage new components (NEXT UP)
+## Phase 3 — site-rebuild unlocks (NEXT UP)
 
-Needed to bring **Long landing** and **Blog** page types to full fidelity (they render sparse today).
-
-- [ ] **`why-block`** — narrative problem/purpose explainer. Serves sales-home, long-landing, short-landing, OTO (4 page types)
-- [ ] **`benefit-trio`** — 3 outcome promises with icons. Serves sales-home, long-landing, OTO
-- [ ] **`curriculum-preview`** — what's-inside contents list. Serves long-landing, short-landing, sales-home
-- [ ] **`feature-grid`** — long-landing fills out properly (audit flag)
-- [ ] **`post-grid`** — blog post card grid for `/blog` index
-- [ ] **`content-section`** — blog article body section (typographic-only hero + long-form prose)
-- [ ] **`hero/textonly`** — dedicated text-only hero variant (currently aliased to hero.showcase)
-
----
-
-## Phase 3 — site-rebuild unlocks
-
-Pre-requisites for shipping the new tracyharris.co homepage + FFB sales page + podcast rebuild.
+Pre-requisites for shipping the new tracyharris.co homepage + FFB sales page + podcast rebuild. Phase 2 closed Long landing and Blog to full fidelity — Phase 3 unlocks the remaining launch-critical pieces.
 
 - [ ] **Announcement bar** — thin top strip for launches ("Applications open for the May cohort · Apply →")
 - [ ] **Process / how-it-works** — numbered-step section for sales pages
-- [ ] **Results strip / proof bar** — "500+ episodes · 4.1k monthly downloads · 7+ years running" metric band OR logo strip if we have placements
+- [ ] **Results strip / proof bar** — "500+ episodes · 4.1k monthly downloads · 7+ years running" metric band OR logo strip if we have placements (also closes the deferred `stat-strip` flag from the ref-pages audit)
 - [ ] **Before/after transformation block** — paired "where you are now · where you'll be" columns
 - [ ] **Workshop / event landing hero** — single-date registration, different from main hero
 - [ ] **Application form section** — FFB/FFM application inline, multi-step with save state
-- [ ] **Blog post card grid** — for `/blog` index
 - [ ] **Podcast episode archive** — for `/podcast`, searchable/filterable 500+ episode list
-- [ ] **Curriculum accordion** — FFB/FFM deep-dive module breakdown, expandable
 - [ ] **Contact / booking block** — Calendly-embed-ready or clean email-forward form
 
 ---
@@ -47,9 +31,17 @@ Pre-requisites for shipping the new tracyharris.co homepage + FFB sales page + p
 
 From the audit, flagged as variants worth adding to existing families:
 
+- [ ] **`testimonials/pull-quote`** — single italic pull-quote, editorial serif, centred, no avatar
+- [ ] **`testimonials/duo`** — 2-up testimonials (gap between our trio and wall)
+- [ ] **`about-bio/narrative-long`** — bio with multi-paragraph transformation arc
+- [ ] **`hero/opt-in-inline`** — hero with email form embedded directly (not separate opt-in section below)
+- [ ] **`cta-block/rule-separator`** — ornamental rule separators (• • •) for rhythm
+- [ ] **`cta-block/bonus-screamer`** — dialled-up mid-page offer interrupter (absorb the deferred `bonus-screamer` family)
+- [ ] **`feature-grid/list`** — 1-column iconified list variant (absorb the deferred `feature-list` family)
 - [ ] Testimonials — scroll-cycling carousel with big portraits
 - [ ] Hero — editorial with diagonal cream stripe overlay
-- [ ] (Others; see `docs/ref-pages-audit-2026-04-17.md`)
+- [ ] **`freebie-preview`** — page-count + what's-inside teaser with mocked PDF/workbook graphic (blocked on visual asset)
+- [ ] **`press-strip`** — "as seen in" logo row (blocked on confirmed press logos)
 
 ---
 
@@ -66,7 +58,7 @@ From the audit, flagged as variants worth adding to existing families:
 
 ## Blocked — waiting on Karl
 
-- [ ] **/review/ approval walkthrough** — stamp each of 44 (soon 54) variants as approved / revise / rejected. Click Export to lock state in
+- [ ] **/review/ approval walkthrough** — stamp each of 54 (soon 64) variants as approved / revise / rejected. Click Export to lock state in
 
 ---
 
@@ -90,3 +82,5 @@ From the audit, flagged as variants worth adding to existing families:
 - [x] **/compose/ page-type filter** (Sales · Short · Long · TY · Blog · OTO · Show all)
 - [x] **/compose/ reads /review/approvals.json** — rejected variants hidden, approved variants tagged with sage pill
 - [x] **PostHog Cloud EU installed on tracyharris.co** — script live, pageviews confirmed in Live Events, recipe_id auto-attribution wired
+- [x] **Phase 2 (7 new components shipped): `why-block`, `benefit-trio`, `curriculum-preview`, `feature-grid`, `post-grid`, `content-section`, `hero/textonly`** — Long landing and Blog page types now render to full fidelity. `/compose/` filter map updated to expose them across Sales, Short, Long, OTO, Blog page types. `/review/` now covers 64 variants across 28 families.
+- [x] **Re-audit of 10 ref pages (post-Phase 1)** — appended to `docs/ref-pages-audit-2026-04-17.md`. No missed sections load-bearing enough to block Phase 2.
