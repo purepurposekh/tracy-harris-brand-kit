@@ -562,6 +562,133 @@
       display: none !important;
     }
 
+    /* ---------- mode toggle (Presets / Build your own) ---------- */
+    .mode-toggle {
+      display: inline-flex;
+      background: var(--p-oatmeal);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill);
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: var(--sp-5);
+    }
+    .mode-toggle__btn {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: var(--r-pill);
+      border: 0;
+      background: transparent;
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .mode-toggle__btn:hover { color: var(--p-aztek); }
+    .mode-toggle__btn.is-active {
+      background: var(--p-aztek);
+      color: var(--p-white);
+    }
+
+    /* hide whichever mode isn't active */
+    body[data-mode="presets"] .mode-build-only { display: none !important; }
+    body[data-mode="build"] .mode-presets-only { display: none !important; }
+
+    /* ---------- preset gallery ---------- */
+    .presets {
+      margin-bottom: var(--sp-7);
+    }
+    .presets__head {
+      margin-bottom: var(--sp-5);
+    }
+    .presets__lede {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink-mute);
+      max-width: 62ch;
+      margin: 8px 0 0 0;
+    }
+    .presets__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+    }
+    @media (max-width: 820px) {
+      .presets__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .presets__grid { grid-template-columns: 1fr; }
+    }
+    .preset-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      padding: var(--sp-5);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    }
+    .preset-card:hover {
+      border-color: var(--p-sage);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16,16,16,0.06);
+    }
+    .preset-card__name {
+      font-family: var(--f-serif-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink-heading);
+      margin: 0 0 var(--sp-2) 0;
+      line-height: 1.2;
+    }
+    .preset-card__name em { font-family: var(--f-serif-italic); font-style: italic; }
+    .preset-card__desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      margin: 0 0 var(--sp-4) 0;
+      flex: 1;
+    }
+    .preset-card__chip {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      background: var(--p-sage);
+      color: var(--p-white);
+      margin-bottom: var(--sp-4);
+    }
+    .preset-card__btn {
+      align-self: flex-start;
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 10px 18px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--p-aztek);
+      background: var(--p-aztek);
+      color: var(--p-white);
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .preset-card__btn:hover { background: var(--p-sage); border-color: var(--p-sage); }
+    .presets__empty {
+      padding: var(--sp-6);
+      text-align: center;
+      color: var(--ink-mute);
+      font-style: italic;
+      font-size: 14px;
+      border: 1px dashed var(--border-hairline);
+      border-radius: var(--r-lg);
+    }
+
     /* approvals status styling on tiles */
     .tile[data-approval="rejected"] {
       display: none !important;
@@ -1059,22 +1186,37 @@
     <h1>Compose. <em>Then brief.</em></h1>
     <p class="intro">Visually assemble a page from the component library, then write a short intention so Kira knows what this page is <em>for</em>. Hit Submit and paste the recipe in Discord.</p>
 
+    <!-- MODE TOGGLE -->
+    <div class="mode-toggle" role="tablist" aria-label="Composer mode">
+      <button class="mode-toggle__btn" id="modeBuildBtn" type="button" role="tab" aria-selected="true" data-mode="build">Build your own</button>
+      <button class="mode-toggle__btn" id="modePresetsBtn" type="button" role="tab" aria-selected="false" data-mode="presets">Start from a preset</button>
+    </div>
+
+    <!-- PRESET GALLERY (shown when mode = presets) -->
+    <section class="presets mode-presets-only" id="presets" aria-label="Pre-built recipe presets">
+      <div class="presets__head">
+        <h2>Start from a <em>preset</em>.</h2>
+        <p class="presets__lede">Pick a pre-built recipe, tweak any slot, then submit. Each preset mirrors a reference page Karl shared, built end-to-end from variants that already exist in the kit.</p>
+      </div>
+      <div class="presets__grid" id="presetsGrid"></div>
+    </section>
+
     <!-- PAGE TYPE FILTER -->
-    <div class="pt-filter" id="ptFilter">
+    <div class="pt-filter mode-build-only" id="ptFilter">
       <p class="pt-filter__label">What type of page are you building?</p>
       <p class="pt-filter__hint">Filters slots and variants to what's relevant. "Show all" returns to the unfiltered view.</p>
       <div class="pt-filter__buttons" id="ptButtons"></div>
     </div>
 
     <!-- INTENTION BRIEF -->
-    <div class="intention">
+    <div class="intention mode-build-only">
       <label class="intention__label" for="intent">What is this page for?</label>
       <p class="intention__hint">Who's it for, what do you want them to do, what's the vibe. The more context you drop here, the less I have to guess when I build the real thing.</p>
       <textarea id="intent" placeholder="e.g. FFB sales page for women who've already taken the FRESH Quiz and landed in the 'Strategy' archetype. Want them to apply for the next intake. Vibe: confident, warm, spacious, not pushy."></textarea>
     </div>
 
     <!-- STICKY RECIPE STRIP -->
-    <div class="strip" id="strip">
+    <div class="strip mode-build-only" id="strip">
       <div class="strip__chips" id="chips"></div>
       <div class="strip__pill" id="pill">0 picks</div>
       <div class="strip__actions">
@@ -1084,10 +1226,10 @@
     </div>
 
     <!-- SLOTS -->
-    <div id="slots"></div>
+    <div id="slots" class="mode-build-only"></div>
 
     <!-- SAVED RECIPES -->
-    <section class="saved">
+    <section class="saved mode-build-only">
       <p class="eyebrow">Previously shipped</p>
       <h2>Recipes that <em>have flown</em>.</h2>
       <p class="saved__note">Conversion data will auto-sync once pages ship. For now this reflects whatever is in <code>recipes.json</code>.</p>
@@ -1873,6 +2015,156 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     function truncate(s, n) {
       return s.length > n ? s.slice(0, n - 1) + '…' : s;
     }
+
+    // ----------------------------------------------------------------------
+    // Mode toggle: Build your own (default) vs Start from a preset
+    // ----------------------------------------------------------------------
+    const MODE_LS_KEY = 'thc-compose-mode';
+    const bodyEl = document.body;
+    const modeBuildBtn = document.getElementById('modeBuildBtn');
+    const modePresetsBtn = document.getElementById('modePresetsBtn');
+
+    function setMode(mode) {
+      const m = mode === 'presets' ? 'presets' : 'build';
+      bodyEl.dataset.mode = m;
+      modeBuildBtn.classList.toggle('is-active', m === 'build');
+      modePresetsBtn.classList.toggle('is-active', m === 'presets');
+      modeBuildBtn.setAttribute('aria-selected', m === 'build' ? 'true' : 'false');
+      modePresetsBtn.setAttribute('aria-selected', m === 'presets' ? 'true' : 'false');
+      try { localStorage.setItem(MODE_LS_KEY, m); } catch (e) {}
+    }
+
+    let storedMode = 'build';
+    try { storedMode = localStorage.getItem(MODE_LS_KEY) || 'build'; } catch (e) {}
+    setMode(storedMode);
+
+    modeBuildBtn.addEventListener('click', () => setMode('build'));
+    modePresetsBtn.addEventListener('click', () => setMode('presets'));
+
+    // ----------------------------------------------------------------------
+    // Presets: load presets.json, render gallery, wire up "Use this preset"
+    // ----------------------------------------------------------------------
+    // Map preset page_type (spec'd as sales-home/short-landing/etc.) onto
+    // the existing PAGE_TYPES keys. This way picking a preset also applies
+    // the matching filter to the composer.
+    const PRESET_PAGE_TYPE_MAP = {
+      'sales-home': 'sales',
+      'short-landing': 'short',
+      'long-landing': 'long',
+      'ty-results': 'ty',
+      'blog': 'blog',
+      'oto': 'oto',
+    };
+
+    async function loadPresets() {
+      try {
+        const res = await fetch('presets.json', { cache: 'no-store' });
+        if (!res.ok) return [];
+        const json = await res.json();
+        return Array.isArray(json) ? json : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function renderPresets(presets) {
+      const grid = document.getElementById('presetsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      if (!presets.length) {
+        grid.innerHTML = '<div class="presets__empty">No presets yet. Add entries to presets.json and refresh.</div>';
+        return;
+      }
+
+      presets.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'preset-card';
+        card.dataset.presetId = p.preset_id;
+
+        const chip = p.page_type ? `<span class="preset-card__chip">${p.page_type}</span>` : '';
+
+        card.innerHTML = `
+          <h3 class="preset-card__name">${p.name}</h3>
+          ${chip}
+          <p class="preset-card__desc">${p.description || ''}</p>
+          <button class="preset-card__btn" type="button">Use this preset</button>
+        `;
+
+        card.querySelector('.preset-card__btn').addEventListener('click', () => applyPreset(p));
+        grid.appendChild(card);
+      });
+    }
+
+    function applyPreset(preset) {
+      if (!preset || !preset.slots) return;
+
+      // 1. Apply the matching page-type filter (if one exists)
+      const mappedPt = PRESET_PAGE_TYPE_MAP[preset.page_type] || 'all';
+      if (PAGE_TYPES[mappedPt]) {
+        applyPageType(mappedPt);
+      } else {
+        applyPageType('all');
+      }
+
+      // 2. Fill state + visual selection for each slot in the preset
+      SLOTS.forEach(slot => {
+        const presetVal = preset.slots[slot.id];
+        // Clear any existing selection on this slot first
+        document.querySelectorAll(`.tile[data-slot-id="${slot.id}"]`).forEach(t => t.classList.remove('is-selected'));
+
+        if (presetVal == null) {
+          // Preset says skip this slot. If it's skippable, mark skip tile; otherwise leave blank.
+          if (slot.skippable) {
+            state[slot.id] = '__skip__';
+            const skipTile = document.querySelector(`.tile--skip[data-slot-id="${slot.id}"]`);
+            if (skipTile) skipTile.classList.add('is-selected');
+          } else {
+            state[slot.id] = null;
+          }
+          return;
+        }
+
+        // Verify the variant actually exists before applying
+        const variant = slot.variants.find(v => v.key === presetVal);
+        if (!variant) {
+          state[slot.id] = null;
+          return;
+        }
+
+        state[slot.id] = presetVal;
+        const targetTile = document.querySelector(`.tile[data-slot-id="${slot.id}"][data-key="${presetVal}"]`);
+        if (targetTile) targetTile.classList.add('is-selected');
+      });
+
+      // 3. Pre-fill the intent textarea with the preset's stock brief
+      const intentEl = document.getElementById('intent');
+      if (intentEl && preset.intent) intentEl.value = preset.intent;
+
+      // 4. Update the sticky strip
+      renderStrip();
+
+      // 5. Switch to "Build your own" mode
+      setMode('build');
+
+      // 6. Scroll to top of slot picker on the next frame (after layout)
+      requestAnimationFrame(() => {
+        const slotsEl = document.getElementById('slots');
+        if (slotsEl) {
+          slotsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      // 7. Toast confirming the load
+      showToast(`Preset loaded: ${preset.name} · tweak any slot and submit`);
+    }
+
+    (async function initPresets() {
+      const presets = await loadPresets();
+      renderPresets(presets);
+    })();
   </script>
 </body>
 </html>
