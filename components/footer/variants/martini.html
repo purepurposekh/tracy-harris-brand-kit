@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Footer — Martini variant (statement + giant mark)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-cream);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-pad {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .page-pad h2 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin: 0 0 16px 0;
+    }
+    .page-pad p {
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 62ch;
+    }
+
+    /* -------- FOOTER -------- */
+    .mfoot {
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      position: relative;
+      overflow: hidden;
+      padding: clamp(56px, 6vw, 80px) clamp(24px, 6vw, 80px) 0;
+    }
+
+    .mfoot__top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
+      padding-bottom: clamp(40px, 5vw, 64px);
+    }
+
+    .mfoot__signature {
+      font-family: var(--f-serif-display);
+      font-size: clamp(28px, 3.2vw, 44px);
+      line-height: 1.18;
+      letter-spacing: -0.005em;
+      margin: 0;
+      max-width: 14ch;
+    }
+    .mfoot__signature em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+
+    .mfoot__sec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(140px, auto));
+      gap: 16px 48px;
+    }
+    .mfoot__sec-grid a {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      text-decoration: none;
+      padding: 4px 0;
+      transition: opacity .2s ease;
+    }
+    .mfoot__sec-grid a:hover { opacity: 0.7; }
+
+    /* Giant brand word */
+    .mfoot__word {
+      text-align: center;
+      line-height: 0.88;
+      margin: 0;
+      padding: 0;
+    }
+    .mfoot__word-inner {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(120px, 28vw, 420px);
+      letter-spacing: -0.02em;
+      color: var(--p-oatmeal);
+      display: block;
+    }
+
+    /* Lockup row (M mark + split nav) */
+    .mfoot__lockup {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 32px;
+      padding: clamp(28px, 3vw, 40px) 0 clamp(20px, 2vw, 28px);
+    }
+    .mfoot__bottom-nav {
+      display: flex;
+      gap: clamp(20px, 3.5vw, 48px);
+      align-items: center;
+    }
+    .mfoot__bottom-nav--right { justify-content: flex-end; }
+    .mfoot__bottom-nav a {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity .2s ease;
+    }
+    .mfoot__bottom-nav a:hover { opacity: 1; }
+    .mfoot__mark svg { display: block; }
+
+    /* Legal row */
+    .mfoot__legal {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0 24px;
+      border-top: 1px solid rgba(246,244,241,0.12);
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      opacity: 0.55;
+    }
+    .mfoot__legal span,
+    .mfoot__legal a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .mfoot__legal a:hover { opacity: 0.85; }
+
+    /* -------- MOBILE -------- */
+    @media (max-width: 820px) {
+      .mfoot { padding: 48px 20px 0; }
+      .mfoot__top {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .mfoot__signature {
+        font-size: clamp(24px, 7vw, 32px);
+        max-width: none;
+      }
+      .mfoot__sec-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 24px;
+      }
+      .mfoot__word-inner { font-size: clamp(64px, 22vw, 140px); }
+      .mfoot__lockup {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+      }
+      .mfoot__bottom-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px 20px;
+      }
+      .mfoot__bottom-nav--right { justify-content: center; }
+      .mfoot__legal {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <div class="page-pad">
+    <h2>Footer <em style="font-family:var(--f-serif-italic);font-style:italic;">Martini</em> variant</h2>
+    <p>Dark-canvas closing statement. Signature tagline top-left, secondary links top-right, giant serif brand word across the middle, split nav with the mark at the center bottom, legal row underneath. Built with Tracy Harris Co tokens.</p>
+  </div>
+
+  <footer class="mfoot" role="contentinfo">
+    <div class="mfoot__top">
+      <p class="mfoot__signature">
+        Freedom Filled® Business <em>for</em> Women Building by Design
+      </p>
+
+      <nav class="mfoot__sec-grid" aria-label="Secondary">
+        <a href="#resources">Resources</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="#speaking">Speaking</a>
+        <a href="#instagram">Instagram</a>
+        <a href="#fresh-quiz">FRESH Quiz</a>
+        <a href="#podcast">Podcast</a>
+      </nav>
+    </div>
+
+    <h2 class="mfoot__word" aria-hidden="true">
+      <span class="mfoot__word-inner">Tracy</span>
+    </h2>
+
+    <div class="mfoot__lockup">
+      <nav class="mfoot__bottom-nav" aria-label="Footer navigation left">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#portfolio">Portfolio</a>
+      </nav>
+
+      <a href="#home" class="mfoot__mark" aria-label="Tracy Harris home">
+        <svg width="38" height="46" viewBox="0 0 36 44" fill="none" aria-hidden="true">
+          <line x1="8" y1="6" x2="28" y2="6" stroke="currentColor" stroke-width="1.6"/>
+          <text x="18" y="36" text-anchor="middle" font-family="Playfair Display, Editors Note, serif" font-size="30" font-style="italic" fill="currentColor">T</text>
+        </svg>
+      </a>
+
+      <nav class="mfoot__bottom-nav mfoot__bottom-nav--right" aria-label="Footer navigation right">
+        <a href="#brand">Brand</a>
+        <a href="#podcast">Podcast</a>
+        <a href="#contact">Contact</a>
+        <a href="#blog">Blog</a>
+      </nav>
+    </div>
+
+    <div class="mfoot__legal">
+      <span>© Tracy Harris Co · All rights reserved</span>
+      <span><a href="#privacy">Privacy</a> &nbsp; · &nbsp; <a href="#terms">Terms</a> &nbsp; · &nbsp; Site credit</span>
+    </div>
+  </footer>
+
+</body>
+</html>
