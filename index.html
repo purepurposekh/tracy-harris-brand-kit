@@ -112,6 +112,68 @@
     }
     .tag--built { background: rgba(30,55,53,0.1); color: var(--p-aztek); }
     .tag--soon { background: rgba(114,114,114,0.12); color: var(--ink-mute); }
+    .tag--new { background: var(--p-aztek); color: var(--p-white); }
+
+    .composer-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-5);
+      padding: var(--sp-6);
+      margin: 0 0 var(--sp-8) 0;
+      background: var(--p-aztek);
+      color: var(--p-white);
+      border-radius: var(--r-lg);
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .composer-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(30,55,53,0.22);
+    }
+    .composer-cta__copy { flex: 1; }
+    .composer-cta__eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.72;
+      margin: 0 0 8px 0;
+    }
+    .composer-cta__title {
+      font-family: var(--f-serif-display);
+      font-size: clamp(28px, 3.4vw, 40px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.01em;
+    }
+    .composer-cta__title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .composer-cta__desc {
+      font-size: 14px;
+      line-height: 1.55;
+      opacity: 0.82;
+      margin: 0;
+      max-width: 56ch;
+    }
+    .composer-cta__arrow {
+      flex: 0 0 auto;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .composer-cta:hover .composer-cta__arrow {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(4px);
+    }
+    @media (max-width: 640px) {
+      .composer-cta { flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+    }
   </style>
 </head>
 <body data-brand="tracy">
@@ -119,6 +181,17 @@
     <p class="eyebrow">Tracy Harris Co Brand Kit</p>
     <h1>Components, built to <em>compose</em>.</h1>
     <p class="intro">Four brands (Tracy Harris Co, FFB, FFM, FRESH), one token system, one growing library of brand-agnostic components. Each one works across all four brands via <code>data-brand</code>. Each one has a skill. Click into any component below to see its showcase.</p>
+
+    <a class="composer-cta" href="components/compose/index.html">
+      <div class="composer-cta__copy">
+        <p class="composer-cta__eyebrow">New · Page composer</p>
+        <h2 class="composer-cta__title" style="color:var(--p-white); margin:0 0 8px 0;">Build a page <em>from parts</em>.</h2>
+        <p class="composer-cta__desc">Visually pick hero, callout, testimonials, footer. Add your intention brief. Hand me a JSON recipe I can build against. Conversion-tracked over time.</p>
+      </div>
+      <div class="composer-cta__arrow" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
 
     <h2>New — Martini direction</h2>
     <ul class="list">

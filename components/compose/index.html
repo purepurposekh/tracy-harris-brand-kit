@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Build a page · Tracy Harris Co Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../styles/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      background: var(--surface-canvas);
+      color: var(--ink-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- layout ---------- */
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: var(--sp-8) var(--sp-5) var(--sp-10);
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin: 0 0 var(--sp-4) 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-5);
+      margin-bottom: var(--sp-7);
+      padding-bottom: var(--sp-5);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .header__mark {
+      flex: 0 0 auto;
+      width: 140px;
+      height: auto;
+    }
+    .header__mark svg { width: 100%; height: auto; display: block; }
+    .header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--ink-mute);
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .header__back:hover { color: var(--ink-heading); }
+
+    h1 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--sp-4) 0;
+      color: var(--ink-heading);
+    }
+    h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .intro {
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 62ch;
+      margin: 0 0 var(--sp-7) 0;
+      color: var(--ink-body);
+    }
+
+    .script {
+      font-family: var(--f-script);
+      font-size: 28px;
+      color: var(--p-aztek);
+      line-height: 1;
+      display: inline-block;
+    }
+
+    h2 {
+      font-family: var(--f-serif-display);
+      font-size: 32px;
+      font-weight: 400;
+      margin: 0 0 var(--sp-3) 0;
+      color: var(--ink-heading);
+    }
+    h2 em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    /* ---------- intention brief ---------- */
+    .intention {
+      background: var(--p-oatmeal);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      padding: var(--sp-6);
+      margin-bottom: var(--sp-8);
+    }
+    .intention__label {
+      display: block;
+      font-family: var(--f-serif-display);
+      font-size: 22px;
+      color: var(--ink-heading);
+      margin-bottom: var(--sp-2);
+    }
+    .intention__hint {
+      font-size: 13px;
+      color: var(--ink-mute);
+      margin: 0 0 var(--sp-4) 0;
+      line-height: 1.5;
+    }
+    #intent {
+      width: 100%;
+      min-height: 120px;
+      font-family: var(--f-sans);
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      padding: var(--sp-4);
+      resize: vertical;
+    }
+    #intent:focus {
+      outline: none;
+      border-color: var(--p-aztek);
+      box-shadow: 0 0 0 3px rgba(30,55,53,0.08);
+    }
+
+    /* ---------- sticky recipe strip ---------- */
+    .strip {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-hairline);
+      padding: var(--sp-3) var(--sp-5);
+      margin: 0 calc(var(--sp-5) * -1) var(--sp-7);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    .strip__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+    .chip {
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: var(--r-pill);
+      background: var(--p-oatmeal);
+      color: var(--ink-body);
+      border: 1px solid var(--border-hairline);
+      white-space: nowrap;
+    }
+    .chip--filled {
+      background: var(--p-aztek);
+      color: var(--p-white);
+      border-color: var(--p-aztek);
+    }
+    .chip strong { font-weight: 600; }
+    .chip em { font-style: normal; opacity: 0.65; font-weight: 400; margin-right: 4px; }
+    .strip__actions { display: flex; gap: var(--sp-2); flex-shrink: 0; }
+
+    button, .btn {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 10px 18px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--p-aztek);
+      background: var(--p-aztek);
+      color: var(--p-white);
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover, .btn:hover { background: var(--p-sage); border-color: var(--p-sage); }
+    button:disabled {
+      background: var(--p-mute);
+      border-color: var(--p-mute);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--p-aztek);
+    }
+    .btn--ghost:hover { background: var(--p-oatmeal); color: var(--p-aztek); border-color: var(--p-aztek); }
+
+    /* collapsed pill on mobile */
+    .strip__pill {
+      display: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-heading);
+    }
+    @media (max-width: 640px) {
+      .strip__chips { display: none; }
+      .strip__pill { display: block; }
+    }
+
+    /* ---------- slots ---------- */
+    .slot {
+      margin-bottom: var(--sp-8);
+      padding-top: var(--sp-6);
+      border-top: 1px solid var(--border-hairline);
+    }
+    .slot__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-5);
+      flex-wrap: wrap;
+    }
+    .slot__num {
+      font-family: var(--f-script);
+      font-size: 44px;
+      color: var(--p-sage);
+      line-height: 0.8;
+      margin-right: var(--sp-3);
+      opacity: 0.75;
+    }
+    .slot__titlegroup { flex: 1; min-width: 0; }
+    .slot__sub {
+      font-size: 13px;
+      color: var(--ink-mute);
+      margin: 4px 0 0 0;
+      line-height: 1.5;
+    }
+    .slot__meta {
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--sp-5);
+    }
+    .tile {
+      position: relative;
+      border: 2px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      background: var(--p-white);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .tile:hover {
+      border-color: var(--p-sage);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16,16,16,0.06);
+    }
+    .tile.is-selected {
+      border-color: var(--p-aztek);
+      box-shadow: 0 0 0 3px rgba(30,55,53,0.12), 0 8px 24px rgba(16,16,16,0.08);
+    }
+    .tile__thumb {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: var(--p-oatmeal);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .tile__thumb iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 0;
+      width: 1400px;        /* render at desktop size */
+      height: 880px;        /* tall enough to catch the hero area */
+      transform: scale(0.28);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    .tile__thumb-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--ink-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--p-oatmeal),
+        var(--p-oatmeal) 12px,
+        var(--p-cream) 12px,
+        var(--p-cream) 24px
+      );
+    }
+    .tile__body {
+      padding: var(--sp-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--sp-3);
+    }
+    .tile__name {
+      font-family: var(--f-serif-display);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ink-heading);
+      margin: 0;
+    }
+    .tile__name em { font-family: var(--f-serif-italic); font-style: italic; }
+    .tile__key {
+      font-size: 10px;
+      color: var(--ink-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 3px 0 0 0;
+    }
+    .tile__check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--border-hairline);
+      background: var(--p-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .tile__check svg { opacity: 0; transition: opacity 0.15s ease; }
+    .tile.is-selected .tile__check {
+      background: var(--p-aztek);
+      border-color: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .tile.is-selected .tile__check svg { opacity: 1; }
+
+    /* skip tile */
+    .tile--skip {
+      background: transparent;
+      border-style: dashed;
+    }
+    .tile--skip .tile__thumb {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-mute);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .tile--skip:hover { border-color: var(--p-mute); }
+
+    /* ---------- saved recipes ---------- */
+    .saved {
+      margin-top: var(--sp-10);
+      padding-top: var(--sp-7);
+      border-top: 1px solid var(--border-hairline);
+    }
+    .saved__note {
+      font-size: 13px;
+      color: var(--ink-mute);
+      font-style: italic;
+      margin: 0 0 var(--sp-5) 0;
+    }
+    .recipe-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .recipe-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      padding: var(--sp-3) var(--sp-3);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .recipe-table td {
+      padding: var(--sp-4) var(--sp-3);
+      border-bottom: 1px solid var(--border-hairline);
+      vertical-align: middle;
+    }
+    .recipe-table tbody tr { cursor: pointer; transition: background 0.12s ease; }
+    .recipe-table tbody tr:hover { background: var(--p-oatmeal); }
+    .recipe-summary {
+      font-family: var(--f-serif-display);
+      font-size: 16px;
+      color: var(--ink-heading);
+    }
+    .recipe-intent {
+      font-size: 13px;
+      color: var(--ink-mute);
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .recipe-rate {
+      font-weight: 600;
+      color: var(--p-aztek);
+      font-variant-numeric: tabular-nums;
+    }
+    .recipe-num { font-variant-numeric: tabular-nums; text-align: right; }
+    .recipe-link {
+      color: var(--p-aztek);
+      text-decoration: none;
+      font-size: 13px;
+      border-bottom: 1px dotted var(--p-aztek);
+    }
+    .recipe-details {
+      background: var(--p-oatmeal);
+    }
+    .recipe-details td {
+      padding: var(--sp-4) var(--sp-3);
+      font-size: 13px;
+      color: var(--ink-body);
+      line-height: 1.7;
+    }
+    .recipe-details dl {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 4px var(--sp-4);
+      margin: 0;
+    }
+    .recipe-details dt {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .recipe-details dd { margin: 0; color: var(--ink-heading); }
+    .empty {
+      padding: var(--sp-6) var(--sp-3);
+      text-align: center;
+      color: var(--ink-mute);
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    /* ---------- toast ---------- */
+    .toast {
+      position: fixed;
+      bottom: var(--sp-5);
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--p-charcoal);
+      color: var(--p-white);
+      padding: 12px 22px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 100;
+      box-shadow: 0 12px 32px rgba(16,16,16,0.18);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .tiles { grid-template-columns: 1fr; }
+      .tile__thumb { height: 180px; }
+      .wrap { padding: var(--sp-5) var(--sp-4) var(--sp-8); }
+      .intention { padding: var(--sp-4); }
+      .recipe-intent { display: none; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div>
+        <a href="../../index.html" class="header__mark" aria-label="Tracy Harris Co">
+          <img src="../../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris Co" style="width:100%; height:auto; display:block;" />
+        </a>
+        <a href="../../index.html" class="header__back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to catalog
+        </a>
+      </div>
+      <div style="text-align:right; max-width:340px;">
+        <p class="eyebrow">Composer</p>
+        <p style="font-size:13px; line-height:1.55; color:var(--ink-mute); margin:0;">Pick the variants. Add the intent. Ship a recipe to Kira.</p>
+      </div>
+    </div>
+
+    <p class="eyebrow">Build a page</p>
+    <h1>Compose. <em>Then brief.</em></h1>
+    <p class="intro">Visually assemble a page from the component library, then write a short intention so Kira knows what this page is <em>for</em>. Hit Submit and paste the recipe in Discord.</p>
+
+    <!-- INTENTION BRIEF -->
+    <div class="intention">
+      <label class="intention__label" for="intent">What is this page for?</label>
+      <p class="intention__hint">Who's it for, what do you want them to do, what's the vibe. The more context you drop here, the less I have to guess when I build the real thing.</p>
+      <textarea id="intent" placeholder="e.g. FFB sales page for women who've already taken the FRESH Quiz and landed in the 'Strategy' archetype. Want them to apply for the next intake. Vibe: confident, warm, spacious, not pushy."></textarea>
+    </div>
+
+    <!-- STICKY RECIPE STRIP -->
+    <div class="strip" id="strip">
+      <div class="strip__chips" id="chips"></div>
+      <div class="strip__pill" id="pill">0 picks</div>
+      <div class="strip__actions">
+        <button class="btn--ghost" id="previewBtn" type="button">Preview</button>
+        <button id="submitBtn" type="button">Submit recipe</button>
+      </div>
+    </div>
+
+    <!-- SLOTS -->
+    <div id="slots"></div>
+
+    <!-- SAVED RECIPES -->
+    <section class="saved">
+      <p class="eyebrow">Previously shipped</p>
+      <h2>Recipes that <em>have flown</em>.</h2>
+      <p class="saved__note">Conversion data will auto-sync once pages ship. For now this reflects whatever is in <code>recipes.json</code>.</p>
+      <div id="savedTable"></div>
+    </section>
+
+  </div>
+
+  <div class="toast" id="toast">Recipe copied. Paste it in Discord.</div>
+
+  <script>
+    // ----------------------------------------------------------------------
+    // Slot config
+    // ----------------------------------------------------------------------
+    // Each slot has variants. `file` = path relative to compose/index.html.
+    // `hash` = optional URL fragment so a multi-variant showcase file scrolls
+    //  to the right section inside the iframe thumbnail.
+    // `key` = stable string written into the JSON recipe.
+    // ----------------------------------------------------------------------
+    const SLOTS = [
+      {
+        id: 'nav',
+        label: 'Navigation',
+        sub: 'Optional. Thin top bar, overlay menu, or skip if the hero handles it.',
+        display: 'Nav',
+        variants: [
+          { key: 'martini',  name: 'Martini overlay',    file: '../navigation/variants/martini.html' },
+          { key: 'showcase', name: 'Sticky + mega menu', file: '../navigation/variants/showcase.html' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'hero',
+        label: 'Hero',
+        sub: 'The first thing they see. Sets the tone for everything that follows.',
+        display: 'Hero',
+        variants: [
+          { key: 'martini',  name: 'Martini full-bleed portrait', file: '../hero/variants/martini.html' },
+          { key: 'split',    name: 'Split text + photo',          file: '../hero/variants/split.html' },
+          { key: 'amaretto', name: 'Amaretto wordmark',           file: '../hero/variants/amaretto.html' },
+          { key: 'tony',     name: 'Tony stage',                  file: '../hero/variants/tony.html' },
+          { key: 'showcase', name: 'Classic (5 variants)',        file: '../hero/variants/showcase.html' },
+        ],
+        skippable: false,
+      },
+      {
+        id: 'product_callout',
+        label: 'Product callout',
+        sub: 'The money moment. Where the offer earns its keep.',
+        display: 'Callout',
+        variants: [
+          { key: 'bento-ffb',   name: 'Bento · FFB',      file: '../product-callout/variants/showcase.html', hash: 'pc-ffb-title' },
+          { key: 'bento-elite', name: 'Bento · Elite',    file: '../product-callout/variants/showcase.html', hash: 'pc-elite-title' },
+          { key: 'editorial',   name: 'Editorial',        file: '../product-callout/variants/showcase.html', hash: 'pce-ffb-title' },
+          { key: 'clearer',     name: 'Clearer bento',    file: '../product-callout/variants/showcase.html', hash: 'pcc-ffb-title' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'testimonials',
+        label: 'Testimonials',
+        sub: 'Proof. Real women, real results.',
+        display: 'Proof',
+        variants: [
+          { key: 'wall',      name: 'Masonry wall',   file: '../testimonials/variants/showcase.html' },
+          { key: 'featured',  name: 'Featured trio',  file: '../testimonials/variants/showcase.html#featured' },
+          { key: 'single',    name: 'Single hero',    file: '../testimonials/variants/showcase.html#single' },
+          { key: 'editorial', name: 'Editorial',      file: '../testimonials/variants/showcase.html#editorial' },
+          { key: 'results',   name: 'Real results',   file: '../testimonials/variants/showcase.html#results' },
+          { key: 'columns',   name: 'Columns marquee',file: '../testimonials/variants/showcase.html#columns' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'opt_in',
+        label: 'Opt-in',
+        sub: 'Email capture. Split, banner, card, or dark accent.',
+        display: 'Opt-in',
+        variants: [
+          { key: 'split',        name: 'Split + portrait', file: '../opt-in/variants/showcase.html' },
+          { key: 'split-accent', name: 'Split · dark',     file: '../opt-in/variants/showcase.html#accent' },
+          { key: 'banner',       name: 'Banner centered',  file: '../opt-in/variants/showcase.html#banner' },
+          { key: 'card',         name: 'Compact card',     file: '../opt-in/variants/showcase.html#card' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'faq',
+        label: 'FAQ',
+        sub: 'Tabbed with categories, or a simple stacked list.',
+        display: 'FAQ',
+        variants: [
+          { key: 'tabbed', name: 'Tabbed + accordion', file: '../faq/variants/showcase.html' },
+          { key: 'simple', name: 'Simple list',        file: '../faq/variants/showcase.html#simple' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'event_widget',
+        label: 'Event widget',
+        sub: 'Optional floating teaser promoting the next workshop.',
+        display: 'Event',
+        variants: [
+          { key: 'inline', name: 'Floating teaser', file: '../event-widget/variants/showcase.html' },
+        ],
+        skippable: true,
+      },
+      {
+        id: 'footer',
+        label: 'Footer',
+        sub: 'The last word on the page.',
+        display: 'Footer',
+        variants: [
+          { key: 'martini',  name: 'Martini statement', file: '../footer/variants/martini.html' },
+          { key: 'showcase', name: 'Classic (4 variants)', file: '../footer/variants/showcase.html' },
+        ],
+        skippable: true,
+      },
+    ];
+
+    // ----------------------------------------------------------------------
+    // State
+    // ----------------------------------------------------------------------
+    const state = {};
+    SLOTS.forEach(s => { state[s.id] = null; });
+
+    // ----------------------------------------------------------------------
+    // Render slots
+    // ----------------------------------------------------------------------
+    const slotsEl = document.getElementById('slots');
+
+    SLOTS.forEach((slot, idx) => {
+      const section = document.createElement('section');
+      section.className = 'slot';
+      section.dataset.slotId = slot.id;
+
+      const head = document.createElement('div');
+      head.className = 'slot__head';
+      head.innerHTML = `
+        <div style="display:flex; align-items:baseline;">
+          <span class="slot__num">${String(idx + 1).padStart(2, '0')}</span>
+          <div class="slot__titlegroup">
+            <h2>${slot.label}</h2>
+            <p class="slot__sub">${slot.sub}</p>
+          </div>
+        </div>
+        <span class="slot__meta">${slot.variants.length} variant${slot.variants.length !== 1 ? 's' : ''}${slot.skippable ? ' · optional' : ''}</span>
+      `;
+      section.appendChild(head);
+
+      const tiles = document.createElement('div');
+      tiles.className = 'tiles';
+
+      slot.variants.forEach(v => {
+        const tile = document.createElement('article');
+        tile.className = 'tile';
+        tile.dataset.slotId = slot.id;
+        tile.dataset.key = v.key;
+
+        const thumbSrc = v.hash ? `${v.file}#${v.hash}` : v.file;
+
+        tile.innerHTML = `
+          <div class="tile__thumb">
+            <div class="tile__thumb-placeholder">Loading preview</div>
+            <iframe data-src="${thumbSrc}" loading="lazy" title="${slot.label}: ${v.name}" aria-hidden="true"></iframe>
+          </div>
+          <div class="tile__body">
+            <div>
+              <h3 class="tile__name">${v.name}</h3>
+              <p class="tile__key">${v.key}</p>
+            </div>
+            <div class="tile__check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+          </div>
+        `;
+
+        tile.addEventListener('click', () => handlePick(slot.id, v.key, tile));
+        tiles.appendChild(tile);
+      });
+
+      if (slot.skippable) {
+        const skip = document.createElement('article');
+        skip.className = 'tile tile--skip';
+        skip.dataset.slotId = slot.id;
+        skip.dataset.key = '__skip__';
+        skip.innerHTML = `
+          <div class="tile__thumb">Skip this section</div>
+          <div class="tile__body">
+            <div>
+              <h3 class="tile__name">No <em>${slot.label.toLowerCase()}</em></h3>
+              <p class="tile__key">skip</p>
+            </div>
+            <div class="tile__check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+          </div>
+        `;
+        skip.addEventListener('click', () => handlePick(slot.id, '__skip__', skip));
+        tiles.appendChild(skip);
+      }
+
+      section.appendChild(tiles);
+      slotsEl.appendChild(section);
+    });
+
+    // ----------------------------------------------------------------------
+    // Iframe lazy-loading via IntersectionObserver
+    // ----------------------------------------------------------------------
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const iframe = entry.target;
+        if (iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+          iframe.removeAttribute('data-src');
+          iframe.addEventListener('load', () => {
+            const ph = iframe.parentElement.querySelector('.tile__thumb-placeholder');
+            if (ph) ph.remove();
+          }, { once: true });
+        }
+        io.unobserve(iframe);
+      });
+    }, { rootMargin: '300px' });
+
+    document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => io.observe(f));
+
+    // ----------------------------------------------------------------------
+    // Selection handling
+    // ----------------------------------------------------------------------
+    function handlePick(slotId, key, tile) {
+      const currently = state[slotId];
+      const slot = SLOTS.find(s => s.id === slotId);
+      const isSkip = key === '__skip__';
+
+      // clear all tiles in this slot
+      document.querySelectorAll(`.tile[data-slot-id="${slotId}"]`).forEach(t => t.classList.remove('is-selected'));
+
+      // click same tile again → deselect
+      if (currently === key || (isSkip && currently === '__skip__')) {
+        state[slotId] = null;
+      } else {
+        state[slotId] = key;
+        tile.classList.add('is-selected');
+      }
+
+      renderStrip();
+    }
+
+    // ----------------------------------------------------------------------
+    // Sticky recipe strip
+    // ----------------------------------------------------------------------
+    const chipsEl = document.getElementById('chips');
+    const pillEl = document.getElementById('pill');
+
+    function renderStrip() {
+      chipsEl.innerHTML = '';
+      let picks = 0;
+
+      SLOTS.forEach(slot => {
+        const chip = document.createElement('span');
+        const v = state[slot.id];
+        let label;
+        if (v === '__skip__') {
+          label = 'skip';
+          chip.className = 'chip';
+        } else if (v) {
+          const variant = slot.variants.find(x => x.key === v);
+          label = variant ? variant.name : v;
+          chip.className = 'chip chip--filled';
+          picks += 1;
+        } else {
+          label = '–';
+          chip.className = 'chip';
+        }
+        chip.innerHTML = `<em>${slot.display}</em><strong>${label}</strong>`;
+        chipsEl.appendChild(chip);
+      });
+
+      pillEl.textContent = `${picks} pick${picks === 1 ? '' : 's'}`;
+    }
+
+    renderStrip();
+
+    // ----------------------------------------------------------------------
+    // Preview — opens a new tab stacking selected variant iframes full-width
+    // ----------------------------------------------------------------------
+    document.getElementById('previewBtn').addEventListener('click', () => {
+      const picks = SLOTS
+        .map(slot => {
+          const v = state[slot.id];
+          if (!v || v === '__skip__') return null;
+          const variant = slot.variants.find(x => x.key === v);
+          if (!variant) return null;
+          // resolve relative to /components/compose/ → full URL the new tab can load
+          const url = new URL(variant.hash ? `${variant.file}#${variant.hash}` : variant.file, window.location.href).href;
+          return { label: slot.label, name: variant.name, url };
+        })
+        .filter(Boolean);
+
+      if (!picks.length) {
+        showToast('Pick at least one variant first.');
+        return;
+      }
+
+      const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview · composed page</title>
+<style>
+  body { margin: 0; background: #101010; font-family: 'Poppins', system-ui, sans-serif; }
+  .label { position: sticky; top: 0; background: #1e3735; color: #fff; padding: 8px 16px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; z-index: 10; }
+  iframe { display: block; width: 100%; border: 0; height: 100vh; background: #fff; }
+</style>
+</head>
+<body>
+${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="${p.url}" loading="lazy"></iframe>`).join('\n')}
+</body>
+</html>`;
+
+      const blob = new Blob([html], { type: 'text/html' });
+      const blobUrl = URL.createObjectURL(blob);
+      window.open(blobUrl, '_blank');
+    });
+
+    // ----------------------------------------------------------------------
+    // Submit — build recipe JSON + copy to clipboard
+    // ----------------------------------------------------------------------
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      const intent = document.getElementById('intent').value.trim();
+
+      const slots = {};
+      SLOTS.forEach(s => {
+        const v = state[s.id];
+        slots[s.id] = (v === '__skip__' || !v) ? null : v;
+      });
+
+      const rand4 = Math.random().toString(36).slice(2, 6);
+      const recipe = {
+        recipe_id: `rcp_${Date.now().toString(36)}_${rand4}`,
+        created_at: new Date().toISOString(),
+        intent,
+        slots,
+      };
+
+      const json = JSON.stringify(recipe, null, 2);
+
+      try {
+        await navigator.clipboard.writeText(json);
+        showToast('Recipe copied · paste it in Discord');
+      } catch (err) {
+        // fallback: put it in a prompt so Karl can copy manually
+        showToast('Clipboard blocked, showing JSON');
+        window.prompt('Copy the recipe JSON:', json);
+      }
+
+      console.log('Recipe:', recipe);
+    });
+
+    // ----------------------------------------------------------------------
+    // Toast
+    // ----------------------------------------------------------------------
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2800);
+    }
+
+    // ----------------------------------------------------------------------
+    // Saved recipes table
+    // ----------------------------------------------------------------------
+    (async function loadSaved() {
+      const container = document.getElementById('savedTable');
+      try {
+        const res = await fetch('recipes.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('no recipes');
+        const list = await res.json();
+        if (!Array.isArray(list) || !list.length) {
+          container.innerHTML = `<p class="empty">No recipes shipped yet. The first one you submit (and I build) will show up here.</p>`;
+          return;
+        }
+
+        const sorted = [...list].sort((a, b) => (b.conversion_rate || 0) - (a.conversion_rate || 0));
+
+        const table = document.createElement('table');
+        table.className = 'recipe-table';
+        table.innerHTML = `
+          <thead>
+            <tr>
+              <th>Recipe</th>
+              <th>Page</th>
+              <th>Intent</th>
+              <th class="recipe-num">Visits</th>
+              <th class="recipe-num">Conv</th>
+              <th class="recipe-num">Rate</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        `;
+        const tbody = table.querySelector('tbody');
+
+        sorted.forEach((r, i) => {
+          const summary = summariseRecipe(r.slots);
+          const rate = r.conversion_rate != null ? (r.conversion_rate * 100).toFixed(1) + '%' : '–';
+          const visits = r.visits != null ? r.visits.toLocaleString() : '–';
+          const conv = r.conversions != null ? r.conversions.toLocaleString() : '–';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span class="recipe-summary">${summary}</span></td>
+            <td>${r.page_url ? `<a class="recipe-link" href="${r.page_url}" target="_blank" rel="noopener">Visit →</a>` : '<span style="color:var(--ink-mute); font-size:13px;">not shipped</span>'}</td>
+            <td><span class="recipe-intent" title="${(r.intent || '').replace(/"/g, '&quot;')}">${truncate(r.intent || '', 80)}</span></td>
+            <td class="recipe-num">${visits}</td>
+            <td class="recipe-num">${conv}</td>
+            <td class="recipe-num"><span class="recipe-rate">${rate}</span></td>
+          `;
+          const details = document.createElement('tr');
+          details.className = 'recipe-details';
+          details.style.display = 'none';
+          const dl = Object.entries(r.slots || {})
+            .map(([k, v]) => `<dt>${k.replace(/_/g, ' ')}</dt><dd>${v || '–'}</dd>`)
+            .join('');
+          details.innerHTML = `<td colspan="6"><dl>${dl}<dt>recipe_id</dt><dd>${r.recipe_id}</dd><dt>created</dt><dd>${r.created_at || '–'}</dd></dl></td>`;
+          tr.addEventListener('click', () => {
+            details.style.display = details.style.display === 'none' ? 'table-row' : 'none';
+          });
+          tbody.appendChild(tr);
+          tbody.appendChild(details);
+        });
+
+        container.innerHTML = '';
+        container.appendChild(table);
+      } catch (err) {
+        container.innerHTML = `<p class="empty">No recipes shipped yet. The first one you submit (and I build) will show up here.</p>`;
+      }
+    })();
+
+    function summariseRecipe(slots = {}) {
+      const order = ['hero', 'product_callout', 'testimonials', 'footer'];
+      const parts = order
+        .map(id => {
+          const v = slots[id];
+          if (!v) return null;
+          return v.charAt(0).toUpperCase() + v.slice(1);
+        })
+        .filter(Boolean);
+      return parts.length ? parts.join(' + ') : '(empty recipe)';
+    }
+
+    function truncate(s, n) {
+      return s.length > n ? s.slice(0, n - 1) + '…' : s;
+    }
+  </script>
+</body>
+</html>
