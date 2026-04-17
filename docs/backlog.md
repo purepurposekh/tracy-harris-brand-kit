@@ -2,7 +2,7 @@
 
 *Living doc. Updated when items land or new ones surface. Ranked by unlock value, not effort.*
 
-Last updated: 2026-04-17
+Last updated: 2026-04-17 (priority-3 split landed)
 
 ---
 
@@ -10,7 +10,6 @@ Last updated: 2026-04-17
 
 - [ ] **/admin/recipes dashboard** — PR #1 merged 2026-04-17 `ead0683`. Prod deploying. Awaiting Karl's PostHog personal API key + 3 env vars to flip from empty-state to live data. See `tracy-dashboard/docs/netlify-env-setup.md`.
 - [ ] **Mobile polish on /compose/ + /review/** — Karl flagged 2026-04-17: "hard to select sections in mobile and scroll." v3 reorg moves filters into the sidebar so main content scrolls cleaner on mobile. Quick post-ship audit still needed.
-- [ ] **Split remaining multi-variant showcases (priority 3)** — cta-block (5), pricing (3), about-bio (2), podcast-card (2), image-grid (2), why-block (2), benefit-trio (2), curriculum-preview (2). Showcase files still work via hash fragments; splits just give cleaner thumbnails and simpler URLs. No product risk if this stays deferred.
 
 ---
 
@@ -89,3 +88,4 @@ From the audit, flagged as variants worth adding to existing families:
   - [x] Preset cards expand inline with a lazy-loaded vertical mini-stack of the slots they'd drop in (nav, hero, product callout, testimonials, opt-in, faq, event widget, footer). Only one preview open at a time. "Use this preset" still loads into Build mode.
   - [x] /compose/ header shrunk to a minimal "Build a page" label + breadcrumb. Mode toggle and page-type filter moved into a nested "Build a page" section inside the app sidebar. Only renders on /compose/ routes, route-aware. Mobile drawer keeps it accessible.
   - [x] Multi-variant showcases split into per-variant files for priorities 1 + 2 — product-callout (4), post-grid (2), offer-stack (2), guarantee (2), testimonials (6), opt-in (4), faq (2). /compose/ SLOTS + /review/ FAMILIES point at the new split files, no more #hash fragments. Priority 3 families (cta-block, pricing, about-bio, podcast-card, image-grid, why-block, benefit-trio, curriculum-preview) still use their showcase.html + hash for now.
+- [x] **Split remaining multi-variant showcases (priority 3)** — cta-block (5), pricing (3), about-bio (2), podcast-card (2), image-grid (2), why-block (2), benefit-trio (2), curriculum-preview (2). All 20 variants now have standalone HTML files. /compose/ SLOTS + /review/ FAMILIES configs updated to point at the split files (no more `showcase.html#hash` refs). Legacy `showcase.html` files left intact as unlinked-from-config multi-variant previews for anyone who deep-links them.
