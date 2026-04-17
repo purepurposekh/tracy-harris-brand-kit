@@ -270,8 +270,10 @@
     .ewm__video {
       position: relative;
       background: #000;
-      aspect-ratio: 16 / 9;
       overflow: hidden;
+      min-height: 280px;
+      /* On desktop the video fills its grid cell full-height (no aspect-ratio lock).
+         The aspect-ratio lock kicks in on mobile below. */
     }
     .ewm__video-frame {
       position: absolute;
@@ -411,7 +413,7 @@
         max-height: calc(100svh - 32px);
         overflow-y: auto;
       }
-      .ewm__video { aspect-ratio: 16 / 10; }
+      .ewm__video { aspect-ratio: 16 / 10; min-height: 0; }
       .ewm__copy { padding: 24px 22px; gap: 12px; }
       .ewm__title { font-size: clamp(22px, 6vw, 30px); }
     }
@@ -434,7 +436,7 @@
         max-height: calc(100svh - 16px);
         overflow-y: auto;
       }
-      .ewm__video { aspect-ratio: 16 / 7; }
+      .ewm__video { aspect-ratio: 16 / 7; min-height: 0; }
       .ewm__copy { padding: 16px 18px; gap: 8px; }
       .ewm__title { font-size: 22px; }
       .ewm__desc { font-size: 13px; }
