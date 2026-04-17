@@ -562,6 +562,10 @@
     // `hash` = optional URL fragment so a multi-variant showcase file scrolls
     //  to the right section inside the iframe thumbnail.
     // `key` = stable string written into the JSON recipe.
+    //
+    // TODO (v2): Filter variants by approvals.json status once review flow
+    // stabilizes. Only expose variants whose variant_id is marked "approved"
+    // in ../review/approvals.json. See /review/ for the approval flow.
     // ----------------------------------------------------------------------
     const SLOTS = [
       {

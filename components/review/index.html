@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Review · Tracy Harris Co Brand Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../styles/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--ink-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: var(--sp-8) var(--sp-5) var(--sp-10);
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin: 0 0 var(--sp-4) 0;
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-5);
+      margin-bottom: var(--sp-7);
+      padding-bottom: var(--sp-5);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .header__mark {
+      flex: 0 0 auto;
+      width: 140px;
+      height: auto;
+    }
+    .header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--ink-mute);
+      text-decoration: none;
+      margin-top: 10px;
+    }
+    .header__back:hover { color: var(--ink-heading); }
+
+    h1 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--sp-4) 0;
+      color: var(--ink-heading);
+    }
+    h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .intro {
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 62ch;
+      margin: 0 0 var(--sp-5) 0;
+      color: var(--ink-body);
+    }
+
+    /* ---------- persistence banner ---------- */
+    .banner {
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-left: 3px solid var(--p-aztek);
+      padding: var(--sp-4) var(--sp-5);
+      border-radius: var(--r-md);
+      margin-bottom: var(--sp-6);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    .banner strong { color: var(--ink-heading); font-weight: 600; }
+    .banner__dirty {
+      display: none;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      background: rgba(201, 164, 108, 0.2);
+      color: var(--p-gold-dark);
+      border: 1px solid rgba(201, 164, 108, 0.4);
+    }
+    body.has-dirty .banner__dirty { display: inline-block; }
+
+    /* ---------- sticky counter bar ---------- */
+    .strip {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246, 244, 241, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-hairline);
+      padding: var(--sp-3) var(--sp-5);
+      margin: 0 calc(var(--sp-5) * -1) var(--sp-6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    .counters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-4);
+      font-size: 13px;
+      color: var(--ink-body);
+    }
+    .counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .counter__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .counter__dot--approved { background: var(--p-sage); }
+    .counter__dot--revise { background: var(--p-gold-mid); border: 1px solid var(--p-gold-dark); }
+    .counter__dot--rejected { background: var(--p-mute); }
+    .counter__dot--unreviewed { background: transparent; border: 1px solid var(--border-hairline); }
+    .counter strong { font-weight: 600; color: var(--ink-heading); font-variant-numeric: tabular-nums; }
+
+    .strip__actions { display: flex; gap: var(--sp-2); flex-shrink: 0; flex-wrap: wrap; }
+
+    button, .btn {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 10px 18px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--p-aztek);
+      background: var(--p-aztek);
+      color: var(--p-white);
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover, .btn:hover { background: var(--p-sage); border-color: var(--p-sage); }
+    .btn--ghost {
+      background: transparent;
+      color: var(--p-aztek);
+    }
+    .btn--ghost:hover { background: var(--p-white); color: var(--p-aztek); border-color: var(--p-aztek); }
+
+    /* ---------- family sections ---------- */
+    .family {
+      margin-bottom: var(--sp-8);
+      padding-top: var(--sp-5);
+      border-top: 1px solid var(--border-hairline);
+    }
+    .family__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-5);
+      flex-wrap: wrap;
+    }
+    .family__title {
+      font-family: var(--f-serif-display);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--ink-heading);
+      margin: 0;
+      line-height: 1.1;
+    }
+    .family__title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .family__meta {
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-5);
+    }
+
+    /* ---------- variant card ---------- */
+    .card {
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(320px, 1fr) minmax(320px, 1.1fr);
+      gap: 0;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(16,16,16,0.05);
+    }
+    .card[data-status="approved"] { border-color: var(--p-sage); }
+    .card[data-status="revise"] { border-color: var(--p-gold-mid); }
+    .card[data-status="rejected"] { border-color: var(--p-mute); opacity: 0.7; }
+
+    .card__preview {
+      position: relative;
+      width: 100%;
+      min-height: 320px;
+      background: var(--p-oatmeal);
+      border-right: 1px solid var(--border-hairline);
+      overflow: hidden;
+    }
+    .card__preview iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 0;
+      width: 1440px;
+      height: 1000px;
+      transform: scale(0.34);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    .card__preview-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--p-oatmeal),
+        var(--p-oatmeal) 12px,
+        var(--p-cream) 12px,
+        var(--p-cream) 24px
+      );
+    }
+    .card__open {
+      position: absolute;
+      bottom: var(--sp-2);
+      right: var(--sp-2);
+      background: rgba(16,16,16,0.72);
+      color: var(--p-white);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+      z-index: 2;
+      border: 0;
+      opacity: 0.85;
+      transition: opacity 0.15s ease;
+    }
+    .card__open:hover { opacity: 1; }
+
+    .card__body {
+      padding: var(--sp-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      min-width: 0;
+    }
+    .card__name {
+      font-family: var(--f-serif-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--ink-heading);
+      margin: 0;
+      line-height: 1.15;
+    }
+    .card__name em { font-family: var(--f-serif-italic); font-style: italic; }
+    .card__id {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      color: var(--ink-mute);
+      margin: 2px 0 0 0;
+      word-break: break-all;
+    }
+    .card__status-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      background: transparent;
+      color: var(--ink-mute);
+    }
+    .pill--approved {
+      background: var(--p-sage);
+      color: var(--p-white);
+      border-color: var(--p-sage);
+    }
+    .pill--revise {
+      background: transparent;
+      color: var(--p-gold-dark);
+      border-color: var(--p-gold-mid);
+    }
+    .pill--rejected {
+      background: transparent;
+      color: var(--p-mute);
+      border-color: var(--p-mute);
+      text-decoration: line-through;
+    }
+    .card__timestamp {
+      font-size: 11px;
+      color: var(--ink-mute);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card__note {
+      font-size: 13px;
+      line-height: 1.55;
+      background: var(--p-oatmeal);
+      padding: var(--sp-3) var(--sp-4);
+      border-radius: var(--r-md);
+      color: var(--ink-body);
+      border-left: 2px solid var(--p-gold-mid);
+      display: none;
+    }
+    .card__note.is-visible { display: block; }
+    .card__note strong {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+      margin-bottom: 4px;
+    }
+
+    .card__actions {
+      display: flex;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .action {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      background: var(--p-white);
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .action:hover { border-color: var(--ink-heading); color: var(--ink-heading); }
+    .action[aria-pressed="true"].action--approve {
+      background: var(--p-sage);
+      border-color: var(--p-sage);
+      color: var(--p-white);
+    }
+    .action[aria-pressed="true"].action--revise {
+      background: var(--p-gold-mid);
+      border-color: var(--p-gold-dark);
+      color: var(--p-charcoal);
+    }
+    .action[aria-pressed="true"].action--reject {
+      background: var(--p-mute);
+      border-color: var(--p-mute);
+      color: var(--p-white);
+    }
+
+    .card__revise {
+      display: none;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+    .card__revise.is-visible { display: flex; }
+    .card__revise textarea {
+      width: 100%;
+      min-height: 72px;
+      font-family: var(--f-sans);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ink-body);
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      padding: var(--sp-3);
+      resize: vertical;
+    }
+    .card__revise textarea:focus {
+      outline: none;
+      border-color: var(--p-gold-mid);
+      box-shadow: 0 0 0 3px rgba(201,164,108,0.15);
+    }
+    .card__revise-actions {
+      display: flex;
+      gap: var(--sp-2);
+      justify-content: flex-end;
+    }
+    .btn--sm {
+      font-size: 12px;
+      padding: 7px 14px;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 820px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+      .card__preview {
+        border-right: 0;
+        border-bottom: 1px solid var(--border-hairline);
+        min-height: 240px;
+      }
+      .card__preview iframe {
+        transform: scale(0.26);
+      }
+      .card__actions { justify-content: flex-start; }
+      .card__status-row { justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: var(--sp-5) var(--sp-4) var(--sp-8); }
+      .strip { padding: var(--sp-3) var(--sp-4); margin: 0 calc(var(--sp-4) * -1) var(--sp-5); }
+      .counters { gap: var(--sp-3); font-size: 12px; }
+      .card__body { padding: var(--sp-4); }
+      .card__name { font-size: 19px; }
+      .card__preview iframe { transform: scale(0.22); }
+    }
+
+    /* ---------- toast ---------- */
+    .toast {
+      position: fixed;
+      bottom: var(--sp-5);
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--p-charcoal);
+      color: var(--p-white);
+      padding: 12px 22px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 100;
+      box-shadow: 0 12px 32px rgba(16,16,16,0.18);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <div class="wrap">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div>
+        <a href="../../index.html" class="header__mark" aria-label="Tracy Harris Co">
+          <img src="../../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris Co" style="width:100%; height:auto; display:block;" />
+        </a>
+        <a href="../../index.html" class="header__back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to catalog
+        </a>
+      </div>
+      <div style="text-align:right; max-width:340px;">
+        <p class="eyebrow">Variant review</p>
+        <p style="font-size:13px; line-height:1.55; color:var(--ink-mute); margin:0;">Approve what's ready. Mark what needs work. Reject what's off-brand.</p>
+      </div>
+    </div>
+
+    <p class="eyebrow">Karl-approved only</p>
+    <h1>Review every <em>variant</em>.</h1>
+    <p class="intro">Every component variant in the kit, one at a time. Approved variants become eligible for the composer. Revisions come back to Kira with your note. Rejected variants hide from future builds.</p>
+
+    <!-- PERSISTENCE BANNER -->
+    <div class="banner">
+      <div style="flex:1; min-width:240px;">
+        <strong>State lives in your browser.</strong> Click <em>Export</em> when done so Kira can lock it in.
+      </div>
+      <span class="banner__dirty" id="dirtyFlag">Unsaved changes</span>
+    </div>
+
+    <!-- STICKY COUNTER BAR -->
+    <div class="strip" id="strip">
+      <div class="counters" id="counters">
+        <span class="counter"><span class="counter__dot counter__dot--approved"></span>Approved: <strong id="countApproved">0</strong></span>
+        <span class="counter"><span class="counter__dot counter__dot--revise"></span>Revise: <strong id="countRevise">0</strong></span>
+        <span class="counter"><span class="counter__dot counter__dot--rejected"></span>Rejected: <strong id="countRejected">0</strong></span>
+        <span class="counter"><span class="counter__dot counter__dot--unreviewed"></span>Unreviewed: <strong id="countUnreviewed">0</strong></span>
+      </div>
+      <div class="strip__actions">
+        <button class="btn--ghost" id="copySummaryBtn" type="button">Copy summary</button>
+        <button id="exportBtn" type="button">Export approvals.json</button>
+      </div>
+    </div>
+
+    <!-- FAMILY SECTIONS (rendered by JS) -->
+    <div id="families"></div>
+
+  </div>
+
+  <div class="toast" id="toast">Saved.</div>
+
+  <script>
+    // -------------------------------------------------------------------
+    // Variant inventory — 47 variants across 18 families
+    // -------------------------------------------------------------------
+    const FAMILIES = [
+      {
+        id: 'hero',
+        label: 'Heroes',
+        display: 'Hero',
+        variants: [
+          { id: 'hero.showcase', name: 'Classic showcase (5 variants)', file: '../hero/variants/showcase.html' },
+          { id: 'hero.martini',  name: 'Martini full-bleed portrait',  file: '../hero/variants/martini.html' },
+          { id: 'hero.amaretto', name: 'Amaretto wordmark',            file: '../hero/variants/amaretto.html' },
+          { id: 'hero.split',    name: 'Split text + photo',           file: '../hero/variants/split.html' },
+          { id: 'hero.tony',     name: 'Tony stage',                   file: '../hero/variants/tony.html' },
+        ],
+      },
+      {
+        id: 'navigation',
+        label: 'Navigation',
+        display: 'Nav',
+        variants: [
+          { id: 'navigation.showcase', name: 'Sticky + mega menu',          file: '../navigation/variants/showcase.html' },
+          { id: 'navigation.martini',  name: 'Overlay with brand gradients', file: '../navigation/variants/martini.html' },
+        ],
+      },
+      {
+        id: 'footer',
+        label: 'Footer',
+        display: 'Footer',
+        variants: [
+          { id: 'footer.showcase', name: 'Classic (full + columns + minimal)', file: '../footer/variants/showcase.html' },
+          { id: 'footer.martini',  name: 'Statement + mark',                   file: '../footer/variants/martini.html' },
+        ],
+      },
+      {
+        id: 'product-callout',
+        label: 'Product callout',
+        display: 'Callout',
+        variants: [
+          { id: 'product-callout.bento-ffb',   name: 'Bento · FFB',     file: '../product-callout/variants/showcase.html', hash: 'pc-ffb-title' },
+          { id: 'product-callout.bento-elite', name: 'Bento · Elite',   file: '../product-callout/variants/showcase.html', hash: 'pc-elite-title' },
+          { id: 'product-callout.editorial',   name: 'Editorial',       file: '../product-callout/variants/showcase.html', hash: 'pce-ffb-title' },
+          { id: 'product-callout.clearer',     name: 'Clearer bento',   file: '../product-callout/variants/showcase.html', hash: 'pcc-ffb-title' },
+        ],
+      },
+      {
+        id: 'testimonials',
+        label: 'Testimonials',
+        display: 'Proof',
+        variants: [
+          { id: 'testimonials.wall',              name: 'Masonry wall',       file: '../testimonials/variants/showcase.html', hash: 'wall' },
+          { id: 'testimonials.featured-trio',     name: 'Featured trio',      file: '../testimonials/variants/showcase.html', hash: 'featured' },
+          { id: 'testimonials.single-hero',       name: 'Single hero',        file: '../testimonials/variants/showcase.html', hash: 'single' },
+          { id: 'testimonials.editorial-centered',name: 'Editorial centered', file: '../testimonials/variants/showcase.html', hash: 'editorial' },
+          { id: 'testimonials.real-results',      name: 'Real results',       file: '../testimonials/variants/showcase.html', hash: 'results' },
+          { id: 'testimonials.columns-marquee',   name: 'Columns marquee',    file: '../testimonials/variants/showcase.html', hash: 'columns' },
+        ],
+      },
+      {
+        id: 'faq',
+        label: 'FAQ',
+        display: 'FAQ',
+        variants: [
+          { id: 'faq.tabbed', name: 'Tabbed + accordion', file: '../faq/variants/showcase.html', hash: 'tabbed' },
+          { id: 'faq.simple', name: 'Simple list',        file: '../faq/variants/showcase.html', hash: 'simple' },
+        ],
+      },
+      {
+        id: 'opt-in',
+        label: 'Opt-in',
+        display: 'Opt-in',
+        variants: [
+          { id: 'opt-in.split',       name: 'Split + portrait', file: '../opt-in/variants/showcase.html', hash: 'split' },
+          { id: 'opt-in.banner',      name: 'Banner centered',  file: '../opt-in/variants/showcase.html', hash: 'banner' },
+          { id: 'opt-in.card',        name: 'Compact card',     file: '../opt-in/variants/showcase.html', hash: 'card' },
+          { id: 'opt-in.accent-dark', name: 'Split dark accent',file: '../opt-in/variants/showcase.html', hash: 'accent' },
+        ],
+      },
+      {
+        id: 'freebies',
+        label: 'Freebies',
+        display: 'Freebies',
+        variants: [
+          { id: 'freebies.zigzag', name: 'Alternating zigzag cards', file: '../freebies/variants/showcase.html' },
+        ],
+      },
+      {
+        id: 'image-grid',
+        label: 'Image grid',
+        display: 'Grid',
+        variants: [
+          { id: 'image-grid.bento',   name: 'Bento asymmetric', file: '../image-grid/variants/showcase.html', hash: 'ig-bento' },
+          { id: 'image-grid.masonry', name: 'Masonry columns',  file: '../image-grid/variants/showcase.html', hash: 'ig-masonry' },
+        ],
+      },
+      {
+        id: 'card-flip',
+        label: 'Card flip',
+        display: 'Flip',
+        variants: [
+          { id: 'card-flip.programs', name: 'Programs triptych (FRESH → FFB → FFM)', file: '../card-flip/variants/showcase.html' },
+        ],
+      },
+      {
+        id: 'cta-block',
+        label: 'CTA block',
+        display: 'CTA',
+        variants: [
+          { id: 'cta-block.canvas',   name: 'Canvas centered',  file: '../cta-block/variants/showcase.html', hash: 'canvas' },
+          { id: 'cta-block.elevated', name: 'Elevated oatmeal', file: '../cta-block/variants/showcase.html', hash: 'elevated' },
+          { id: 'cta-block.accent',   name: 'Accent brand',     file: '../cta-block/variants/showcase.html', hash: 'cta-accent' },
+          { id: 'cta-block.dark',     name: 'Dark (FFM)',       file: '../cta-block/variants/showcase.html', hash: 'dark' },
+          { id: 'cta-block.ruled',    name: 'Ruled minimal',    file: '../cta-block/variants/showcase.html', hash: 'ruled' },
+        ],
+      },
+      {
+        id: 'expandable-cta',
+        label: 'Expandable CTA',
+        display: 'Expand',
+        variants: [
+          { id: 'expandable-cta.cult', name: 'Full-screen form expand', file: '../expandable-cta/variants/showcase.html' },
+        ],
+      },
+      {
+        id: 'pricing',
+        label: 'Pricing',
+        display: 'Pricing',
+        variants: [
+          { id: 'pricing.ffb-side-by-side', name: 'FFB side-by-side',    file: '../pricing/variants/showcase.html', hash: 'ffb-side' },
+          { id: 'pricing.ffm-dark-premium', name: 'FFM dark premium',    file: '../pricing/variants/showcase.html', hash: 'ffm-dark' },
+          { id: 'pricing.compact-single',   name: 'Compact single card', file: '../pricing/variants/showcase.html', hash: 'compact-single' },
+        ],
+      },
+      {
+        id: 'about-bio',
+        label: 'About / bio',
+        display: 'Bio',
+        variants: [
+          { id: 'about-bio.split-editorial', name: 'Split editorial',   file: '../about-bio/variants/showcase.html', hash: 'split-editorial' },
+          { id: 'about-bio.centered-circle', name: 'Centered circle',   file: '../about-bio/variants/showcase.html', hash: 'centered-circle' },
+        ],
+      },
+      {
+        id: 'podcast-card',
+        label: 'Podcast card',
+        display: 'Podcast',
+        variants: [
+          { id: 'podcast-card.featured', name: 'Featured large',    file: '../podcast-card/variants/showcase.html', hash: 'podcast-featured' },
+          { id: 'podcast-card.compact',  name: 'Compact inline',    file: '../podcast-card/variants/showcase.html', hash: 'podcast-compact' },
+        ],
+      },
+      {
+        id: 'programs-grid',
+        label: 'Programs grid',
+        display: 'Programs',
+        variants: [
+          { id: 'programs-grid.three-card', name: 'Three-card pathway', file: '../programs-grid/variants/showcase.html' },
+        ],
+      },
+      {
+        id: 'event-widget',
+        label: 'Event widget',
+        display: 'Event',
+        variants: [
+          { id: 'event-widget.floating', name: 'Floating teaser', file: '../event-widget/variants/showcase.html' },
+        ],
+      },
+    ];
+
+    // -------------------------------------------------------------------
+    // State: localStorage wins over repo file. Flag as dirty when diverged.
+    // -------------------------------------------------------------------
+    const LS_KEY = 'thc-approvals-v1';
+    const VALID = ['approved', 'revise', 'rejected'];
+
+    let state = {};   // { variantId: { status, at, note } }
+    let baseline = {}; // the state as loaded from approvals.json (for dirty comparison)
+
+    function loadLocal() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveLocal() {
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+      updateDirtyFlag();
+    }
+
+    function updateDirtyFlag() {
+      const dirty = JSON.stringify(state) !== JSON.stringify(baseline);
+      document.body.classList.toggle('has-dirty', dirty);
+    }
+
+    async function loadRepoFile() {
+      try {
+        const res = await fetch('approvals.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('no file');
+        const json = await res.json();
+        return (json && typeof json === 'object') ? json : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    // -------------------------------------------------------------------
+    // Render families + cards
+    // -------------------------------------------------------------------
+    const familiesEl = document.getElementById('families');
+
+    function render() {
+      familiesEl.innerHTML = '';
+
+      FAMILIES.forEach(family => {
+        const section = document.createElement('section');
+        section.className = 'family';
+        section.id = `family-${family.id}`;
+
+        const head = document.createElement('div');
+        head.className = 'family__head';
+        head.innerHTML = `
+          <h2 class="family__title">${family.label}</h2>
+          <span class="family__meta">${family.variants.length} variant${family.variants.length !== 1 ? 's' : ''}</span>
+        `;
+        section.appendChild(head);
+
+        const cards = document.createElement('div');
+        cards.className = 'cards';
+
+        family.variants.forEach(v => {
+          cards.appendChild(renderCard(v));
+        });
+
+        section.appendChild(cards);
+        familiesEl.appendChild(section);
+      });
+
+      // lazy-load iframes
+      document.querySelectorAll('.card__preview iframe[data-src]').forEach(f => io.observe(f));
+
+      updateCounters();
+    }
+
+    function renderCard(v) {
+      const current = state[v.id] || { status: null, at: null, note: null };
+      const srcWithHash = v.hash ? `${v.file}#${v.hash}` : v.file;
+
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.dataset.status = current.status || '';
+      card.dataset.variantId = v.id;
+
+      const statusPill = renderStatusPill(current.status);
+      const tsText = current.at ? formatTs(current.at) : '';
+      const noteVisible = current.status === 'revise' && current.note ? 'is-visible' : '';
+
+      card.innerHTML = `
+        <div class="card__preview">
+          <div class="card__preview-placeholder">Loading preview</div>
+          <iframe data-src="${srcWithHash}" loading="lazy" title="${v.name}" aria-hidden="true"></iframe>
+          <a class="card__open" href="${srcWithHash}" target="_blank" rel="noopener">Open ↗</a>
+        </div>
+        <div class="card__body">
+          <div>
+            <h3 class="card__name">${v.name}</h3>
+            <p class="card__id">${v.id}</p>
+          </div>
+          <div class="card__status-row">
+            ${statusPill}
+            <span class="card__timestamp">${tsText}</span>
+          </div>
+          <div class="card__note ${noteVisible}" data-role="note">
+            <strong>Revision note</strong>
+            <span data-role="note-text">${escapeHtml(current.note || '')}</span>
+          </div>
+          <div class="card__revise" data-role="revise">
+            <textarea data-role="revise-text" placeholder="What needs to change? Be specific."></textarea>
+            <div class="card__revise-actions">
+              <button class="action btn--sm" data-role="revise-cancel" type="button">Cancel</button>
+              <button class="btn btn--sm" data-role="revise-save" type="button">Save note</button>
+            </div>
+          </div>
+          <div class="card__actions">
+            <button class="action action--approve" type="button" data-role="approve" aria-pressed="${current.status === 'approved'}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Approved
+            </button>
+            <button class="action action--revise" type="button" data-role="revise-open" aria-pressed="${current.status === 'revise'}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              Revise
+            </button>
+            <button class="action action--reject" type="button" data-role="reject" aria-pressed="${current.status === 'rejected'}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Rejected
+            </button>
+          </div>
+        </div>
+      `;
+
+      // wire up action buttons
+      card.querySelector('[data-role="approve"]').addEventListener('click', () => setStatus(v.id, 'approved', null));
+      card.querySelector('[data-role="reject"]').addEventListener('click', () => setStatus(v.id, 'rejected', null));
+      card.querySelector('[data-role="revise-open"]').addEventListener('click', () => openRevise(card, v.id));
+      card.querySelector('[data-role="revise-cancel"]').addEventListener('click', () => closeRevise(card));
+      card.querySelector('[data-role="revise-save"]').addEventListener('click', () => saveRevise(card, v.id));
+
+      return card;
+    }
+
+    function renderStatusPill(status) {
+      if (status === 'approved') return `<span class="pill pill--approved">Approved</span>`;
+      if (status === 'revise')   return `<span class="pill pill--revise">Needs revision</span>`;
+      if (status === 'rejected') return `<span class="pill pill--rejected">Rejected</span>`;
+      return `<span class="pill">Unreviewed</span>`;
+    }
+
+    function formatTs(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+          + ' · ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+      } catch (e) { return ''; }
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[ch]));
+    }
+
+    // -------------------------------------------------------------------
+    // Status mutations
+    // -------------------------------------------------------------------
+    function setStatus(variantId, status, note) {
+      // toggle off if clicking the active status again (except revise — handled separately)
+      const current = state[variantId];
+      if (current && current.status === status && status !== 'revise') {
+        delete state[variantId];
+      } else {
+        state[variantId] = {
+          status,
+          at: new Date().toISOString(),
+          note: note || null,
+        };
+      }
+      saveLocal();
+      updateCardUI(variantId);
+      updateCounters();
+      showToast(statusMessage(status));
+    }
+
+    function statusMessage(s) {
+      if (s === 'approved') return 'Approved.';
+      if (s === 'rejected') return 'Rejected.';
+      if (s === 'revise')   return 'Revision note saved.';
+      return 'Cleared.';
+    }
+
+    function openRevise(card, variantId) {
+      const reviseEl = card.querySelector('[data-role="revise"]');
+      const textarea = card.querySelector('[data-role="revise-text"]');
+      const current = state[variantId];
+      textarea.value = (current && current.note) || '';
+      reviseEl.classList.add('is-visible');
+      textarea.focus();
+    }
+
+    function closeRevise(card) {
+      card.querySelector('[data-role="revise"]').classList.remove('is-visible');
+    }
+
+    function saveRevise(card, variantId) {
+      const text = card.querySelector('[data-role="revise-text"]').value.trim();
+      if (!text) {
+        showToast('Add a note before saving.');
+        return;
+      }
+      setStatus(variantId, 'revise', text);
+      closeRevise(card);
+    }
+
+    function updateCardUI(variantId) {
+      const card = document.querySelector(`.card[data-variant-id="${CSS.escape(variantId)}"]`);
+      if (!card) return;
+      const current = state[variantId] || { status: null, at: null, note: null };
+
+      card.dataset.status = current.status || '';
+
+      const pillHost = card.querySelector('.card__status-row');
+      pillHost.querySelector('.pill').outerHTML = renderStatusPill(current.status);
+
+      card.querySelector('.card__timestamp').textContent = current.at ? formatTs(current.at) : '';
+
+      // note block
+      const noteEl = card.querySelector('[data-role="note"]');
+      const noteText = card.querySelector('[data-role="note-text"]');
+      if (current.status === 'revise' && current.note) {
+        noteText.textContent = current.note;
+        noteEl.classList.add('is-visible');
+      } else {
+        noteEl.classList.remove('is-visible');
+      }
+
+      // button pressed states
+      card.querySelector('[data-role="approve"]').setAttribute('aria-pressed', current.status === 'approved');
+      card.querySelector('[data-role="revise-open"]').setAttribute('aria-pressed', current.status === 'revise');
+      card.querySelector('[data-role="reject"]').setAttribute('aria-pressed', current.status === 'rejected');
+    }
+
+    // -------------------------------------------------------------------
+    // Counters
+    // -------------------------------------------------------------------
+    function updateCounters() {
+      const totals = { approved: 0, revise: 0, rejected: 0 };
+      let total = 0;
+      FAMILIES.forEach(f => { total += f.variants.length; });
+
+      Object.values(state).forEach(v => {
+        if (v && VALID.includes(v.status)) totals[v.status] += 1;
+      });
+
+      const unreviewed = total - (totals.approved + totals.revise + totals.rejected);
+
+      document.getElementById('countApproved').textContent = totals.approved;
+      document.getElementById('countRevise').textContent = totals.revise;
+      document.getElementById('countRejected').textContent = totals.rejected;
+      document.getElementById('countUnreviewed').textContent = unreviewed;
+    }
+
+    // -------------------------------------------------------------------
+    // Iframe lazy-loading
+    // -------------------------------------------------------------------
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const iframe = entry.target;
+        if (iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+          iframe.removeAttribute('data-src');
+          iframe.addEventListener('load', () => {
+            const ph = iframe.parentElement.querySelector('.card__preview-placeholder');
+            if (ph) ph.remove();
+          }, { once: true });
+        }
+        io.unobserve(iframe);
+      });
+    }, { rootMargin: '400px' });
+
+    // -------------------------------------------------------------------
+    // Export / copy-summary
+    // -------------------------------------------------------------------
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const json = JSON.stringify(state, null, 2) + '\n';
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'approvals.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Exported approvals.json');
+    });
+
+    document.getElementById('copySummaryBtn').addEventListener('click', async () => {
+      const summary = buildSummary();
+      try {
+        await navigator.clipboard.writeText(summary);
+        showToast('Summary copied · paste it to Kira');
+      } catch (err) {
+        window.prompt('Copy the summary:', summary);
+      }
+    });
+
+    function buildSummary() {
+      const lines = [];
+      const ts = new Date().toISOString();
+      lines.push(`Approvals summary · ${ts}`);
+      lines.push('');
+
+      const groups = { approved: [], revise: [], rejected: [], unreviewed: [] };
+
+      FAMILIES.forEach(f => {
+        f.variants.forEach(v => {
+          const current = state[v.id];
+          if (!current || !current.status) {
+            groups.unreviewed.push(v.id);
+          } else {
+            groups[current.status].push({ id: v.id, note: current.note });
+          }
+        });
+      });
+
+      lines.push(`APPROVED (${groups.approved.length})`);
+      groups.approved.forEach(x => lines.push(`  - ${x.id}`));
+      lines.push('');
+      lines.push(`REVISE (${groups.revise.length})`);
+      groups.revise.forEach(x => lines.push(`  - ${x.id}: ${x.note || '(no note)'}`));
+      lines.push('');
+      lines.push(`REJECTED (${groups.rejected.length})`);
+      groups.rejected.forEach(x => lines.push(`  - ${x.id}`));
+      lines.push('');
+      lines.push(`UNREVIEWED (${groups.unreviewed.length})`);
+      groups.unreviewed.forEach(id => lines.push(`  - ${id}`));
+
+      return lines.join('\n');
+    }
+
+    // -------------------------------------------------------------------
+    // Toast
+    // -------------------------------------------------------------------
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 2400);
+    }
+
+    // -------------------------------------------------------------------
+    // Boot: load repo baseline, merge with localStorage (local wins)
+    // -------------------------------------------------------------------
+    (async function boot() {
+      const repo = await loadRepoFile();
+      const local = loadLocal();
+
+      baseline = repo;
+
+      // merge: local wins per-key, but unkeyed repo entries survive
+      state = Object.assign({}, repo, local);
+
+      render();
+      updateDirtyFlag();
+    })();
+  </script>
+</body>
+</html>

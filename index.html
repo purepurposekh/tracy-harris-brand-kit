@@ -120,7 +120,7 @@
       justify-content: space-between;
       gap: var(--sp-5);
       padding: var(--sp-6);
-      margin: 0 0 var(--sp-8) 0;
+      margin: 0 0 var(--sp-5) 0;
       background: var(--p-aztek);
       color: var(--p-white);
       border-radius: var(--r-lg);
@@ -130,6 +130,22 @@
     .composer-cta:hover {
       transform: translateY(-2px);
       box-shadow: 0 14px 32px rgba(30,55,53,0.22);
+    }
+    .composer-cta--review {
+      background: var(--p-oatmeal);
+      color: var(--ink-heading);
+      border: 1px solid var(--border-hairline);
+      margin-bottom: var(--sp-8);
+    }
+    .composer-cta--review:hover {
+      box-shadow: 0 14px 32px rgba(16,16,16,0.06);
+    }
+    .composer-cta--review .composer-cta__arrow {
+      background: rgba(30,55,53,0.08);
+      color: var(--p-aztek);
+    }
+    .composer-cta--review:hover .composer-cta__arrow {
+      background: rgba(30,55,53,0.14);
     }
     .composer-cta__copy { flex: 1; }
     .composer-cta__eyebrow {
@@ -184,9 +200,20 @@
 
     <a class="composer-cta" href="components/compose/index.html">
       <div class="composer-cta__copy">
-        <p class="composer-cta__eyebrow">New · Page composer</p>
+        <p class="composer-cta__eyebrow">Page composer</p>
         <h2 class="composer-cta__title" style="color:var(--p-white); margin:0 0 8px 0;">Build a page <em>from parts</em>.</h2>
         <p class="composer-cta__desc">Visually pick hero, callout, testimonials, footer. Add your intention brief. Hand me a JSON recipe I can build against. Conversion-tracked over time.</p>
+      </div>
+      <div class="composer-cta__arrow" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+
+    <a class="composer-cta composer-cta--review" href="components/review/index.html">
+      <div class="composer-cta__copy">
+        <p class="composer-cta__eyebrow" style="color:var(--ink-mute);">New · Variant review</p>
+        <h2 class="composer-cta__title" style="color:var(--ink-heading); margin:0 0 8px 0;">Approve every <em>variant</em>.</h2>
+        <p class="composer-cta__desc" style="color:var(--ink-body);">Methodically stamp each component variant as Karl-approved, needs-revision, or rejected. Source of truth for what the composer can ship.</p>
       </div>
       <div class="composer-cta__arrow" aria-hidden="true">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
