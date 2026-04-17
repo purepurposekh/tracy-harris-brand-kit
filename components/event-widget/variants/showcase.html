@@ -94,6 +94,8 @@
     }
     .ew__media:hover .ew__play { transform: translate(-50%, -50%) scale(1.06); background: #fff; }
 
+    .ew__media-title { display: none; }  /* visible on mobile only */
+
     .ew__label {
       position: absolute;
       left: 12px; top: 12px;
@@ -439,6 +441,21 @@
         overflow: hidden;
         aspect-ratio: 16 / 11;
       }
+      /* Workshop title overlaid on the thumbnail itself (Tony-style) */
+      .ew__media-title {
+        display: block;
+        position: absolute;
+        left: 10px; right: 80px; bottom: 10px;
+        z-index: 2;
+        font-family: var(--f-serif-display);
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.15;
+        color: var(--p-oatmeal);
+        margin: 0;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+      }
+      .ew__media-title em { font-family: var(--f-serif-italic); font-style: italic; }
       .ew__media::after {
         background: linear-gradient(180deg,
           rgba(16,16,16,0.15) 0%,
@@ -524,6 +541,7 @@
     <div class="ew__media" role="button" aria-haspopup="dialog" aria-controls="ewm" tabindex="0" id="ew-media">
       <span class="ew__label">Upcoming</span>
       <button class="ew__close" type="button" aria-label="Dismiss workshop teaser" id="ew-close"></button>
+      <h3 class="ew__media-title">The <em>Million Dollar</em> Message</h3>
       <button class="ew__play" type="button" aria-label="Play workshop preview" tabindex="-1">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
       </button>
