@@ -8,7 +8,9 @@ Last updated: 2026-04-17
 
 ## In flight
 
-*(nothing currently — Phase 2 shipped, Phase 3 ready to start on greenlight)*
+- [ ] **/admin/recipes dashboard** — Netlify branch preview live, PR #1 open, awaiting Karl's PostHog personal API key + env var setup
+- [ ] **Mobile polish on /compose/ + /review/** — Karl flagged 2026-04-17: "hard to select sections in mobile and scroll." v3 reorg moves filters into the sidebar so main content scrolls cleaner on mobile. Quick post-ship audit still needed.
+- [ ] **Split remaining multi-variant showcases (priority 3)** — cta-block (5), pricing (3), about-bio (2), podcast-card (2), image-grid (2), why-block (2), benefit-trio (2), curriculum-preview (2). Showcase files still work via hash fragments; splits just give cleaner thumbnails and simpler URLs. No product risk if this stays deferred.
 
 ---
 
@@ -47,7 +49,6 @@ From the audit, flagged as variants worth adding to existing families:
 
 ## Infrastructure queue
 
-- [ ] **Split multi-variant showcases** into separate files — testimonials, opt-in, cta-block, pricing, about-bio, podcast-card, image-grid, faq. Each variant gets its own URL for clean /compose/ thumbnail previews
 - [ ] **Slack bot routing** — inbound Slack → VPS so one Kira across Discord + Slack with unified memory. ~2hr build
 - [ ] **`/admin/recipes` HogQL dashboard** — custom recipe-conversion dashboard inside `dashboard.tracyharris.com.au`. Blocked on PostHog WP snippet being installed first
 - [ ] **Fathom → PostHog migration** — run in parallel 2-4 weeks, validate numbers, kill Fathom
@@ -84,3 +85,7 @@ From the audit, flagged as variants worth adding to existing families:
 - [x] **PostHog Cloud EU installed on tracyharris.co** — script live, pageviews confirmed in Live Events, recipe_id auto-attribution wired
 - [x] **Phase 2 (7 new components shipped): `why-block`, `benefit-trio`, `curriculum-preview`, `feature-grid`, `post-grid`, `content-section`, `hero/textonly`** — Long landing and Blog page types now render to full fidelity. `/compose/` filter map updated to expose them across Sales, Short, Long, OTO, Blog page types. `/review/` now covers 64 variants across 28 families.
 - [x] **Re-audit of 10 ref pages (post-Phase 1)** — appended to `docs/ref-pages-audit-2026-04-17.md`. No missed sections load-bearing enough to block Phase 2.
+- [x] **/compose/ v3 reorg (2026-04-16)**:
+  - [x] Preset cards expand inline with a lazy-loaded vertical mini-stack of the slots they'd drop in (nav, hero, product callout, testimonials, opt-in, faq, event widget, footer). Only one preview open at a time. "Use this preset" still loads into Build mode.
+  - [x] /compose/ header shrunk to a minimal "Build a page" label + breadcrumb. Mode toggle and page-type filter moved into a nested "Build a page" section inside the app sidebar. Only renders on /compose/ routes, route-aware. Mobile drawer keeps it accessible.
+  - [x] Multi-variant showcases split into per-variant files for priorities 1 + 2 — product-callout (4), post-grid (2), offer-stack (2), guarantee (2), testimonials (6), opt-in (4), faq (2). /compose/ SLOTS + /review/ FAMILIES point at the new split files, no more #hash fragments. Priority 3 families (cta-block, pricing, about-bio, podcast-card, image-grid, why-block, benefit-trio, curriculum-preview) still use their showcase.html + hash for now.
