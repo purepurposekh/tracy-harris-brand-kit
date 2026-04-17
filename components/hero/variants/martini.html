@@ -133,7 +133,7 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding-bottom: clamp(24px, 5vh, 56px);
+      padding-bottom: clamp(12vh, 16vh, 20vh);
       width: 100%;
       max-width: 1600px;
     }
@@ -211,13 +211,13 @@
       .mhero__menu span:first-child { display: none; }
       .mhero__menu-icon { width: 26px; height: 12px; }
 
-      /* Pull "Tracy" up a touch and don't let it clip */
+      /* Move "Tracy" up — between bottom and center on mobile too */
       .mhero {
-        align-items: center;
+        align-items: flex-end;
       }
       .mhero__content {
-        padding-top: 18vh;
-        padding-bottom: 18vh;
+        padding-bottom: 22vh;
+        padding-top: 0;
       }
       .mhero__word {
         transform: translateY(0);

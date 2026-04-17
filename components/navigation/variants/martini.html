@@ -206,6 +206,67 @@
       color: var(--p-ffb-dark);
       transform: translateX(6px);
     }
+
+    /* ---- Program hover colors (brand-specific) ---- */
+    .mnav__primary a.prog {
+      background-image: linear-gradient(90deg, currentColor, currentColor);
+      background-size: 200% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+              background-clip: text;
+      -webkit-text-fill-color: currentColor;
+      transition: background-position .9s cubic-bezier(.4,0,.2,1),
+                  color .25s ease,
+                  -webkit-text-fill-color .25s ease,
+                  transform .25s ease;
+    }
+    .mnav__primary a.prog:hover,
+    .mnav__primary a.prog:focus-visible,
+    .mnav__primary a.prog:active {
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      background-position: 0 0;
+      transform: translateX(6px);
+    }
+    /* FRESH → 5-pillar rainbow */
+    .mnav__primary a.prog-fresh {
+      background-image: linear-gradient(90deg,
+        #20314c 0%,
+        #ca6b4d 22%,
+        #ddab7d 44%,
+        #cc9989 66%,
+        #6e8e77 88%,
+        #20314c 100%);
+    }
+    /* Workshop → soft green gradient */
+    .mnav__primary a.prog-workshop {
+      background-image: linear-gradient(90deg,
+        #6e8e77 0%,
+        #1e3735 50%,
+        #6e8e77 100%);
+    }
+    /* FFB → deep aztek green */
+    .mnav__primary a.prog-ffb {
+      background-image: linear-gradient(90deg,
+        #1e3735 0%,
+        #2c5350 50%,
+        #1e3735 100%);
+    }
+    /* FFM → gold gradient with translucency */
+    .mnav__primary a.prog-ffm {
+      background-image: linear-gradient(90deg,
+        #7b623c 0%,
+        #c9a46c 50%,
+        #7b623c 100%);
+    }
+    .mnav__primary a.prog-ffm:hover,
+    .mnav__primary a.prog-ffm:focus-visible {
+      opacity: 0.94;
+    }
+    /* Reduce-motion: no animated sweep */
+    @media (prefers-reduced-motion: reduce) {
+      .mnav__primary a.prog { transition: color .2s ease, -webkit-text-fill-color .2s ease, transform .2s ease; background-size: 100% 100%; background-position: 0 0; }
+    }
     .mnav__secondary-group-title {
       font-family: var(--f-sans);
       font-size: 10px;
@@ -357,10 +418,10 @@
 
       <!-- Col 2: programs + entry points -->
       <div class="mnav__primary">
-        <a href="/fresh-quiz">FRESH <em>Quiz</em></a>
-        <a href="/workshop">Free <em>Workshop</em></a>
-        <a href="/ffb">FFB <em>Mentorship</em></a>
-        <a href="/ffm">FFM <em>Mastermind</em></a>
+        <a href="/fresh-quiz" class="prog prog-fresh">FRESH <em>Quiz</em></a>
+        <a href="/workshop" class="prog prog-workshop">Free <em>Workshop</em></a>
+        <a href="/ffb" class="prog prog-ffb">FFB <em>Mentorship</em></a>
+        <a href="/ffm" class="prog prog-ffm">FFM <em>Mastermind</em></a>
       </div>
 
       <!-- Col 3: resources + social -->
