@@ -8,7 +8,7 @@ Last updated: 2026-04-17
 
 ## In flight
 
-- [ ] **/admin/recipes dashboard** — Netlify branch preview live, PR #1 open, awaiting Karl's PostHog personal API key + env var setup
+- [ ] **/admin/recipes dashboard** — PR #1 merged 2026-04-17 `ead0683`. Prod deploying. Awaiting Karl's PostHog personal API key + 3 env vars to flip from empty-state to live data. See `tracy-dashboard/docs/netlify-env-setup.md`.
 - [ ] **Mobile polish on /compose/ + /review/** — Karl flagged 2026-04-17: "hard to select sections in mobile and scroll." v3 reorg moves filters into the sidebar so main content scrolls cleaner on mobile. Quick post-ship audit still needed.
 - [ ] **Split remaining multi-variant showcases (priority 3)** — cta-block (5), pricing (3), about-bio (2), podcast-card (2), image-grid (2), why-block (2), benefit-trio (2), curriculum-preview (2). Showcase files still work via hash fragments; splits just give cleaner thumbnails and simpler URLs. No product risk if this stays deferred.
 
