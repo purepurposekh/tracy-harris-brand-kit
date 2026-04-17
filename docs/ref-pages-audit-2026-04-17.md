@@ -256,3 +256,47 @@ These aren't new components, they're new treatments of families we already have.
 - Tonic templates lean heavily on filler copy and stock placeholder graphics. The value here is the **section grammar**, not the copy.
 - `opt-in` currently has one variant (`showcase`) on disk, though the brand kit inventory lists `split`, `banner`, `card`, `accent-dark`. Those may exist in the composer/examples rather than as standalone variant files — worth verifying before calling any of them "done".
 - `cta-block` has similar drift — inventory lists 5 variants, on-disk has `showcase` only. Either the variants live elsewhere or the inventory doc is ahead of implementation. Flag for Karl.
+
+---
+
+## Re-audit 2026-04-17 (post-Phase 1)
+
+**Context:** Phase 1 shipped `hero/results`, `hero/oto`, `offer-stack`, `guarantee`, `next-steps`, `soft-upsell` — unlocking TY/Results and OTO page types. Re-fetched the 10 ref pages via WebFetch to sanity-check nothing was missed before building Phase 2.
+
+### Findings
+
+The original audit holds up. Nothing load-bearing was missed. Re-fetch on `long-form-freebie`, `interactive-freebie`, and `upsell-page` confirmed the same section grammar, with one small clarification:
+
+- **The "4 matching problem statements" on upsell-page is actually a `feature-grid` layout, not a separate pattern.** Originally classified as "4-up qualification checklist with icons" which is accurate — covered by the Phase 2 `feature-grid` build.
+- **`interactive-freebie`'s numbered "01/02/03" benefits stack** is covered by Phase 2 `benefit-trio.number-row`.
+- **`long-form-freebie`'s "Feature List" (bulleted iconified benefits)** — listed in the original audit as ranked component #9 (`feature-list`, a variant of feature-grid). Decision: **absorbed into `feature-grid.default`** for now. A 1-column list variant of `feature-grid` can be added in Phase 4 polish if it earns its place. Not worth a separate family.
+
+### Sections Phase 2 covers that weren't in Phase 1
+
+- `why-block` (editorial + dark) — narrative explainer beat seen on long-1, long-2, colorful, upsell
+- `benefit-trio` (icon-row + number-row) — outcome promises seen on long-1, long-2, interactive
+- `curriculum-preview` (module-stack + grid-preview) — contents list seen on interactive, colorful, neutral
+- `feature-grid.default` — 4-6 tile grid seen on long-2, upsell
+- `post-grid` (editorial + masonry) — blog index card grid, not in ref pages but required for Blog page type
+- `content-section.default` — blog article body, not in ref pages but required for Blog page type
+- `hero/textonly` — dedicated text-only hero; ref pages don't need it but Blog/About pages do (original audit flagged that `hero.showcase` was being aliased for Blog, which wasn't right)
+
+### Still flagged for later (not built)
+
+From the original audit's ranked list, these remain unbuilt and are deliberately deferred:
+
+- `stat-strip` (rank #6) — Tracy has legit numbers to use. Moved to Phase 3 backlog (fits inside "Results strip / proof bar").
+- `freebie-preview` (rank #8) — needs a mocked PDF/workbook graphic. Blocked on visual asset.
+- `press-strip` (rank #10) — shell-only until Tracy has confirmed press logos. Low priority.
+- `spam-callout` (rank #11) — XS utility. Absorb into `next-steps` or `hero.results` as a sub-element rather than its own family.
+- `form-assurance` (rank #12) — utility class on `opt-in`, not a component.
+- `bonus-screamer` (rank #13) — dialled-up variant of `cta-block`. Build as a `cta-block` variant in Phase 4.
+
+### Testimonials/about-bio variants flagged but not built
+
+From section 3 of the original audit, these variant additions are deferred to Phase 4 along with other polish:
+`testimonials.pull-quote`, `testimonials.duo`, `about-bio.narrative-long`, `hero.opt-in-inline`, `cta-block.rule-separator`.
+
+### Verdict
+
+Phase 2 as scoped hits the highest-leverage gaps. No new sections discovered in the re-fetch that warrant emergency builds. Moving Phase 3 items (announcement bar, process, before/after, application form, curriculum accordion, etc.) to the top of the remaining backlog.
