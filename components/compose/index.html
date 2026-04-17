@@ -289,24 +289,17 @@
     .tile__thumb {
       position: relative;
       width: 100%;
-      /* Height is set by JS fitThumb() based on iframe source aspect. */
-      height: 220px;
+      aspect-ratio: 16 / 10;
       overflow: hidden;
       background: var(--p-oatmeal);
       border-bottom: 1px solid var(--border-hairline);
-      transition: height 220ms ease;
     }
     .tile__thumb iframe {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       border: 0;
-      /* Width/height/transform are all set by JS fitThumb(). These are
-         sensible fallbacks in case JS is late or disabled. */
-      width: 1400px;
-      height: 880px;
-      transform: scale(0.3);
-      transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
     }
@@ -732,21 +725,16 @@
     .preset-slot__thumb {
       position: relative;
       width: 100%;
-      /* Height set by JS fitThumb() */
-      height: 200px;
+      aspect-ratio: 16 / 10;
       background: var(--p-oatmeal);
       overflow: hidden;
-      transition: height 220ms ease;
     }
     .preset-slot__thumb iframe {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       border: 0;
-      width: 1360px;
-      height: 800px;
-      transform: scale(0.25);
-      transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
     }
@@ -3497,61 +3485,6 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       syncChips();
     })();
 
-    // ----------------------------------------------------------------------
-    // Thumbnail fitting — single desktop render, no preview-mode switching.
-    // Each iframe renders at 1400x880 (or 1360x800 for preset slots) so
-    // variant HTML CSS sees a desktop viewport. We then scale the iframe
-    // visually to fill its container width, and set the container height
-    // to match the scaled iframe height. Runs on init, resize, and DOM add.
-    // ----------------------------------------------------------------------
-    (function initThumbFit() {
-      function srcDims(el) {
-        return el.classList.contains('preset-slot__thumb')
-          ? { w: 1360, h: 800 }
-          : { w: 1400, h: 880 };
-      }
-      function fitThumb(el) {
-        var iframe = el.querySelector(':scope > iframe');
-        if (!iframe) return;
-        var w = el.getBoundingClientRect().width;
-        if (w <= 0) return;
-        var dims = srcDims(el);
-        var scale = w / dims.w;
-        el.style.height = Math.round(dims.h * scale) + 'px';
-        iframe.style.width = dims.w + 'px';
-        iframe.style.height = dims.h + 'px';
-        iframe.style.transform = 'scale(' + scale + ')';
-        iframe.style.transformOrigin = 'top left';
-      }
-      var fitRO = (typeof ResizeObserver !== 'undefined') ? new ResizeObserver(function (entries) {
-        entries.forEach(function (e) { fitThumb(e.target); });
-      }) : null;
-      function observeThumb(el) {
-        if (el.dataset.fitObserved === '1') { fitThumb(el); return; }
-        el.dataset.fitObserved = '1';
-        if (fitRO) fitRO.observe(el);
-        fitThumb(el);
-      }
-      function fitAll() {
-        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(observeThumb);
-      }
-      new MutationObserver(function (muts) {
-        for (var i = 0; i < muts.length; i++) {
-          var added = muts[i].addedNodes;
-          for (var j = 0; j < added.length; j++) {
-            var n = added[j];
-            if (n.nodeType !== 1) continue;
-            if (n.matches && (n.matches('.tile__thumb') || n.matches('.preset-slot__thumb'))) {
-              observeThumb(n);
-            } else if (n.querySelectorAll) {
-              n.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(observeThumb);
-            }
-          }
-        }
-      }).observe(document.body, { childList: true, subtree: true });
-      fitAll();
-      window.addEventListener('load', fitAll);
-    })();
 
   </script>
 </body>
