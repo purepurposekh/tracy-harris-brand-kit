@@ -622,6 +622,7 @@
       .presets__grid { grid-template-columns: 1fr; }
     }
     .preset-card {
+      position: relative;
       display: flex;
       flex-direction: column;
       background: var(--p-white);
@@ -629,11 +630,151 @@
       border-radius: var(--r-lg);
       padding: var(--sp-5);
       transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+      cursor: pointer;
     }
     .preset-card:hover {
       border-color: var(--p-sage);
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(16,16,16,0.06);
+    }
+    .preset-card.is-expanded {
+      cursor: default;
+      border-color: var(--p-aztek);
+      box-shadow: 0 0 0 3px rgba(30,55,53,0.08), 0 12px 28px rgba(16,16,16,0.08);
+      transform: none;
+      grid-column: 1 / -1;
+    }
+    @media (min-width: 641px) {
+      .preset-card.is-expanded {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+    }
+    .preset-card.is-expanded:hover { transform: none; }
+    .preset-card__caret {
+      position: absolute;
+      top: var(--sp-5);
+      right: var(--sp-5);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-hairline);
+      background: var(--p-white);
+      color: var(--ink-mute);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.18s ease, color 0.18s ease;
+      pointer-events: none;
+    }
+    .preset-card.is-expanded .preset-card__caret {
+      transform: rotate(180deg);
+      background: var(--p-aztek);
+      border-color: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .preset-card__preview {
+      display: none;
+      grid-column: 1 / -1;
+      margin-top: var(--sp-4);
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--border-hairline);
+    }
+    .preset-card.is-expanded .preset-card__preview { display: block; }
+    .preset-card__stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: var(--sp-4);
+    }
+    .preset-slot {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+    .preset-slot__label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: 8px 12px;
+      background: var(--p-oatmeal);
+      border-bottom: 1px solid var(--border-hairline);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .preset-slot__label strong {
+      color: var(--ink-heading);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      font-size: 12px;
+    }
+    .preset-slot__thumb {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: var(--p-oatmeal);
+      overflow: hidden;
+    }
+    .preset-slot__thumb iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 0;
+      width: 1360px;
+      height: 800px;
+      transform: scale(0.25);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    .preset-slot__thumb-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--ink-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--p-oatmeal),
+        var(--p-oatmeal) 10px,
+        var(--p-cream) 10px,
+        var(--p-cream) 20px
+      );
+    }
+    .preset-card__actions {
+      display: flex;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+    .preset-card__close {
+      align-self: flex-start;
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 10px 18px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      background: transparent;
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .preset-card__close:hover { border-color: var(--p-aztek); color: var(--p-aztek); }
+    @media (prefers-reduced-motion: reduce) {
+      .preset-card, .preset-card__caret { transition: none; }
     }
     .preset-card__name {
       font-family: var(--f-serif-display);
@@ -2067,6 +2208,19 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       }
     }
 
+    // Render order for the mini-stack inside a preset preview.
+    // Slot IDs correspond to SLOTS[].id. Nulls in the preset are skipped.
+    const PRESET_PREVIEW_ORDER = [
+      'nav',
+      'hero',
+      'product_callout',
+      'testimonials',
+      'opt_in',
+      'faq',
+      'event_widget',
+      'footer',
+    ];
+
     function renderPresets(presets) {
       const grid = document.getElementById('presetsGrid');
       if (!grid) return;
@@ -2084,15 +2238,99 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
 
         const chip = p.page_type ? `<span class="preset-card__chip">${p.page_type}</span>` : '';
 
+        // Build the mini-stack of iframe thumbnails for slots that are set.
+        const stackItems = PRESET_PREVIEW_ORDER
+          .map(slotId => {
+            const variantKey = p.slots ? p.slots[slotId] : null;
+            if (!variantKey) return null;
+            const slot = SLOTS.find(s => s.id === slotId);
+            if (!slot) return null;
+            const variant = slot.variants.find(v => v.key === variantKey);
+            if (!variant) return null;
+            const src = variant.hash ? `${variant.file}#${variant.hash}` : variant.file;
+            return { slot, variant, src };
+          })
+          .filter(Boolean);
+
+        const stackHtml = stackItems.length
+          ? stackItems.map(item => `
+              <div class="preset-slot">
+                <div class="preset-slot__label">
+                  <strong>${item.slot.label}</strong>
+                  <span>${item.variant.name}</span>
+                </div>
+                <div class="preset-slot__thumb">
+                  <div class="preset-slot__thumb-placeholder">Loading preview</div>
+                  <iframe data-src="${src_escape(item.src)}" loading="lazy" title="${item.slot.label}: ${item.variant.name}" aria-hidden="true"></iframe>
+                </div>
+              </div>
+            `).join('')
+          : '<p style="font-size:13px; color:var(--ink-mute); font-style:italic; margin:0 0 var(--sp-4) 0;">No visible slots to preview for this preset.</p>';
+
         card.innerHTML = `
+          <span class="preset-card__caret" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
           <h3 class="preset-card__name">${p.name}</h3>
           ${chip}
           <p class="preset-card__desc">${p.description || ''}</p>
-          <button class="preset-card__btn" type="button">Use this preset</button>
+          <div class="preset-card__preview" aria-hidden="true">
+            <div class="preset-card__stack">${stackHtml}</div>
+            <div class="preset-card__actions">
+              <button class="preset-card__btn" type="button">Use this preset</button>
+              <button class="preset-card__close" type="button">Close preview</button>
+            </div>
+          </div>
         `;
 
-        card.querySelector('.preset-card__btn').addEventListener('click', () => applyPreset(p));
+        // Card-level click toggles expansion, but only if the click wasn't on a button.
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('button')) return;
+          togglePresetExpansion(card, p);
+        });
+        card.querySelector('.preset-card__btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          applyPreset(p);
+        });
+        card.querySelector('.preset-card__close').addEventListener('click', (e) => {
+          e.stopPropagation();
+          collapseAllPresets();
+        });
         grid.appendChild(card);
+      });
+    }
+
+    function src_escape(s) {
+      return String(s).replace(/"/g, '&quot;');
+    }
+
+    function collapseAllPresets() {
+      document.querySelectorAll('.preset-card.is-expanded').forEach(c => {
+        c.classList.remove('is-expanded');
+        const preview = c.querySelector('.preset-card__preview');
+        if (preview) preview.setAttribute('aria-hidden', 'true');
+        c.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    function togglePresetExpansion(card, preset) {
+      const alreadyOpen = card.classList.contains('is-expanded');
+      collapseAllPresets();
+      if (alreadyOpen) return;
+
+      card.classList.add('is-expanded');
+      card.setAttribute('aria-expanded', 'true');
+      const preview = card.querySelector('.preset-card__preview');
+      if (preview) preview.setAttribute('aria-hidden', 'false');
+
+      // Lazy-load iframes inside this card only when the preview opens.
+      card.querySelectorAll('.preset-slot__thumb iframe[data-src]').forEach(iframe => {
+        iframe.src = iframe.dataset.src;
+        iframe.removeAttribute('data-src');
+        iframe.addEventListener('load', () => {
+          const ph = iframe.parentElement.querySelector('.preset-slot__thumb-placeholder');
+          if (ph) ph.remove();
+        }, { once: true });
       });
     }
 
