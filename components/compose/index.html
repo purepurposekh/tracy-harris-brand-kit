@@ -2,19 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1" />
-  <script>
-    // Apply stored "force desktop layout" preference BEFORE first paint, so the
-    // browser reflows at 1400px without a flash of device-width layout.
-    (function () {
-      try {
-        if (localStorage.getItem('thc-force-desktop-layout') === '1') {
-          var m = document.getElementById('viewport-meta');
-          if (m) m.setAttribute('content', 'width=1400');
-        }
-      } catch (e) {}
-    })();
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Build a page · Tracy Harris Co Brand Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -321,396 +309,6 @@
       transform-origin: top left;
       pointer-events: none;
       transition: opacity 160ms ease;
-    }
-
-    /* ----------------------------------------------------------------
-       Preview-size toggle (desktop | mobile | both)
-       A body[data-preview-mode] attribute drives CSS vars used by the
-       tile + preset-slot + card iframes. Desktop = default behaviour.
-       ---------------------------------------------------------------- */
-    body[data-preview-mode="desktop"],
-    body:not([data-preview-mode]) {
-      --preview-w: 1400px;
-      --preview-h: 880px;
-      --preview-scale: 0.28;
-      --preview-aspect: 1400 / 880;
-      --preset-preview-w: 1360px;
-      --preset-preview-h: 800px;
-      --preset-preview-scale: 0.25;
-      --card-preview-w: 1440px;
-      --card-preview-h: 1000px;
-      --card-preview-scale: 0.34;
-    }
-    body[data-preview-mode="mobile"] {
-      --preview-w: 390px;
-      --preview-h: 844px;
-      --preview-scale: 0.46;
-      --preview-aspect: 390 / 844;
-      --preset-preview-w: 390px;
-      --preset-preview-h: 844px;
-      --preset-preview-scale: 0.50;
-      --card-preview-w: 390px;
-      --card-preview-h: 844px;
-      --card-preview-scale: 0.70;
-    }
-    body[data-preview-mode="both"] {
-      /* Each pane is half width; scales halve to fit */
-      --preview-w: 1400px;
-      --preview-h: 880px;
-      --preview-scale: 0.14;
-      --preview-aspect: 1400 / 880;
-      --preset-preview-w: 1360px;
-      --preset-preview-h: 800px;
-      --preset-preview-scale: 0.125;
-      --card-preview-w: 1440px;
-      --card-preview-h: 1000px;
-      --card-preview-scale: 0.17;
-    }
-
-    /* Mobile preview mode: grid re-flows to narrower tiles. JS handles
-       the iframe dimension swap (1400x880 -> 390x844). */
-    body[data-preview-mode="mobile"] .tiles {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-
-    /* Both mode: tile thumb becomes a 2-col flex of mini iframes. */
-    body[data-preview-mode="both"] .tile__thumb {
-      height: 260px;
-      display: flex;
-      gap: 0;
-    }
-    body[data-preview-mode="both"] .tile__thumb .thumb-pane {
-      position: relative;
-      flex: 1 1 50%;
-      min-width: 0;
-      overflow: hidden;
-      background: var(--p-oatmeal);
-    }
-    body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile {
-      flex: 0 0 40%;
-      border-right: 1px solid var(--border-hairline);
-    }
-    body[data-preview-mode="both"] .tile__thumb .thumb-pane iframe {
-      position: absolute;
-      top: 0; left: 0;
-      border: 0;
-      transform-origin: top left;
-      pointer-events: none;
-    }
-    body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile iframe {
-      width: 390px;
-      height: 844px;
-      transform: scale(0.31);
-    }
-    body[data-preview-mode="both"] .tile__thumb .thumb-pane--desktop iframe {
-      width: 1400px;
-      height: 880px;
-      transform: scale(0.17);
-    }
-    body[data-preview-mode="both"] .tile__thumb .thumb-pane__label {
-      position: absolute;
-      bottom: 4px;
-      left: 6px;
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-      background: rgba(255,255,255,0.8);
-      padding: 2px 6px;
-      border-radius: 3px;
-      pointer-events: none;
-      z-index: 2;
-    }
-    /* When "both" is active, the single legacy iframe hides — panes render instead. */
-    body[data-preview-mode="both"] .tile__thumb > iframe {
-      display: none;
-    }
-    body[data-preview-mode="both"] .tile__thumb > .tile__thumb-placeholder {
-      display: none;
-    }
-
-    /* Preset-slot Both mode */
-    body[data-preview-mode="both"] .preset-slot__thumb {
-      height: 220px;
-      display: flex;
-      gap: 0;
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane {
-      position: relative;
-      flex: 1 1 50%;
-      min-width: 0;
-      overflow: hidden;
-      background: var(--p-oatmeal);
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane--mobile {
-      flex: 0 0 42%;
-      border-right: 1px solid var(--border-hairline);
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane iframe {
-      position: absolute;
-      top: 0; left: 0;
-      border: 0;
-      transform-origin: top left;
-      pointer-events: none;
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane--mobile iframe {
-      width: 390px;
-      height: 844px;
-      transform: scale(0.26);
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane--desktop iframe {
-      width: 1360px;
-      height: 800px;
-      transform: scale(0.155);
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane__label {
-      position: absolute;
-      bottom: 4px;
-      left: 6px;
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-      background: rgba(255,255,255,0.8);
-      padding: 2px 6px;
-      border-radius: 3px;
-      z-index: 2;
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb > iframe {
-      display: none;
-    }
-    body[data-preview-mode="both"] .preset-slot__thumb > .preset-slot__thumb-placeholder {
-      display: none;
-    }
-
-    /* Below 820px, Both mode collapses to Mobile (set by JS; CSS is a safety net) */
-    @media (max-width: 819px) {
-      body[data-preview-mode="both"] {
-        --preview-w: 390px;
-        --preview-h: 844px;
-        --preview-scale: 0.46;
-        --preset-preview-w: 390px;
-        --preset-preview-h: 844px;
-        --preset-preview-scale: 0.50;
-      }
-      body[data-preview-mode="both"] .tile__thumb {
-        display: block;
-        height: 390px;
-      }
-      body[data-preview-mode="both"] .tile__thumb .thumb-pane--desktop { display: none; }
-      body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile {
-        flex: 1 1 100%;
-        border-right: 0;
-      }
-      body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile iframe {
-        width: 390px;
-        height: 844px;
-        transform: scale(0.46);
-      }
-    }
-
-    /* Fade iframes briefly during mode change */
-    body.is-preview-switching .tile__thumb iframe,
-    body.is-preview-switching .preset-slot__thumb iframe,
-    body.is-preview-switching .card__preview iframe {
-      opacity: 0.7;
-    }
-
-    /* ----------------------------------------------------------------
-       Preview-size toggle control (sidebar + bottom sheet)
-       ---------------------------------------------------------------- */
-    .preview-size-toggle {
-      display: inline-grid;
-      grid-template-columns: repeat(3, 1fr);
-      background: var(--p-cream);
-      border: 1px solid var(--border-hairline);
-      border-radius: var(--r-pill);
-      padding: 3px;
-      gap: 3px;
-      width: 100%;
-    }
-    .preview-size-toggle__btn {
-      font-family: var(--f-sans);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      padding: 7px 8px;
-      border-radius: var(--r-pill);
-      border: 0;
-      background: transparent;
-      color: var(--ink-body);
-      cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
-      text-align: center;
-    }
-    .preview-size-toggle__btn:hover { color: var(--p-aztek); }
-    .preview-size-toggle__btn.is-active {
-      background: var(--p-aztek);
-      color: var(--p-white);
-    }
-    .preview-size-toggle__btn:focus-visible {
-      outline: 2px solid var(--p-aztek);
-      outline-offset: 2px;
-    }
-    .preview-size-toggle__btn[aria-disabled="true"] {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    /* ----------------------------------------------------------------
-       Layout toggle bar — "Device vs Desktop" viewport switcher.
-       Tapping Desktop swaps the <meta name="viewport"> to width=1400,
-       forcing the browser to reflow as if on a 1400px desktop. Like
-       the browser's "Request Desktop Site" feature.
-       Pinned to top of main content on small screens only.
-       ---------------------------------------------------------------- */
-    .layout-toggle-bar {
-      display: none;
-    }
-    @media (max-width: 820px) {
-      .layout-toggle-bar {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        align-items: center;
-        gap: var(--sp-3);
-        background: var(--p-cream);
-        border: 1px solid var(--border-hairline);
-        border-radius: var(--r-pill);
-        padding: 6px 10px 6px 14px;
-        margin: 0 0 var(--sp-3);
-      }
-      .layout-toggle-bar__label {
-        font-family: var(--f-sans);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--ink-mute);
-      }
-      .layout-toggle-bar__btns {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4px;
-        background: var(--p-oatmeal);
-        border-radius: var(--r-pill);
-        padding: 3px;
-      }
-      .layout-toggle-bar__btn {
-        font-family: var(--f-sans);
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--ink-mute);
-        background: transparent;
-        border: 0;
-        border-radius: var(--r-pill);
-        min-height: 44px;
-        padding: 10px 8px;
-        cursor: pointer;
-        transition: background 160ms ease, color 160ms ease;
-      }
-      .layout-toggle-bar__btn.is-active {
-        background: var(--p-aztek);
-        color: #fff;
-      }
-    }
-    /* When forced to desktop viewport (width=1400), also show the pill so
-       the user can toggle back. The phone renders the page at 1400px wide,
-       but the toggle still needs to be visible and tappable. */
-    body.is-forced-desktop .layout-toggle-bar {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: var(--sp-3);
-      background: var(--p-cream);
-      border: 1px solid var(--border-hairline);
-      border-radius: var(--r-pill);
-      padding: 6px 10px 6px 14px;
-      margin: 0 0 var(--sp-3);
-      max-width: 420px;
-    }
-    body.is-forced-desktop .layout-toggle-bar__label {
-      font-family: var(--f-sans);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-mute);
-    }
-    body.is-forced-desktop .layout-toggle-bar__btns {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4px;
-      background: var(--p-oatmeal);
-      border-radius: var(--r-pill);
-      padding: 3px;
-    }
-    body.is-forced-desktop .layout-toggle-bar__btn {
-      font-family: var(--f-sans);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ink-mute);
-      background: transparent;
-      border: 0;
-      border-radius: var(--r-pill);
-      min-height: 32px;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-    body.is-forced-desktop .layout-toggle-bar__btn.is-active {
-      background: var(--p-aztek);
-      color: #fff;
-    }
-
-    /* ----------------------------------------------------------------
-       Mobile inline preview bar — retired 2026-04-17.
-       On small viewports we lock effective preview mode to 'desktop'
-       (see effectiveMode() in JS), so this toggle has no effect.
-       Kept the DOM + styles for desktop-only in case we reintroduce it.
-       ---------------------------------------------------------------- */
-    .mobile-preview-bar {
-      display: none;
-    }
-    @media (max-width: 820px) {
-      .mobile-preview-bar {
-        display: none;
-        grid-template-columns: auto 1fr;
-        align-items: center;
-        gap: var(--sp-3);
-        background: var(--p-cream);
-        border: 1px solid var(--border-hairline);
-        border-radius: var(--r-pill);
-        padding: 6px 10px 6px 14px;
-        margin: 0 0 var(--sp-3);
-      }
-      .mobile-preview-bar__label {
-        font-family: var(--f-sans);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--ink-mute);
-      }
-      .mobile-preview-bar__btns {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
-        background: var(--p-oatmeal);
-        border-radius: var(--r-pill);
-        padding: 3px;
-      }
-      /* Inherit .preview-size-toggle__btn base styles, override for 44px targets */
-      .mobile-preview-bar .preview-size-toggle__btn {
-        min-height: 44px;
-        min-width: 64px;
-        padding: 12px 8px;
-        font-size: 12px;
-      }
-      /* Bump bottom-sheet + sidebar toggle targets too, for consistency */
-      .preview-size-toggle__btn {
-        min-height: 44px;
-        padding: 12px 8px;
-        font-size: 12px;
-      }
     }
 
     .tile__thumb-placeholder {
@@ -1500,7 +1098,7 @@
     }
   </style>
 </head>
-<body data-brand="tracy" data-preview-mode="desktop">
+<body data-brand="tracy">
 
   <!-- ================================================================== -->
   <!-- APP SIDEBAR (shared nav across catalog / compose / review) -->
@@ -2321,17 +1919,6 @@
       <p class="app-sidebar__sublabel">Page type</p>
       <ul class="sidebar-pt-list" id="sbPtList" role="group" aria-label="Page type filter"></ul>
 
-      <p class="app-sidebar__sublabel" id="sbPreviewSizeLabel">Preview size</p>
-      <div
-        class="preview-size-toggle"
-        id="sbPreviewSizeToggle"
-        role="radiogroup"
-        aria-labelledby="sbPreviewSizeLabel"
-      >
-        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
-        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
-        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="both">Both</button>
-      </div>
     </section>
 
     <div class="app-sidebar__bottom">
@@ -2427,17 +2014,6 @@
       </a>
     </div>
 
-    <!-- Layout toggle: forces the /compose/ PAGE itself to render at a -->
-    <!-- 1400px desktop viewport (pinch/zoom to navigate). Like a browser's -->
-    <!-- "Request Desktop Site". Persisted. Always visible. -->
-    <div class="layout-toggle-bar" id="layoutToggleBar" role="group" aria-label="Page layout">
-      <span class="layout-toggle-bar__label">Layout</span>
-      <div class="layout-toggle-bar__btns">
-        <button type="button" class="layout-toggle-bar__btn is-active" data-layout="mobile" aria-pressed="true">Device</button>
-        <button type="button" class="layout-toggle-bar__btn"            data-layout="desktop" aria-pressed="false">Desktop</button>
-      </div>
-    </div>
-
     <!-- Mobile only: active filter chips under the shrunk header. -->
     <div class="filter-chips" id="filterChips" aria-label="Active filters" role="group"></div>
 
@@ -2528,19 +2104,6 @@
 
     <div class="filter-sheet__scroll">
       <h2 id="filter-sheet-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">Filters</h2>
-
-      <p class="filter-sheet__section-label" id="sheetPreviewSizeLabel">Preview size</p>
-      <div
-        class="preview-size-toggle"
-        id="sheetPreviewSizeToggle"
-        role="radiogroup"
-        aria-labelledby="sheetPreviewSizeLabel"
-        style="grid-template-columns: repeat(3, 1fr);"
-      >
-        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
-        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
-        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="both">Both</button>
-      </div>
 
       <p class="filter-sheet__section-label">Mode</p>
       <div class="sheet-mode-toggle" role="tablist" aria-label="Composer mode">
@@ -3935,261 +3498,26 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     })();
 
     // ----------------------------------------------------------------------
-    // Preview-size toggle (desktop / mobile / both)
+    // Thumbnail fitting — single desktop render, no preview-mode switching.
+    // Each iframe renders at 1400x880 (or 1360x800 for preset slots) so
+    // variant HTML CSS sees a desktop viewport. We then scale the iframe
+    // visually to fill its container width, and set the container height
+    // to match the scaled iframe height. Runs on init, resize, and DOM add.
     // ----------------------------------------------------------------------
-    // Controls the size at which variant thumbnails render. Persists in
-    // localStorage. Applied via body[data-preview-mode] which drives CSS
-    // vars + attribute selectors. In "both" mode, each thumbnail renders
-    // two side-by-side panes (mobile + desktop); on <=819px viewports, both
-    // collapses to mobile automatically.
-    // ----------------------------------------------------------------------
-    (function initPreviewSizeToggle() {
-      var LS_KEY = 'thc-preview-mode';
-      var VALID_MODES = ['desktop', 'mobile', 'both'];
-      var bodyEl = document.body;
-
-      // Read stored mode (default desktop).
-      var stored = 'desktop';
-      try {
-        var raw = localStorage.getItem(LS_KEY);
-        if (raw && VALID_MODES.indexOf(raw) !== -1) stored = raw;
-      } catch (e) {}
-
-      // On small screens (<=819px), lock effective mode to 'desktop'.
-      // Mobile-scaled thumbnails render at ~180px wide inside a ~400px card,
-      // leaving a huge cream gap — bad UX. Desktop thumbnails fill the card.
-      // The user can still pick Mobile/Both; we remember it for when they
-      // return to a desktop viewport.
-      function effectiveMode(mode) {
-        if (window.matchMedia('(max-width: 819px)').matches) {
-          return 'desktop';
-        }
-        return mode;
-      }
-
-      var currentRequested = stored; // what the user picked
-      function applyMode(requested, opts) {
-        opts = opts || {};
-        if (VALID_MODES.indexOf(requested) === -1) requested = 'desktop';
-        currentRequested = requested;
-        var effective = effectiveMode(requested);
-
-        // Briefly fade during transition for a smooth feel
-        bodyEl.classList.add('is-preview-switching');
-        setTimeout(function () { bodyEl.classList.remove('is-preview-switching'); }, 220);
-
-        bodyEl.setAttribute('data-preview-mode', effective);
-        try { localStorage.setItem(LS_KEY, requested); } catch (e) {}
-
-        // Sync all toggle UIs (sidebar + sheet). Highlight matches the
-        // EFFECTIVE mode so the pill never lies about what's rendering.
-        var isSmall = window.matchMedia('(max-width: 819px)').matches;
-        document.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
-          var m = btn.getAttribute('data-preview-mode');
-          var active = m === effective;
-          btn.classList.toggle('is-active', active);
-          btn.setAttribute('aria-checked', active ? 'true' : 'false');
-          // On small screens, Mobile + Both collapse to Desktop. Disable visually.
-          if (isSmall && (m === 'mobile' || m === 'both')) {
-            btn.setAttribute('aria-disabled', 'true');
-          } else {
-            btn.removeAttribute('aria-disabled');
-          }
-        });
-
-        // Toast only when user explicitly picked a non-desktop mode on a small screen
-        if (!opts.silent && isSmall && requested !== 'desktop') {
-          showToast('Preview locked to Desktop on small screens');
-        }
-
-        // Rebuild thumb panes for Both, or clean up if leaving Both.
-        updateThumbPanes(effective);
-
-        // Refit iframe scales (source width changes between desktop/mobile).
-        if (window.__thcRefitThumbs) {
-          setTimeout(window.__thcRefitThumbs, 30);
-        }
-      }
-
-      // Both mode needs two iframes per thumb. We inject/remove pane markup
-      // around the existing lazy iframe. Lazy loader still fires for the
-      // original iframe via its data-src; panes share the same src once known.
-      function resolveSrc(iframe) {
-        // Prefer actual src; fall back to data-src (still-lazy iframe).
-        var s = iframe.getAttribute('src');
-        if (s) return s;
-        return iframe.getAttribute('data-src') || '';
-      }
-
-      function updateThumbPanes(mode) {
-        var wantPanes = mode === 'both';
-
-        // --- Compose tiles (.tile__thumb) ---
-        document.querySelectorAll('.tile__thumb').forEach(function (thumb) {
-          var legacyIframe = thumb.querySelector(':scope > iframe');
-          if (!legacyIframe) return;
-
-          var src = resolveSrc(legacyIframe);
-          var title = legacyIframe.getAttribute('title') || '';
-
-          var panes = thumb.querySelectorAll(':scope > .thumb-pane');
-          if (wantPanes) {
-            if (panes.length) {
-              // Update existing pane iframes src if we now know it
-              panes.forEach(function (p) {
-                var frame = p.querySelector('iframe');
-                if (frame && src && !frame.getAttribute('src')) frame.setAttribute('src', src);
-              });
-              return;
-            }
-            // Create two panes
-            var mPane = buildPane('mobile', src, title, 'Mobile');
-            var dPane = buildPane('desktop', src, title, 'Desktop');
-            thumb.appendChild(mPane);
-            thumb.appendChild(dPane);
-          } else {
-            // Remove panes if we have them
-            panes.forEach(function (p) { p.remove(); });
-            // Ensure the legacy iframe is actually loading; if it still has
-            // a data-src (IO never fired while we were in Both mode), promote
-            // it to src now so the visible thumbnail hydrates.
-            if (legacyIframe.dataset && legacyIframe.dataset.src && !legacyIframe.getAttribute('src')) {
-              legacyIframe.setAttribute('src', legacyIframe.dataset.src);
-              legacyIframe.removeAttribute('data-src');
-              legacyIframe.addEventListener('load', function () {
-                var ph = thumb.querySelector('.tile__thumb-placeholder');
-                if (ph) ph.remove();
-              }, { once: true });
-            }
-          }
-        });
-
-        // --- Preset-slot thumbs ---
-        document.querySelectorAll('.preset-slot__thumb').forEach(function (thumb) {
-          var legacyIframe = thumb.querySelector(':scope > iframe');
-          if (!legacyIframe) return;
-          var src = resolveSrc(legacyIframe);
-          var title = legacyIframe.getAttribute('title') || '';
-          var panes = thumb.querySelectorAll(':scope > .thumb-pane');
-          if (wantPanes) {
-            if (panes.length) {
-              panes.forEach(function (p) {
-                var frame = p.querySelector('iframe');
-                if (frame && src && !frame.getAttribute('src')) frame.setAttribute('src', src);
-              });
-              return;
-            }
-            var mPane2 = buildPane('mobile', src, title, 'Mobile');
-            var dPane2 = buildPane('desktop', src, title, 'Desktop');
-            thumb.appendChild(mPane2);
-            thumb.appendChild(dPane2);
-          } else {
-            panes.forEach(function (p) { p.remove(); });
-            if (legacyIframe.dataset && legacyIframe.dataset.src && !legacyIframe.getAttribute('src')) {
-              legacyIframe.setAttribute('src', legacyIframe.dataset.src);
-              legacyIframe.removeAttribute('data-src');
-              legacyIframe.addEventListener('load', function () {
-                var ph = thumb.querySelector('.preset-slot__thumb-placeholder');
-                if (ph) ph.remove();
-              }, { once: true });
-            }
-          }
-        });
-      }
-
-      function buildPane(which, src, title, label) {
-        var pane = document.createElement('div');
-        pane.className = 'thumb-pane thumb-pane--' + which;
-        var frame = document.createElement('iframe');
-        frame.setAttribute('loading', 'lazy');
-        frame.setAttribute('title', title + ' (' + label + ')');
-        frame.setAttribute('aria-hidden', 'true');
-        if (src) frame.setAttribute('src', src);
-        var tag = document.createElement('span');
-        tag.className = 'thumb-pane__label';
-        tag.textContent = label;
-        pane.appendChild(frame);
-        pane.appendChild(tag);
-        return pane;
-      }
-
-      // When a new iframe finishes lazy-loading its src, mirror it to panes.
-      // Hook into MutationObserver on src attribute.
-      var srcWatcher = new MutationObserver(function (mutations) {
-        if (bodyEl.getAttribute('data-preview-mode') !== 'both') return;
-        mutations.forEach(function (m) {
-          if (m.attributeName !== 'src') return;
-          var target = m.target;
-          if (!target.tagName || target.tagName !== 'IFRAME') return;
-          var parent = target.parentElement;
-          if (!parent) return;
-          if (!parent.classList.contains('tile__thumb') && !parent.classList.contains('preset-slot__thumb')) return;
-          var src = target.getAttribute('src');
-          if (!src) return;
-          parent.querySelectorAll(':scope > .thumb-pane iframe').forEach(function (f) {
-            if (!f.getAttribute('src')) f.setAttribute('src', src);
-          });
-        });
-      });
-      srcWatcher.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['src'] });
-
-      // Wire up both toggle UIs (sidebar + sheet)
-      function bindToggle(containerId) {
-        var container = document.getElementById(containerId);
-        if (!container) return;
-        container.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            applyMode(btn.getAttribute('data-preview-mode'));
-          });
-          btn.addEventListener('keydown', function (e) {
-            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-            e.preventDefault();
-            var buttons = Array.prototype.slice.call(container.querySelectorAll('.preview-size-toggle__btn'));
-            var i = buttons.indexOf(btn);
-            var next = e.key === 'ArrowRight'
-              ? buttons[(i + 1) % buttons.length]
-              : buttons[(i - 1 + buttons.length) % buttons.length];
-            next.focus();
-            applyMode(next.getAttribute('data-preview-mode'));
-          });
-        });
-      }
-      bindToggle('sbPreviewSizeToggle');
-      bindToggle('sheetPreviewSizeToggle');
-      bindToggle('mobilePreviewBar');
-
-      // ------------------------------------------------------------------
-      // Thumbnail fitting — sets BOTH the thumb height AND the iframe
-      // transform deterministically. The iframe is rendered at its full
-      // src dimensions internally (so variant HTML CSS sees a desktop
-      // viewport); it's then visually scaled to fill the thumb's width,
-      // and the thumb's height is set to match the scaled iframe height.
-      //
-      // Runs on:
-      //  - initial page render
-      //  - window resize (via ResizeObserver)
-      //  - new tiles added to the DOM (via MutationObserver)
-      //  - preview-mode flips (applyMode() calls __thcRefitThumbs)
-      // ------------------------------------------------------------------
-      function thumbSrcDims(el) {
-        var isBoth = document.body.getAttribute('data-preview-mode') === 'both';
-        if (isBoth) return null; // both-mode uses its own pane layout
-        var isMobile = document.body.getAttribute('data-preview-mode') === 'mobile';
-        if (el.classList.contains('preset-slot__thumb')) {
-          return isMobile ? { w: 390, h: 844 } : { w: 1360, h: 800 };
-        }
-        return isMobile ? { w: 390, h: 844 } : { w: 1400, h: 880 };
+    (function initThumbFit() {
+      function srcDims(el) {
+        return el.classList.contains('preset-slot__thumb')
+          ? { w: 1360, h: 800 }
+          : { w: 1400, h: 880 };
       }
       function fitThumb(el) {
-        var dims = thumbSrcDims(el);
-        if (!dims) return; // both-mode: skip
         var iframe = el.querySelector(':scope > iframe');
         if (!iframe) return;
         var w = el.getBoundingClientRect().width;
         if (w <= 0) return;
+        var dims = srcDims(el);
         var scale = w / dims.w;
-        var h = Math.round(dims.h * scale);
-        el.style.height = h + 'px';
+        el.style.height = Math.round(dims.h * scale) + 'px';
         iframe.style.width = dims.w + 'px';
         iframe.style.height = dims.h + 'px';
         iframe.style.transform = 'scale(' + scale + ')';
@@ -4204,13 +3532,9 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
         if (fitRO) fitRO.observe(el);
         fitThumb(el);
       }
-      window.__thcFitThumbs = function () {
+      function fitAll() {
         document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(observeThumb);
-      };
-      window.__thcRefitThumbs = function () {
-        document.querySelectorAll('.tile__thumb, .preset-slot__thumb').forEach(fitThumb);
-      };
-      // Watch for new thumbs (rendered by JS after preset/filter changes).
+      }
       new MutationObserver(function (muts) {
         for (var i = 0; i < muts.length; i++) {
           var added = muts[i].addedNodes;
@@ -4225,62 +3549,10 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
           }
         }
       }).observe(document.body, { childList: true, subtree: true });
-      window.__thcFitThumbs();
-      window.addEventListener('load', window.__thcFitThumbs);
-
-      // ------------------------------------------------------------------
-      // Layout viewport toggle (Device vs Desktop) — swaps the viewport
-      // meta tag so the page itself reflows to 1400px (browser "Request
-      // Desktop Site" equivalent). Independent of the preview-size toggle.
-      // ------------------------------------------------------------------
-      (function initLayoutToggle() {
-        var LS = 'thc-force-desktop-layout';
-        var meta = document.getElementById('viewport-meta');
-        var bar = document.getElementById('layoutToggleBar');
-        if (!meta || !bar) return;
-
-        function isForced() {
-          try { return localStorage.getItem(LS) === '1'; } catch (e) { return false; }
-        }
-        function apply(forced) {
-          if (forced) {
-            meta.setAttribute('content', 'width=1400');
-            document.body.classList.add('is-forced-desktop');
-            try { localStorage.setItem(LS, '1'); } catch (e) {}
-          } else {
-            meta.setAttribute('content', 'width=device-width, initial-scale=1');
-            document.body.classList.remove('is-forced-desktop');
-            try { localStorage.removeItem(LS); } catch (e) {}
-          }
-          bar.querySelectorAll('.layout-toggle-bar__btn').forEach(function (btn) {
-            var layout = btn.getAttribute('data-layout');
-            var active = (layout === 'desktop') === forced;
-            btn.classList.toggle('is-active', active);
-            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-          });
-        }
-
-        bar.querySelectorAll('.layout-toggle-bar__btn').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            apply(btn.getAttribute('data-layout') === 'desktop');
-          });
-        });
-
-        // Initial sync (viewport meta was set by pre-paint inline script;
-        // here we mirror state into the body class + button styles).
-        apply(isForced());
-      })();
-
-      // React to viewport changes: if "both" was requested but viewport shrank,
-      // collapse effective mode to mobile (and vice versa).
-      var mq = window.matchMedia('(max-width: 819px)');
-      function onMqChange() { applyMode(currentRequested, { silent: true }); }
-      if (mq.addEventListener) mq.addEventListener('change', onMqChange);
-      else if (mq.addListener) mq.addListener(onMqChange);
-
-      // Initial apply (silent so the "both collapses" toast doesn't fire on boot)
-      applyMode(stored, { silent: true });
+      fitAll();
+      window.addEventListener('load', fitAll);
     })();
+
   </script>
 </body>
 </html>
