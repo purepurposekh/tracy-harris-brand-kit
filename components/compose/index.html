@@ -293,17 +293,263 @@
       overflow: hidden;
       background: var(--p-oatmeal);
       border-bottom: 1px solid var(--border-hairline);
+      transition: aspect-ratio 220ms ease, height 220ms ease;
     }
     .tile__thumb iframe {
       position: absolute;
       top: 0;
       left: 0;
       border: 0;
-      width: 1400px;        /* render at desktop size */
-      height: 880px;        /* tall enough to catch the hero area */
-      transform: scale(0.28);
+      width: var(--preview-w, 1400px);
+      height: var(--preview-h, 880px);
+      transform: scale(var(--preview-scale, 0.28));
       transform-origin: top left;
       pointer-events: none;
+      transition: opacity 160ms ease;
+    }
+
+    /* ----------------------------------------------------------------
+       Preview-size toggle (desktop | mobile | both)
+       A body[data-preview-mode] attribute drives CSS vars used by the
+       tile + preset-slot + card iframes. Desktop = default behaviour.
+       ---------------------------------------------------------------- */
+    body[data-preview-mode="desktop"],
+    body:not([data-preview-mode]) {
+      --preview-w: 1400px;
+      --preview-h: 880px;
+      --preview-scale: 0.28;
+      --preview-aspect: 1400 / 880;
+      --preset-preview-w: 1360px;
+      --preset-preview-h: 800px;
+      --preset-preview-scale: 0.25;
+      --card-preview-w: 1440px;
+      --card-preview-h: 1000px;
+      --card-preview-scale: 0.34;
+    }
+    body[data-preview-mode="mobile"] {
+      --preview-w: 390px;
+      --preview-h: 844px;
+      --preview-scale: 0.46;
+      --preview-aspect: 390 / 844;
+      --preset-preview-w: 390px;
+      --preset-preview-h: 844px;
+      --preset-preview-scale: 0.50;
+      --card-preview-w: 390px;
+      --card-preview-h: 844px;
+      --card-preview-scale: 0.70;
+    }
+    body[data-preview-mode="both"] {
+      /* Each pane is half width; scales halve to fit */
+      --preview-w: 1400px;
+      --preview-h: 880px;
+      --preview-scale: 0.14;
+      --preview-aspect: 1400 / 880;
+      --preset-preview-w: 1360px;
+      --preset-preview-h: 800px;
+      --preset-preview-scale: 0.125;
+      --card-preview-w: 1440px;
+      --card-preview-h: 1000px;
+      --card-preview-scale: 0.17;
+    }
+
+    /* Mobile mode: tiles shrink + flip tall. Compose tiles only. */
+    body[data-preview-mode="mobile"] .tile__thumb {
+      height: 390px;
+    }
+    body[data-preview-mode="mobile"] .tiles {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    body[data-preview-mode="mobile"] .preset-slot__thumb {
+      height: 340px;
+    }
+    body[data-preview-mode="mobile"] .preset-slot__thumb iframe {
+      width: var(--preset-preview-w);
+      height: var(--preset-preview-h);
+      transform: scale(var(--preset-preview-scale));
+    }
+
+    /* Both mode: tile thumb becomes a 2-col flex of mini iframes. */
+    body[data-preview-mode="both"] .tile__thumb {
+      height: 260px;
+      display: flex;
+      gap: 0;
+    }
+    body[data-preview-mode="both"] .tile__thumb .thumb-pane {
+      position: relative;
+      flex: 1 1 50%;
+      min-width: 0;
+      overflow: hidden;
+      background: var(--p-oatmeal);
+    }
+    body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile {
+      flex: 0 0 40%;
+      border-right: 1px solid var(--border-hairline);
+    }
+    body[data-preview-mode="both"] .tile__thumb .thumb-pane iframe {
+      position: absolute;
+      top: 0; left: 0;
+      border: 0;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile iframe {
+      width: 390px;
+      height: 844px;
+      transform: scale(0.31);
+    }
+    body[data-preview-mode="both"] .tile__thumb .thumb-pane--desktop iframe {
+      width: 1400px;
+      height: 880px;
+      transform: scale(0.17);
+    }
+    body[data-preview-mode="both"] .tile__thumb .thumb-pane__label {
+      position: absolute;
+      bottom: 4px;
+      left: 6px;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      background: rgba(255,255,255,0.8);
+      padding: 2px 6px;
+      border-radius: 3px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    /* When "both" is active, the single legacy iframe hides — panes render instead. */
+    body[data-preview-mode="both"] .tile__thumb > iframe {
+      display: none;
+    }
+    body[data-preview-mode="both"] .tile__thumb > .tile__thumb-placeholder {
+      display: none;
+    }
+
+    /* Preset-slot Both mode */
+    body[data-preview-mode="both"] .preset-slot__thumb {
+      height: 220px;
+      display: flex;
+      gap: 0;
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane {
+      position: relative;
+      flex: 1 1 50%;
+      min-width: 0;
+      overflow: hidden;
+      background: var(--p-oatmeal);
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane--mobile {
+      flex: 0 0 42%;
+      border-right: 1px solid var(--border-hairline);
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane iframe {
+      position: absolute;
+      top: 0; left: 0;
+      border: 0;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane--mobile iframe {
+      width: 390px;
+      height: 844px;
+      transform: scale(0.26);
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane--desktop iframe {
+      width: 1360px;
+      height: 800px;
+      transform: scale(0.155);
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb .thumb-pane__label {
+      position: absolute;
+      bottom: 4px;
+      left: 6px;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      background: rgba(255,255,255,0.8);
+      padding: 2px 6px;
+      border-radius: 3px;
+      z-index: 2;
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb > iframe {
+      display: none;
+    }
+    body[data-preview-mode="both"] .preset-slot__thumb > .preset-slot__thumb-placeholder {
+      display: none;
+    }
+
+    /* Below 820px, Both mode collapses to Mobile (set by JS; CSS is a safety net) */
+    @media (max-width: 819px) {
+      body[data-preview-mode="both"] {
+        --preview-w: 390px;
+        --preview-h: 844px;
+        --preview-scale: 0.46;
+        --preset-preview-w: 390px;
+        --preset-preview-h: 844px;
+        --preset-preview-scale: 0.50;
+      }
+      body[data-preview-mode="both"] .tile__thumb {
+        display: block;
+        height: 390px;
+      }
+      body[data-preview-mode="both"] .tile__thumb .thumb-pane--desktop { display: none; }
+      body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile {
+        flex: 1 1 100%;
+        border-right: 0;
+      }
+      body[data-preview-mode="both"] .tile__thumb .thumb-pane--mobile iframe {
+        width: 390px;
+        height: 844px;
+        transform: scale(0.46);
+      }
+    }
+
+    /* Fade iframes briefly during mode change */
+    body.is-preview-switching .tile__thumb iframe,
+    body.is-preview-switching .preset-slot__thumb iframe,
+    body.is-preview-switching .card__preview iframe {
+      opacity: 0.7;
+    }
+
+    /* ----------------------------------------------------------------
+       Preview-size toggle control (sidebar + bottom sheet)
+       ---------------------------------------------------------------- */
+    .preview-size-toggle {
+      display: inline-grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--p-cream);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill);
+      padding: 3px;
+      gap: 3px;
+      width: 100%;
+    }
+    .preview-size-toggle__btn {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 7px 8px;
+      border-radius: var(--r-pill);
+      border: 0;
+      background: transparent;
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      text-align: center;
+    }
+    .preview-size-toggle__btn:hover { color: var(--p-aztek); }
+    .preview-size-toggle__btn.is-active {
+      background: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .preview-size-toggle__btn:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 2px;
+    }
+    .preview-size-toggle__btn[aria-disabled="true"] {
+      opacity: 0.45;
+      cursor: not-allowed;
     }
     .tile__thumb-placeholder {
       position: absolute;
@@ -735,11 +981,15 @@
       top: 0;
       left: 0;
       border: 0;
-      width: 1360px;
-      height: 800px;
-      transform: scale(0.25);
+      width: var(--preset-preview-w, 1360px);
+      height: var(--preset-preview-h, 800px);
+      transform: scale(var(--preset-preview-scale, 0.25));
       transform-origin: top left;
       pointer-events: none;
+      transition: opacity 160ms ease;
+    }
+    .preset-slot__thumb {
+      transition: height 220ms ease;
     }
     .preset-slot__thumb-placeholder {
       position: absolute;
@@ -1102,7 +1352,7 @@
     }
   </style>
 </head>
-<body data-brand="tracy">
+<body data-brand="tracy" data-preview-mode="desktop">
 
   <!-- ================================================================== -->
   <!-- APP SIDEBAR (shared nav across catalog / compose / review) -->
@@ -1922,6 +2172,18 @@
 
       <p class="app-sidebar__sublabel">Page type</p>
       <ul class="sidebar-pt-list" id="sbPtList" role="group" aria-label="Page type filter"></ul>
+
+      <p class="app-sidebar__sublabel" id="sbPreviewSizeLabel">Preview size</p>
+      <div
+        class="preview-size-toggle"
+        id="sbPreviewSizeToggle"
+        role="radiogroup"
+        aria-labelledby="sbPreviewSizeLabel"
+      >
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="both">Both</button>
+      </div>
     </section>
 
     <div class="app-sidebar__bottom">
@@ -2116,6 +2378,19 @@
 
       <p class="filter-sheet__section-label">Page type</p>
       <ul class="sheet-pt-list" id="sheetPtList" role="group" aria-label="Page type filter"></ul>
+
+      <p class="filter-sheet__section-label" id="sheetPreviewSizeLabel">Preview size</p>
+      <div
+        class="preview-size-toggle"
+        id="sheetPreviewSizeToggle"
+        role="radiogroup"
+        aria-labelledby="sheetPreviewSizeLabel"
+        style="grid-template-columns: repeat(3, 1fr);"
+      >
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="true"  data-preview-mode="desktop">Desktop</button>
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="mobile">Mobile</button>
+        <button type="button" class="preview-size-toggle__btn" role="radio" aria-checked="false" data-preview-mode="both">Both</button>
+      </div>
     </div>
 
     <div class="filter-sheet__footer">
@@ -3498,6 +3773,229 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       syncSheetPt();
       syncPillLabel();
       syncChips();
+    })();
+
+    // ----------------------------------------------------------------------
+    // Preview-size toggle (desktop / mobile / both)
+    // ----------------------------------------------------------------------
+    // Controls the size at which variant thumbnails render. Persists in
+    // localStorage. Applied via body[data-preview-mode] which drives CSS
+    // vars + attribute selectors. In "both" mode, each thumbnail renders
+    // two side-by-side panes (mobile + desktop); on <=819px viewports, both
+    // collapses to mobile automatically.
+    // ----------------------------------------------------------------------
+    (function initPreviewSizeToggle() {
+      var LS_KEY = 'thc-preview-mode';
+      var VALID_MODES = ['desktop', 'mobile', 'both'];
+      var bodyEl = document.body;
+
+      // Read stored mode (default desktop).
+      var stored = 'desktop';
+      try {
+        var raw = localStorage.getItem(LS_KEY);
+        if (raw && VALID_MODES.indexOf(raw) !== -1) stored = raw;
+      } catch (e) {}
+
+      // "both" on small screens collapses to mobile (per spec).
+      function effectiveMode(mode) {
+        if (mode === 'both' && window.matchMedia('(max-width: 819px)').matches) {
+          return 'mobile';
+        }
+        return mode;
+      }
+
+      var currentRequested = stored; // what the user picked
+      function applyMode(requested, opts) {
+        opts = opts || {};
+        if (VALID_MODES.indexOf(requested) === -1) requested = 'desktop';
+        currentRequested = requested;
+        var effective = effectiveMode(requested);
+
+        // Briefly fade during transition for a smooth feel
+        bodyEl.classList.add('is-preview-switching');
+        setTimeout(function () { bodyEl.classList.remove('is-preview-switching'); }, 220);
+
+        bodyEl.setAttribute('data-preview-mode', effective);
+        try { localStorage.setItem(LS_KEY, requested); } catch (e) {}
+
+        // Sync all toggle UIs (sidebar + sheet)
+        document.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
+          var m = btn.getAttribute('data-preview-mode');
+          var active = m === requested;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-checked', active ? 'true' : 'false');
+          // Disable "both" visibly on small screens to hint it collapses
+          if (m === 'both' && window.matchMedia('(max-width: 819px)').matches) {
+            btn.setAttribute('aria-disabled', 'true');
+          } else {
+            btn.removeAttribute('aria-disabled');
+          }
+        });
+
+        // Toast only when user explicitly chose "both" on a small screen
+        if (!opts.silent && requested === 'both' && effective !== 'both') {
+          showToast('Both mode switches to Mobile on small screens');
+        }
+
+        // Rebuild thumb panes for Both, or clean up if leaving Both.
+        updateThumbPanes(effective);
+      }
+
+      // Both mode needs two iframes per thumb. We inject/remove pane markup
+      // around the existing lazy iframe. Lazy loader still fires for the
+      // original iframe via its data-src; panes share the same src once known.
+      function resolveSrc(iframe) {
+        // Prefer actual src; fall back to data-src (still-lazy iframe).
+        var s = iframe.getAttribute('src');
+        if (s) return s;
+        return iframe.getAttribute('data-src') || '';
+      }
+
+      function updateThumbPanes(mode) {
+        var wantPanes = mode === 'both';
+
+        // --- Compose tiles (.tile__thumb) ---
+        document.querySelectorAll('.tile__thumb').forEach(function (thumb) {
+          var legacyIframe = thumb.querySelector(':scope > iframe');
+          if (!legacyIframe) return;
+
+          var src = resolveSrc(legacyIframe);
+          var title = legacyIframe.getAttribute('title') || '';
+
+          var panes = thumb.querySelectorAll(':scope > .thumb-pane');
+          if (wantPanes) {
+            if (panes.length) {
+              // Update existing pane iframes src if we now know it
+              panes.forEach(function (p) {
+                var frame = p.querySelector('iframe');
+                if (frame && src && !frame.getAttribute('src')) frame.setAttribute('src', src);
+              });
+              return;
+            }
+            // Create two panes
+            var mPane = buildPane('mobile', src, title, 'Mobile');
+            var dPane = buildPane('desktop', src, title, 'Desktop');
+            thumb.appendChild(mPane);
+            thumb.appendChild(dPane);
+          } else {
+            // Remove panes if we have them
+            panes.forEach(function (p) { p.remove(); });
+            // Ensure the legacy iframe is actually loading; if it still has
+            // a data-src (IO never fired while we were in Both mode), promote
+            // it to src now so the visible thumbnail hydrates.
+            if (legacyIframe.dataset && legacyIframe.dataset.src && !legacyIframe.getAttribute('src')) {
+              legacyIframe.setAttribute('src', legacyIframe.dataset.src);
+              legacyIframe.removeAttribute('data-src');
+              legacyIframe.addEventListener('load', function () {
+                var ph = thumb.querySelector('.tile__thumb-placeholder');
+                if (ph) ph.remove();
+              }, { once: true });
+            }
+          }
+        });
+
+        // --- Preset-slot thumbs ---
+        document.querySelectorAll('.preset-slot__thumb').forEach(function (thumb) {
+          var legacyIframe = thumb.querySelector(':scope > iframe');
+          if (!legacyIframe) return;
+          var src = resolveSrc(legacyIframe);
+          var title = legacyIframe.getAttribute('title') || '';
+          var panes = thumb.querySelectorAll(':scope > .thumb-pane');
+          if (wantPanes) {
+            if (panes.length) {
+              panes.forEach(function (p) {
+                var frame = p.querySelector('iframe');
+                if (frame && src && !frame.getAttribute('src')) frame.setAttribute('src', src);
+              });
+              return;
+            }
+            var mPane2 = buildPane('mobile', src, title, 'Mobile');
+            var dPane2 = buildPane('desktop', src, title, 'Desktop');
+            thumb.appendChild(mPane2);
+            thumb.appendChild(dPane2);
+          } else {
+            panes.forEach(function (p) { p.remove(); });
+            if (legacyIframe.dataset && legacyIframe.dataset.src && !legacyIframe.getAttribute('src')) {
+              legacyIframe.setAttribute('src', legacyIframe.dataset.src);
+              legacyIframe.removeAttribute('data-src');
+              legacyIframe.addEventListener('load', function () {
+                var ph = thumb.querySelector('.preset-slot__thumb-placeholder');
+                if (ph) ph.remove();
+              }, { once: true });
+            }
+          }
+        });
+      }
+
+      function buildPane(which, src, title, label) {
+        var pane = document.createElement('div');
+        pane.className = 'thumb-pane thumb-pane--' + which;
+        var frame = document.createElement('iframe');
+        frame.setAttribute('loading', 'lazy');
+        frame.setAttribute('title', title + ' (' + label + ')');
+        frame.setAttribute('aria-hidden', 'true');
+        if (src) frame.setAttribute('src', src);
+        var tag = document.createElement('span');
+        tag.className = 'thumb-pane__label';
+        tag.textContent = label;
+        pane.appendChild(frame);
+        pane.appendChild(tag);
+        return pane;
+      }
+
+      // When a new iframe finishes lazy-loading its src, mirror it to panes.
+      // Hook into MutationObserver on src attribute.
+      var srcWatcher = new MutationObserver(function (mutations) {
+        if (bodyEl.getAttribute('data-preview-mode') !== 'both') return;
+        mutations.forEach(function (m) {
+          if (m.attributeName !== 'src') return;
+          var target = m.target;
+          if (!target.tagName || target.tagName !== 'IFRAME') return;
+          var parent = target.parentElement;
+          if (!parent) return;
+          if (!parent.classList.contains('tile__thumb') && !parent.classList.contains('preset-slot__thumb')) return;
+          var src = target.getAttribute('src');
+          if (!src) return;
+          parent.querySelectorAll(':scope > .thumb-pane iframe').forEach(function (f) {
+            if (!f.getAttribute('src')) f.setAttribute('src', src);
+          });
+        });
+      });
+      srcWatcher.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['src'] });
+
+      // Wire up both toggle UIs (sidebar + sheet)
+      function bindToggle(containerId) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+        container.querySelectorAll('.preview-size-toggle__btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            applyMode(btn.getAttribute('data-preview-mode'));
+          });
+          btn.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            e.preventDefault();
+            var buttons = Array.prototype.slice.call(container.querySelectorAll('.preview-size-toggle__btn'));
+            var i = buttons.indexOf(btn);
+            var next = e.key === 'ArrowRight'
+              ? buttons[(i + 1) % buttons.length]
+              : buttons[(i - 1 + buttons.length) % buttons.length];
+            next.focus();
+            applyMode(next.getAttribute('data-preview-mode'));
+          });
+        });
+      }
+      bindToggle('sbPreviewSizeToggle');
+      bindToggle('sheetPreviewSizeToggle');
+
+      // React to viewport changes: if "both" was requested but viewport shrank,
+      // collapse effective mode to mobile (and vice versa).
+      var mq = window.matchMedia('(max-width: 819px)');
+      function onMqChange() { applyMode(currentRequested, { silent: true }); }
+      if (mq.addEventListener) mq.addEventListener('change', onMqChange);
+      else if (mq.addListener) mq.addListener(onMqChange);
+
+      // Initial apply (silent so the "both collapses" toast doesn't fire on boot)
+      applyMode(stored, { silent: true });
     })();
   </script>
 </body>
