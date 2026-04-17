@@ -1,6 +1,15 @@
 /*
  * Font faces — all self-hosted from /assets/fonts/.
  * Poppins is loaded from Google Fonts in each HTML document.
+ *
+ * font-display strategy (for CLS):
+ *   - Body serif (Editors Note): `optional` = first paint uses fallback if
+ *     the font isn't cached, font only swaps in after reload. Eliminates
+ *     the FOUT reflow that shifts every headline on first visit.
+ *   - Display script (Jhon Halend): `swap` = fallback paints fast, real
+ *     font swaps in when ready. Accepts a tiny reflow so the Aztek script
+ *     actually renders. Used in small accent slots only, so the shift is
+ *     visually contained.
  */
 
 @font-face {
@@ -9,7 +18,7 @@
        url('../assets/fonts/editors-note-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -18,7 +27,7 @@
        url('../assets/fonts/editors-note-italic.woff') format('woff');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {

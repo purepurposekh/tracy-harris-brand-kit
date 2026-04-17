@@ -6,6 +6,10 @@
   <title>Review · Tracy Harris Co Brand Kit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Preload critical self-hosted fonts so they start downloading in parallel
+       with the HTML, avoiding FOUT reflow on first paint. -->
+  <link rel="preload" href="../../assets/fonts/editors-note-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/editors-note-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../styles/fonts.css" />
   <link rel="stylesheet" href="../../styles/tokens.css" />
@@ -492,6 +496,28 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* ======================================================================
+       CLS HARDENING (2026-04-18) — reserve space for cards + iframes so the
+       page stops jumping while previews hydrate and approvals.json loads.
+       ====================================================================== */
+
+    /* Layout-contained cards: iframe hydration inside a card can never
+       reflow the surrounding grid row. */
+    .card,
+    .card__preview {
+      contain: layout paint style;
+    }
+
+    /* Reserve card footprint even pre-render so families scroll without
+       shifting. min-height mirrors the typical card layout with 3 buttons. */
+    .card {
+      min-height: 320px;
+    }
+
+    /* Revision note is hidden by default (display:none); when toggled open
+       we want the card to grow, not jitter. Using min-height on the card
+       above already absorbs the most common case. */
 
     /* ======================================================================
        MOBILE POLISH (2026-04-17) — tap targets, scroll isolation, lean strip
@@ -1457,7 +1483,7 @@
       card.innerHTML = `
         <div class="card__preview">
           <div class="card__preview-placeholder">Loading preview</div>
-          <iframe data-src="${srcWithHash}" loading="lazy" title="${v.name}" aria-hidden="true"></iframe>
+          <iframe data-src="${srcWithHash}" width="1440" height="1000" loading="lazy" title="${v.name}" aria-hidden="true"></iframe>
           <a class="card__open" href="${srcWithHash}" target="_blank" rel="noopener">Open ↗</a>
         </div>
         <div class="card__body">
