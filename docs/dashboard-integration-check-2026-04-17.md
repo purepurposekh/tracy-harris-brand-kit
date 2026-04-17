@@ -158,3 +158,55 @@ Estimated total integration time for all 4 priority-1+2 tools into functioning d
 - [Fireflies GraphQL API](https://docs.fireflies.ai/graphql-api/query/transcript)
 - [SamCart developer docs](https://developer.samcart.com/)
 - [Tailwind v4 @theme](https://tailwindcss.com/docs/theme) | [Tailwind v4 release](https://tailwindcss.com/blog/tailwindcss-v4)
+
+---
+
+## Addendum: deploy platform — Netlify + Cloudflare, not Vercel
+
+**Corrected after agent's original pass.** Tracy Harris Co deploys on **Netlify** (primary) and **Cloudflare** (CDN / edge). Not Vercel. The verdict above holds but the deploy path changes materially.
+
+### Netlify as primary deploy target — recommended
+
+**Grade: A.** Netlify ships a first-class Next.js adapter ([docs](https://docs.netlify.com/frameworks/next-js/)) with full SSR, Route Handlers, and Node runtime support. Every SDK in the priority 1+2 list (`stripe`, `@hubspot/api-client`, `posthog-node`, the `fetch` wrapper for AC) runs on **Netlify Functions = Node runtime** by default. Zero special handling needed vs Vercel.
+
+Caveat: Netlify's ISR/On-Demand Revalidation works but uses their Blobs storage; set `revalidate` on fetches and it's transparent.
+
+### Cloudflare Pages — viable for static + edge only
+
+**Grade: C for this dashboard, A for the static brand-kit.** Cloudflare Pages runs Next.js via [OpenNext](https://opennext.js.org/cloudflare) or [@cloudflare/next-on-pages](https://github.com/cloudflare/next-on-pages), but:
+
+- `stripe-node` won't load on Workers (Edge). Workaround: use Stripe's `fetch`-based API directly from a Worker, OR enable [Node compatibility flags](https://developers.cloudflare.com/workers/runtime-apis/nodejs/) — works for most cases but adds friction.
+- `@hubspot/api-client` has similar Node dependency. Same workaround.
+- `posthog-node` works on Cloudflare Workers natively.
+- No filesystem, no long-running background jobs (use Durable Objects if needed).
+
+**Use Cloudflare for:**
+- The existing brand kit static site (already works, GH Pages + CF CDN)
+- Workers for the `/vault/*` redirect, edge rewrites, image transforms
+- Tunneling / reverse proxy / DDoS / caching
+
+**Don't use Cloudflare for:**
+- The `/admin/recipes` dashboard — deploy that on Netlify where every SDK just works
+
+### Go recipe for `/admin/recipes`
+
+Deploy the Kiranism clone to **Netlify** at `dashboard.tracyharris.com.au` (or a subdomain of it). Cloudflare sits in front as CDN + DNS + WAF as it does today for the rest of the stack. That's the cleanest split: Netlify runs the Node-heavy dashboard, Cloudflare owns the edge.
+
+### `next.config.ts` additions on Netlify
+
+```ts
+export default {
+  images: { unoptimized: false },
+  // Prefer Node runtime for Route Handlers that hit Stripe, HubSpot, AC
+  experimental: { serverActions: { bodySizeLimit: '2mb' } },
+}
+```
+
+Route Handlers that call PostHog / AC / Stripe should explicitly declare `export const runtime = 'nodejs'` at the top — defensive against Next defaulting to Edge in future versions.
+
+### References
+
+- [Netlify Next.js docs](https://docs.netlify.com/frameworks/next-js/)
+- [Cloudflare Pages Next.js](https://developers.cloudflare.com/pages/framework-guides/nextjs/)
+- [OpenNext for Cloudflare](https://opennext.js.org/cloudflare)
+- [Next.js runtime config](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#runtime)
