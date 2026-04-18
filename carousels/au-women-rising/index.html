@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carousel — AU Women Rising · Tracy Harris Co</title>
+<link rel="stylesheet" href="../../styles/fonts.css" />
+<link rel="stylesheet" href="../../styles/tokens.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #222; color: #fff; font-family: var(--f-sans); }
+  .page-header {
+    padding: 24px 32px;
+    background: #111;
+    border-bottom: 1px solid #333;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .page-header strong { color: #fff; letter-spacing: 0.1em; }
+  .page-header .note { font-size: 11px; text-transform: none; letter-spacing: 0; color: #888; max-width: 600px; }
+
+  .carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ---------- SLIDE CANVAS ---------- */
+  .slide {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    /* Scale inner canvas so preview fits column width */
+    display: flex;
+  }
+  .slide__canvas {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    transform-origin: top left;
+    font-family: var(--f-sans);
+  }
+  /* Scale canvas down to fit ~540px preview cell */
+  @media (min-width: 1px) {
+    .slide__canvas { transform: scale(calc(100% / 1080 * 1px)); }
+  }
+  /* Use JS-free CSS scaler via container query fallback */
+
+  .slide__label {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* ---------- SLIDE TYPES ---------- */
+  .canvas-dark {
+    background: var(--p-aztek);
+    color: var(--p-oatmeal);
+  }
+  .canvas-light {
+    background: var(--p-oatmeal);
+    color: var(--p-aztek);
+  }
+  .canvas-cream {
+    background: var(--p-cream);
+    color: var(--p-aztek);
+  }
+  .canvas-sage {
+    background: var(--p-sage);
+    color: var(--p-oatmeal);
+  }
+
+  /* Wordmark */
+  .wordmark {
+    position: absolute;
+    top: 56px;
+    left: 56px;
+    font-family: var(--f-sans);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .wordmark::after {
+    content: '.';
+    color: var(--p-sage);
+    font-weight: 700;
+  }
+
+  /* Slide number */
+  .slide-num {
+    position: absolute;
+    top: 56px;
+    right: 56px;
+    font-family: var(--f-serif-display);
+    font-size: 32px;
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  /* Footer */
+  .slide-footer {
+    position: absolute;
+    bottom: 56px;
+    left: 56px;
+    right: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--f-sans);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Typography */
+  .eyebrow {
+    font-family: var(--f-sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    color: inherit;
+  }
+  .canvas-dark .eyebrow { color: var(--p-sage); }
+  .display {
+    font-family: var(--f-serif-display);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .display em, .display i {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .body-text {
+    font-family: var(--f-sans);
+    font-size: 28px;
+    line-height: 1.5;
+    font-weight: 400;
+    margin: 28px 0 0;
+  }
+
+  /* Specific layout helpers */
+  .content-center {
+    position: absolute;
+    inset: 200px 80px 180px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .content-lower {
+    position: absolute;
+    inset: auto 80px 180px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .big-number {
+    font-family: var(--f-serif-display);
+    font-size: 420px;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin: 0;
+    font-weight: 400;
+  }
+  .mid-number {
+    font-family: var(--f-serif-display);
+    font-size: 260px;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    margin: 0;
+    font-weight: 400;
+  }
+  .sage-rule {
+    width: 80px;
+    height: 3px;
+    background: var(--p-sage);
+    margin: 0 0 32px;
+  }
+  .canvas-light .sage-rule, .canvas-cream .sage-rule { background: var(--p-sage); }
+
+  .script-accent {
+    font-family: var(--f-script);
+    font-size: 72px;
+    line-height: 1;
+    color: var(--p-sage);
+    margin: 16px 0 0;
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  .canvas-sage .script-accent { color: var(--p-oatmeal); }
+
+  .pill {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 999px;
+    background: var(--p-aztek);
+    color: var(--p-oatmeal);
+    font-family: var(--f-sans);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .canvas-dark .pill {
+    background: var(--p-oatmeal);
+    color: var(--p-aztek);
+  }
+
+  /* Slide 10 signature */
+  .signature-xx {
+    font-family: var(--f-script);
+    font-size: 120px;
+    line-height: 0.9;
+    color: var(--p-sage);
+    margin: 0;
+  }
+  .signature-name {
+    font-family: var(--f-serif-italic);
+    font-style: italic;
+    font-size: 72px;
+    margin: 8px 0 0;
+    font-weight: 400;
+  }
+
+  /* Scroll marker on slide 1 */
+  .swipe-hint {
+    position: absolute;
+    bottom: 88px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--f-sans);
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* ---------- PREVIEW SCALER ---------- */
+  /* Each .slide shows a 1080x1080 canvas scaled down */
+  .slide {
+    container-type: inline-size;
+  }
+  .slide__canvas {
+    transform-origin: top left;
+    /* fallback for non-cqi browsers: will be overridden by JS */
+    transform: scale(0.5);
+  }
+  .slide__scale-wrap {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Print-at-native helper: open `?export=N` to see slide N at full 1080 */
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div>
+    <strong>Carousel · AU Women Rising</strong>
+    <span style="margin-left:12px; color:#666;">10 slides · 1080×1080 · Tracy Harris Co brand</span>
+  </div>
+  <div class="note">
+    Scroll for preview. To export for IG: open <code>?slide=1</code> through <code>?slide=10</code>, each renders one slide full-bleed at 1080×1080 for screenshot or print.
+  </div>
+</div>
+
+<div class="carousel">
+
+<!-- ========== SLIDE 01 — Hook ========== -->
+<div class="slide">
+  <div class="slide__label">01</div>
+  <div class="slide__canvas canvas-dark" data-brand="tracy">
+    <div class="wordmark">tracy harris co</div>
+    <div class="slide-num">01</div>
+    <div class="content-center" style="justify-content: flex-start; padding-top: 140px;">
+      <div class="eyebrow">The numbers are in</div>
+      <h1 class="display" style="font-size: 108px;">
+        Australian women now own <em>35%</em> of all small businesses.
+      </h1>
+    </div>
+    <div class="swipe-hint">swipe →</div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 02 — Half a million ========== -->
+<div class="slide">
+  <div class="slide__label">02</div>
+  <div class="slide__canvas canvas-light">
+    <div class="wordmark" style="color: var(--p-aztek);">tracy harris co</div>
+    <div class="slide-num" style="color: var(--p-aztek);">02</div>
+    <div class="content-center" style="justify-content: center; text-align: left;">
+      <div class="sage-rule"></div>
+      <p class="display" style="font-size: 92px;">
+        Half a million of&nbsp;us.
+      </p>
+      <p class="script-accent">Running things.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 03 — 3x faster ========== -->
+<div class="slide">
+  <div class="slide__label">03</div>
+  <div class="slide__canvas canvas-dark">
+    <div class="wordmark">tracy harris co</div>
+    <div class="slide-num">03</div>
+    <div class="content-center" style="justify-content: center; text-align: center; align-items: center;">
+      <div class="eyebrow">Since 2006</div>
+      <div class="big-number" style="font-size: 520px; color: var(--p-sage);">3×</div>
+      <p class="display" style="font-size: 72px; text-align: center; margin-top: 24px;">
+        faster than men's&nbsp;businesses.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 04 — Coming through ========== -->
+<div class="slide">
+  <div class="slide__label">04</div>
+  <div class="slide__canvas canvas-cream">
+    <div class="wordmark" style="color: var(--p-aztek);">tracy harris co</div>
+    <div class="slide-num" style="color: var(--p-aztek);">04</div>
+    <div class="content-center" style="justify-content: center;">
+      <p class="display" style="font-size: 132px; font-style: italic; color: var(--p-mute); opacity: 0.5;">
+        Not catching up.
+      </p>
+      <div class="sage-rule" style="margin: 40px 0;"></div>
+      <p class="display" style="font-size: 148px; font-weight: 400;">
+        <em>Coming through.</em>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 05 — But here's the truth ========== -->
+<div class="slide">
+  <div class="slide__label">05</div>
+  <div class="slide__canvas canvas-dark">
+    <div class="wordmark">tracy harris co</div>
+    <div class="slide-num">05</div>
+    <div class="content-center" style="justify-content: center;">
+      <div class="eyebrow">Here's the honest bit</div>
+      <p class="display" style="font-size: 108px;">
+        I want to tell you the <em>other</em> side&nbsp;too.
+      </p>
+      <p class="body-text" style="font-size: 32px; opacity: 0.8;">
+        Because you deserve the truth, not just the trumpet.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 06 — 47¢ stat ========== -->
+<div class="slide">
+  <div class="slide__label">06</div>
+  <div class="slide__canvas canvas-light">
+    <div class="wordmark" style="color: var(--p-aztek);">tracy harris co</div>
+    <div class="slide-num" style="color: var(--p-aztek);">06</div>
+    <div class="content-center" style="justify-content: center; text-align: center; align-items: center;">
+      <div class="eyebrow" style="color: var(--p-sage);">For every dollar</div>
+      <div class="mid-number" style="color: var(--p-aztek); font-size: 340px;">47¢</div>
+      <p class="display" style="font-size: 52px; text-align: center; margin-top: 32px;">
+        is what a woman business owner<br/>takes home in Australia.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 07 — 43% capital ========== -->
+<div class="slide">
+  <div class="slide__label">07</div>
+  <div class="slide__canvas canvas-sage">
+    <div class="wordmark">tracy harris co</div>
+    <div class="slide-num">07</div>
+    <div class="content-center" style="justify-content: center;">
+      <div class="eyebrow" style="color: var(--p-oatmeal);">The scaling ceiling</div>
+      <p class="display" style="font-size: 108px;">
+        <em>43%</em> of women business owners name access to capital as the single biggest thing holding them back.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 08 — The reframe ========== -->
+<div class="slide">
+  <div class="slide__label">08</div>
+  <div class="slide__canvas canvas-dark">
+    <div class="wordmark">tracy harris co</div>
+    <div class="slide-num">08</div>
+    <div class="content-center" style="justify-content: center;">
+      <p class="display" style="font-size: 84px;">
+        We're not under-represented in <em>starting.</em>
+      </p>
+      <div class="sage-rule" style="margin: 48px 0;"></div>
+      <p class="display" style="font-size: 108px;">
+        We're under-represented in <em style="color: var(--p-sage);">scaling.</em>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 09 — The work ========== -->
+<div class="slide">
+  <div class="slide__label">09</div>
+  <div class="slide__canvas canvas-cream">
+    <div class="wordmark" style="color: var(--p-aztek);">tracy harris co</div>
+    <div class="slide-num" style="color: var(--p-aztek);">09</div>
+    <div class="content-center" style="justify-content: center;">
+      <div class="eyebrow" style="color: var(--p-sage);">What I teach</div>
+      <p class="display" style="font-size: 92px;">
+        Build a business by <em>design,</em><br/>not by default.
+      </p>
+      <p class="body-text" style="font-size: 26px; margin-top: 40px; line-height: 1.6;">
+        One where the profit lands in your account.<br/>
+        One that holds your family, your faith, your freedom at the centre.<br/>
+        Clean, stable, and grounded.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SLIDE 10 — CTA / Tracy signature ========== -->
+<div class="slide">
+  <div class="slide__label">10</div>
+  <div class="slide__canvas canvas-dark">
+    <div class="wordmark">tracy harris co</div>
+    <div class="slide-num">10</div>
+    <div class="content-center" style="justify-content: center;">
+      <p class="display" style="font-size: 108px;">
+        We're the story now, <em>girlfriend.</em>
+      </p>
+      <p class="body-text" style="font-size: 32px; margin-top: 40px;">
+        Comment <strong style="color: var(--p-sage);">READY</strong> if you're building one of the businesses in that stat.
+      </p>
+      <p class="signature-xx" style="margin-top: 48px;">Xx</p>
+      <p class="signature-name">Tracy</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+  // Scale each 1080x1080 canvas to fit its preview cell
+  function fit() {
+    document.querySelectorAll('.slide').forEach(function(slide) {
+      var canvas = slide.querySelector('.slide__canvas');
+      if (!canvas) return;
+      var w = slide.clientWidth;
+      if (w <= 0) return;
+      canvas.style.transform = 'scale(' + (w / 1080) + ')';
+    });
+  }
+  new ResizeObserver(fit).observe(document.body);
+  window.addEventListener('load', fit);
+  fit();
+
+  // Export mode: ?slide=N renders one slide at native 1080
+  var params = new URLSearchParams(location.search);
+  var exportN = parseInt(params.get('slide'), 10);
+  if (exportN >= 1 && exportN <= 10) {
+    document.body.style.background = '#000';
+    document.querySelectorAll('.page-header').forEach(function(el){ el.style.display = 'none'; });
+    var carousel = document.querySelector('.carousel');
+    carousel.style.padding = '0';
+    carousel.style.maxWidth = 'none';
+    carousel.style.display = 'flex';
+    carousel.style.justifyContent = 'center';
+    carousel.style.alignItems = 'center';
+    carousel.style.minHeight = '100vh';
+    var slides = document.querySelectorAll('.slide');
+    slides.forEach(function(s, i) {
+      if (i + 1 !== exportN) s.style.display = 'none';
+    });
+    var active = slides[exportN - 1];
+    active.style.width = '1080px';
+    active.style.height = '1080px';
+    active.style.borderRadius = '0';
+    active.style.boxShadow = 'none';
+    var canvas = active.querySelector('.slide__canvas');
+    canvas.style.transform = 'none';
+    var label = active.querySelector('.slide__label');
+    if (label) label.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
