@@ -1,0 +1,42 @@
+/*
+ * Workbook Print Layer — extends tokens.css with editorial print scale
+ *
+ * tokens.css maxes at --s-8xl: 96px (web-sized). Editorial print workbooks
+ * need bigger — day numbers routinely hit 120pt+. This file adds the
+ * print-tier variables so the brand system covers print too.
+ *
+ * Usage: load tokens.css first, then this file, then fonts.css.
+ */
+
+:root {
+  /* Print-tier type scale (in pt, for @page print) */
+  --s-print-sm: 8.5pt;
+  --s-print-md: 10.5pt;
+  --s-print-lg: 14pt;
+  --s-print-xl: 22pt;
+  --s-print-2xl: 30pt;
+  --s-print-3xl: 44pt;
+  --s-print-4xl: 82pt;   /* cover title */
+  --s-print-5xl: 120pt;  /* day page number */
+
+  /* Workbook anatomy — canonical print surface dimensions */
+  --wb-page-w: 210mm;
+  --wb-page-h: 297mm;
+  --wb-margin-x: 22mm;
+  --wb-margin-top: 22mm;
+  --wb-margin-bottom: 30mm;
+
+  /* Print asymmetric grid ratio — story gets slightly more weight than worksheet */
+  --wb-grid: 1.1fr 1fr;
+}
+
+/* Print rules — make every workbook render to A4 cleanly */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  html, body { background: var(--p-white); }
+  .page { margin: 0 !important; box-shadow: none !important; break-after: page; }
+}
