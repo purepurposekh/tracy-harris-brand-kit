@@ -128,8 +128,78 @@
     .pill--in_progress { background: var(--p-sage); color: var(--p-white); border-color: var(--p-sage); }
     .pill--pending     { background: transparent; color: var(--p-aztek); border-color: var(--p-aztek); }
     .pill--queued      { background: transparent; color: var(--ink-mute); border-color: var(--border-hairline); }
+    .pill--completed   { background: var(--p-cream); color: var(--p-aztek); border-color: var(--p-cream); }
     .pill--concept     { background: transparent; color: var(--p-gold-dark); border-color: var(--p-gold-mid); }
     .pill--dont_build  { background: transparent; color: var(--p-mute); border-color: var(--p-mute); text-decoration: line-through; }
+
+    /* ---------- Filter chips ---------- */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: var(--sp-4);
+      padding: 10px 0 var(--sp-3);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .filters + .filters { padding-top: 0; border-bottom: 1px solid var(--border-hairline); margin-bottom: var(--sp-5); }
+    .filters__label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      align-self: center;
+      margin-right: 4px;
+    }
+    .chip {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 6px 12px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      background: transparent;
+      color: var(--ink-body);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .chip:hover { color: var(--p-aztek); border-color: var(--p-aztek); }
+    .chip.is-active {
+      background: var(--p-aztek);
+      color: var(--p-white);
+      border-color: var(--p-aztek);
+    }
+    .chip__count {
+      font-size: 10px;
+      margin-left: 6px;
+      opacity: 0.75;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---------- Assignee badge on rows ---------- */
+    .row__assignee {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-hairline);
+      color: var(--ink-mute);
+      background: transparent;
+      margin-right: 8px;
+    }
+    .row__assignee--karl  { color: var(--p-aztek);    border-color: var(--p-aztek); }
+    .row__assignee--kira  { color: var(--p-sage);     border-color: var(--p-sage); }
+    .row__assignee--both  { color: var(--p-gold-dark); border-color: var(--p-gold-mid); }
+
+    /* Completed rows dim slightly so active work draws the eye first */
+    .section--done .row { opacity: 0.82; }
+    .section--done .row:hover { opacity: 1; }
 
     /* ---------- Task rows ---------- */
     .rows {
@@ -247,6 +317,14 @@
       </div>
     </div>
 
+    <!-- Filters -->
+    <div class="filters" id="stageFilters" role="tablist" aria-label="Filter by stage">
+      <span class="filters__label">Stage</span>
+    </div>
+    <div class="filters" id="assigneeFilters" role="tablist" aria-label="Filter by responsibility">
+      <span class="filters__label">Who</span>
+    </div>
+
     <!-- In-flight -->
     <section class="section">
       <div class="section__head">
@@ -255,6 +333,17 @@
       </div>
       <div class="rows" id="tasksList">
         <div class="empty">Loading tasks…</div>
+      </div>
+    </section>
+
+    <!-- Completed -->
+    <section class="section section--done">
+      <div class="section__head">
+        <h2 class="section__title"><em>Shipped</em></h2>
+        <span class="section__count" id="doneCount">Loading...</span>
+      </div>
+      <div class="rows" id="doneList">
+        <div class="empty">Loading…</div>
       </div>
     </section>
 
@@ -288,37 +377,152 @@
       return s[0].toUpperCase() + s.slice(1);
     };
 
-    function renderTasks(data) {
+    // Filter state — persisted in localStorage so Karl's view sticks across reloads
+    const FILTERS_KEY = 'thc-ops-filters-v1';
+    const STAGES = ['all', 'in_progress', 'pending', 'queued'];
+    const ASSIGNEES = ['all', 'kira', 'karl', 'both'];
+    let activeStage = 'all';
+    let activeAssignee = 'all';
+    let allTasks = [];
+
+    function loadFilterPrefs() {
+      try {
+        const raw = localStorage.getItem(FILTERS_KEY);
+        if (!raw) return;
+        const p = JSON.parse(raw);
+        if (STAGES.includes(p.stage)) activeStage = p.stage;
+        if (ASSIGNEES.includes(p.assignee)) activeAssignee = p.assignee;
+      } catch (e) {}
+    }
+    function saveFilterPrefs() {
+      try {
+        localStorage.setItem(FILTERS_KEY, JSON.stringify({ stage: activeStage, assignee: activeAssignee }));
+      } catch (e) {}
+    }
+
+    function matchesFilters(t) {
+      if (activeStage !== 'all' && t.status !== activeStage) return false;
+      if (activeAssignee !== 'all' && (t.assignee || 'kira') !== activeAssignee) return false;
+      return true;
+    }
+
+    function renderFilterChips() {
+      const stageBar = document.getElementById('stageFilters');
+      const assigneeBar = document.getElementById('assigneeFilters');
+      // Keep the label spans; strip any previous chips
+      [...stageBar.querySelectorAll('.chip')].forEach(c => c.remove());
+      [...assigneeBar.querySelectorAll('.chip')].forEach(c => c.remove());
+
+      const activeTasks = allTasks.filter(t => t.status !== 'completed');
+
+      const stageCounts = Object.fromEntries(STAGES.map(s => [s, 0]));
+      stageCounts.all = activeTasks.length;
+      activeTasks.forEach(t => { if (stageCounts[t.status] !== undefined) stageCounts[t.status]++; });
+
+      STAGES.forEach(s => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip' + (activeStage === s ? ' is-active' : '');
+        btn.dataset.stage = s;
+        btn.innerHTML = `${stageLabel(s)} <span class="chip__count">${stageCounts[s]}</span>`;
+        btn.addEventListener('click', () => {
+          activeStage = s;
+          saveFilterPrefs();
+          renderFilterChips();
+          renderAll();
+        });
+        stageBar.appendChild(btn);
+      });
+
+      const assigneeCounts = Object.fromEntries(ASSIGNEES.map(a => [a, 0]));
+      activeTasks.forEach(t => {
+        const who = t.assignee || 'kira';
+        if (assigneeCounts[who] !== undefined) assigneeCounts[who]++;
+      });
+      assigneeCounts.all = activeTasks.length;
+
+      ASSIGNEES.forEach(a => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip' + (activeAssignee === a ? ' is-active' : '');
+        btn.dataset.assignee = a;
+        btn.innerHTML = `${assigneeLabel(a)} <span class="chip__count">${assigneeCounts[a]}</span>`;
+        btn.addEventListener('click', () => {
+          activeAssignee = a;
+          saveFilterPrefs();
+          renderFilterChips();
+          renderAll();
+        });
+        assigneeBar.appendChild(btn);
+      });
+    }
+
+    function stageLabel(s) {
+      if (s === 'all') return 'All';
+      if (s === 'in_progress') return 'In progress';
+      if (s === 'pending') return 'Pending';
+      if (s === 'queued') return 'Queued';
+      return s;
+    }
+    function assigneeLabel(a) {
+      if (a === 'all') return 'Everyone';
+      if (a === 'kira') return 'Me (Kira)';
+      if (a === 'karl') return 'Karl';
+      if (a === 'both') return 'Both';
+      return a;
+    }
+
+    function renderRow(t) {
+      const pClass = pillClass(t.status);
+      const pText = pillLabel(t.status);
+      const who = t.assignee || 'kira';
+      const assigneeBadge = `<span class="row__assignee row__assignee--${escapeHtml(who)}">${escapeHtml(who === 'kira' ? 'Me' : who === 'karl' ? 'Karl' : 'Both')}</span>`;
+      const waiting = t.waiting_on
+        ? `<div class="row__waiting"><span class="row__waiting-label">Waiting on</span>&nbsp;${escapeHtml(t.waiting_on)}</div>`
+        : '';
+      return `
+        <div class="row">
+          <div class="row__top">
+            <div style="min-width:0; flex:1;">
+              <h3 class="row__subject">
+                ${assigneeBadge}<span class="row__id">#${escapeHtml(String(t.id))}</span>${escapeHtml(t.subject)}
+              </h3>
+            </div>
+            <span class="pill pill--${pClass}">${pText}</span>
+          </div>
+          ${t.note ? `<p class="row__note">${escapeHtml(t.note)}</p>` : ''}
+          ${waiting}
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      const active = allTasks.filter(t => t.status !== 'completed' && matchesFilters(t));
+      const done = allTasks.filter(t => t.status === 'completed' && (activeAssignee === 'all' || (t.assignee || 'kira') === activeAssignee));
+
       const list = document.getElementById('tasksList');
       const count = document.getElementById('tasksCount');
-      const tasks = data.tasks || [];
-      if (tasks.length === 0) {
-        list.innerHTML = '<div class="empty">Nothing in motion right now.</div>';
-        count.textContent = '0 active';
-        return;
+      if (active.length === 0) {
+        list.innerHTML = '<div class="empty">Nothing matches these filters.</div>';
+      } else {
+        list.innerHTML = active.map(renderRow).join('');
       }
-      count.textContent = `${tasks.length} active`;
-      list.innerHTML = tasks.map(t => {
-        const waiting = t.waiting_on
-          ? `<div class="row__waiting"><span class="row__waiting-label">Waiting on</span>&nbsp;${escapeHtml(t.waiting_on)}</div>`
-          : '';
-        const pClass = pillClass(t.status);
-        const pText = pillLabel(t.status);
-        return `
-          <div class="row">
-            <div class="row__top">
-              <div style="min-width:0; flex:1;">
-                <h3 class="row__subject">
-                  <span class="row__id">#${escapeHtml(String(t.id))}</span>${escapeHtml(t.subject)}
-                </h3>
-              </div>
-              <span class="pill pill--${pClass}">${pText}</span>
-            </div>
-            ${t.note ? `<p class="row__note">${escapeHtml(t.note)}</p>` : ''}
-            ${waiting}
-          </div>
-        `;
-      }).join('');
+      count.textContent = `${active.length} active`;
+
+      const doneList = document.getElementById('doneList');
+      const doneCount = document.getElementById('doneCount');
+      if (done.length === 0) {
+        doneList.innerHTML = '<div class="empty">Nothing shipped under these filters yet.</div>';
+      } else {
+        doneList.innerHTML = done.map(renderRow).join('');
+      }
+      doneCount.textContent = `${done.length} shipped`;
+    }
+
+    function renderTasks(data) {
+      allTasks = data.tasks || [];
+      renderFilterChips();
+      renderAll();
     }
 
     function renderIdeas(data) {
@@ -395,6 +599,7 @@
       }
     }
 
+    loadFilterPrefs();
     load();
     // Poll every 30s so overnight progress shows up without a manual refresh
     setInterval(load, 30000);
