@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Navigation — Tracy Harris Co Main Site</title>
+  <title>Navigation — Sticky + mega menu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,32 +13,11 @@
   <style>
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: var(--f-sans);
       background: var(--surface-canvas);
       color: var(--ink-body);
       -webkit-font-smoothing: antialiased;
-    }
-    .page-pad {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: var(--sp-8) var(--sp-5);
-    }
-    .page-pad h2 {
-      font-family: var(--f-serif-display);
-      font-size: clamp(40px, 5vw, 64px);
-      font-weight: 400;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin: 0 0 var(--sp-5) 0;
-      color: var(--ink-heading);
-    }
-    .page-pad h2 em { font-family: var(--f-serif-italic); font-style: italic; }
-    .page-pad p {
-      font-size: 18px;
-      line-height: 1.65;
-      color: var(--ink-body);
-      max-width: 62ch;
-      margin: 0 0 var(--sp-5) 0;
     }
   </style>
 </head>
@@ -133,13 +112,6 @@
       </button>
     </div>
   </nav>
-
-  <section class="page-pad">
-    <h2>Peace, Profit <em>and Presence</em>.</h2>
-    <p>This page below the nav is a demo so you can hover the menu and see dropdowns against real content. Try hovering Programs or About to see the mega-menu, or click them to toggle open. Works with keyboard too: Tab to focus, Enter to open, Escape to close.</p>
-    <p>On mobile (under 900px) the nav collapses to a burger button. The dropdown logic is disabled at that breakpoint because hover doesn't apply on touch devices.</p>
-    <p>All colours, fonts, and spacing come from the brand kit tokens. Switch the brand by changing <code>data-brand="tracy"</code> on the body tag: FFB, FFM, and FRESH will inherit their own tokens automatically.</p>
-  </section>
 
   <script src="../navigation.js"></script>
 </body>
