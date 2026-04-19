@@ -300,9 +300,9 @@
     "note": "Always name and email"
   },
   "image-grid.bento": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "Need enough images in the grid to pill a page"
+    "status": "approved",
+    "at": "2026-04-19T14:17:46.326538Z",
+    "note": null
   },
   "expandable-cta.ffm-application": {
     "status": "revise",
@@ -310,24 +310,24 @@
     "note": "The gold is a bit much for the pop-up background. I think we make that the charcoal color."
   },
   "podcast-card.featured": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "This image needs to be updated to the latest podcast image that you can get from the internet."
+    "status": "approved",
+    "at": "2026-04-19T14:17:46.326538Z",
+    "note": null
   },
   "podcast-card.compact": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "This player kind of sucks. I just feel like you could do something that's a bit more fun. Do you know, like, the Spotify mini player or something like that? Just the UI on it needs a bit more love."
+    "status": "approved",
+    "at": "2026-04-19T14:17:46.326538Z",
+    "note": null
   },
   "programs-grid.three-card": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "These are a bit boring. The products need the logos above them, not as massive, but then somehow be able to distinguish them."
+    "status": "approved",
+    "at": "2026-04-19T14:17:46.326538Z",
+    "note": null
   },
   "programs-grid.two-card": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "This one is just boring. Logos, anything else? Why is it so boring?"
+    "status": "approved",
+    "at": "2026-04-19T14:17:46.326538Z",
+    "note": null
   },
   "guarantee.badge": {
     "status": "approved",
