@@ -242,14 +242,28 @@
       background: var(--p-oatmeal);
       border-right: 1px solid var(--border-hairline);
       overflow: hidden;
+      cursor: zoom-in;
     }
+    /* Scaled-iframe pattern (2026-04-18):
+       The iframe renders at a FIXED desktop viewport (1440x900) so responsive
+       components inside still see a desktop width. Then we transform-scale it
+       down to fit whatever size the thumb is in the current grid. That keeps
+       desktop fidelity regardless of breakpoint. Per-thumb scale is set in JS
+       via a ResizeObserver (sets --tile-scale custom property). */
     .card__preview iframe {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      /* Override the global guardrail `img, svg, video, iframe { max-width: 100% }`
+         in tokens.css — we need the iframe to render at its natural 1440px so the
+         transform: scale() below actually has something to shrink down. */
+      max-width: none;
       border: 0;
       pointer-events: none;
+      transform: scale(var(--tile-scale, 0.25));
+      transform-origin: top left;
       transition: opacity 160ms ease;
     }
 
@@ -637,6 +651,95 @@
     .btn:focus-visible {
       outline: 2px solid var(--p-aztek);
       outline-offset: 2px;
+    }
+
+    /* ======================================================================
+       PREVIEW MODAL (2026-04-18)
+       Shared modal that shows any tile's iframe at desktop fidelity, scaled
+       to fit the viewport. Uses the same scaled-iframe pattern.
+       ====================================================================== */
+    .preview-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4vh 4vw;
+    }
+    .preview-modal[hidden] { display: none; }
+    .preview-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(16, 16, 16, 0.72);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      cursor: zoom-out;
+    }
+    .preview-modal__content {
+      position: relative;
+      width: min(82vw, 1440px);
+      aspect-ratio: 16 / 10;
+      max-height: 90vh;
+      background: var(--p-oatmeal);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    .preview-modal__iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      max-width: none; /* override tokens.css global iframe cap */
+      border: 0;
+      transform: scale(var(--modal-scale, 0.7));
+      transform-origin: top left;
+    }
+    .preview-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(16, 16, 16, 0.82);
+      color: var(--p-white);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.15s ease;
+    }
+    .preview-modal__close:hover { background: var(--p-aztek); }
+    .preview-modal__caption {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      padding: 8px 14px;
+      background: rgba(16, 16, 16, 0.78);
+      color: var(--p-white);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: var(--r-pill);
+      z-index: 2;
+      max-width: calc(100% - 80px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    @media (max-width: 640px) {
+      .preview-modal { padding: 2vh 2vw; }
+      .preview-modal__content { width: 96vw; max-height: 85vh; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .preview-modal__backdrop { backdrop-filter: none; -webkit-backdrop-filter: none; }
     }
   </style>
 </head>
@@ -1127,6 +1230,16 @@
 
   <div class="toast" id="toast">Saved.</div>
 
+  <!-- Preview modal (scaled-iframe at desktop fidelity) -->
+  <div class="preview-modal" id="previewModal" role="dialog" aria-modal="true" aria-label="Variant preview" hidden>
+    <div class="preview-modal__backdrop" data-role="modal-close"></div>
+    <div class="preview-modal__content">
+      <span class="preview-modal__caption" id="previewModalCaption"></span>
+      <iframe class="preview-modal__iframe" id="previewModalIframe" src="" title="Variant preview"></iframe>
+      <button class="preview-modal__close" type="button" data-role="modal-close" aria-label="Close preview">&times;</button>
+    </div>
+  </div>
+
   <script>
     // -------------------------------------------------------------------
     // Variant inventory — 47 variants across 18 families
@@ -1486,9 +1599,9 @@
       const noteVisible = current.status === 'revise' && current.note ? 'is-visible' : '';
 
       card.innerHTML = `
-        <div class="card__preview">
+        <div class="card__preview" data-role="thumb" data-preview-src="${srcWithHash}" data-preview-caption="${escapeHtml(v.name)}" role="button" tabindex="0" aria-label="Preview ${escapeHtml(v.name)} larger">
           <div class="card__preview-placeholder">Loading preview</div>
-          <iframe data-src="${srcWithHash}" width="1440" height="1000" loading="lazy" title="${v.name}" aria-hidden="true"></iframe>
+          <iframe data-src="${srcWithHash}" width="1440" height="900" loading="lazy" title="${v.name}" aria-hidden="true"></iframe>
           <a class="card__open" href="${srcWithHash}" target="_blank" rel="noopener">Open ↗</a>
         </div>
         <div class="card__body">
@@ -1534,6 +1647,23 @@
       card.querySelector('[data-role="revise-open"]').addEventListener('click', () => openRevise(card, v.id));
       card.querySelector('[data-role="revise-cancel"]').addEventListener('click', () => closeRevise(card));
       card.querySelector('[data-role="revise-save"]').addEventListener('click', () => saveRevise(card, v.id));
+
+      // Wire thumb click -> preview modal. The "Open ↗" link has its own
+      // default behaviour (new tab); stop propagation so it doesn't fire the
+      // modal on top. Placeholder + iframe are pointer-events:none in CSS
+      // already, so this handler fires for the whole thumb area.
+      const thumb = card.querySelector('[data-role="thumb"]');
+      thumb.addEventListener('click', (e) => {
+        if (e.target.closest('.card__open')) return;
+        openPreviewModal(thumb.dataset.previewSrc, thumb.dataset.previewCaption);
+      });
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openPreviewModal(thumb.dataset.previewSrc, thumb.dataset.previewCaption);
+        }
+      });
+      observeThumb(thumb);
 
       return card;
     }
@@ -1676,6 +1806,82 @@
         io.unobserve(iframe);
       });
     }, { rootMargin: '400px' });
+
+    // -------------------------------------------------------------------
+    // Scaled-iframe thumbnails (2026-04-18)
+    // The iframe inside each .card__preview is rendered at a fixed 1440x900
+    // desktop viewport, then scaled to fit the thumb via transform: scale().
+    // ResizeObserver keeps --tile-scale correct across viewport changes.
+    // -------------------------------------------------------------------
+    const FIXED_IFRAME_WIDTH = 1440;
+    const thumbResizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width || entry.target.offsetWidth;
+        if (w > 0) {
+          entry.target.style.setProperty('--tile-scale', (w / FIXED_IFRAME_WIDTH).toString());
+        }
+      }
+    });
+    function observeThumb(el) {
+      if (!el) return;
+      // Seed an initial scale immediately so we don't wait a frame.
+      const w = el.offsetWidth;
+      if (w > 0) el.style.setProperty('--tile-scale', (w / FIXED_IFRAME_WIDTH).toString());
+      thumbResizeObserver.observe(el);
+    }
+
+    // -------------------------------------------------------------------
+    // Preview modal (2026-04-18)
+    // Clicking a card's thumb area opens a larger, scaled preview of the
+    // same iframe src. Close via Esc, backdrop, or the x button.
+    // -------------------------------------------------------------------
+    const previewModalEl = document.getElementById('previewModal');
+    const previewModalIframe = document.getElementById('previewModalIframe');
+    const previewModalCaption = document.getElementById('previewModalCaption');
+    const previewModalContent = previewModalEl.querySelector('.preview-modal__content');
+    let previewLastFocus = null;
+
+    function updateModalScale() {
+      if (previewModalEl.hidden) return;
+      const w = previewModalContent.offsetWidth;
+      if (w > 0) {
+        previewModalIframe.style.setProperty('--modal-scale', (w / FIXED_IFRAME_WIDTH).toString());
+      }
+    }
+    const modalResizeObserver = new ResizeObserver(updateModalScale);
+    modalResizeObserver.observe(previewModalContent);
+
+    function openPreviewModal(src, caption) {
+      if (!src) return;
+      previewLastFocus = document.activeElement;
+      previewModalCaption.textContent = caption || '';
+      // Only reset src if it's changed, so we reuse the cached frame when possible.
+      if (previewModalIframe.getAttribute('src') !== src) {
+        previewModalIframe.src = src;
+      }
+      previewModalEl.hidden = false;
+      document.body.style.overflow = 'hidden';
+      // Wait a tick so layout settles before scaling.
+      requestAnimationFrame(updateModalScale);
+      // Focus the close button for keyboard users.
+      previewModalEl.querySelector('.preview-modal__close').focus();
+    }
+
+    function closePreviewModal() {
+      if (previewModalEl.hidden) return;
+      previewModalEl.hidden = true;
+      document.body.style.overflow = '';
+      if (previewLastFocus && typeof previewLastFocus.focus === 'function') {
+        previewLastFocus.focus();
+      }
+    }
+
+    previewModalEl.addEventListener('click', (e) => {
+      if (e.target.matches('[data-role="modal-close"]')) closePreviewModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !previewModalEl.hidden) closePreviewModal();
+    });
 
     // -------------------------------------------------------------------
     // Export / copy-summary
