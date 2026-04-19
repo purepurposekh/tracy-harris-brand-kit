@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero — Amaretto (polished)</title>
+  <meta name="description" content="Tracy Harris — mentorship, mastermind and community for women building Freedom Filled businesses." />
+
+  <!-- Brand kit stylesheets via jsDelivr -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/hero/hero.css" />
+
+  <style>
+    /* ----------------------------------------------------------------
+       Amaretto — wordmark-over-portrait hero.
+       Polished: custom easing curves, staggered entrance, tactile
+       micro-interactions, grain overlay, tinted shadows, reduced
+       motion honoured. Brand-true: Editors Note + Jhon Halend + Poppins,
+       aztek/oatmeal/charcoal palette.
+       ---------------------------------------------------------------- */
+
+    :root {
+      --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-drawer:    cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-charcoal);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Skip link for keyboard users */
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--p-oatmeal); color: var(--p-charcoal);
+      padding: 10px 14px; z-index: 100;
+      font-family: var(--f-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    /* T brandmark */
+    .t-mark { width: auto; fill: currentColor; display: block; }
+    .t-mark--bar { height: 28px; }
+
+    /* -------- TOP NAV -------- */
+    .ahero__nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 22px 40px;
+      color: var(--p-oatmeal);
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: aheroFadeDown 900ms var(--ease-out-craft) 200ms forwards;
+    }
+    .ahero__nav-group { display: flex; gap: 36px; align-items: center; }
+    .ahero__nav-group--right { justify-content: flex-end; }
+
+    .ahero__nav-link {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+      padding: 10px 2px;       /* bigger touch target, optical centering */
+      transition: color 180ms var(--ease-out-craft);
+    }
+    .ahero__nav-link::after {
+      content: "";
+      position: absolute;
+      left: 2px; right: 2px; bottom: 6px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 320ms var(--ease-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .ahero__nav-link:hover::after { transform: scaleX(1); }
+    }
+    .ahero__nav-link:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .ahero__nav-link:active { transform: translateY(1px); }
+
+    .ahero__nav-wordmark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: inherit;
+      text-decoration: none;
+      padding: 8px;
+      transition: transform 240ms var(--ease-out-craft), opacity 240ms var(--ease-out-craft);
+    }
+    .ahero__nav-wordmark:hover { transform: scale(1.04); }
+    .ahero__nav-wordmark:active { transform: scale(0.97); }
+    .ahero__nav-wordmark:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 6px;
+      border-radius: 2px;
+    }
+
+    .ahero__menu {
+      background: none; border: 0; cursor: pointer;
+      padding: 10px; color: inherit;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--f-sans);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      -webkit-tap-highlight-color: transparent;
+      margin-left: 8px;
+      transition: transform 160ms var(--ease-out-craft), opacity 160ms var(--ease-out-craft);
+      min-height: 44px; min-width: 44px;
+    }
+    .ahero__menu:active { transform: scale(0.97); }
+    .ahero__menu:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .ahero__menu-icon { display: inline-block; width: 24px; height: 10px; position: relative; }
+    .ahero__menu-icon::before,
+    .ahero__menu-icon::after {
+      content: ""; position: absolute; left: 0; right: 0;
+      height: 1.5px; background: currentColor;
+      transition: transform 280ms var(--ease-out-craft);
+    }
+    .ahero__menu-icon::before { top: 0; }
+    .ahero__menu-icon::after  { bottom: 0; }
+    .ahero__menu:hover .ahero__menu-icon::before { transform: translateX(-2px); }
+    .ahero__menu:hover .ahero__menu-icon::after  { transform: translateX(2px); }
+
+    /* -------- THE HERO -------- */
+    .ahero {
+      position: relative;
+      min-height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px clamp(16px, 4vw, 48px);
+      background: var(--p-charcoal);
+      isolation: isolate;
+    }
+
+    /* Background photo with slow Ken Burns */
+    .ahero__image {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/tracy-outfit8-39.jpg");
+      background-size: cover;
+      background-position: center 30%;
+      filter: saturate(0.95) contrast(1.02);
+      z-index: 1;
+      transform: scale(1.06);
+      animation: aheroReveal 1400ms var(--ease-drawer) 100ms both,
+                 aheroKenBurns 28s var(--ease-in-out-craft) 1400ms infinite alternate;
+      will-change: transform, opacity;
+    }
+    @keyframes aheroReveal {
+      from { opacity: 0; transform: scale(1.12); }
+      to   { opacity: 1; transform: scale(1.06); }
+    }
+    @keyframes aheroKenBurns {
+      from { transform: scale(1.06) translate3d(0, 0, 0); }
+      to   { transform: scale(1.11) translate3d(-1.2%, -0.8%, 0); }
+    }
+
+    /* Edge vignette */
+    .ahero__image::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(16,16,16,0.48) 0%,
+          rgba(16,16,16,0.06) 14%,
+          rgba(16,16,16,0.0)  40%,
+          rgba(16,16,16,0.0)  70%,
+          rgba(16,16,16,0.44) 100%);
+    }
+
+    /* Central scrim behind type */
+    .ahero__scrim {
+      position: absolute;
+      inset: 0; z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(ellipse 62% 48% at 50% 52%,
+        rgba(16,16,16,0.58) 0%,
+        rgba(16,16,16,0.36) 38%,
+        rgba(16,16,16,0.12) 62%,
+        rgba(16,16,16,0.0)  82%);
+    }
+
+    /* Subtle grain — fixed overlay, pointer-events:none */
+    .ahero__grain {
+      position: absolute;
+      inset: 0; z-index: 2;
+      pointer-events: none;
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.89 0 0 0 0.42 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    /* -------- CONTENT -------- */
+    .ahero__content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 1100px;
+      width: 100%;
+      color: var(--p-oatmeal);
+    }
+
+    .ahero__eyebrow,
+    .ahero__wordmark,
+    .ahero__sub {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: aheroRise 900ms var(--ease-out-craft) forwards;
+      will-change: transform, opacity;
+    }
+    .ahero__eyebrow  { animation-delay: 420ms; }
+    .ahero__wordmark { animation-delay: 560ms; }
+    .ahero__sub      { animation-delay: 780ms; }
+
+    @keyframes aheroRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .ahero__eyebrow {
+      font-family: 'Jhon Halend', cursive;
+      font-weight: 400;
+      font-size: clamp(26px, 3vw, 40px);
+      line-height: 1;
+      margin: 0 0 14px;
+      color: var(--p-oatmeal);
+      letter-spacing: 0.01em;
+    }
+
+    .ahero__wordmark {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(44px, 7.2vw, 108px);
+      line-height: 1;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      margin: 0;
+      text-wrap: balance;
+      /* Optical lift — serif caps read heavier at size */
+      text-shadow: 0 2px 60px rgba(0,0,0,0.25);
+    }
+
+    .ahero__sub {
+      font-family: var(--f-sans);
+      font-size: clamp(13px, 1.05vw, 15px);
+      line-height: 1.65;
+      font-weight: 400;
+      color: var(--p-oatmeal);
+      margin: 20px auto 0;
+      max-width: 44ch;
+      opacity: 0.92;
+      text-wrap: pretty;
+    }
+    .ahero__sub em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* Navigate / scroll cue */
+    .ahero__navigate {
+      position: absolute;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: var(--p-oatmeal);
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      padding: 8px 10px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: aheroRise 900ms var(--ease-out-craft) 1100ms forwards;
+      text-decoration: none;
+      transition: opacity 240ms var(--ease-out-craft), transform 240ms var(--ease-out-craft);
+    }
+    .ahero__navigate::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 30px;
+      background: currentColor;
+      opacity: 0.6;
+      transform-origin: top center;
+      animation: aheroBreatheLine 2800ms var(--ease-in-out-craft) 1600ms infinite;
+    }
+    @keyframes aheroBreatheLine {
+      0%, 100% { transform: scaleY(1);   opacity: 0.6; }
+      50%      { transform: scaleY(0.7); opacity: 0.9; }
+    }
+    .ahero__navigate:hover { transform: translateX(-50%) translateY(3px); }
+    .ahero__navigate:active { transform: translateX(-50%) translateY(4px) scale(0.97); }
+    .ahero__navigate:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 4px;
+    }
+
+    /* -------- EXHALE BELOW -------- */
+    .aexhale {
+      padding: clamp(80px, 12vh, 140px) clamp(20px, 6vw, 80px);
+      background: var(--p-cream);
+      color: var(--p-charcoal);
+      text-align: center;
+      position: relative;
+    }
+    .aexhale p {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(24px, 2.4vw, 32px);
+      line-height: 1.45;
+      max-width: 720px;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+    .aexhale em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    @keyframes aheroFadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* -------- MOBILE -------- */
+    @media (max-width: 820px) {
+      .ahero__nav {
+        padding: 14px 18px;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+      }
+      .ahero__nav-group:not(.ahero__nav-group--right) { display: none; }
+      .ahero__nav-group--right .ahero__nav-link { display: none; }
+      .ahero__nav-wordmark .t-mark--bar { height: 22px; }
+      .ahero__menu { margin-left: 0; padding: 10px; }
+      .ahero__menu span:first-child { display: none; }
+      .ahero__menu-icon { width: 26px; height: 12px; }
+
+      .ahero { padding: 90px 20px; }
+      .ahero__eyebrow  { font-size: 26px; }
+      .ahero__wordmark { font-size: clamp(34px, 10vw, 64px); letter-spacing: 0.04em; }
+      .ahero__sub      { font-size: 13px; max-width: 34ch; }
+      .ahero__navigate { bottom: 18px; font-size: 9px; }
+      .ahero__navigate::after { height: 22px; }
+    }
+
+    @media (max-width: 380px) {
+      .ahero__wordmark { font-size: 32px; }
+    }
+
+    /* -------- REDUCED MOTION -------- */
+    @media (prefers-reduced-motion: reduce) {
+      .ahero__image,
+      .ahero__nav,
+      .ahero__eyebrow,
+      .ahero__wordmark,
+      .ahero__sub,
+      .ahero__navigate,
+      .ahero__navigate::after {
+        animation: none !important;
+      }
+      .ahero__image  { transform: scale(1.02); opacity: 1; }
+      .ahero__nav,
+      .ahero__eyebrow,
+      .ahero__wordmark,
+      .ahero__sub,
+      .ahero__navigate { opacity: 1; transform: none; }
+      .ahero__navigate { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <a href="#below" class="skip-link">Skip to content</a>
+
+  <section class="ahero" aria-label="Introduction">
+    <div class="ahero__image" role="img" aria-label="Tracy Harris portrait"></div>
+    <div class="ahero__scrim" aria-hidden="true"></div>
+    <div class="ahero__grain" aria-hidden="true"></div>
+
+    <nav class="ahero__nav" aria-label="Primary">
+      <div class="ahero__nav-group">
+        <a href="/" class="ahero__nav-link">Home</a>
+        <a href="/about" class="ahero__nav-link">About</a>
+        <a href="/programs" class="ahero__nav-link">Programs</a>
+      </div>
+
+      <a href="/" class="ahero__nav-wordmark" aria-label="Tracy Harris home">
+        <svg class="t-mark t-mark--bar" viewBox="0 0 263.98 382.72" aria-hidden="true">
+          <path d="M0,94.76V12.84L76.42,0v94.76h72.75l-2.45,10.39h-70.3v182.19c0,34.24,14.67,51.97,45.24,51.97,17.73,0,31.18-12.23,36.68-21.4l9.17,5.5c-12.23,28.73-49.52,59.3-90.48,59.3-48.3,0-77.03-19.56-77.03-93.54V94.76Z"/>
+          <circle cx="233.68" cy="352.41" r="30.31"/>
+        </svg>
+      </a>
+
+      <div class="ahero__nav-group ahero__nav-group--right">
+        <a href="/podcast" class="ahero__nav-link">Podcast</a>
+        <a href="/blog" class="ahero__nav-link">Blog</a>
+        <a href="/apply" class="ahero__nav-link">Apply</a>
+        <button class="ahero__menu" type="button" aria-label="Open menu">
+          <span>Menu</span>
+          <span class="ahero__menu-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="ahero__content">
+      <p class="ahero__eyebrow">Peace, Profit, Presence.</p>
+      <h1 class="ahero__wordmark">Tracy Harris</h1>
+      <p class="ahero__sub">
+        Mentorship, mastermind and community for women building <em>Freedom Filled®</em> businesses. Grounded in story, strategy and spaciousness.
+      </p>
+    </div>
+
+    <a href="#below" class="ahero__navigate" aria-label="Scroll to next section">
+      <span>Navigate</span>
+    </a>
+  </section>
+
+  <section class="aexhale" id="below">
+    <p>
+      Build a <em>beautiful business</em> that lets you live.
+      Peaceful. Profitable. <em>Present.</em>
+    </p>
+  </section>
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero — Martini (polished)</title>
+  <meta name="description" content="Tracy — Freedom Filled Business for women building by design." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/hero/hero.css" />
+
+  <style>
+    /* Martini — full-bleed portrait, single giant wordmark.
+       Polished: slow parallax drift on photo, split-letter stagger on
+       wordmark, tagline reveal, tactile nav interactions, grain,
+       reduced-motion honoured. Brand-true tokens + fonts. */
+
+    :root {
+      --ease-out-craft:    cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer:       cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-charcoal);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--p-oatmeal); color: var(--p-charcoal);
+      padding: 10px 14px; z-index: 100;
+      font-family: var(--f-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    .t-mark { width: auto; fill: currentColor; display: block; }
+    .t-mark--bar { height: 28px; }
+
+    /* -------- NAV -------- */
+    .mhero__nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 22px 40px;
+      color: var(--p-oatmeal);
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: mheroFadeDown 900ms var(--ease-out-craft) 200ms forwards;
+    }
+    @keyframes mheroFadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .mhero__nav-group { display: flex; gap: 34px; align-items: center; }
+    .mhero__nav-group--right { justify-content: flex-end; }
+
+    .mhero__nav-link {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: inherit;
+      text-decoration: none;
+      position: relative;
+      padding: 10px 2px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition: color 180ms var(--ease-out-craft);
+    }
+    .mhero__nav-link::after {
+      content: "";
+      position: absolute;
+      left: 2px; right: 2px; bottom: 8px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 320ms var(--ease-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .mhero__nav-link:hover::after { transform: scaleX(1); }
+    }
+    .mhero__nav-link:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .mhero__nav-link:active { transform: translateY(1px); }
+
+    .mhero__nav-mark {
+      color: inherit; text-decoration: none; display: inline-flex;
+      padding: 8px;
+      transition: transform 240ms var(--ease-out-craft);
+    }
+    .mhero__nav-mark:hover  { transform: scale(1.04); }
+    .mhero__nav-mark:active { transform: scale(0.97); }
+    .mhero__nav-mark:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 6px;
+      border-radius: 2px;
+    }
+
+    .mhero__menu {
+      background: none; border: 0; cursor: pointer;
+      padding: 10px; color: inherit;
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--f-sans);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 44px; min-width: 44px;
+      transition: transform 160ms var(--ease-out-craft);
+    }
+    .mhero__menu:active { transform: scale(0.97); }
+    .mhero__menu:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .mhero__menu-icon {
+      display: inline-block;
+      width: 24px; height: 10px;
+      position: relative;
+    }
+    .mhero__menu-icon::before,
+    .mhero__menu-icon::after {
+      content: "";
+      position: absolute; left: 0; right: 0;
+      height: 1.5px; background: currentColor;
+      transition: transform 280ms var(--ease-out-craft);
+    }
+    .mhero__menu-icon::before { top: 0; }
+    .mhero__menu-icon::after  { bottom: 0; }
+    .mhero__menu:hover .mhero__menu-icon::before { transform: translateX(-2px); }
+    .mhero__menu:hover .mhero__menu-icon::after  { transform: translateX(2px); }
+
+    /* -------- HERO -------- */
+    .mhero {
+      position: relative;
+      min-height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0 clamp(16px, 3vw, 48px);
+      background: var(--p-charcoal);
+      isolation: isolate;
+    }
+
+    .mhero__image {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg");
+      background-size: cover;
+      background-position: center 22%;
+      filter: saturate(0.92) contrast(1.02);
+      z-index: 1;
+      transform: scale(1.06);
+      animation: mheroReveal 1500ms var(--ease-drawer) 100ms both,
+                 mheroDrift 32s var(--ease-in-out-craft) 1500ms infinite alternate;
+      will-change: transform, opacity;
+    }
+    @keyframes mheroReveal {
+      from { opacity: 0; transform: scale(1.14); }
+      to   { opacity: 1; transform: scale(1.06); }
+    }
+    @keyframes mheroDrift {
+      from { transform: scale(1.06) translate3d(0, 0, 0); }
+      to   { transform: scale(1.10) translate3d(0.6%, -1%, 0); }
+    }
+
+    .mhero__image::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg,
+          rgba(16,16,16,0.38) 0%,
+          rgba(16,16,16,0.0)  28%,
+          rgba(16,16,16,0.0)  55%,
+          rgba(16,16,16,0.62) 100%);
+    }
+
+    /* Grain overlay */
+    .mhero__grain {
+      position: absolute;
+      inset: 0; z-index: 2;
+      pointer-events: none;
+      opacity: 0.32;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96 0 0 0 0 0.94 0 0 0 0 0.89 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+
+    .mhero__content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding-bottom: clamp(12vh, 16vh, 20vh);
+      width: 100%;
+      max-width: 1600px;
+    }
+
+    /* Split-letter reveal for Tracy */
+    .mhero__word {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(96px, 22vw, 340px);
+      line-height: 0.88;
+      color: var(--p-oatmeal);
+      margin: 0;
+      letter-spacing: -0.02em;
+      transform: translateY(4%);
+      text-shadow: 0 4px 80px rgba(0,0,0,0.28);
+    }
+    .mhero__word .ch {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(0.35em);
+      animation: mheroCharRise 1100ms var(--ease-drawer) forwards;
+      will-change: transform, opacity;
+    }
+    .mhero__word .ch:nth-child(1) { animation-delay: 500ms; }
+    .mhero__word .ch:nth-child(2) { animation-delay: 580ms; }
+    .mhero__word .ch:nth-child(3) { animation-delay: 660ms; }
+    .mhero__word .ch:nth-child(4) { animation-delay: 740ms; }
+    .mhero__word .ch:nth-child(5) { animation-delay: 820ms; }
+    @keyframes mheroCharRise {
+      from { opacity: 0; transform: translateY(0.35em); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);      filter: blur(0); }
+    }
+
+    .mhero__tagline {
+      font-family: var(--f-sans);
+      font-size: clamp(11px, 0.95vw, 13px);
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      margin: 24px 0 0;
+      opacity: 0;
+      animation: mheroTaglineIn 900ms var(--ease-out-craft) 1150ms forwards;
+    }
+    @keyframes mheroTaglineIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 0.92; transform: translateY(0); }
+    }
+    .mhero__tagline span { display: inline-block; }
+    .mhero__tagline span + span::before {
+      content: "·";
+      margin: 0 12px;
+      color: var(--p-sage);
+      opacity: 0.85;
+    }
+
+    .mhero__scroll {
+      position: absolute;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: var(--p-oatmeal);
+      font-family: var(--f-sans);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: mheroTaglineIn 900ms var(--ease-out-craft) 1400ms forwards;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .mhero__scroll::after {
+      content: "";
+      width: 1px; height: 26px;
+      background: currentColor;
+      opacity: 0.55;
+      transform-origin: top center;
+      animation: mheroBreathe 2800ms var(--ease-in-out-craft) 1800ms infinite;
+    }
+    @keyframes mheroBreathe {
+      0%, 100% { transform: scaleY(1);   opacity: 0.55; }
+      50%      { transform: scaleY(0.7); opacity: 0.9; }
+    }
+
+    /* -------- EXHALE -------- */
+    .mexhale {
+      padding: clamp(80px, 12vh, 140px) clamp(20px, 6vw, 80px);
+      background: var(--p-cream);
+      color: var(--p-charcoal);
+      text-align: center;
+    }
+    .mexhale p {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(24px, 2.4vw, 32px);
+      line-height: 1.45;
+      letter-spacing: -0.005em;
+      max-width: 720px;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+    .mexhale em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+
+    /* -------- MOBILE -------- */
+    @media (max-width: 820px) {
+      .mhero__nav {
+        padding: 14px 18px;
+        grid-template-columns: auto 1fr auto;
+      }
+      .mhero__nav-group:not(.mhero__nav-group--right) { display: none; }
+      .mhero__nav-group--right .mhero__nav-link { display: none; }
+      .mhero__menu { padding: 10px; }
+      .mhero__menu span:first-child { display: none; }
+      .mhero__menu-icon { width: 26px; height: 12px; }
+
+      .mhero { align-items: flex-end; }
+      .mhero__content {
+        padding-bottom: 22vh;
+        padding-top: 0;
+      }
+      .mhero__word {
+        transform: translateY(0);
+        font-size: clamp(76px, 26vw, 170px);
+      }
+      .mhero__tagline {
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        padding: 0 8px;
+        margin-top: 18px;
+      }
+      .mhero__tagline span + span::before { margin: 0 8px; }
+      .mhero__scroll { bottom: 14px; font-size: 9px; }
+      .mhero__scroll::after { height: 22px; }
+    }
+
+    @media (max-width: 380px) {
+      .mhero__word { font-size: clamp(64px, 24vw, 130px); }
+    }
+
+    /* -------- REDUCED MOTION -------- */
+    @media (prefers-reduced-motion: reduce) {
+      .mhero__image,
+      .mhero__nav,
+      .mhero__word .ch,
+      .mhero__tagline,
+      .mhero__scroll,
+      .mhero__scroll::after {
+        animation: none !important;
+      }
+      .mhero__image   { transform: scale(1.02); opacity: 1; }
+      .mhero__nav,
+      .mhero__tagline,
+      .mhero__scroll  { opacity: 1; transform: none; }
+      .mhero__scroll  { transform: translateX(-50%); }
+      .mhero__word .ch { opacity: 1; transform: none; filter: none; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <a href="#below" class="skip-link">Skip to content</a>
+
+  <section class="mhero" aria-label="Introduction">
+    <div class="mhero__image" role="img" aria-label="Tracy Harris portrait"></div>
+    <div class="mhero__grain" aria-hidden="true"></div>
+
+    <nav class="mhero__nav" aria-label="Primary">
+      <div class="mhero__nav-group">
+        <a href="/" class="mhero__nav-link">Home</a>
+        <a href="/about" class="mhero__nav-link">About</a>
+        <a href="/podcast" class="mhero__nav-link">Podcast</a>
+      </div>
+
+      <a href="/" class="mhero__nav-mark" aria-label="Tracy Harris home">
+        <svg class="t-mark t-mark--bar" viewBox="0 0 263.98 382.72" aria-hidden="true">
+          <path d="M0,94.76V12.84L76.42,0v94.76h72.75l-2.45,10.39h-70.3v182.19c0,34.24,14.67,51.97,45.24,51.97,17.73,0,31.18-12.23,36.68-21.4l9.17,5.5c-12.23,28.73-49.52,59.3-90.48,59.3-48.3,0-77.03-19.56-77.03-93.54V94.76Z"/>
+          <circle cx="233.68" cy="352.41" r="30.31"/>
+        </svg>
+      </a>
+
+      <div class="mhero__nav-group mhero__nav-group--right">
+        <a href="/programs" class="mhero__nav-link">Programs</a>
+        <a href="/blog" class="mhero__nav-link">Blog</a>
+        <a href="/apply" class="mhero__nav-link">Apply</a>
+        <button class="mhero__menu" type="button" aria-label="Open menu">
+          <span>Menu</span>
+          <span class="mhero__menu-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mhero__content">
+      <h1 class="mhero__word" aria-label="Tracy">
+        <span class="ch" aria-hidden="true">T</span><span class="ch" aria-hidden="true">r</span><span class="ch" aria-hidden="true">a</span><span class="ch" aria-hidden="true">c</span><span class="ch" aria-hidden="true">y</span>
+      </h1>
+      <p class="mhero__tagline">
+        <span>Freedom Filled® Business</span>
+        <span>for Women Building by Design</span>
+      </p>
+    </div>
+
+    <a href="#below" class="mhero__scroll" aria-label="Scroll to next section">
+      <span>Scroll</span>
+    </a>
+  </section>
+
+  <section class="mexhale" id="below">
+    <p>
+      Build a <em>beautiful business</em> that lets you live.
+      Peaceful. Profitable. <em>Present.</em>
+    </p>
+  </section>
+</body>
+</html>
