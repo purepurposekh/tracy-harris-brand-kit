@@ -232,11 +232,22 @@
         max-height: 60vh;
       }
       .hero__content { order: 1; }
+      /* Decorative trust stamp — tighten for mobile so it doesn't
+         consume viewport width with its letter-spacing + uppercase run. */
       .ffb-meta {
         position: static;
-        margin-top: 32px;
+        margin-top: 24px;
         display: flex;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        gap: 10px;
       }
+      .ffb-meta::before { width: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      /* Not essential at this width — hide. */
+      .ffb-meta { display: none; }
     }
 
     @media (max-width: 380px) {

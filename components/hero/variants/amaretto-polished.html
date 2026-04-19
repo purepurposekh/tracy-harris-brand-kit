@@ -294,7 +294,7 @@
       position: absolute;
       bottom: 26px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, 12px);
       z-index: 3;
       color: var(--p-oatmeal);
       font-family: var(--f-sans);
@@ -311,9 +311,13 @@
       align-items: center;
       gap: 10px;
       opacity: 0;
-      animation: aheroRise 900ms var(--ease-out-craft) 1100ms forwards;
+      animation: aheroNavigateRise 900ms var(--ease-out-craft) 1100ms forwards;
       text-decoration: none;
       transition: opacity 240ms var(--ease-out-craft), transform 240ms var(--ease-out-craft);
+    }
+    @keyframes aheroNavigateRise {
+      from { opacity: 0; transform: translate(-50%, 12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translate(-50%, 0);    filter: blur(0); }
     }
     .ahero__navigate::after {
       content: "";

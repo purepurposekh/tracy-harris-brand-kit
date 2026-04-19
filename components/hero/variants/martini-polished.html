@@ -272,7 +272,7 @@
       position: absolute;
       left: 50%;
       bottom: 22px;
-      transform: translateX(-50%);
+      transform: translate(-50%, 8px);
       z-index: 3;
       color: var(--p-oatmeal);
       font-family: var(--f-sans);
@@ -280,11 +280,15 @@
       letter-spacing: 0.3em;
       text-transform: uppercase;
       opacity: 0;
-      animation: mheroTaglineIn 900ms var(--ease-out-craft) 1400ms forwards;
+      animation: mheroScrollIn 900ms var(--ease-out-craft) 1400ms forwards;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       gap: 10px;
+    }
+    @keyframes mheroScrollIn {
+      from { opacity: 0;    transform: translate(-50%, 8px); }
+      to   { opacity: 0.92; transform: translate(-50%, 0); }
     }
     .mhero__scroll::after {
       content: "";
@@ -351,6 +355,11 @@
       .mhero__tagline span + span::before { margin: 0 8px; }
       .mhero__scroll { bottom: 14px; font-size: 9px; }
       .mhero__scroll::after { height: 22px; }
+
+      /* Mobile: pin the bg at its reveal-end state; iOS address-bar
+         collapse + continuous Ken Burns makes the photo visibly jump
+         on scroll. Static on mobile. Motion stays on desktop. */
+      .mhero__image { animation: mheroReveal 1500ms var(--ease-drawer) 100ms both; }
     }
 
     @media (max-width: 380px) {
