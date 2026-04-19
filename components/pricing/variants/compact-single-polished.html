@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing · Compact single (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/pricing/pricing.css" />
+  <style>
+    :root { --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1); }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .pricing { position: relative; overflow: hidden; isolation: isolate; }
+    .pricing::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 50% 40%,
+        rgba(110, 142, 119, 0.08) 0%,
+        rgba(110, 142, 119, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .pricing__inner { position: relative; z-index: 1; }
+
+    .pricing__eyebrow,
+    .pricing__title {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: prcRise 900ms var(--ease-out-craft) forwards;
+    }
+    .pricing__eyebrow { animation-delay: 140ms; }
+    .pricing__title   { animation-delay: 280ms; }
+
+    .pricing__card {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: prcCard 1000ms var(--ease-out-craft) 460ms forwards;
+      transition:
+        transform 320ms var(--ease-out-craft),
+        box-shadow 320ms var(--ease-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .pricing__card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 24px 48px -20px rgba(30, 55, 53, 0.25);
+      }
+    }
+
+    @keyframes prcRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+    @keyframes prcCard {
+      from { opacity: 0; transform: translateY(18px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .pricing__title { text-wrap: balance; }
+
+    .pricing__cta {
+      min-height: 48px;
+      transition:
+        background-color 200ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 220ms var(--ease-out-craft);
+    }
+    .pricing__cta--primary {
+      box-shadow: 0 6px 24px -12px rgba(30, 55, 53, 0.45);
+    }
+    .pricing__cta--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px -10px rgba(30, 55, 53, 0.55);
+    }
+    .pricing__cta--primary:active { transform: translateY(0) scale(0.98); }
+    .pricing__cta--primary:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pricing__eyebrow,
+      .pricing__title,
+      .pricing__card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="pricing" data-brand="tracy" aria-label="Choose your path">
+    <div class="pricing__inner">
+      <header class="pricing__header">
+        <p class="pricing__eyebrow">Start building</p>
+        <h2 class="pricing__title">Choose your <em>path</em>.</h2>
+      </header>
+
+      <div class="pricing__single">
+        <div class="pricing__card">
+          <p class="pricing__plan-name">Freedom Filled® Business™</p>
+          <p class="pricing__amount">$6,000</p>
+          <p class="pricing__amount-detail">AUD pay in full, or from $550/mo</p>
+          <hr class="pricing__divider" />
+          <ul class="pricing__features">
+            <li>Full 12-month curriculum</li>
+            <li>Group coaching calls</li>
+            <li>Private community</li>
+            <li>Tracy's proven frameworks</li>
+          </ul>
+          <a href="/ffb/apply" class="pricing__cta pricing__cta--primary">Apply to FFB</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

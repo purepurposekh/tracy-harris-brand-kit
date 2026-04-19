@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing · FFB side-by-side (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/pricing/pricing.css" />
+  <style>
+    :root { --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1); }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .pricing { position: relative; overflow: hidden; isolation: isolate; }
+    .pricing::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 30%,
+        rgba(110, 142, 119, 0.08) 0%,
+        rgba(110, 142, 119, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .pricing__inner { position: relative; z-index: 1; }
+
+    .pricing__eyebrow,
+    .pricing__title,
+    .pricing__sub {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: prRise 900ms var(--ease-out-craft) forwards;
+    }
+    .pricing__eyebrow { animation-delay: 140ms; }
+    .pricing__title   { animation-delay: 280ms; }
+    .pricing__sub     { animation-delay: 420ms; }
+
+    .pricing__card {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: prCardRise 1000ms var(--ease-out-craft) forwards;
+      transition:
+        transform 320ms var(--ease-out-craft),
+        box-shadow 320ms var(--ease-out-craft),
+        border-color 320ms var(--ease-out-craft);
+    }
+    .pricing__options .pricing__card:nth-child(1) { animation-delay: 560ms; }
+    .pricing__options .pricing__card:nth-child(2) { animation-delay: 700ms; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .pricing__card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 24px 48px -20px rgba(30, 55, 53, 0.25);
+      }
+      .pricing__card--featured:hover {
+        box-shadow: 0 28px 56px -16px rgba(30, 55, 53, 0.3);
+      }
+    }
+
+    @keyframes prRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+    @keyframes prCardRise {
+      from { opacity: 0; transform: translateY(18px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .pricing__title { text-wrap: balance; }
+    .pricing__sub   { text-wrap: pretty; }
+
+    .pricing__cta {
+      min-height: 48px;
+      transition:
+        background-color 200ms var(--ease-out-craft),
+        color 200ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 220ms var(--ease-out-craft),
+        border-color 200ms var(--ease-out-craft);
+    }
+    .pricing__cta--primary {
+      box-shadow: 0 8px 24px -12px rgba(30, 55, 53, 0.5);
+    }
+    .pricing__cta--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px -10px rgba(30, 55, 53, 0.6);
+    }
+    .pricing__cta--primary:active { transform: translateY(0) scale(0.98); }
+    .pricing__cta--primary:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 3px;
+    }
+    .pricing__cta--secondary:hover { transform: translateY(-1px); }
+    .pricing__cta--secondary:active { transform: translateY(0) scale(0.98); }
+    .pricing__cta--secondary:focus-visible {
+      outline: 1px solid var(--p-aztek);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pricing__eyebrow,
+      .pricing__title,
+      .pricing__sub,
+      .pricing__card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-brand="ffb">
+  <section class="pricing pricing--elevated" data-brand="ffb" aria-label="FFB pricing">
+    <div class="pricing__inner">
+      <header class="pricing__header">
+        <p class="pricing__eyebrow">Your investment</p>
+        <h2 class="pricing__title">Freedom Filled® <em>Business</em>™</h2>
+        <p class="pricing__sub">12 months of mentorship, frameworks, and a community of right-fit women. Choose the option that works for you.</p>
+      </header>
+
+      <div class="pricing__options">
+
+        <div class="pricing__card pricing__card--featured">
+          <span class="pricing__badge">Best value</span>
+          <p class="pricing__plan-name">Pay in full</p>
+          <p class="pricing__amount">$6,000</p>
+          <p class="pricing__amount-detail">AUD, one payment</p>
+          <hr class="pricing__divider" />
+          <ul class="pricing__features">
+            <li>Full 12-month curriculum</li>
+            <li>Group coaching calls with Tracy</li>
+            <li>Private community access</li>
+            <li>Million Dollar Message™ framework</li>
+            <li>Signature Model™ + Freedom Filled® Offers™</li>
+            <li>Ongoing support for 12 months</li>
+          </ul>
+          <a href="/ffb/apply" class="pricing__cta pricing__cta--primary">Apply Now</a>
+        </div>
+
+        <div class="pricing__card">
+          <p class="pricing__plan-name">Monthly</p>
+          <p class="pricing__amount">$550</p>
+          <p class="pricing__amount-detail">AUD/month for 12 months</p>
+          <hr class="pricing__divider" />
+          <ul class="pricing__features">
+            <li>Full 12-month curriculum</li>
+            <li>Group coaching calls with Tracy</li>
+            <li>Private community access</li>
+            <li>Million Dollar Message™ framework</li>
+            <li>Signature Model™ + Freedom Filled® Offers™</li>
+            <li>Ongoing support for 12 months</li>
+          </ul>
+          <a href="/ffb/apply" class="pricing__cta pricing__cta--secondary">Apply Now</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</body>
+</html>

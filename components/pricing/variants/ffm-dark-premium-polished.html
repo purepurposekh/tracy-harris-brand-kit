@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing · FFM dark premium (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/pricing/pricing.css" />
+  <style>
+    :root { --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1); }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; background: var(--p-charcoal); }
+
+    .pricing { position: relative; overflow: hidden; isolation: isolate; }
+    .pricing::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%,
+        rgba(201, 164, 108, 0.16) 0%,
+        rgba(201, 164, 108, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .pricing__inner { position: relative; z-index: 1; }
+
+    .pricing__eyebrow,
+    .pricing__title,
+    .pricing__sub {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: prmRise 900ms var(--ease-out-craft) forwards;
+    }
+    .pricing__eyebrow { animation-delay: 140ms; }
+    .pricing__title   { animation-delay: 280ms; }
+    .pricing__sub     { animation-delay: 420ms; }
+
+    .pricing__card {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: prmCardRise 1000ms var(--ease-out-craft) 580ms forwards;
+      transition:
+        transform 320ms var(--ease-out-craft),
+        box-shadow 320ms var(--ease-out-craft);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .pricing__card--featured:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 32px 64px -20px rgba(201, 164, 108, 0.3);
+      }
+    }
+
+    @keyframes prmRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+    @keyframes prmCardRise {
+      from { opacity: 0; transform: translateY(18px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .pricing__title { text-wrap: balance; }
+    .pricing__sub   { text-wrap: pretty; }
+
+    .pricing__cta {
+      min-height: 48px;
+      transition:
+        background 220ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 240ms var(--ease-out-craft);
+    }
+    .pricing__cta--primary {
+      box-shadow: 0 8px 28px -12px rgba(201, 164, 108, 0.55);
+    }
+    .pricing__cta--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px -10px rgba(201, 164, 108, 0.7);
+    }
+    .pricing__cta--primary:active { transform: translateY(0) scale(0.98); }
+    .pricing__cta--primary:focus-visible {
+      outline: 2px solid var(--p-gold-mid);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pricing__eyebrow,
+      .pricing__title,
+      .pricing__sub,
+      .pricing__card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-brand="ffm">
+  <section class="pricing pricing--dark" data-brand="ffm" aria-label="FFM pricing">
+    <div class="pricing__inner">
+      <header class="pricing__header">
+        <p class="pricing__eyebrow">The investment</p>
+        <h2 class="pricing__title">Freedom Filled® <em>Mastermind</em></h2>
+        <p class="pricing__sub">Application-only. Maximum 20 women per cohort. Retreats, hot seats, and direct access to Tracy.</p>
+      </header>
+
+      <div class="pricing__single">
+        <div class="pricing__card pricing__card--featured">
+          <span class="pricing__badge">Application only</span>
+          <p class="pricing__plan-name">Your investment</p>
+
+          <div class="pricing__payment-options">
+            <div class="pricing__payment-row">
+              <span class="pricing__payment-label">Pay in full</span>
+              <span class="pricing__payment-value">$31,000 AUD <span class="pricing__payment-save">Save $2,000</span></span>
+            </div>
+            <div class="pricing__payment-row">
+              <span class="pricing__payment-label">Monthly</span>
+              <span class="pricing__payment-value">$2,750/mo x 12</span>
+            </div>
+            <div class="pricing__payment-row">
+              <span class="pricing__payment-label">Discovery call fee</span>
+              <span class="pricing__payment-value">$1,000 (refundable)</span>
+            </div>
+          </div>
+
+          <hr class="pricing__divider" />
+
+          <ul class="pricing__features">
+            <li>Maximum 20 women per cohort</li>
+            <li>In-person retreats (Bali, Australia)</li>
+            <li>1:1 hot seats with Tracy</li>
+            <li>Direct access to Tracy</li>
+            <li>12 months of FFB included</li>
+            <li>The Social Method® Society included</li>
+          </ul>
+
+          <a href="/ffm/apply" class="pricing__cta pricing__cta--primary">Book a Discovery Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
