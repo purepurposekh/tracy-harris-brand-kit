@@ -364,6 +364,7 @@
   min-height: 600px;
   overflow: hidden;
   background: #0a0a0a;
+  box-sizing: border-box;
 }
 
 .hero__silk-canvas {
@@ -393,6 +394,7 @@
   justify-content: center;
   text-align: center;
   padding: 0 var(--sp-5);
+  box-sizing: border-box;
 }
 
 .hero__silk-title {
@@ -468,15 +470,72 @@
   animation: silk-fade-in-corner 1s ease-out 1s forwards;
 }
 
+@media (max-width: 820px) {
+  .hero__silk-title {
+    font-size: clamp(48px, 12vw, 96px);
+    max-width: 12ch;
+  }
+}
+
 @media (max-width: 640px) {
   .hero__silk-logo {
-    width: 120px;
-    right: 24px;
+    width: 110px;
+    right: 20px;
     top: 20px;
   }
   .hero__silk-corner {
     left: 20px;
     top: 20px;
+  }
+  .hero__silk-title {
+    font-size: clamp(44px, 12vw, 80px);
+    max-width: 12ch;
+  }
+  .hero__silk-subtitle {
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    padding: 0 var(--sp-4);
+  }
+  .hero__silk-subtitle .dot {
+    margin: 0 var(--sp-3);
+  }
+  .hero__silk-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--sp-5);
+    box-sizing: border-box;
+  }
+  .hero__silk-actions .hero__cta {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    padding: var(--sp-4) var(--sp-5);
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__silk-title {
+    font-size: clamp(38px, 11vw, 56px);
+    max-width: 11ch;
+  }
+  .hero__silk-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+  }
+  .hero__silk-actions {
+    margin-top: var(--sp-6);
+  }
+}
+
+@media (max-width: 380px) {
+  .hero__silk-logo {
+    width: 96px;
+  }
+  .hero__silk-title {
+    font-size: 36px;
+    line-height: 1;
   }
 }
 
