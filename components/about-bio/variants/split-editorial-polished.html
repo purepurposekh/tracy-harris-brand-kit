@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Bio · Split editorial (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/about-bio/about-bio.css" />
+  <style>
+    :root {
+      --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .about-bio { position: relative; overflow: hidden; isolation: isolate; }
+    .about-bio::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 30% 30%,
+        rgba(110, 142, 119, 0.08) 0%,
+        rgba(110, 142, 119, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-bio__split { position: relative; z-index: 1; }
+
+    .about-bio__portrait {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      animation: abMediaReveal 1100ms var(--ease-drawer) 200ms forwards;
+      transition: transform 400ms var(--ease-out-craft), box-shadow 400ms var(--ease-out-craft);
+    }
+    .about-bio__portrait img {
+      transform: scale(1.06);
+      transition: transform 900ms var(--ease-in-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .about-bio__portrait:hover {
+        transform: translateY(-3px);
+      }
+      .about-bio__portrait:hover img { transform: scale(1.02); }
+    }
+
+    .about-bio__eyebrow,
+    .about-bio__name,
+    .about-bio__tagline,
+    .about-bio__body,
+    .about-bio__signature,
+    .about-bio__cta,
+    .about-bio__facts {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: abRise 900ms var(--ease-out-craft) forwards;
+    }
+    .about-bio__eyebrow   { animation-delay: 340ms; }
+    .about-bio__name      { animation-delay: 460ms; }
+    .about-bio__tagline   { animation-delay: 580ms; }
+    .about-bio__body      { animation-delay: 700ms; }
+    .about-bio__signature { animation-delay: 820ms; }
+    .about-bio__cta       { animation-delay: 940ms; }
+    .about-bio__facts     { animation-delay: 1060ms; }
+
+    @keyframes abMediaReveal {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes abRise {
+      from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .about-bio__name    { text-wrap: balance; }
+    .about-bio__body    { text-wrap: pretty; }
+
+    .about-bio__cta {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      transition:
+        gap 260ms var(--ease-out-craft),
+        color 200ms var(--ease-out-craft),
+        letter-spacing 220ms var(--ease-out-craft);
+    }
+    .about-bio__cta:hover { gap: 14px; letter-spacing: 0.22em; }
+    .about-bio__cta:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .about-bio__cta svg { transition: transform 260ms var(--ease-out-craft); }
+    .about-bio__cta:hover svg { transform: translateX(3px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .about-bio__portrait,
+      .about-bio__portrait img,
+      .about-bio__eyebrow,
+      .about-bio__name,
+      .about-bio__tagline,
+      .about-bio__body,
+      .about-bio__signature,
+      .about-bio__cta,
+      .about-bio__facts {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .about-bio__portrait img { transform: scale(1.02); }
+      .about-bio__cta:hover svg { transform: none; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="about-bio" data-brand="tracy" aria-label="About Tracy">
+    <div class="about-bio__split">
+      <div class="about-bio__portrait">
+        <img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Tracy Harris." />
+      </div>
+      <div class="about-bio__content">
+        <p class="about-bio__eyebrow">Meet Tracy</p>
+        <h2 class="about-bio__name">Tracy <em>Harris</em></h2>
+        <p class="about-bio__tagline">Mentor, speaker, mum of two, lover of freedom.</p>
+        <p class="about-bio__body">I spent years building a business that looked successful on the outside but felt like a cage on the inside. Overworked, overwhelmed, and constantly second-guessing whether I was doing it right.</p>
+        <p class="about-bio__body">Then I rebuilt everything. Not just the strategy, the entire foundation. I created a business that runs on my terms, generates revenue without burning me out, and gives me the freedom to be present for the people I love.</p>
+        <p class="about-bio__body"><strong>That's what I teach.</strong> Not hustle. Not grind. A business built by design, not by default. A Freedom Filled® life.</p>
+        <p class="about-bio__signature">Tracy</p>
+        <a href="/about" class="about-bio__cta">
+          Read Tracy's full story
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="about-bio__facts">
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">500+</span>
+            <span class="about-bio__fact-label">Podcast episodes</span>
+          </div>
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">7+</span>
+            <span class="about-bio__fact-label">Years running FFM</span>
+          </div>
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">20</span>
+            <span class="about-bio__fact-label">Max FFM cohort</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Testimonials · Single Hero (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/testimonials/testimonials.css" />
+  <style>
+    :root {
+      --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .testimonials { position: relative; overflow: hidden; isolation: isolate; }
+    .testimonials::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 50% 35%,
+        rgba(201, 164, 108, 0.12) 0%,
+        rgba(201, 164, 108, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .testimonials__single { position: relative; z-index: 1; }
+
+    .testimonials__single-portrait {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      animation: tshMediaReveal 1100ms var(--ease-drawer) 200ms forwards;
+      transition: transform 400ms var(--ease-out-craft), box-shadow 400ms var(--ease-out-craft);
+    }
+    .testimonials__single-portrait img {
+      transform: scale(1.06);
+      transition: transform 900ms var(--ease-in-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .testimonials__single-portrait:hover img { transform: scale(1.02); }
+    }
+
+    .testimonials__single-content .testimonial__mark,
+    .testimonials__single-content .testimonial__quote,
+    .testimonials__single-content .testimonial__attribution {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: tshRise 900ms var(--ease-out-craft) forwards;
+    }
+    .testimonials__single-content .testimonial__mark        { animation-delay: 320ms; }
+    .testimonials__single-content .testimonial__quote       { animation-delay: 460ms; }
+    .testimonials__single-content .testimonial__attribution { animation-delay: 620ms; }
+
+    @keyframes tshMediaReveal {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes tshRise {
+      from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .testimonial__quote { text-wrap: balance; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .testimonials__single-portrait,
+      .testimonials__single-portrait img,
+      .testimonials__single-content .testimonial__mark,
+      .testimonials__single-content .testimonial__quote,
+      .testimonials__single-content .testimonial__attribution {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .testimonials__single-portrait img { transform: scale(1.02); }
+    }
+  </style>
+</head>
+<body data-brand="ffm">
+  <section class="testimonials testimonials--elevated" data-brand="ffm" aria-label="FFM member testimonial">
+    <div class="testimonials__single">
+      <div class="testimonials__single-portrait">
+        <img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="Mastermind member at the Bali retreat." />
+      </div>
+      <div class="testimonials__single-content">
+        <p class="testimonial__mark">"</p>
+        <blockquote class="testimonial__quote">Application-based is not a gimmick. <em>It's why the room works</em>. Every woman in my cohort is someone I'd want as a client, a partner, or a friend. That doesn't happen in open-enrolment.</blockquote>
+        <figcaption class="testimonial__attribution">
+          <p class="testimonial__name">[MEMBER NAME]</p>
+          <p class="testimonial__role">SaaS founder · 2025 cohort</p>
+          <span class="testimonial__tag">FFM</span>
+        </figcaption>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

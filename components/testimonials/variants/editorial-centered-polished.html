@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Testimonials · Editorial Centered (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/testimonials/testimonials.css" />
+  <style>
+    :root {
+      --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .testimonials { position: relative; overflow: hidden; isolation: isolate; }
+    .testimonials::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 30%,
+        rgba(110, 142, 119, 0.08) 0%,
+        rgba(110, 142, 119, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .testimonials__editorial { position: relative; z-index: 1; }
+
+    .testimonials__editorial-portrait {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      animation: tseMediaReveal 1100ms var(--ease-drawer) 200ms forwards;
+    }
+    .testimonials__editorial-portrait img {
+      transform: scale(1.06);
+      transition: transform 900ms var(--ease-in-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .testimonials__editorial-portrait:hover img { transform: scale(1.02); }
+    }
+
+    .testimonials__editorial .testimonial__quote,
+    .testimonials__editorial-body,
+    .testimonials__editorial-name {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: tseRise 900ms var(--ease-out-craft) forwards;
+    }
+    .testimonials__editorial .testimonial__quote { animation-delay: 380ms; }
+    .testimonials__editorial-body                 { animation-delay: 540ms; }
+    .testimonials__editorial-name                 { animation-delay: 700ms; }
+
+    @keyframes tseMediaReveal {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes tseRise {
+      from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .testimonials__editorial .testimonial__quote { text-wrap: balance; }
+    .testimonials__editorial-body { text-wrap: pretty; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .testimonials__editorial-portrait,
+      .testimonials__editorial-portrait img,
+      .testimonials__editorial .testimonial__quote,
+      .testimonials__editorial-body,
+      .testimonials__editorial-name {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .testimonials__editorial-portrait img { transform: scale(1.02); }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="testimonials testimonials--elevated" data-brand="tracy" aria-label="Member testimonial">
+    <div class="testimonials__editorial">
+      <div class="testimonials__editorial-portrait">
+        <img src="https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg" alt="Member portrait." />
+      </div>
+      <blockquote class="testimonial__quote">"This program <em>transformed my business</em> and my life."</blockquote>
+      <p class="testimonials__editorial-body">Year one I tripled my revenue. Year two I halved my hours. Three years in, I can say with total certainty that FFB didn't just change my business, it changed what I believed was possible. Tracy shows you what a freedom-filled business actually looks like, then hands you the keys.</p>
+      <p class="testimonials__editorial-name">[MEMBER NAME]</p>
+    </div>
+  </section>
+</body>
+</html>

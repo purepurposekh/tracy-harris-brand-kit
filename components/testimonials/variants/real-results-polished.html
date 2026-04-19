@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Testimonials · Real Results (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/testimonials/testimonials.css" />
+  <style>
+    :root {
+      --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .testimonials { position: relative; overflow: hidden; isolation: isolate; }
+    .testimonials::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 30% 50%,
+        rgba(110, 142, 119, 0.08) 0%,
+        rgba(110, 142, 119, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .testimonials__results { position: relative; z-index: 1; }
+
+    .testimonials__results-portrait {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      animation: tsrMediaReveal 1100ms var(--ease-drawer) 200ms forwards;
+    }
+    .testimonials__results-portrait img {
+      transform: scale(1.06);
+      transition: transform 900ms var(--ease-in-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .testimonials__results-portrait:hover img { transform: scale(1.02); }
+    }
+
+    .testimonials__results-card {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: tsrRise 900ms var(--ease-out-craft) 380ms forwards;
+      transition: transform 320ms var(--ease-out-craft), box-shadow 320ms var(--ease-out-craft);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .testimonials__results-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 40px -20px rgba(30, 55, 53, 0.22);
+      }
+    }
+
+    @keyframes tsrMediaReveal {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes tsrRise {
+      from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .testimonials__results-title { text-wrap: balance; }
+    .testimonials__results-quote { text-wrap: pretty; }
+
+    .testimonials__results-next {
+      transition:
+        gap 260ms var(--ease-out-craft),
+        color 200ms var(--ease-out-craft),
+        letter-spacing 220ms var(--ease-out-craft);
+    }
+    .testimonials__results-next:hover { gap: 14px; letter-spacing: 0.22em; }
+    .testimonials__results-next:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .testimonials__results-next svg {
+      transition: transform 260ms var(--ease-out-craft);
+    }
+    .testimonials__results-next:hover svg { transform: translateX(3px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .testimonials__results-portrait,
+      .testimonials__results-portrait img,
+      .testimonials__results-card {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .testimonials__results-portrait img { transform: scale(1.02); }
+      .testimonials__results-next:hover svg { transform: none; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="testimonials" data-brand="tracy" aria-label="Real results testimonial">
+    <div class="testimonials__results">
+      <div class="testimonials__results-portrait">
+        <img src="https://static.showit.co/1200/MJXzvmfxo5phsGlVN2WYGA/173187/062a4190.jpg" alt="FFB member portrait." />
+      </div>
+      <div class="testimonials__results-card">
+        <p class="testimonials__eyebrow" style="margin:0;">Real results</p>
+        <h3 class="testimonials__results-title">[MEMBER NAME] tripled her revenue</h3>
+        <p class="testimonials__results-quote">"I came in thinking I needed a new funnel. I left with a new identity. Tracy doesn't just teach strategy, she shows you who you get to be inside the business."</p>
+        <a href="#next" class="testimonials__results-next">Next review
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
