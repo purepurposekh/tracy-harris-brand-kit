@@ -66,6 +66,23 @@
   flex-wrap: wrap;
 }
 
+/* With-name variant: name + email share a row on desktop, button beneath.
+   On narrow viewports all three stack full-width. */
+.opt-in__form--with-name .opt-in__input {
+  flex: 1 1 180px;
+}
+.opt-in__form--with-name .opt-in__btn {
+  flex: 1 1 100%;
+}
+@media (min-width: 640px) {
+  .opt-in__form--with-name .opt-in__btn {
+    flex: 0 0 auto;
+  }
+}
+@media (max-width: 520px) {
+  .opt-in__form--with-name .opt-in__input { flex: 1 1 100%; }
+}
+
 .opt-in__input {
   font-family: var(--f-sans);
   font-size: 14px;
