@@ -3144,25 +3144,42 @@
     });
 
     // ----------------------------------------------------------------------
-    // Iframe lazy-loading via IntersectionObserver
+    // Two-tier iframe lifecycle — load near viewport, UNLOAD when far.
+    // iOS Safari runs out of memory with 100+ iframes and kills the tab
+    // (white-screen-on-scroll). Clearing src on distant tiles frees memory.
+    // Target URL persists on data-live-src for reload when card returns.
     // ----------------------------------------------------------------------
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const iframe = entry.target;
-        if (iframe.dataset.src) {
-          iframe.src = iframe.dataset.src;
+        const targetSrc = iframe.dataset.src || iframe.dataset.liveSrc;
+        if (targetSrc && iframe.src !== targetSrc) {
+          iframe.src = targetSrc;
+          iframe.dataset.liveSrc = targetSrc;
           iframe.removeAttribute('data-src');
           iframe.addEventListener('load', () => {
             const ph = iframe.parentElement.querySelector('.tile__thumb-placeholder');
             if (ph) ph.remove();
           }, { once: true });
         }
-        io.unobserve(iframe);
       });
-    }, { rootMargin: '300px' });
+    }, { rootMargin: '800px' });
 
-    document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => io.observe(f));
+    const unloadObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const iframe = entry.target;
+        if (entry.isIntersecting) return;
+        if (iframe.dataset.src) return;
+        if (!iframe.src || iframe.src === 'about:blank') return;
+        iframe.src = 'about:blank';
+      });
+    }, { rootMargin: '2000px' });
+
+    document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => {
+      io.observe(f);
+      unloadObserver.observe(f);
+    });
 
     // Observe every tile thumb so its transform-scale tracks width changes.
     document.querySelectorAll('.tile__thumb').forEach(observeThumb);

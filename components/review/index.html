@@ -1643,7 +1643,10 @@
       });
 
       // lazy-load iframes
-      document.querySelectorAll('.card__preview iframe[data-src]').forEach(f => io.observe(f));
+      document.querySelectorAll('.card__preview iframe[data-src]').forEach(f => {
+        io.observe(f);
+        unloadObserver.observe(f);
+      });
 
       updateCounters();
     }
@@ -1857,21 +1860,47 @@
     // -------------------------------------------------------------------
     // Iframe lazy-loading
     // -------------------------------------------------------------------
+    // -------------------------------------------------------------------
+    // Two-tier iframe lifecycle:
+    //   1. Load when near viewport (IntersectionObserver with 800px root margin)
+    //   2. UNLOAD when far from viewport (blur tier past 2000px)
+    // Without this, iOS Safari runs out of memory on a page with 100+
+    // iframes and purges the tab — Karl hit the white-screen-on-scroll bug.
+    // We keep each iframe's target URL on its data-live-src attribute so
+    // we can reload it cheaply when the card scrolls back into view.
+    // -------------------------------------------------------------------
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const iframe = entry.target;
-        if (iframe.dataset.src) {
-          iframe.src = iframe.dataset.src;
+        // Prefer dataset.src (first load) or data-live-src (reload after unload).
+        const targetSrc = iframe.dataset.src || iframe.dataset.liveSrc;
+        if (targetSrc && iframe.src !== targetSrc) {
+          iframe.src = targetSrc;
+          iframe.dataset.liveSrc = targetSrc;
           iframe.removeAttribute('data-src');
           iframe.addEventListener('load', () => {
             const ph = iframe.parentElement.querySelector('.card__preview-placeholder');
             if (ph) ph.remove();
           }, { once: true });
         }
-        io.unobserve(iframe);
       });
-    }, { rootMargin: '400px' });
+    }, { rootMargin: '800px' });
+
+    // Unload observer: clears iframe src when the card is more than ~2
+    // viewports away. Frees memory so iOS Safari doesn't kill the tab.
+    const unloadObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const iframe = entry.target;
+        if (entry.isIntersecting) return;
+        // Skip if still in the near-viewport loader's range
+        if (iframe.dataset.src) return;
+        if (!iframe.src || iframe.src === 'about:blank') return;
+        // Free: replace src with about:blank, keep target on data-live-src.
+        // When the card scrolls back, the near-viewport observer reloads.
+        iframe.src = 'about:blank';
+      });
+    }, { rootMargin: '2000px' });
 
     // -------------------------------------------------------------------
     // Scaled-iframe thumbnails (2026-04-18)
