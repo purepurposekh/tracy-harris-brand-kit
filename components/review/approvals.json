@@ -1,73 +1,517 @@
 {
-  "hero.classic-tracy-textonly": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.classic-ffb-split-right": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.classic-ffm-oatmeal-split-left": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.classic-ffm-dark-split-right": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.classic-ffm-marquee": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.martini": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.amaretto": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.split-dark": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.split-light": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.oto": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.textonly": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "navigation.sticky-mega-menu": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "navigation.martini": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "footer.martini": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "product-callout.bento-ffb": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "product-callout.bento-elite": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "product-callout.editorial": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "product-callout.clearer": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "testimonials.featured-trio": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "testimonials.single-hero": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "testimonials.editorial-centered": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "testimonials.real-results": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "testimonials.columns-marquee": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "faq.tabbed": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "faq.simple": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "opt-in.split": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "freebies.zigzag": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "image-grid.masonry": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "card-flip.programs": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "cta-block.canvas": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "cta-block.elevated": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "cta-block.accent": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "cta-block.dark": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "cta-block.ruled": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "expandable-cta.quiz": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "pricing.ffb-side-by-side": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "pricing.ffm-dark-premium": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "pricing.compact-single": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "about-bio.split-editorial": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "about-bio.centered-circle": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "event-widget.floating": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "offer-stack.detailed": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "offer-stack.minimal": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "guarantee.editorial": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "next-steps.default": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "soft-upsell.default": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "benefit-trio.icon-row": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "benefit-trio.number-row": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "curriculum-preview.module-stack": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "feature-grid.default": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "post-grid.editorial": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "post-grid.masonry": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "content-section.default": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.classic-ffm-silk": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
-  "hero.tony": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
-  "hero.results": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "I think these two need to be split right?" },
-  "testimonials.wall": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "The testimonials are overlapping each other, so this is not approved unless that is fixed." },
-  "opt-in.banner": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Always name and email" },
-  "opt-in.card": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Always name and email" },
-  "opt-in.accent-dark": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Always name and email" },
-  "image-grid.bento": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Need enough images in the grid to pill a page" },
-  "expandable-cta.ffm-application": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "The gold is a bit much for the pop-up background. I think we make that the charcoal color." },
-  "podcast-card.featured": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "This image needs to be updated to the latest podcast image that you can get from the internet." },
-  "podcast-card.compact": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "This player kind of sucks. I just feel like you could do something that's a bit more fun. Do you know, like, the Spotify mini player or something like that? Just the UI on it needs a bit more love." },
-  "programs-grid.three-card": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "These are a bit boring. The products need the logos above them, not as massive, but then somehow be able to distinguish them." },
-  "programs-grid.two-card": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "This one is just boring. Logos, anything else? Why is it so boring?" },
-  "guarantee.badge": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
-  "why-block.editorial": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
-  "why-block.dark": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
-  "curriculum-preview.grid-preview": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "We should only be using brown colours on this. I know that some of these are fresh colours, but it should only then be used with fresh." },
-  "hero.classic-fresh-split-right": { "status": "rejected", "at": "2026-04-19T08:15:11Z", "note": null }
+  "hero.classic-tracy-textonly": {
+    "status": "rejected",
+    "at": "2026-04-19T13:28:05.663Z",
+    "note": null
+  },
+  "hero.classic-ffb-split-right": {
+    "status": "rejected",
+    "at": "2026-04-19T13:29:38.146Z",
+    "note": null
+  },
+  "hero.classic-ffm-oatmeal-split-left": {
+    "status": "rejected",
+    "at": "2026-04-19T13:28:44.262Z",
+    "note": null
+  },
+  "hero.classic-ffm-dark-split-right": {
+    "status": "rejected",
+    "at": "2026-04-19T13:29:08.009Z",
+    "note": null
+  },
+  "hero.classic-ffm-marquee": {
+    "status": "rejected",
+    "at": "2026-04-19T13:30:25.968Z",
+    "note": null
+  },
+  "hero.martini": {
+    "status": "rejected",
+    "at": "2026-04-19T13:31:31.653Z",
+    "note": null
+  },
+  "hero.amaretto": {
+    "status": "rejected",
+    "at": "2026-04-19T13:32:06.931Z",
+    "note": null
+  },
+  "hero.split-dark": {
+    "status": "rejected",
+    "at": "2026-04-19T13:32:17.956Z",
+    "note": null
+  },
+  "hero.split-light": {
+    "status": "rejected",
+    "at": "2026-04-19T13:32:50.555Z",
+    "note": null
+  },
+  "hero.oto": {
+    "status": "rejected",
+    "at": "2026-04-19T13:33:21.570Z",
+    "note": null
+  },
+  "hero.textonly": {
+    "status": "rejected",
+    "at": "2026-04-19T13:33:34.059Z",
+    "note": null
+  },
+  "navigation.sticky-mega-menu": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "navigation.martini": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "footer.martini": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "product-callout.bento-ffb": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:03.868Z",
+    "note": null
+  },
+  "product-callout.bento-elite": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:09.403Z",
+    "note": null
+  },
+  "product-callout.editorial": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:15.745Z",
+    "note": null
+  },
+  "product-callout.clearer": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:27.498Z",
+    "note": null
+  },
+  "testimonials.featured-trio": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "testimonials.single-hero": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:51.153Z",
+    "note": null
+  },
+  "testimonials.editorial-centered": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:56.504Z",
+    "note": null
+  },
+  "testimonials.real-results": {
+    "status": "rejected",
+    "at": "2026-04-19T13:35:03.074Z",
+    "note": null
+  },
+  "testimonials.columns-marquee": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "faq.tabbed": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "faq.simple": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "opt-in.split": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "freebies.zigzag": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "image-grid.masonry": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "card-flip.programs": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "cta-block.canvas": {
+    "status": "rejected",
+    "at": "2026-04-19T13:35:29.255Z",
+    "note": null
+  },
+  "cta-block.elevated": {
+    "status": "rejected",
+    "at": "2026-04-19T13:36:04.878Z",
+    "note": null
+  },
+  "cta-block.accent": {
+    "status": "rejected",
+    "at": "2026-04-19T13:36:42.762Z",
+    "note": null
+  },
+  "cta-block.dark": {
+    "status": "rejected",
+    "at": "2026-04-19T13:37:01.512Z",
+    "note": null
+  },
+  "cta-block.ruled": {
+    "status": "approved",
+    "at": "2026-04-19T13:37:15.131Z",
+    "note": null
+  },
+  "expandable-cta.quiz": {
+    "status": "rejected",
+    "at": "2026-04-19T13:37:59.728Z",
+    "note": null
+  },
+  "pricing.ffb-side-by-side": {
+    "status": "rejected",
+    "at": "2026-04-19T13:39:43.766Z",
+    "note": null
+  },
+  "pricing.ffm-dark-premium": {
+    "status": "rejected",
+    "at": "2026-04-19T13:39:52.153Z",
+    "note": null
+  },
+  "pricing.compact-single": {
+    "status": "rejected",
+    "at": "2026-04-19T13:40:07.284Z",
+    "note": null
+  },
+  "about-bio.split-editorial": {
+    "status": "rejected",
+    "at": "2026-04-19T13:40:21.464Z",
+    "note": null
+  },
+  "about-bio.centered-circle": {
+    "status": "rejected",
+    "at": "2026-04-19T13:40:34.427Z",
+    "note": null
+  },
+  "event-widget.floating": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "offer-stack.detailed": {
+    "status": "rejected",
+    "at": "2026-04-19T13:41:03.477Z",
+    "note": null
+  },
+  "offer-stack.minimal": {
+    "status": "rejected",
+    "at": "2026-04-19T13:41:08.159Z",
+    "note": null
+  },
+  "guarantee.editorial": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "next-steps.default": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "soft-upsell.default": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "benefit-trio.icon-row": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "benefit-trio.number-row": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "curriculum-preview.module-stack": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "feature-grid.default": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "post-grid.editorial": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "post-grid.masonry": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "content-section.default": {
+    "status": "approved",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "hero.classic-ffm-silk": {
+    "status": "revise",
+    "at": "2026-04-19T13:30:55.934Z",
+    "note": "Needs to be optimized for mobile"
+  },
+  "hero.tony": {
+    "status": "approved",
+    "at": "2026-04-19T11:40:00Z",
+    "note": null
+  },
+  "hero.results": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "I think these two need to be split right?"
+  },
+  "testimonials.wall": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "The testimonials are overlapping each other, so this is not approved unless that is fixed."
+  },
+  "opt-in.banner": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "Always name and email"
+  },
+  "opt-in.card": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "Always name and email"
+  },
+  "opt-in.accent-dark": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "Always name and email"
+  },
+  "image-grid.bento": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "Need enough images in the grid to pill a page"
+  },
+  "expandable-cta.ffm-application": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "The gold is a bit much for the pop-up background. I think we make that the charcoal color."
+  },
+  "podcast-card.featured": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "This image needs to be updated to the latest podcast image that you can get from the internet."
+  },
+  "podcast-card.compact": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "This player kind of sucks. I just feel like you could do something that's a bit more fun. Do you know, like, the Spotify mini player or something like that? Just the UI on it needs a bit more love."
+  },
+  "programs-grid.three-card": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "These are a bit boring. The products need the logos above them, not as massive, but then somehow be able to distinguish them."
+  },
+  "programs-grid.two-card": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "This one is just boring. Logos, anything else? Why is it so boring?"
+  },
+  "guarantee.badge": {
+    "status": "approved",
+    "at": "2026-04-19T11:40:00Z",
+    "note": null
+  },
+  "why-block.editorial": {
+    "status": "approved",
+    "at": "2026-04-19T11:40:00Z",
+    "note": null
+  },
+  "why-block.dark": {
+    "status": "approved",
+    "at": "2026-04-19T11:40:00Z",
+    "note": null
+  },
+  "curriculum-preview.grid-preview": {
+    "status": "revise",
+    "at": "2026-04-19T08:15:11Z",
+    "note": "We should only be using brown colours on this. I know that some of these are fresh colours, but it should only then be used with fresh."
+  },
+  "hero.classic-fresh-split-right": {
+    "status": "rejected",
+    "at": "2026-04-19T08:15:11Z",
+    "note": null
+  },
+  "hero.classic-tracy-textonly-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:28:01.688Z",
+    "note": "Buttons need to be centered to screen on mobile"
+  },
+  "hero.classic-ffm-oatmeal-split-left-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:28:46.834Z",
+    "note": null
+  },
+  "hero.classic-ffb-split-right-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:29:40.747Z",
+    "note": null
+  },
+  "hero.classic-ffm-dark-split-right-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:29:59.076Z",
+    "note": null
+  },
+  "hero.classic-ffm-marquee-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:30:27.358Z",
+    "note": null
+  },
+  "hero.martini-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:31:28.222Z",
+    "note": null
+  },
+  "hero.amaretto-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:32:04.835Z",
+    "note": null
+  },
+  "hero.split-dark-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:32:34.124Z",
+    "note": null
+  },
+  "hero.split-light-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:32:49.893Z",
+    "note": null
+  },
+  "hero.oto-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:33:22.783Z",
+    "note": null
+  },
+  "hero.textonly-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:33:35.530Z",
+    "note": null
+  },
+  "product-callout.bento-ffb-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:34:05.669Z",
+    "note": null
+  },
+  "product-callout.bento-elite-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:34:11.339Z",
+    "note": null
+  },
+  "product-callout.editorial-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:34:16.654Z",
+    "note": null
+  },
+  "product-callout.clearer-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:34:28.969Z",
+    "note": null
+  },
+  "testimonials.featured-trio-polished": {
+    "status": "rejected",
+    "at": "2026-04-19T13:34:42.190Z",
+    "note": null
+  },
+  "testimonials.single-hero-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:34:52.511Z",
+    "note": null
+  },
+  "testimonials.editorial-centered-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:34:57.636Z",
+    "note": null
+  },
+  "testimonials.real-results-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:35:04.029Z",
+    "note": null
+  },
+  "cta-block.canvas-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:35:58.892Z",
+    "note": "Button formatting is off. Check and fix"
+  },
+  "cta-block.elevated-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:36:27.802Z",
+    "note": "Again the button padding is off. Button is to big"
+  },
+  "cta-block.accent-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:36:56.322Z",
+    "note": "Button needs to be checked like the others."
+  },
+  "cta-block.dark-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:37:09.074Z",
+    "note": "Button to be fixed"
+  },
+  "cta-block.ruled-polished": {
+    "status": "rejected",
+    "at": "2026-04-19T13:37:17.711Z",
+    "note": null
+  },
+  "expandable-cta.quiz-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:38:02.706Z",
+    "note": null
+  },
+  "pricing.ffb-side-by-side-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:39:50.122Z",
+    "note": "Fix button"
+  },
+  "pricing.ffm-dark-premium-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:39:59.543Z",
+    "note": "Fix button"
+  },
+  "pricing.compact-single-polished": {
+    "status": "revise",
+    "at": "2026-04-19T13:40:15.221Z",
+    "note": "Fix button"
+  },
+  "about-bio.split-editorial-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:40:22.784Z",
+    "note": null
+  },
+  "about-bio.centered-circle-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:40:35.854Z",
+    "note": null
+  },
+  "offer-stack.detailed-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:41:00.920Z",
+    "note": null
+  },
+  "offer-stack.minimal-polished": {
+    "status": "approved",
+    "at": "2026-04-19T13:41:09.516Z",
+    "note": null
+  }
 }
