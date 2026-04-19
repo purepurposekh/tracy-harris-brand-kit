@@ -728,20 +728,118 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(16,16,16,0.06);
     }
+    /* .is-expanded stays as a visual "active" marker on the card, but
+       the actual expanded content now renders in a modal — no grid reflow. */
     .preset-card.is-expanded {
-      cursor: default;
       border-color: var(--p-aztek);
-      box-shadow: 0 0 0 3px rgba(30,55,53,0.08), 0 12px 28px rgba(16,16,16,0.08);
-      transform: none;
-      grid-column: 1 / -1;
+      box-shadow: 0 0 0 2px rgba(30,55,53,0.12), 0 10px 24px rgba(16,16,16,0.06);
     }
-    @media (min-width: 641px) {
-      .preset-card.is-expanded {
-        max-width: 560px;
-        margin: 0 auto;
+    .preset-card.is-expanded:hover { transform: translateY(-2px); }
+
+    /* -------- Preset modal -------- */
+    .preset-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(16px, 4vw, 48px);
+    }
+    .preset-modal[data-open="true"] { display: flex; }
+    .preset-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(16, 16, 16, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      animation: presetModalBackdropIn 220ms var(--ease-out-craft, cubic-bezier(0.22, 1, 0.36, 1));
+    }
+    @keyframes presetModalBackdropIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .preset-modal__dialog {
+      position: relative;
+      background: var(--p-white);
+      border-radius: var(--r-lg);
+      max-width: 680px;
+      width: 100%;
+      max-height: calc(100vh - 48px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 40px 80px rgba(16, 16, 16, 0.25), 0 4px 16px rgba(16, 16, 16, 0.1);
+      animation: presetModalIn 280ms var(--ease-out-craft, cubic-bezier(0.22, 1, 0.36, 1));
+    }
+    @keyframes presetModalIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .preset-modal__head {
+      padding: var(--sp-5) var(--sp-6) var(--sp-4);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-shrink: 0;
+    }
+    .preset-modal__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink-heading);
+      margin: 0 0 6px;
+    }
+    .preset-modal__title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .preset-modal__desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink-body);
+      margin: 6px 0 0;
+      max-width: 52ch;
+    }
+    .preset-modal__close {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-hairline);
+      border-radius: 50%;
+      background: var(--p-white);
+      color: var(--ink-mute);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    .preset-modal__close:hover { color: var(--p-aztek); border-color: var(--p-aztek); }
+    .preset-modal__close:active { transform: scale(0.95); }
+    .preset-modal__body {
+      padding: var(--sp-5) var(--sp-6);
+      overflow-y: auto;
+      flex: 1 1 auto;
+    }
+    .preset-modal__actions {
+      padding: var(--sp-4) var(--sp-6) var(--sp-5);
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      gap: var(--sp-3);
+      flex-shrink: 0;
+    }
+    @media (max-width: 640px) {
+      .preset-modal { padding: 0; align-items: stretch; }
+      .preset-modal__dialog {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
       }
     }
-    .preset-card.is-expanded:hover { transform: none; }
     .preset-card__caret {
       position: absolute;
       top: var(--sp-5);
@@ -764,14 +862,14 @@
       border-color: var(--p-aztek);
       color: var(--p-white);
     }
+    /* Preview content lives in the modal now, not inline. Kept class for
+       the modal body to reuse the internal stack+actions layout. */
     .preset-card__preview {
       display: none;
-      grid-column: 1 / -1;
-      margin-top: var(--sp-4);
-      padding-top: var(--sp-4);
-      border-top: 1px solid var(--border-hairline);
     }
-    .preset-card.is-expanded .preset-card__preview { display: block; }
+    .preset-modal__body .preset-card__preview {
+      display: block;
+    }
 
     /* View-transition tuning: slightly slower crossfade than the default
        250ms so the preset grid reflow feels deliberate, not snappy. Only
@@ -2347,6 +2445,29 @@
     </div>
   </div>
 
+  <!-- Preset modal — centered dialog, replaces in-grid expand so other cards don't shift. -->
+  <div class="preset-modal" id="presetModal" role="dialog" aria-modal="true" aria-label="Preset details" data-open="false">
+    <div class="preset-modal__backdrop" data-role="preset-modal-close"></div>
+    <div class="preset-modal__dialog" role="document">
+      <header class="preset-modal__head">
+        <div style="min-width:0;">
+          <h2 class="preset-modal__title" id="presetModalTitle">—</h2>
+          <p class="preset-modal__desc" id="presetModalDesc"></p>
+        </div>
+        <button type="button" class="preset-modal__close" data-role="preset-modal-close" aria-label="Close preset details">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+      <div class="preset-modal__body" id="presetModalBody">
+        <!-- preview stack injected here -->
+      </div>
+      <div class="preset-modal__actions">
+        <button class="preset-card__btn" type="button" id="presetModalUse">Use this preset</button>
+        <button class="preset-card__close" type="button" data-role="preset-modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ================================================================ -->
   <!-- Mobile filter bottom-sheet (trigger + backdrop + sheet)           -->
   <!-- Visible only on mobile (≤819px). Desktop keeps the nested sidebar -->
@@ -3468,35 +3589,53 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     function collapseAllPresetsRaw() {
       document.querySelectorAll('.preset-card.is-expanded').forEach(c => {
         c.classList.remove('is-expanded');
-        const preview = c.querySelector('.preset-card__preview');
-        if (preview) preview.setAttribute('aria-hidden', 'true');
         c.setAttribute('aria-expanded', 'false');
       });
     }
 
     function collapseAllPresets() {
-      withViewTransition(collapseAllPresetsRaw);
+      collapseAllPresetsRaw();
+      closePresetModal();
     }
 
-    function togglePresetExpansion(card, preset) {
-      const alreadyOpen = card.classList.contains('is-expanded');
+    // -------------------------------------------------------------------
+    // Preset details modal — replaces in-grid expand. Zero grid reflow,
+    // no orphaned cards, consistent with the variant preview modal.
+    // -------------------------------------------------------------------
+    const presetModalEl = document.getElementById('presetModal');
+    const presetModalTitleEl = document.getElementById('presetModalTitle');
+    const presetModalDescEl = document.getElementById('presetModalDesc');
+    const presetModalBodyEl = document.getElementById('presetModalBody');
+    const presetModalUseBtn = document.getElementById('presetModalUse');
+    let activePresetInModal = null;
+    let presetModalLastFocus = null;
 
-      withViewTransition(() => {
-        collapseAllPresetsRaw();
-        if (alreadyOpen) return;
+    function openPresetModal(card, preset) {
+      activePresetInModal = preset;
+      presetModalLastFocus = document.activeElement;
 
-        card.classList.add('is-expanded');
-        card.setAttribute('aria-expanded', 'true');
-        const preview = card.querySelector('.preset-card__preview');
-        if (preview) preview.setAttribute('aria-hidden', 'false');
-      });
+      collapseAllPresetsRaw();
+      card.classList.add('is-expanded');
+      card.setAttribute('aria-expanded', 'true');
 
-      if (alreadyOpen) return;
+      presetModalTitleEl.textContent = preset.name || '—';
+      presetModalDescEl.textContent = preset.description || '';
 
-      // Lazy-load iframes inside this card only when the preview opens.
-      // Runs outside the transition callback so iframe src assignment
-      // doesn't block the initial frame snapshot.
-      card.querySelectorAll('.preset-slot__thumb iframe[data-src]').forEach(iframe => {
+      // Move the card's preview content (stack + thumbs) into the modal body.
+      const preview = card.querySelector('.preset-card__preview');
+      presetModalBodyEl.innerHTML = '';
+      if (preview) {
+        // Clone so the card keeps its content in the DOM (simpler than move/restore).
+        const clone = preview.cloneNode(true);
+        clone.removeAttribute('aria-hidden');
+        // Remove the inner actions buttons (Use/Close) — the modal has its own.
+        const actions = clone.querySelector('.preset-card__actions');
+        if (actions) actions.remove();
+        presetModalBodyEl.appendChild(clone);
+      }
+
+      // Lazy-load iframes inside the modal body now that they're visible.
+      presetModalBodyEl.querySelectorAll('.preset-slot__thumb iframe[data-src]').forEach(iframe => {
         iframe.src = iframe.dataset.src;
         iframe.removeAttribute('data-src');
         iframe.addEventListener('load', () => {
@@ -3504,9 +3643,69 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
           if (ph) ph.remove();
         }, { once: true });
       });
+      // Size the scaled-iframes correctly inside the modal.
+      presetModalBodyEl.querySelectorAll('.preset-slot__thumb').forEach(observeThumb);
+      // Wire thumb-click-to-preview on the cloned thumbs (original listeners didn't clone).
+      presetModalBodyEl.querySelectorAll('[data-role="thumb"]').forEach(thumb => {
+        thumb.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openPreviewModal(thumb.dataset.previewSrc, thumb.dataset.previewCaption);
+        });
+        thumb.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openPreviewModal(thumb.dataset.previewSrc, thumb.dataset.previewCaption);
+          }
+        });
+      });
 
-      // Start observing each thumb for size changes so scale stays correct.
-      card.querySelectorAll('.preset-slot__thumb').forEach(observeThumb);
+      presetModalEl.dataset.open = 'true';
+      document.body.style.overflow = 'hidden';
+      // Focus the close button after open so Esc/Tab work as expected.
+      setTimeout(() => {
+        const closeBtn = presetModalEl.querySelector('.preset-modal__close');
+        if (closeBtn) closeBtn.focus();
+      }, 50);
+    }
+
+    function closePresetModal() {
+      if (presetModalEl.dataset.open !== 'true') return;
+      presetModalEl.dataset.open = 'false';
+      presetModalBodyEl.innerHTML = '';
+      document.body.style.overflow = '';
+      collapseAllPresetsRaw();
+      activePresetInModal = null;
+      if (presetModalLastFocus && presetModalLastFocus.focus) {
+        try { presetModalLastFocus.focus(); } catch (e) {}
+      }
+    }
+
+    // Backdrop / × / "Close" all dismiss
+    presetModalEl.querySelectorAll('[data-role="preset-modal-close"]').forEach(el => {
+      el.addEventListener('click', closePresetModal);
+    });
+    // Esc dismisses
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && presetModalEl.dataset.open === 'true') {
+        closePresetModal();
+      }
+    });
+    // "Use this preset" from the modal
+    presetModalUseBtn.addEventListener('click', () => {
+      if (activePresetInModal) {
+        const p = activePresetInModal;
+        closePresetModal();
+        applyPreset(p);
+      }
+    });
+
+    function togglePresetExpansion(card, preset) {
+      const alreadyOpen = card.classList.contains('is-expanded');
+      if (alreadyOpen) {
+        closePresetModal();
+        return;
+      }
+      openPresetModal(card, preset);
     }
 
     function applyPreset(preset) {
