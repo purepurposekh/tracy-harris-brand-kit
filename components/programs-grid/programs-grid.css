@@ -81,6 +81,62 @@
 .program-card[data-accent="navy"] { border-top-color: var(--p-fresh-navy); }
 .program-card[data-accent="orange"] { border-top-color: var(--p-fresh-orange); }
 
+/* Logo slot — sits above the title, small branded wordmark */
+.program-card__logo {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin: 0 0 var(--sp-4) 0;
+}
+
+.program-card__logo img,
+.program-card__logo svg {
+  height: 100%;
+  width: auto;
+  max-width: 180px;
+  display: block;
+}
+
+/* Small brand badge (dot + short label) used as a secondary distinguisher */
+.program-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-sans);
+  font-size: 10px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0 0 var(--sp-3) 0;
+}
+.program-card__badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.program-card[data-accent="sage"] .program-card__badge::before { background: var(--p-sage); }
+.program-card[data-accent="gold"] .program-card__badge::before {
+  background: linear-gradient(135deg, var(--p-gold-dark), var(--p-gold-mid));
+}
+.program-card[data-accent="green"] .program-card__badge::before { background: var(--p-aztek); }
+.program-card[data-accent="orange"] .program-card__badge::before { background: var(--p-fresh-orange); }
+
+/* Gold gradient accent for FFM — subtle top bar replacement for solid border */
+.program-card[data-accent="gold"] {
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--p-gold-dark), var(--p-gold-mid)) 1;
+  border-image-slice: 1;
+}
+
+/* Whole-card warm wash per brand — barely-there left edge tint */
+.program-card {
+  position: relative;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%);
+}
+
 .program-card__title {
   font-family: var(--f-serif-display);
   font-weight: var(--w-regular);
@@ -174,6 +230,31 @@
   width: 14px;
   height: 14px;
   transition: transform 0.2s ease;
+}
+
+.program-card__cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* CTA row — lets CTA sit beside a tag like "Application-based" */
+.program-card__cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-top: auto;
+}
+
+.program-card__tag {
+  font-family: var(--f-sans);
+  font-size: 10px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 5px 10px;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--r-pill);
 }
 
 /* --- Responsive --- */
