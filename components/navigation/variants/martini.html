@@ -318,33 +318,9 @@
       font-family: var(--f-serif-italic);
     }
 
-    /* -------- PAGE PLACEHOLDER --------
-       Short dark strip so the nav has something to invert over.
-       Intentionally NOT a hero — the component being previewed is the
-       nav bar, not a page design. */
-    .demo-hero {
-      height: 220px;
-      background: var(--p-aztek);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 24px 24px;
-    }
-    .demo-hero__word {
-      color: rgba(246, 244, 241, 0.35);
-      font-family: var(--f-sans);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    /* Below the dark strip, a pale continuation so the nav's
-       "dark-over-photo vs light-over-content" inversion is demonstrable. */
-    .demo-content {
-      height: 240px;
-      background: var(--p-oatmeal);
-    }
+    /* Empty canvas — only the nav is the component. The body fills
+       the preview viewport so the nav has somewhere to sit. */
+    body { background: var(--p-oatmeal); min-height: 100vh; }
 
     /* -------- MOBILE -------- */
     @media (max-width: 820px) {
@@ -461,11 +437,6 @@
     </p>
   </div>
 
-  <!-- Dark strip so the nav inversion is demonstrable; not a hero. -->
-  <section class="demo-hero">
-    <span class="demo-hero__word">page · dark section</span>
-  </section>
-  <div class="demo-content" aria-hidden="true"></div>
 
   <script>
     const bar = document.getElementById('mnav');
@@ -487,14 +458,9 @@
       if (e.key === 'Escape' && document.body.classList.contains('mnav-open')) closeMenu();
     });
 
-    // Invert bar when over the hero image vs on cream canvas
-    bar.classList.add('mnav--dark');
-    const io = new IntersectionObserver(([entry]) => {
-      const onHero = entry.isIntersecting;
-      bar.classList.toggle('mnav--dark', onHero);
-      bar.classList.toggle('mnav--scrolled', !onHero);
-    }, { threshold: 0.15, rootMargin: "-60px 0px 0px 0px" });
-    io.observe(document.querySelector('.demo-hero'));
+    // Preview canvas has no hero — keep nav in its default
+    // (light-canvas) state so Karl sees just the nav bar.
+    bar.classList.add('mnav--scrolled');
   </script>
 
 </body>

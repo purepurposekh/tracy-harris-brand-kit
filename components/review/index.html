@@ -307,6 +307,34 @@
     }
     .card__open:hover { opacity: 1; }
 
+    /* Always-visible magnifying-glass mark — signals "click to preview
+       at larger size" without relying on hover discovery. */
+    .card__preview-mark {
+      position: absolute;
+      bottom: var(--sp-2);
+      left: var(--sp-2);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--p-white);
+      color: var(--p-aztek);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(16, 16, 16, 0.18), 0 1px 2px rgba(16, 16, 16, 0.12);
+      border: 1px solid rgba(16, 16, 16, 0.08);
+      z-index: 2;
+      pointer-events: none;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background 0.15s ease, color 0.15s ease;
+    }
+    .card__preview-mark svg { width: 20px; height: 20px; display: block; }
+    .card__preview:hover .card__preview-mark {
+      background: var(--p-aztek);
+      color: var(--p-white);
+      transform: scale(1.06);
+    }
+    .card__preview:active .card__preview-mark { transform: scale(0.96); }
+
     .card__body {
       padding: var(--sp-5);
       display: flex;
@@ -1602,6 +1630,9 @@
         <div class="card__preview" data-role="thumb" data-preview-src="${srcWithHash}" data-preview-caption="${escapeHtml(v.name)}" role="button" tabindex="0" aria-label="Preview ${escapeHtml(v.name)} larger">
           <div class="card__preview-placeholder">Loading preview</div>
           <iframe data-src="${srcWithHash}" width="1440" height="900" loading="lazy" title="${v.name}" aria-hidden="true"></iframe>
+          <span class="card__preview-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg>
+          </span>
           <a class="card__open" href="${srcWithHash}" target="_blank" rel="noopener">Open ↗</a>
         </div>
         <div class="card__body">
