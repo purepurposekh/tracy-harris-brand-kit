@@ -342,52 +342,53 @@
     }
     .tile__preview-btn svg { width: 20px; height: 20px; display: block; stroke-width: 2.5; }
 
-    /* Polish toggle — only rendered on tiles that have both a standard
-       and polished sibling. Sits bottom-right of the thumb, opposite the
-       magnify button at bottom-left. Click to flip between versions. */
+    /* Polish toggle — segmented control. Only rendered on tiles that
+       have both a static and motion (polished) sibling. Both segments
+       are visible at all times so the toggle reads as a toggle, and the
+       active side is filled sage. Click either side to flip. */
     .tile__polish-toggle {
       position: absolute;
       bottom: 10px;
       right: 10px;
       display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
+      align-items: stretch;
+      gap: 0;
+      padding: 3px;
       border-radius: var(--r-pill);
       border: 1px solid rgba(16, 16, 16, 0.08);
       background: var(--p-white);
-      color: var(--ink-mute);
+      box-shadow: 0 4px 12px rgba(16, 16, 16, 0.18), 0 1px 2px rgba(16, 16, 16, 0.12);
+      z-index: 3;
       font-family: var(--f-sans);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(16, 16, 16, 0.18), 0 1px 2px rgba(16, 16, 16, 0.12);
-      z-index: 3;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+      color: inherit;
     }
-    .tile__polish-toggle[data-on="true"] {
+    .tile__polish-toggle__seg {
+      padding: 4px 10px;
+      border-radius: 9999px;
+      color: var(--ink-mute);
+      background: transparent;
+      border: none;
+      font: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .tile__polish-toggle[data-on="false"] .tile__polish-toggle__seg--static,
+    .tile__polish-toggle[data-on="true"]  .tile__polish-toggle__seg--motion {
       background: var(--p-sage);
       color: var(--p-white);
-      border-color: var(--p-sage);
     }
-    .tile__polish-toggle:hover { transform: scale(1.04); }
-    .tile__polish-toggle:active { transform: scale(0.96); }
-    .tile__polish-toggle:focus-visible {
+    .tile__polish-toggle:focus-visible,
+    .tile__polish-toggle__seg:focus-visible {
       outline: 2px solid var(--p-aztek);
       outline-offset: 2px;
     }
-    .tile__polish-toggle::before {
-      content: "";
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: currentColor;
-      opacity: 0.6;
-    }
-    .tile__polish-toggle[data-on="true"]::before { opacity: 1; }
     .tile__preview-btn:hover {
       opacity: 1;
       background: var(--p-aztek);
@@ -3066,7 +3067,7 @@
         const thumbSrc = v.hash ? `${initialFile}#${v.hash}` : initialFile;
         const thumbCaption = `${slot.label}: ${v.name}`.replace(/"/g, '&quot;');
         const polishToggleHtml = hasPolished
-          ? `<button class="tile__polish-toggle" type="button" data-role="polish-toggle" data-on="${startPolished ? 'true' : 'false'}" aria-pressed="${startPolished ? 'true' : 'false'}" aria-label="Toggle motion version">${startPolished ? 'Motion' : 'Static'}</button>`
+          ? `<div class="tile__polish-toggle" data-role="polish-toggle" data-on="${startPolished ? 'true' : 'false'}" role="group" aria-label="Static or motion version"><button type="button" class="tile__polish-toggle__seg tile__polish-toggle__seg--static" data-role="polish-toggle-static" aria-pressed="${startPolished ? 'false' : 'true'}">Static</button><button type="button" class="tile__polish-toggle__seg tile__polish-toggle__seg--motion" data-role="polish-toggle-motion" aria-pressed="${startPolished ? 'true' : 'false'}">Motion</button></div>`
           : '';
 
         tile.innerHTML = `
@@ -3074,7 +3075,7 @@
             <div class="tile__thumb-placeholder">Loading preview</div>
             <iframe data-src="${thumbSrc}" width="1440" height="900" loading="lazy" title="${slot.label}: ${v.name}" aria-hidden="true"></iframe>
             <button class="tile__preview-btn" type="button" data-role="preview-btn" aria-label="Open larger preview of ${thumbCaption}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e3735" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="20" y2="20"/></svg>
             </button>
             ${polishToggleHtml}
           </div>
@@ -3097,30 +3098,34 @@
             openPreviewModal(thumb.dataset.previewSrc, thumb.dataset.previewCaption);
             return;
           }
-          // Polish toggle flips the tile between standard and polished versions
-          // without re-selecting (stops the click bubbling to the tile pick handler).
-          if (e.target.closest('[data-role="polish-toggle"]')) {
+          // Polish toggle flips the tile between static and motion versions
+          // without re-selecting. Segmented control: clicking either segment
+          // sets that segment as the active one (idempotent).
+          const segStatic = e.target.closest('[data-role="polish-toggle-static"]');
+          const segMotion = e.target.closest('[data-role="polish-toggle-motion"]');
+          if (segStatic || segMotion) {
             e.stopPropagation();
-            const toggle = e.target.closest('[data-role="polish-toggle"]');
-            const nowOn = toggle.dataset.on !== 'true';
-            toggle.dataset.on = nowOn ? 'true' : 'false';
-            toggle.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
-            toggle.textContent = nowOn ? 'Motion' : 'Static';
-            const newFile = nowOn ? v.file_polished : v.file;
-            const newVid = nowOn ? v.variantId_polished : v.variantId;
+            const toggle = tile.querySelector('[data-role="polish-toggle"]');
+            const wantMotion = !!segMotion;
+            if ((toggle.dataset.on === 'true') === wantMotion) return; // already in that state
+            toggle.dataset.on = wantMotion ? 'true' : 'false';
+            const staticBtn = toggle.querySelector('[data-role="polish-toggle-static"]');
+            const motionBtn = toggle.querySelector('[data-role="polish-toggle-motion"]');
+            if (staticBtn) staticBtn.setAttribute('aria-pressed', wantMotion ? 'false' : 'true');
+            if (motionBtn) motionBtn.setAttribute('aria-pressed', wantMotion ? 'true' : 'false');
+            const newFile = wantMotion ? v.file_polished : v.file;
+            const newVid  = wantMotion ? v.variantId_polished : v.variantId;
             const newSrc = v.hash ? `${newFile}#${v.hash}` : newFile;
             const thumb = tile.querySelector('[data-role="thumb"]');
             const iframe = thumb.querySelector('iframe');
             thumb.dataset.previewSrc = newSrc;
-            // If iframe already loaded, swap src; if still lazy, swap data-src
             if (iframe.dataset.src) {
               iframe.dataset.src = newSrc;
             } else {
               iframe.src = newSrc;
             }
-            tile.dataset.polishedOn = nowOn ? 'true' : 'false';
+            tile.dataset.polishedOn = wantMotion ? 'true' : 'false';
             if (newVid) tile.dataset.variantId = newVid;
-            // If this tile is currently selected, update the selection to the new variantId.
             if (tile.classList.contains('is-selected')) {
               handlePick(slot.id, v.key, tile);
             }
@@ -3695,7 +3700,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
                   <div class="preset-slot__thumb-placeholder">Loading preview</div>
                   <iframe data-src="${src_escape(item.src)}" width="1440" height="900" loading="lazy" title="${item.slot.label}: ${item.variant.name}" aria-hidden="true"></iframe>
                   <span class="preset-slot__thumb-mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1e3735" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="20" y2="20"/></svg>
                   </span>
                 </div>
               </div>
