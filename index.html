@@ -462,6 +462,10 @@
         z-index: 55;
       }
       body.sidebar-mobile-open .app-sidebar__backdrop { opacity: 1; pointer-events: auto; }
+      /* When the drawer is open, the hamburger is redundant and sits on
+         top of the logo inside the sidebar. Hide it; the close button
+         inside the sidebar takes over. */
+      body.sidebar-mobile-open .app-sidebar__hamburger { display: none; }
     }
     @media (min-width: 820px) {
       .app-sidebar__close, .app-sidebar__backdrop, .app-sidebar__hamburger { display: none !important; }

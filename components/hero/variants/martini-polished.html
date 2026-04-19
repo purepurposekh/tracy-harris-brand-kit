@@ -173,8 +173,8 @@
       filter: saturate(0.92) contrast(1.02);
       z-index: 1;
       transform: scale(1.06);
-      animation: mheroReveal 1500ms var(--ease-drawer) 100ms both,
-                 mheroDrift 32s var(--ease-in-out-craft) 1500ms infinite alternate;
+      /* Reveal only. Continuous drift was visually distracting on scroll. */
+      animation: mheroReveal 1500ms var(--ease-drawer) 100ms both;
       will-change: transform, opacity;
     }
     @keyframes mheroReveal {

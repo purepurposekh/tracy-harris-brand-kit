@@ -173,8 +173,10 @@
       filter: saturate(0.95) contrast(1.02);
       z-index: 1;
       transform: scale(1.06);
-      animation: aheroReveal 1400ms var(--ease-drawer) 100ms both,
-                 aheroKenBurns 28s var(--ease-in-out-craft) 1400ms infinite alternate;
+      /* Reveal only. Continuous Ken Burns drift was visually distracting
+         when scrolling; the subtle scroll-zoom on iOS made it look
+         broken. Photo settles at its reveal-end state and stays put. */
+      animation: aheroReveal 1400ms var(--ease-drawer) 100ms both;
       will-change: transform, opacity;
     }
     @keyframes aheroReveal {
