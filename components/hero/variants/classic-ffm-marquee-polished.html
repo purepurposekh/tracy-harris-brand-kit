@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hero — Classic · FFM marquee (polished)</title>
+  <meta name="description" content="Freedom Filled® Mastermind — for the woman ready to lead at a higher level." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/hero/hero.css" />
+
+  <style>
+    /* Classic FFM marquee (dark) — polished.
+       Staggered entrance on content, tactile CTA, marquee strip fade-in,
+       focus rings, reduced motion (stops marquee + strips stagger). */
+
+    :root {
+      --ease-out-craft:    cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out-craft: cubic-bezier(0.77, 0, 0.175, 1);
+      --ease-drawer:       cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background: var(--p-charcoal);
+    }
+
+    .skip-link {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--p-gold-dark); color: var(--p-oatmeal);
+      padding: 10px 14px; z-index: 100;
+      font-family: var(--f-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .skip-link:focus { left: 12px; top: 12px; }
+
+    .hero.hero--marquee.hero--dark {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero.hero--marquee.hero--dark::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%,
+        rgba(201, 164, 108, 0.14) 0%,
+        rgba(201, 164, 108, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero.hero--marquee.hero--dark .hero__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero__logo,
+    .hero__pill,
+    .hero__title,
+    .hero__supporting,
+    .hero__actions {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fmmRise 900ms var(--ease-out-craft) forwards;
+      will-change: transform, opacity;
+    }
+    .hero__logo       { animation-delay: 180ms; }
+    .hero__pill       { animation-delay: 300ms; }
+    .hero__title      { animation-delay: 440ms; }
+    .hero__supporting { animation-delay: 600ms; }
+    .hero__actions    { animation-delay: 760ms; }
+
+    @keyframes fmmRise {
+      from { opacity: 0; transform: translateY(14px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .hero__title em { color: var(--p-gold-mid); }
+
+    .hero__cta {
+      position: relative;
+      padding: 16px 28px;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      transition:
+        background 220ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 220ms var(--ease-out-craft);
+      box-shadow: 0 6px 24px -12px rgba(201, 164, 108, 0.55);
+    }
+    .hero__cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px -10px rgba(201, 164, 108, 0.65);
+    }
+    .hero__cta:active { transform: translateY(0) scale(0.98); }
+    .hero__cta:focus-visible {
+      outline: 2px solid var(--p-gold-mid);
+      outline-offset: 3px;
+    }
+
+    /* Marquee strip reveal (one-time) + ongoing scroll */
+    .hero__marquee-strip {
+      opacity: 0;
+      animation: fmmStripFade 1200ms var(--ease-drawer) 900ms forwards;
+    }
+    @keyframes fmmStripFade {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero__logo,
+      .hero__pill,
+      .hero__title,
+      .hero__supporting,
+      .hero__actions,
+      .hero__marquee-strip {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      /* Pause marquee track */
+      .hero__marquee-track {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-brand="ffm">
+  <a href="#content" class="skip-link">Skip to content</a>
+
+  <section class="hero hero--marquee hero--dark" data-brand="ffm" aria-label="Freedom Filled Mastermind">
+    <div class="hero__inner" id="content">
+      <div class="hero__content">
+        <img src="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/ffm/ffm-primary.svg"
+             alt="Freedom Filled® Mastermind"
+             class="hero__logo"
+             style="height: 40px;" />
+        <span class="hero__pill">Application-based · Intentionally small</span>
+        <h1 class="hero__title">For the woman ready to <em>lead at a higher level</em>.</h1>
+        <p class="hero__supporting">Live retreats in Bali. A carefully selected group of high-achieving female entrepreneurs. Radical honesty. Deep support. Ambitious thinking.</p>
+        <div class="hero__actions">
+          <a href="#apply" class="hero__cta">Apply for the Mastermind</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__marquee-strip" aria-hidden="true">
+      <div class="hero__marquee-track">
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
+        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
