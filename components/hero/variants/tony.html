@@ -126,13 +126,15 @@
       flex-direction: column;
       background: #d9d3c9;  /* fallback warm tone */
     }
-    /* Portrait — Tracy anchored hard-left across all breakpoints (matches Split · dark charcoal rule). */
+    /* Portrait — in this source image Tracy is on the right (door + light
+       shaft fill the left). Keep her visible there; copy sits on the LEFT
+       over the quiet door area. */
     .thero__image {
       position: absolute;
       inset: 0;
       background-image: url("../../../assets/photos/tracy-outfit8-39.jpg");
-      background-size: 180% auto;
-      background-position: 19% 28%;
+      background-size: 130% auto;
+      background-position: 75% 28%;
       background-repeat: no-repeat;
       z-index: 1;
       filter: contrast(1.02) saturate(1.02);
@@ -146,15 +148,16 @@
           rgba(16,16,16,0.25) 100%);
       pointer-events: none;
     }
-    /* Right-anchored readability gradient — darkens the right side so copy reads over Tracy-left portrait. */
+    /* Left-anchored readability gradient — darkens the left half so copy
+       reads over the door/light area while Tracy (right side) stays clear. */
     .thero__lift {
       position: absolute; inset: 0; z-index: 3;
       background:
-        linear-gradient(260deg,
-          rgba(16,16,16,0.55) 0%,
-          rgba(16,16,16,0.35) 18%,
-          rgba(16,16,16,0.08) 35%,
-          rgba(16,16,16,0.0)  52%);
+        linear-gradient(100deg,
+          rgba(16,16,16,0.62) 0%,
+          rgba(16,16,16,0.40) 20%,
+          rgba(16,16,16,0.10) 40%,
+          rgba(16,16,16,0.0)  58%);
       pointer-events: none;
     }
     /* Bottom band for the event widget / meta */
@@ -165,7 +168,9 @@
       pointer-events: none;
     }
 
-    /* Content layer — copy floats to the right so Tracy (hard-left) reads clearly. */
+    /* Content layer — copy anchored far LEFT over the quiet door area so
+       Tracy (right) stays clear and the headline gets contrast from the
+       left-anchored scrim. */
     .thero__body {
       position: relative;
       z-index: 5;
@@ -179,7 +184,7 @@
     .thero__inner {
       max-width: 560px;
       align-self: center;
-      justify-self: end;
+      justify-self: start;
       text-align: left;
     }
     .thero__eyebrow {
@@ -378,10 +383,10 @@
         min-height: 90vh;
         border-radius: 6px;
       }
-      /* Keep Tracy hard-left on mobile too. */
+      /* Mobile: pull the frame in so Tracy stays visible on the right. */
       .thero__image {
-        background-size: 220% auto;
-        background-position: 18% 24%;
+        background-size: 180% auto;
+        background-position: 72% 24%;
       }
       /* Stronger scrim on mobile so the hero type reads clearly over the portrait. */
       .thero__lift {
