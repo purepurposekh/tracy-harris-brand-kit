@@ -136,6 +136,29 @@
 
     @media (max-width: 820px) {
       .hero.hero--text-only { padding: 72px 20px; }
+      /* Karl: buttons centered to screen on mobile. Override base .hero--text-only
+         rule that flips to flex-start at this breakpoint. */
+      .hero.hero--text-only .hero__actions {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 520px) {
+      /* Stack the primary CTA + secondary link, both centered, with the
+         primary going full width up to a readable cap. */
+      .hero.hero--text-only .hero__actions {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--sp-4);
+      }
+      .hero.hero--text-only .hero__cta {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
