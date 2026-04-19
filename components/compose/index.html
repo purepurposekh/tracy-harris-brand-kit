@@ -1133,15 +1133,15 @@
       color: var(--ink-mute);
       pointer-events: none;
     }
-    .tile__approval-badge--approved {
-      background: var(--p-sage);
-      border-color: var(--p-sage);
-      color: var(--p-white);
-    }
     .tile__approval-badge--revise {
       background: var(--p-gold-mid);
       border-color: var(--p-gold-dark);
       color: var(--p-charcoal);
+    }
+    .tile__approval-badge--unreviewed {
+      background: var(--p-white);
+      border-color: var(--border-hairline);
+      color: var(--ink-mute);
     }
 
     @media (max-width: 640px) {
@@ -2583,8 +2583,8 @@
         sub: 'Optional. Thin top bar, overlay menu, or skip if the hero handles it.',
         display: 'Nav',
         variants: [
-          { key: 'martini',  name: 'Martini overlay',    file: '../navigation/variants/martini.html',  variantId: 'navigation.martini' },
-          { key: 'showcase', name: 'Sticky + mega menu', file: '../navigation/variants/showcase.html', variantId: 'navigation.showcase' },
+          { key: 'overlay-menu',    name: 'Overlay menu',       file: '../navigation/variants/overlay-menu.html',    variantId: 'navigation.overlay-menu' },
+          { key: 'sticky-mega-menu', name: 'Sticky + mega menu', file: '../navigation/variants/sticky-mega-menu.html', variantId: 'navigation.sticky-mega-menu' },
         ],
         skippable: true,
       },
@@ -2594,15 +2594,15 @@
         sub: 'The first thing they see. Sets the tone for everything that follows.',
         display: 'Hero',
         variants: [
-          { key: 'martini',                     name: 'Martini full-bleed portrait',          file: '../hero/variants/martini.html',                     variantId: 'hero.martini' },
-          { key: 'martini-polished',            name: 'Martini full-bleed portrait (polished)', file: '../hero/variants/martini-polished.html',          variantId: 'hero.martini-polished' },
+          { key: 'overlay-portrait',            name: 'Overlay portrait',                     file: '../hero/variants/overlay-portrait.html',            variantId: 'hero.overlay-portrait' },
+          { key: 'overlay-portrait-polished',   name: 'Overlay portrait (polished)',          file: '../hero/variants/overlay-portrait-polished.html',   variantId: 'hero.overlay-portrait-polished' },
           { key: 'split-dark',                  name: 'Split · dark charcoal',                file: '../hero/variants/split-dark.html',                  variantId: 'hero.split-dark' },
           { key: 'split-dark-polished',         name: 'Split · dark charcoal (polished)',     file: '../hero/variants/split-dark-polished.html',         variantId: 'hero.split-dark-polished' },
           { key: 'split-light',                 name: 'Split · light oatmeal',                file: '../hero/variants/split-light.html',                 variantId: 'hero.split-light' },
           { key: 'split-light-polished',        name: 'Split · light oatmeal (polished)',     file: '../hero/variants/split-light-polished.html',        variantId: 'hero.split-light-polished' },
-          { key: 'amaretto',                    name: 'Amaretto wordmark',                    file: '../hero/variants/amaretto.html',                    variantId: 'hero.amaretto' },
-          { key: 'amaretto-polished',           name: 'Amaretto wordmark (polished)',         file: '../hero/variants/amaretto-polished.html',           variantId: 'hero.amaretto-polished' },
-          { key: 'tony',                        name: 'Tony stage',                           file: '../hero/variants/tony.html',                        variantId: 'hero.tony' },
+          { key: 'editorial-wordmark',          name: 'Editorial wordmark',                   file: '../hero/variants/editorial-wordmark.html',          variantId: 'hero.editorial-wordmark' },
+          { key: 'editorial-wordmark-polished', name: 'Editorial wordmark (polished)',        file: '../hero/variants/editorial-wordmark-polished.html', variantId: 'hero.editorial-wordmark-polished' },
+          { key: 'stage-portrait',              name: 'Stage portrait',                       file: '../hero/variants/stage-portrait.html',              variantId: 'hero.stage-portrait' },
           { key: 'classic-tracy-textonly',      name: 'Classic · Tracy text-only',            file: '../hero/variants/classic-tracy-textonly.html',      variantId: 'hero.classic-tracy-textonly' },
           { key: 'classic-tracy-textonly-polished', name: 'Classic · Tracy text-only (polished)', file: '../hero/variants/classic-tracy-textonly-polished.html', variantId: 'hero.classic-tracy-textonly-polished' },
           { key: 'classic-ffb-split-right',     name: 'Classic · FFB split (photo right)',    file: '../hero/variants/classic-ffb-split-right.html',     variantId: 'hero.classic-ffb-split-right' },
@@ -2808,8 +2808,11 @@
         sub: 'The last word on the page.',
         display: 'Footer',
         variants: [
-          { key: 'martini',  name: 'Martini statement',     file: '../footer/variants/martini.html',  variantId: 'footer.martini' },
-          { key: 'showcase', name: 'Classic (4 variants)',  file: '../footer/variants/showcase.html', variantId: 'footer.showcase' },
+          { key: 'statement-mark',  name: 'Statement + mark',            file: '../footer/variants/statement-mark.html',  variantId: 'footer.statement-mark' },
+          { key: 'tracy-three-col', name: 'Tracy · three-column',        file: '../footer/variants/tracy-three-col.html', variantId: 'footer.tracy-three-col' },
+          { key: 'ffb-two-col',     name: 'FFB · two-column',            file: '../footer/variants/ffb-two-col.html',     variantId: 'footer.ffb-two-col' },
+          { key: 'ffm-dark-two-col', name: 'FFM · dark two-column',      file: '../footer/variants/ffm-dark-two-col.html', variantId: 'footer.ffm-dark-two-col' },
+          { key: 'fresh-minimal',   name: 'FRESH · minimal',             file: '../footer/variants/fresh-minimal.html',   variantId: 'footer.fresh-minimal' },
         ],
         skippable: true,
       },
@@ -2857,7 +2860,7 @@
         label: 'Sales / Home',
         slots: {
           nav: null,
-          hero: ['martini', 'amaretto', 'split-dark', 'split-light', 'tony'],
+          hero: ['overlay-portrait', 'editorial-wordmark', 'split-dark', 'split-light', 'stage-portrait'],
           why_block: null,
           benefit_trio: null,
           feature_grid: null,
@@ -2873,7 +2876,7 @@
       'short': {
         label: 'Short landing',
         slots: {
-          hero: ['split-dark', 'split-light', 'amaretto'],
+          hero: ['split-dark', 'split-light', 'editorial-wordmark'],
           why_block: ['editorial'],
           benefit_trio: null,
           opt_in: null,
@@ -2884,7 +2887,7 @@
       'long': {
         label: 'Long landing',
         slots: {
-          hero: ['split-dark', 'split-light', 'amaretto'],
+          hero: ['split-dark', 'split-light', 'editorial-wordmark'],
           why_block: null,
           benefit_trio: null,
           curriculum_preview: null,
@@ -3054,7 +3057,7 @@
         const thumbSrc = v.hash ? `${initialFile}#${v.hash}` : initialFile;
         const thumbCaption = `${slot.label}: ${v.name}`.replace(/"/g, '&quot;');
         const polishToggleHtml = hasPolished
-          ? `<button class="tile__polish-toggle" type="button" data-role="polish-toggle" data-on="${startPolished ? 'true' : 'false'}" aria-pressed="${startPolished ? 'true' : 'false'}" aria-label="Toggle polished version">${startPolished ? 'Polished' : 'Standard'}</button>`
+          ? `<button class="tile__polish-toggle" type="button" data-role="polish-toggle" data-on="${startPolished ? 'true' : 'false'}" aria-pressed="${startPolished ? 'true' : 'false'}" aria-label="Toggle motion version">${startPolished ? 'Motion' : 'Static'}</button>`
           : '';
 
         tile.innerHTML = `
@@ -3093,7 +3096,7 @@
             const nowOn = toggle.dataset.on !== 'true';
             toggle.dataset.on = nowOn ? 'true' : 'false';
             toggle.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
-            toggle.textContent = nowOn ? 'Polished' : 'Standard';
+            toggle.textContent = nowOn ? 'Motion' : 'Static';
             const newFile = nowOn ? v.file_polished : v.file;
             const newVid = nowOn ? v.variantId_polished : v.variantId;
             const newSrc = v.hash ? `${newFile}#${v.hash}` : newFile;
@@ -3270,10 +3273,11 @@
     // On boot, fetch ../review/approvals.json. Apply status to each tile:
     //  - rejected  => hidden (display:none via CSS)
     //  - revise    => dimmed + "Needs work" gold badge
-    //  - approved  => sage "Approved" pill
-    //  - unreviewed (not in file) => normal, no pill
-    // Empty {} treats every variant as unreviewed. Missing file = same.
-    // Does not change how /review/ works - just consumes its output.
+    //  - approved  => NO badge (approved is the default in composer — every
+    //                 tile here should already be approved, so calling it out
+    //                 adds noise)
+    //  - unreviewed (not in file) => "Unreviewed" pill so Karl can spot what
+    //                 still needs triaging on /review/
     // ----------------------------------------------------------------------
     async function loadApprovals() {
       try {
@@ -3297,21 +3301,21 @@
 
         if (!entry || !entry.status) {
           tile.dataset.approval = 'unreviewed';
+          const badge = document.createElement('span');
+          badge.className = 'tile__approval-badge tile__approval-badge--unreviewed';
+          badge.textContent = 'Unreviewed';
+          tile.querySelector('.tile__thumb').appendChild(badge);
           return;
         }
         tile.dataset.approval = entry.status;
 
-        if (entry.status === 'approved') {
-          const badge = document.createElement('span');
-          badge.className = 'tile__approval-badge tile__approval-badge--approved';
-          badge.textContent = 'Approved';
-          tile.querySelector('.tile__thumb').appendChild(badge);
-        } else if (entry.status === 'revise') {
+        if (entry.status === 'revise') {
           const badge = document.createElement('span');
           badge.className = 'tile__approval-badge tile__approval-badge--revise';
           badge.textContent = 'Needs work';
           tile.querySelector('.tile__thumb').appendChild(badge);
         }
+        // approved: no badge in composer (default assumption)
         // rejected: CSS rule [data-approval="rejected"] hides the tile
       });
     }

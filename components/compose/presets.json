@@ -6,7 +6,7 @@
     "description": "Dense opt-in pitch page. Hero, proof, why-this-exists, outcomes, a long testimonial stack and a closing invite.",
     "intent": "Long-form freebie opt-in page. For a value-led lead magnet where the reader needs to be walked from problem recognition through the why, the outcomes, and real member proof before they drop their email. Warm, grounded, never pushy.",
     "slots": {
-      "nav": "martini",
+      "nav": "overlay-menu",
       "hero": "split",
       "why_block": "editorial",
       "benefit_trio": "icon-row",
@@ -23,7 +23,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -33,7 +33,7 @@
     "description": "Alternative arrangement with the opt-in embedded in the hero and a feature grid leading the proof.",
     "intent": "Long-form freebie opt-in, same bones as the first but re-sequenced. Email capture lives in the hero. Feature grid leads the structural proof before the narrative 'why' lands.",
     "slots": {
-      "nav": "martini",
+      "nav": "overlay-menu",
       "hero": "split",
       "why_block": "editorial",
       "benefit_trio": "number-row",
@@ -50,7 +50,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -61,7 +61,7 @@
     "intent": "Short landing for a freebie, inline email capture. Reader should finish the page in under 30 seconds. One 3-item curriculum preview, one confident pull quote, one clean opt-in.",
     "slots": {
       "nav": null,
-      "hero": "amaretto",
+      "hero": "editorial-wordmark",
       "why_block": "editorial",
       "benefit_trio": "number-row",
       "feature_grid": null,
@@ -77,7 +77,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -104,7 +104,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -131,7 +131,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -141,8 +141,8 @@
     "description": "Minimal opt-in page. Hero, one reassurance beat, one opt-in, footer. Nothing else.",
     "intent": "Minimal freebie opt-in. Use when the freebie is already well-known to the audience, or when paid traffic lands warm and just needs a frictionless 'give me my file' moment.",
     "slots": {
-      "nav": "martini",
-      "hero": "amaretto",
+      "nav": "overlay-menu",
+      "hero": "editorial-wordmark",
       "why_block": null,
       "benefit_trio": null,
       "feature_grid": null,
@@ -158,7 +158,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -185,7 +185,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -195,7 +195,7 @@
     "description": "Alt TY layout with a navigation bar, results hero, structured next-steps, and a softer upsell before the footer.",
     "intent": "Thank-you page variant with a tiny top nav and more scaffolding. Use when the reader may need to pin the page or navigate back to the rest of the site.",
     "slots": {
-      "nav": "martini",
+      "nav": "overlay-menu",
       "hero": "results",
       "why_block": null,
       "benefit_trio": null,
@@ -212,7 +212,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -239,7 +239,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
@@ -266,18 +266,18 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   },
   {
     "preset_id": "ffb-sales-page",
     "name": "FFB sales page",
     "page_type": "sales-home",
-    "description": "Sales page for Freedom Filled® Business Mentorship. Tony-stage hero, editorial callout, marquee proof, quiet FAQ.",
+    "description": "Sales page for Freedom Filled® Business Mentorship. Stage-portrait hero, editorial callout, marquee proof, quiet FAQ.",
     "intent": "Sales page for FFB Mentorship. Warm, confident, invitation not pitch, for women who've done other programs and are ready for the mentorship that actually sticks. Uses Tracy's signature aesthetic end-to-end.",
     "slots": {
-      "nav": "martini",
-      "hero": "tony",
+      "nav": "overlay-menu",
+      "hero": "stage-portrait",
       "why_block": "editorial",
       "benefit_trio": null,
       "feature_grid": null,
@@ -293,7 +293,7 @@
       "event_widget": null,
       "post_grid": null,
       "content_section": null,
-      "footer": "showcase"
+      "footer": "tracy-three-col"
     }
   }
 ]

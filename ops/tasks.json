@@ -33,14 +33,14 @@
       "id": "revisions",
       "subject": "Component revision pass (18 items in 5 batches)",
       "status": "pending",
-      "note": "Batch 1 — quick CSS (guarantee.badge circle, why-block cursive size, hero.classic-ffm-silk logo). Batch 2 — layout (hero.tony photo rule, testimonials.wall overlap, expandable-cta.ffm-application bg). Batch 3 — splits + rules (hero.results, footer.showcase, opt-in name+email, curriculum-preview brown only). Batch 4 — content (image-grid.bento more images, podcast-card.featured latest image). Batch 5 — creative (podcast-card.compact Spotify-style, programs-grid not-boring with logos).",
+      "note": "Batch 1 — quick CSS (guarantee.badge circle, why-block cursive size, hero.classic-ffm-silk logo). Batch 2 — layout (hero.stage-portrait photo rule, testimonials.wall overlap, expandable-cta.ffm-application bg). Batch 3 — splits + rules (hero.results, footer splits, opt-in name+email, curriculum-preview brown only). Batch 4 — content (image-grid.bento more images, podcast-card.featured latest image). Batch 5 — creative (podcast-card.compact Spotify-style, programs-grid not-boring with logos).",
       "waiting_on": "Karl greenlight on batch order"
     },
     {
       "id": "polish-rollout",
       "subject": "Roll polish across all approved variants + add polished entries to review",
       "status": "pending",
-      "note": "3 heroes polished as proof (amaretto, martini, classic-ffb-split-right). Karl said direction is good. Next: polish every approved variant, add -polished entries as independent review cards, update composer recipes.",
+      "note": "3 heroes polished as proof (editorial-wordmark, overlay-portrait, classic-ffb-split-right). Karl said direction is good. Next: polish every approved variant, add -polished entries as independent review cards, update composer recipes.",
       "waiting_on": "me"
     },
     {

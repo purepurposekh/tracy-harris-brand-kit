@@ -35,7 +35,7 @@ Classifier legend: **E** = already exists, **Q** = queued, **N** = new component
 
 | # | Section | Class | Notes |
 |---|---|---|---|
-| 1 | Minimal header / logo bar | E | `navigation/martini` (slim) |
+| 1 | Minimal header / logo bar | E | `navigation/overlay-menu` (slim) |
 | 2 | Hero with email opt-in inline | E | `opt-in/split` or `hero/split` + opt-in |
 | 3 | Privacy disclaimer microcopy | N | `form-assurance` — tiny reassurance line |
 | 4 | 4-up feature blocks | N | `feature-grid` — quad icon+copy tiles |
@@ -55,7 +55,7 @@ Classifier legend: **E** = already exists, **Q** = queued, **N** = new component
 
 | # | Section | Class | Notes |
 |---|---|---|---|
-| 1 | Hero "SEO isn't complicated" + CTA | E | `hero/amaretto` |
+| 1 | Hero "SEO isn't complicated" + CTA | E | `hero/editorial-wordmark` |
 | 2 | Value-prop paragraph + download button | E | `cta-block/ruled` |
 | 3 | "Get the guide" title card + link | E | `cta-block/elevated` |
 | 4 | Curriculum preview (3 learning outcomes) | N | `curriculum-preview` — numbered or lettered contents list |
@@ -99,8 +99,8 @@ Note: despite the name "interactive-freebie", this version has no quiz/click-rev
 
 | # | Section | Class | Notes |
 |---|---|---|---|
-| 1 | Title/header | E | `navigation/martini` slim |
-| 2 | Hero "Get the free download" CTA | E | `hero/amaretto` |
+| 1 | Title/header | E | `navigation/overlay-menu` slim |
+| 2 | Hero "Get the free download" CTA | E | `hero/editorial-wordmark` |
 | 3 | Value prop paragraph | E | `cta-block/ruled` |
 | 4 | Creator intro "hey, I'm Grace" | E | `about-bio/centered-circle` |
 | 5 | Button-based CTA | E | `cta-block/accent` |
@@ -122,7 +122,7 @@ Lightest page. Nothing new.
 
 | # | Section | Class | Notes |
 |---|---|---|---|
-| 1 | Header / title | E | `navigation/martini` |
+| 1 | Header / title | E | `navigation/overlay-menu` |
 | 2 | Primary download CTA section | Q | `hero/variants/results.html` |
 | 3 | Confirmation + "check spam folder" callout | N | `spam-callout` — warm warning card |
 | 4 | Numbered next-steps (01, 02) | N | `next-steps` (numbered variant) |
@@ -148,7 +148,7 @@ Also implied on OTO but not always rendered: offer-stack, guarantee — both alr
 
 | # | Section | Class | Notes |
 |---|---|---|---|
-| 1 | Title | E | `navigation/martini` |
+| 1 | Title | E | `navigation/overlay-menu` |
 | 2 | "Steal my free X" offer block | N | `bonus-screamer` — a loud single-offer callout with heading + body + button, designed to break up long pages |
 | 3 | "Screamer message here" separator block | N | `bonus-screamer` (rule/separator variant) |
 | 4 | "Get my free SEO guide" bold CTA | E | `cta-block/accent` |

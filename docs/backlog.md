@@ -64,10 +64,10 @@ From the audit, flagged as variants worth adding to existing families:
 
 ## Done 2026-04-16 → 04-17
 
-- [x] Martini direction hero + footer + nav overlay
-- [x] Amaretto wordmark hero
+- [x] Overlay-portrait hero + statement-mark footer + overlay-menu nav
+- [x] Editorial-wordmark hero
 - [x] Split dual (dark + light) hero with Tracy at 75% viewport
-- [x] Tony editorial stage hero (reworked in Tracy voice)
+- [x] Stage-portrait hero (editorial, reworked in Tracy voice)
 - [x] Product callout: 4 variants (bento-ffb, bento-elite, editorial, clearer) with obvious video section
 - [x] Event widget with modal + compact mobile redesign + workshop title overlaid on Tracy
 - [x] `/compose/` page composer + recipe JSON + sticky chip strip + preview button
