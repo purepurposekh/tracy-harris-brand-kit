@@ -1,0 +1,89 @@
+{
+  "updated": "2026-04-19T10:55:00Z",
+  "tasks": [
+    {
+      "id": 13,
+      "subject": "Research: where else the hook pattern plugs leaks",
+      "status": "pending",
+      "note": "Scan chat history + error logs + memory files + webhook-server logs for recurring failure modes that structural hooks could prevent. 3-pass validation before proposing. Parked behind higher-priority work.",
+      "waiting_on": "me"
+    },
+    {
+      "id": 19,
+      "subject": "Claude Routines — daily log summary test",
+      "status": "in_progress",
+      "note": "Brief posted in #1491682034882445313. Karl needs to run the 8-step web-UI flow at claude.ai/code/routines to activate. I cannot create routines from CLI.",
+      "waiting_on": "Karl"
+    },
+    {
+      "id": 22,
+      "subject": "Variant split round 2 — footer showcase (4) + nav showcase + others we missed",
+      "status": "pending",
+      "note": "Karl flagged no card should bundle multiple variants. First split pass covered hero, programs-grid, expandable-cta. Footer + nav showcases still pending.",
+      "waiting_on": "me"
+    },
+    {
+      "id": 24,
+      "subject": "Brand system overview section on catalog page",
+      "status": "pending",
+      "note": "A visible brand setup section (palette, typography, spacing, voice rules from DESIGN.md) on the catalog so anyone with access can see the whole system at a glance.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "revisions",
+      "subject": "Component revision pass (18 items in 5 batches)",
+      "status": "pending",
+      "note": "Batch 1 — quick CSS (guarantee.badge circle, why-block cursive size, hero.classic-ffm-silk logo). Batch 2 — layout (hero.tony photo rule, testimonials.wall overlap, expandable-cta.ffm-application bg). Batch 3 — splits + rules (hero.results, footer.showcase, opt-in name+email, curriculum-preview brown only). Batch 4 — content (image-grid.bento more images, podcast-card.featured latest image). Batch 5 — creative (podcast-card.compact Spotify-style, programs-grid not-boring with logos).",
+      "waiting_on": "Karl greenlight on batch order"
+    },
+    {
+      "id": "polish-rollout",
+      "subject": "Roll polish across all approved variants + add polished entries to review",
+      "status": "pending",
+      "note": "3 heroes polished as proof (amaretto, martini, classic-ffb-split-right). Karl said direction is good. Next: polish every approved variant, add -polished entries as independent review cards, update composer recipes.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "quiz-verdict",
+      "subject": "FFB Quiz v3a/v3b/v3c — pick the winner",
+      "status": "pending",
+      "note": "Three variants live: v3a editorial, v3b dark cinematic, v3c soft white-space. Karl walks each on phone and picks direction (or hybrid).",
+      "waiting_on": "Karl"
+    },
+    {
+      "id": "storage",
+      "subject": "Hetzner volume mount for VPS storage cleanup",
+      "status": "pending",
+      "note": "I queued rm commands for Karl to run (denied-by-policy on my side). Once run, I provision the Hetzner Cloud Volume (€2.20/mo) and mount + symlink.",
+      "waiting_on": "Karl to run rm commands"
+    },
+    {
+      "id": "funnel-os",
+      "subject": "Funnel OS architecture — repeatable team workflow",
+      "status": "pending",
+      "note": "Shape proposed: form + Slack + Claude Agent SDK worker. Need Karl's answers on ManyChat Pro, Slack workspace readiness, which funnel to build first.",
+      "waiting_on": "Karl"
+    },
+    {
+      "id": "website-rebuild",
+      "subject": "tracyharris.co rebuild based on 2026 company goals",
+      "status": "queued",
+      "note": "Three strategic goals in Strategy/growth-engine.md: podcasts international, 100K YouTube, 50K email. Nixtio merge dead — rebuild uses the brand kit we've been building. Start with homepage + one sales page as proof.",
+      "waiting_on": "Karl greenlight + goals doc confirmation"
+    },
+    {
+      "id": "funnel-mapping",
+      "subject": "Funnel mapping — visual deliverable",
+      "status": "queued",
+      "note": "Visual map of every funnel (FRESH Quiz → Workshop → FFB → FFM + sub-pipelines) with per-stage tool state: PostHog event, AC tag, form, Stripe product, nurture sequence. Flag gaps. Strategy/pipeline.md has the prose version.",
+      "waiting_on": "Karl greenlight"
+    },
+    {
+      "id": "mastermind-training",
+      "subject": "Mastermind training — 5 steps to build a brand kit for Claude Design / Cowork",
+      "status": "queued",
+      "note": "Standalone teachable asset for FFM members. Need format decision from Karl: PDF, slides, Loom script.",
+      "waiting_on": "Karl on format + audience level"
+    }
+  ]
+}

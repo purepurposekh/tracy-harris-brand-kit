@@ -1,0 +1,45 @@
+{
+  "updated": "2026-04-19T10:55:00Z",
+  "ideas": [
+    {
+      "id": 1,
+      "title": "Centralised Operations Hub",
+      "captured": "2026-04-10",
+      "complexity": "High",
+      "summary": "Live dashboard tracking business processes end-to-end with traffic-light statuses per step (podcast, launches, onboarding, content, member management). A place where you can see what's happening across the whole business at a glance.",
+      "status": "concept"
+    },
+    {
+      "id": 2,
+      "title": "Higgsfield for Video Content",
+      "captured": "2026-04-10",
+      "complexity": "Low",
+      "summary": "Explore Higgsfield AI for short-form video content (Reels, ads, workshop promos, podcast teasers). 15+ cinematic AI models, $15/mo. Photo-to-video for Tracy's stills. Could slot into the podcast pipeline as asset #16.",
+      "status": "concept"
+    },
+    {
+      "id": 3,
+      "title": "FRESH Reset Challenge",
+      "captured": "2026-04-10",
+      "complexity": "Medium",
+      "summary": "A structured challenge like 75 Hard but designed for women entrepreneurs. Hits every F.R.E.S.H pillar daily. Individualised minimums/maximums, not punishment. Could be standalone product or FFB module.",
+      "status": "concept"
+    },
+    {
+      "id": 4,
+      "title": "Webinar / Workshop Stack with Dynamic Sales Page",
+      "captured": "2026-04-19",
+      "complexity": "Medium-high",
+      "summary": "Opt-in page → TY page → email-gated replay (48-72h) → dynamic sales page that reshapes to the individual's journey (personalised content + journey-aware + live data). The dynamic piece is the interesting part — Karl's four interpretations captured in the vault.",
+      "status": "concept — to flesh out later"
+    },
+    {
+      "id": 5,
+      "title": "Learning-Style-Adaptive Sales Pages",
+      "captured": "2026-04-19",
+      "complexity": "n/a",
+      "summary": "A widget on the sales page that swaps between text-heavy / visual / interactive modes based on how the visitor wants to consume.",
+      "status": "research verdict — don't build. Premise is scientifically debunked (Pashler 2008, Kirschner 2017, d ≈ .04). Zero comparable case studies. Build TL;DR + hybrid multi-format single page + quiz-driven personalisation instead. Full report at opencore-vault/Brain/Research/Learning-style-sales-pages-2026-04-19.md"
+    }
+  ]
+}
