@@ -318,24 +318,32 @@
       font-family: var(--f-serif-italic);
     }
 
-    /* -------- DEMO BG (so the nav has something to sit on top of) -------- */
+    /* -------- PAGE PLACEHOLDER --------
+       Short dark strip so the nav has something to invert over.
+       Intentionally NOT a hero — the component being previewed is the
+       nav bar, not a page design. */
     .demo-hero {
-      min-height: 100vh;
-      background:
-        linear-gradient(180deg, rgba(16,16,16,0.25) 0%, rgba(16,16,16,0) 30%, rgba(16,16,16,0.35) 100%),
-        url("https://static.showit.co/1200/C8lYkDDfclRnqya_MiRFow/173187/062a3960.jpg") center 20%/cover no-repeat;
+      height: 220px;
+      background: var(--p-aztek);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 24px 14vh;
+      padding: 80px 24px 24px;
     }
     .demo-hero__word {
-      color: var(--p-oatmeal);
-      font-family: var(--f-serif-display);
-      font-size: clamp(96px, 22vw, 320px);
-      line-height: 0.9;
+      color: rgba(246, 244, 241, 0.35);
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
       margin: 0;
-      letter-spacing: -0.02em;
+    }
+    /* Below the dark strip, a pale continuation so the nav's
+       "dark-over-photo vs light-over-content" inversion is demonstrable. */
+    .demo-content {
+      height: 240px;
+      background: var(--p-oatmeal);
     }
 
     /* -------- MOBILE -------- */
@@ -453,10 +461,11 @@
     </p>
   </div>
 
-  <!-- DEMO HERO so the nav has something to sit on top of -->
+  <!-- Dark strip so the nav inversion is demonstrable; not a hero. -->
   <section class="demo-hero">
-    <h1 class="demo-hero__word">Tracy</h1>
+    <span class="demo-hero__word">page · dark section</span>
   </section>
+  <div class="demo-content" aria-hidden="true"></div>
 
   <script>
     const bar = document.getElementById('mnav');
