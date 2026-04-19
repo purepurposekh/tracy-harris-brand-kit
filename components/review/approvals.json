@@ -1,8 +1,8 @@
 {
   "hero.classic-tracy-textonly": {
-    "status": "rejected",
-    "at": "2026-04-19T13:28:05.663Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "hero.classic-ffb-split-right": {
     "status": "approved",
@@ -145,24 +145,24 @@
     "note": null
   },
   "cta-block.canvas": {
-    "status": "rejected",
-    "at": "2026-04-19T13:35:29.255Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "cta-block.elevated": {
-    "status": "rejected",
-    "at": "2026-04-19T13:36:04.878Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "cta-block.accent": {
-    "status": "rejected",
-    "at": "2026-04-19T13:36:42.762Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "cta-block.dark": {
-    "status": "rejected",
-    "at": "2026-04-19T13:37:01.512Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "cta-block.ruled": {
     "status": "approved",
@@ -175,19 +175,19 @@
     "note": null
   },
   "pricing.ffb-side-by-side": {
-    "status": "rejected",
-    "at": "2026-04-19T13:39:43.766Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "pricing.ffm-dark-premium": {
-    "status": "rejected",
-    "at": "2026-04-19T13:39:52.153Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "pricing.compact-single": {
-    "status": "rejected",
-    "at": "2026-04-19T13:40:07.284Z",
-    "note": null
+    "status": "approved",
+    "at": "2026-04-19T23:00:00Z",
+    "note": "Flipped back to approved — both static and motion versions kept so composer can toggle between them."
   },
   "about-bio.split-editorial": {
     "status": "approved",

@@ -1090,6 +1090,14 @@
         </a>
       </li>
       <li>
+        <a class="app-sidebar__link" data-nav="brand" href="../../brand/">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><path d="M10 2.5v15"/><path d="M2.5 10h15"/></svg>
+          </span>
+          <span class="app-sidebar__label">Brand at a glance</span>
+        </a>
+      </li>
+      <li>
         <a class="app-sidebar__link" data-nav="compose" href="../../components/compose/">
           <span class="app-sidebar__icon" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><line x1="10" y1="6.5" x2="10" y2="13.5"/><line x1="6.5" y1="10" x2="13.5" y2="10"/></svg>
@@ -1171,7 +1179,8 @@
 
       var path = window.location.pathname;
       var active = 'catalog';
-      if (path.indexOf('/components/compose/') !== -1) active = 'compose';
+      if (path.indexOf('/brand/') !== -1) active = 'brand';
+      else if (path.indexOf('/components/compose/') !== -1) active = 'compose';
       else if (path.indexOf('/components/review/') !== -1) active = 'review';
       else if (path.indexOf('/pages/') !== -1) active = 'pages';
       else if (path.indexOf('/docs/') !== -1) active = 'docs';
