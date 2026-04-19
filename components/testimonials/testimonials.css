@@ -63,6 +63,7 @@
   flex-direction: column;
   gap: var(--sp-5);
   box-shadow: 0 2px 12px rgba(16, 16, 16, 0.04);
+  box-sizing: border-box;
 }
 
 .testimonials--elevated .testimonial {
@@ -151,7 +152,7 @@
 
 .testimonials__wall {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--sp-6);
   align-items: start;
 }
@@ -159,11 +160,12 @@
 .testimonials__wall .testimonial {
   margin: 0;
   width: 100%;
+  min-width: 0;
   overflow: hidden;
 }
 
-@media (max-width: 1000px) { .testimonials__wall { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .testimonials__wall { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) { .testimonials__wall { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .testimonials__wall { grid-template-columns: minmax(0, 1fr); } }
 
 /* ============================================================ */
 /* VARIANT: FEATURED (3 equal columns, grid) — product pages    */
