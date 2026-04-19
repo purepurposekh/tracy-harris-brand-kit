@@ -73,28 +73,25 @@
     .pricing__sub   { text-wrap: pretty; }
 
     .pricing__cta {
-      min-height: 48px;
       transition:
         background-color 200ms var(--ease-out-craft),
         color 200ms var(--ease-out-craft),
-        transform 180ms var(--ease-out-craft),
         box-shadow 220ms var(--ease-out-craft),
-        border-color 200ms var(--ease-out-craft);
+        border-color 200ms var(--ease-out-craft),
+        transform 120ms var(--ease-out-craft);
     }
     .pricing__cta--primary {
-      box-shadow: 0 8px 24px -12px rgba(30, 55, 53, 0.5);
+      box-shadow: 0 3px 12px -6px rgba(30, 55, 53, 0.35);
     }
     .pricing__cta--primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 32px -10px rgba(30, 55, 53, 0.6);
+      box-shadow: 0 5px 16px -6px rgba(30, 55, 53, 0.45);
     }
-    .pricing__cta--primary:active { transform: translateY(0) scale(0.98); }
+    .pricing__cta--primary:active { transform: scale(0.99); }
     .pricing__cta--primary:focus-visible {
       outline: 2px solid var(--p-aztek);
       outline-offset: 3px;
     }
-    .pricing__cta--secondary:hover { transform: translateY(-1px); }
-    .pricing__cta--secondary:active { transform: translateY(0) scale(0.98); }
+    .pricing__cta--secondary:active { transform: scale(0.99); }
     .pricing__cta--secondary:focus-visible {
       outline: 1px solid var(--p-aztek);
       outline-offset: 3px;

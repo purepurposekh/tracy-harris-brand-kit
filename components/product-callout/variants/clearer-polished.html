@@ -188,7 +188,6 @@
     .pcc__ctas { display: flex; flex-direction: column; gap: 10px; }
     .pcc__cta {
       padding: 14px 22px;
-      min-height: 48px;
       display: inline-flex; align-items: center; justify-content: center;
       border-radius: var(--r-pill);
       text-decoration: none;
@@ -205,27 +204,26 @@
         background 250ms var(--ease-out-craft),
         color 250ms var(--ease-out-craft),
         border-color 250ms var(--ease-out-craft),
-        transform 180ms var(--ease-out-craft),
-        box-shadow 220ms var(--ease-out-craft);
+        box-shadow 220ms var(--ease-out-craft),
+        transform 120ms var(--ease-out-craft);
     }
     .pcc__cta:hover {
       border-color: var(--p-ffb-dark);
       color: var(--p-ffb-dark);
-      transform: translateY(-1px);
     }
-    .pcc__cta:active { transform: translateY(0) scale(0.98); }
+    .pcc__cta:active { transform: scale(0.99); }
     .pcc__cta:focus-visible { outline: 2px solid var(--p-aztek); outline-offset: 3px; }
     .pcc__cta--primary {
       background: var(--p-ffb-dark);
       color: var(--p-oatmeal);
       border-color: var(--p-ffb-dark);
-      box-shadow: 0 8px 24px -12px rgba(30, 55, 53, 0.55);
+      box-shadow: 0 3px 12px -6px rgba(30, 55, 53, 0.4);
     }
     .pcc__cta--primary:hover {
       background: #122624;
       color: var(--p-oatmeal);
       border-color: #122624;
-      box-shadow: 0 14px 32px -10px rgba(30, 55, 53, 0.65);
+      box-shadow: 0 5px 16px -6px rgba(30, 55, 53, 0.5);
     }
 
     .pcc__video {
