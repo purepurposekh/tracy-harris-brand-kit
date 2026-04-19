@@ -10,26 +10,196 @@
   <link rel="stylesheet" href="../../../styles/fonts.css" />
   <link rel="stylesheet" href="../../../styles/tokens.css" />
   <link rel="stylesheet" href="../podcast-card.css" />
-  <style>body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }</style>
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; }
+
+    /* ------- Mini player (Spotify-style) ------- */
+    .mini-player {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--sp-5);
+      align-items: center;
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+      border-radius: var(--r-lg);
+      padding: 14px 18px 14px 14px;
+      max-width: 680px;
+      box-shadow: 0 6px 24px rgba(16, 16, 16, 0.18);
+    }
+
+    .mini-player__art {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex: 0 0 auto;
+      background: rgba(255,255,255,0.05);
+    }
+    .mini-player__art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .mini-player__meta {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-player__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: var(--w-medium);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 241, 0.55);
+      margin: 0;
+    }
+
+    .mini-player__title {
+      font-family: var(--f-serif-display);
+      font-weight: var(--w-regular);
+      font-size: 18px;
+      line-height: 1.25;
+      color: var(--p-oatmeal);
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .mini-player__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+    }
+
+    .mini-player__progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .mini-player__time {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: var(--w-medium);
+      letter-spacing: 0.06em;
+      color: rgba(246, 244, 241, 0.55);
+      font-variant-numeric: tabular-nums;
+      min-width: 30px;
+    }
+    .mini-player__bar {
+      flex: 1;
+      height: 3px;
+      background: rgba(246, 244, 241, 0.16);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .mini-player__bar-fill {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 0%;
+      background: var(--p-sage);
+      border-radius: 2px;
+    }
+
+    .mini-player__controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mini-player__ctrl {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      background: transparent;
+      color: rgba(246, 244, 241, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      border-radius: 50%;
+      transition: color 0.2s, background 0.2s;
+    }
+    .mini-player__ctrl:hover { color: var(--p-oatmeal); background: rgba(246,244,241,0.06); }
+    .mini-player__ctrl svg { width: 16px; height: 16px; }
+
+    .mini-player__play {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--p-sage);
+      color: var(--p-aztek);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.18s ease, background 0.2s;
+    }
+    .mini-player__play:hover { transform: scale(1.06); background: #7ea088; }
+    .mini-player__play svg { width: 16px; height: 16px; margin-left: 2px; }
+
+    /* Mobile stack */
+    @media (max-width: 480px) {
+      .mini-player {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "art meta"
+          "controls controls";
+        gap: 12px;
+        padding: 12px;
+      }
+      .mini-player__art { grid-area: art; width: 60px; height: 60px; }
+      .mini-player__meta { grid-area: meta; }
+      .mini-player__controls {
+        grid-area: controls;
+        justify-content: space-between;
+        padding-top: 4px;
+        border-top: 1px solid rgba(246,244,241,0.1);
+      }
+      .mini-player__title { font-size: 16px; white-space: normal; }
+    }
+
+    /* Wrapper keeps page padding consistent with component system */
+    .podcast-card__compact-wrap { padding: var(--sp-7) var(--sp-7); }
+  </style>
 </head>
 <body data-brand="tracy">
   <section class="podcast-card" data-brand="tracy">
-    <div class="podcast-card__inner">
-      <div class="podcast-card__compact">
-        <div class="podcast-card__art">
-          <img src="https://tracyharris.co/wp-content/uploads/2020/09/Feature-Image-Podcast.jpg" alt="Podcast cover." />
+    <div class="podcast-card__inner podcast-card__compact-wrap">
+      <!-- Spotify-style mini player. Static UI — not wired to real audio. -->
+      <article class="mini-player" role="group" aria-label="Podcast mini player">
+        <div class="mini-player__art">
+          <img src="https://mumswithhustle.com/wp-content/uploads/powerpress/MWH_Podcast_Cover_Art_v5-6520.jpg" alt="Mums With Hustle Podcast cover." />
         </div>
-        <div class="podcast-card__details">
-          <p class="podcast-card__episode-label">Latest episode</p>
-          <h3 class="podcast-card__episode-title">[EPISODE TITLE]</h3>
-          <a href="#" class="podcast-card__play-btn">
-            <span class="podcast-card__play-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-            </span>
-            Listen now
-          </a>
+        <div class="mini-player__meta">
+          <p class="mini-player__eyebrow">Latest episode · Tracy Harris</p>
+          <h3 class="mini-player__title">17 Years of <em>Marriage</em></h3>
+          <div class="mini-player__progress" aria-hidden="true">
+            <span class="mini-player__time">00:00</span>
+            <div class="mini-player__bar"><div class="mini-player__bar-fill" style="width: 18%"></div></div>
+            <span class="mini-player__time">52:40</span>
+          </div>
         </div>
-      </div>
+        <div class="mini-player__controls">
+          <button class="mini-player__ctrl" type="button" aria-label="Previous episode">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg>
+          </button>
+          <button class="mini-player__play" type="button" aria-label="Play latest episode">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </button>
+          <button class="mini-player__ctrl" type="button" aria-label="Next episode">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6v12l8.5-6z"/></svg>
+          </button>
+        </div>
+      </article>
     </div>
   </section>
 </body>
