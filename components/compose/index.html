@@ -317,36 +317,41 @@
 
     /* Preview zoom button floats on the thumb. It opens the larger modal
        preview while leaving the rest of the tile click for section pick. */
+    /* Preview zoom button — always visible, high-contrast pill so it
+       reads clearly over any thumbnail (light or dark). Bottom-left
+       so it doesn't overlap approve/revise/reject buttons at top/right. */
     .tile__preview-btn {
       position: absolute;
-      bottom: 8px;
-      left: 8px;
-      width: 32px;
-      height: 32px;
+      bottom: 10px;
+      left: 10px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      border: 0;
-      background: rgba(16, 16, 16, 0.72);
-      color: var(--p-white);
+      border: 1px solid rgba(16, 16, 16, 0.08);
+      background: var(--p-white);
+      color: var(--p-aztek);
       cursor: zoom-in;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 3;
-      opacity: 0;
-      transition: opacity 0.15s ease, background 0.15s ease;
+      opacity: 0.95;
+      box-shadow: 0 4px 12px rgba(16, 16, 16, 0.18), 0 1px 2px rgba(16, 16, 16, 0.12);
+      transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.18s var(--ease-out-craft, cubic-bezier(0.22, 1, 0.36, 1));
       pointer-events: auto;
     }
-    .tile:hover .tile__preview-btn,
-    .tile:focus-within .tile__preview-btn { opacity: 1; }
-    .tile__preview-btn:hover { background: var(--p-aztek); }
+    .tile__preview-btn svg { width: 16px; height: 16px; }
+    .tile__preview-btn:hover {
+      opacity: 1;
+      background: var(--p-aztek);
+      color: var(--p-white);
+      transform: scale(1.06);
+    }
+    .tile__preview-btn:active { transform: scale(0.96); }
     .tile__preview-btn:focus-visible {
       opacity: 1;
-      outline: 2px solid var(--p-white);
+      outline: 2px solid var(--p-aztek);
       outline-offset: 2px;
-    }
-    /* Always visible on touch devices — hover never fires */
-    @media (hover: none) {
-      .tile__preview-btn { opacity: 0.9; }
     }
 
     .tile__thumb-placeholder {
