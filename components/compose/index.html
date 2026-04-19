@@ -860,6 +860,33 @@
         var(--p-cream) 20px
       );
     }
+    /* Always-visible magnifying-glass mark on each preset slot thumb so
+       Karl knows it's clickable without needing to hover-discover it. */
+    .preset-slot__thumb-mark {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--p-white);
+      color: var(--p-aztek);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(16, 16, 16, 0.18), 0 1px 2px rgba(16, 16, 16, 0.12);
+      border: 1px solid rgba(16, 16, 16, 0.08);
+      z-index: 2;
+      pointer-events: none;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background 0.15s ease, color 0.15s ease;
+    }
+    .preset-slot__thumb-mark svg { width: 15px; height: 15px; display: block; }
+    .preset-slot__thumb:hover .preset-slot__thumb-mark {
+      background: var(--p-aztek);
+      color: var(--p-white);
+      transform: scale(1.06);
+    }
+    .preset-slot__thumb:active .preset-slot__thumb-mark { transform: scale(0.96); }
     .preset-card__actions {
       display: flex;
       gap: var(--sp-2);
@@ -2151,7 +2178,7 @@
 
       <p class="app-sidebar__sublabel">Mode</p>
       <div class="sidebar-mode-toggle" role="tablist" aria-label="Composer mode">
-        <button type="button" class="sidebar-mode-toggle__btn" id="sbModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">Build your own</button>
+        <button type="button" class="sidebar-mode-toggle__btn" id="sbModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">BYO</button>
         <button type="button" class="sidebar-mode-toggle__btn" id="sbModePresetsBtn" role="tab" aria-selected="false" data-mode="presets">Presets</button>
       </div>
 
@@ -2258,7 +2285,7 @@
 
     <!-- Original mode toggle: hidden by CSS on /compose/ but kept for state/event handlers -->
     <div class="mode-toggle" role="tablist" aria-label="Composer mode" aria-hidden="true">
-      <button class="mode-toggle__btn" id="modeBuildBtn" type="button" role="tab" aria-selected="true" data-mode="build">Build your own</button>
+      <button class="mode-toggle__btn" id="modeBuildBtn" type="button" role="tab" aria-selected="true" data-mode="build">BYO</button>
       <button class="mode-toggle__btn" id="modePresetsBtn" type="button" role="tab" aria-selected="false" data-mode="presets">Start from a preset</button>
     </div>
 
@@ -2356,7 +2383,7 @@
 
       <p class="filter-sheet__section-label">Mode</p>
       <div class="sheet-mode-toggle" role="tablist" aria-label="Composer mode">
-        <button type="button" class="sheet-mode-toggle__btn" id="sheetModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">Build your own</button>
+        <button type="button" class="sheet-mode-toggle__btn" id="sheetModeBuildBtn"   role="tab" aria-selected="true"  data-mode="build">BYO</button>
         <button type="button" class="sheet-mode-toggle__btn" id="sheetModePresetsBtn" role="tab" aria-selected="false" data-mode="presets">Presets</button>
       </div>
 
@@ -3361,6 +3388,9 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
                 <div class="preset-slot__thumb" data-role="thumb" data-preview-src="${src_escape(item.src)}" data-preview-caption="${cap}" role="button" tabindex="0" aria-label="Preview ${cap} larger">
                   <div class="preset-slot__thumb-placeholder">Loading preview</div>
                   <iframe data-src="${src_escape(item.src)}" width="1440" height="900" loading="lazy" title="${item.slot.label}: ${item.variant.name}" aria-hidden="true"></iframe>
+                  <span class="preset-slot__thumb-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg>
+                  </span>
                 </div>
               </div>
             `;
