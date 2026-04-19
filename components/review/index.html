@@ -1100,7 +1100,7 @@
     <!-- PERSISTENCE BANNER -->
     <div class="banner">
       <div style="flex:1; min-width:240px;">
-        <strong>State lives in your browser.</strong> Click <em>Export</em> when done so Kira can lock it in.
+        <strong>State lives in your browser.</strong> Click <em>Save to repo</em> when done — it writes, commits and pushes in one step. Use <em>Export JSON</em> as a fallback if the server is down.
       </div>
       <span class="banner__dirty" id="dirtyFlag">Unsaved changes</span>
     </div>
@@ -1115,7 +1115,8 @@
       </div>
       <div class="strip__actions">
         <button class="btn--ghost" id="copySummaryBtn" type="button">Copy summary</button>
-        <button id="exportBtn" type="button">Export approvals.json</button>
+        <button class="btn--ghost" id="exportBtn" type="button">Export JSON</button>
+        <button id="submitBtn" type="button">Save to repo</button>
       </div>
     </div>
 
@@ -1682,6 +1683,65 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast('Exported approvals.json');
+    });
+
+    // -------------------------------------------------------------------
+    // One-click submit: POST state to webhook server, which writes +
+    // commits + pushes approvals.json in the brand-kit repo.
+    // Stores the auth token in localStorage after first entry.
+    // -------------------------------------------------------------------
+    const WEBHOOK_URL = 'https://webhook.tracyharris.com.au/brand-kit-approvals';
+    const TOKEN_KEY = 'thc-webhook-token';
+
+    function getOrPromptToken() {
+      let t = '';
+      try { t = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) {}
+      if (!t) {
+        t = window.prompt('One-time setup — enter the webhook auth token (ask Karl / check webhook-server/.env):') || '';
+        t = t.trim();
+        if (t) { try { localStorage.setItem(TOKEN_KEY, t); } catch (e) {} }
+      }
+      return t;
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      const token = getOrPromptToken();
+      if (!token) { showToast('No token — cancelled.'); return; }
+      const btn = document.getElementById('submitBtn');
+      const orig = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(state),
+        });
+        if (res.status === 401) {
+          try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+          showToast('Token rejected — clear and retry.');
+          return;
+        }
+        if (!res.ok) {
+          const detail = await res.text();
+          showToast('Save failed — use Export as fallback.');
+          console.error('submit failed', res.status, detail);
+          return;
+        }
+        const data = await res.json();
+        baseline = JSON.parse(JSON.stringify(state));
+        updateDirtyFlag();
+        showToast(`Saved · ${data.counts.approved} approved, ${data.counts.revise} revise, ${data.counts.rejected} rejected`);
+      } catch (err) {
+        console.error('submit error', err);
+        showToast('Network error — use Export as fallback.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = orig;
+      }
     });
 
     document.getElementById('copySummaryBtn').addEventListener('click', async () => {
