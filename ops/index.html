@@ -297,9 +297,72 @@
     }
 
     @media (max-width: 640px) {
-      .wrap { padding: var(--sp-6) var(--sp-4) var(--sp-8); }
-      .section__title { font-size: 26px; }
-      .row__top { flex-direction: column; gap: 8px; }
+      .wrap { padding: 24px 16px 48px; }
+      h1 { font-size: clamp(32px, 9vw, 44px); }
+      .intro { font-size: 14px; }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+      }
+      .header > div:last-child {
+        text-align: left !important;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .meta { margin-top: 0; }
+
+      /* Filter chip rows — wrap tighter, smaller chips */
+      .filters {
+        gap: 5px;
+        padding: 6px 0 10px;
+      }
+      .filters__label {
+        width: 100%;
+        margin-bottom: 2px;
+      }
+      .chip {
+        font-size: 10px;
+        padding: 5px 10px;
+        letter-spacing: 0.05em;
+      }
+      .chip__count { font-size: 9px; margin-left: 4px; }
+
+      /* Section + rows */
+      .section__title { font-size: 24px; }
+      .section__count { font-size: 10px; }
+      .section { margin-bottom: 32px; }
+      .section__head { margin-bottom: 14px; padding-bottom: 12px; }
+
+      .row { padding: 14px 16px; }
+      .row__top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .row__subject {
+        font-size: 14px;
+        line-height: 1.35;
+      }
+      .row__id { font-size: 9px; display: inline-block; margin-bottom: 2px; }
+      .row__assignee {
+        font-size: 9px;
+        padding: 2px 7px;
+        letter-spacing: 0.12em;
+      }
+      .row__note { font-size: 12px; line-height: 1.5; }
+      .pill {
+        font-size: 9px;
+        padding: 3px 8px;
+        letter-spacing: 0.12em;
+      }
+      .row__waiting { font-size: 10px; margin-top: 6px; }
     }
   </style>
 </head>
