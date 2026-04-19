@@ -126,15 +126,15 @@
       flex-direction: column;
       background: #d9d3c9;  /* fallback warm tone */
     }
-    /* Portrait — in this source image Tracy is on the right (door + light
-       shaft fill the left). Keep her visible there; copy sits on the LEFT
-       over the quiet door area. */
+    /* Portrait — Tracy sits in the right column. Source image has her
+       right-of-center; cover + 95% x-position pushes her into the right
+       half while keeping the quiet door area on the left for the copy. */
     .thero__image {
       position: absolute;
       inset: 0;
       background-image: url("../../../assets/photos/tracy-outfit8-39.jpg");
-      background-size: 130% auto;
-      background-position: 75% 28%;
+      background-size: cover;
+      background-position: 95% 28%;
       background-repeat: no-repeat;
       z-index: 1;
       filter: contrast(1.02) saturate(1.02);
@@ -383,10 +383,10 @@
         min-height: 90vh;
         border-radius: 6px;
       }
-      /* Mobile: pull the frame in so Tracy stays visible on the right. */
+      /* Mobile: cover + right-pulled position keeps her in frame. */
       .thero__image {
-        background-size: 180% auto;
-        background-position: 72% 24%;
+        background-size: cover;
+        background-position: 90% 24%;
       }
       /* Stronger scrim on mobile so the hero type reads clearly over the portrait. */
       .thero__lift {
