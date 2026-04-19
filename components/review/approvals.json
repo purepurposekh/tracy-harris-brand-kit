@@ -1,1 +1,12 @@
-{}
+{
+  "hero.editorial": {
+    "status": "approved",
+    "at": "2026-04-19T00:35:00Z",
+    "note": null
+  },
+  "testimonials.cards": {
+    "status": "revise",
+    "at": "2026-04-19T00:35:00Z",
+    "note": "Needs tighter quote marks"
+  }
+}
