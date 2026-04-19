@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block · Elevated (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/cta-block/cta-block.css" />
+  <style>
+    :root {
+      --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .cta-block { position: relative; overflow: hidden; isolation: isolate; }
+    .cta-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 50% 50%,
+        rgba(204, 153, 137, 0.1) 0%,
+        rgba(204, 153, 137, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cta-block__inner { position: relative; z-index: 1; }
+
+    .cta-block__eyebrow,
+    .cta-block__title,
+    .cta-block__body,
+    .cta-block__actions {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: ctaeRise 900ms var(--ease-out-craft) forwards;
+    }
+    .cta-block__eyebrow { animation-delay: 160ms; }
+    .cta-block__title   { animation-delay: 300ms; }
+    .cta-block__body    { animation-delay: 440ms; }
+    .cta-block__actions { animation-delay: 580ms; }
+    @keyframes ctaeRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .cta-block__title { text-wrap: balance; }
+    .cta-block__body  { text-wrap: pretty; }
+
+    .cta-block__btn {
+      min-height: 48px;
+      transition:
+        background-color 200ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 220ms var(--ease-out-craft);
+    }
+    .cta-block__btn--primary {
+      box-shadow: 0 8px 28px -12px rgba(30, 55, 53, 0.5);
+    }
+    .cta-block__btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 36px -12px rgba(30, 55, 53, 0.58);
+    }
+    .cta-block__btn--primary:active { transform: translateY(0) scale(0.98); }
+    .cta-block__btn--primary:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta-block__eyebrow,
+      .cta-block__title,
+      .cta-block__body,
+      .cta-block__actions {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="cta-block cta-block--elevated" data-brand="tracy" aria-label="Apply to FFB">
+    <div class="cta-block__inner">
+      <p class="cta-block__eyebrow">Freedom Filled® Business</p>
+      <h2 class="cta-block__title">Build a business that lets you <em>live</em>.</h2>
+      <p class="cta-block__body">12 months of mentorship, Tracy's proven frameworks, and a community of women who get it. Applications are open.</p>
+      <div class="cta-block__actions">
+        <a href="/ffb" class="cta-block__btn cta-block__btn--primary">Apply to FFB</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

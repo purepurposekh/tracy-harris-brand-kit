@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block · Accent (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/cta-block/cta-block.css" />
+  <style>
+    :root { --ease-out-craft: cubic-bezier(0.23, 1, 0.32, 1); }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    .cta-block { position: relative; overflow: hidden; isolation: isolate; }
+    .cta-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 50% 50%,
+        rgba(246, 244, 241, 0.12) 0%,
+        rgba(246, 244, 241, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cta-block__inner { position: relative; z-index: 1; }
+
+    .cta-block__eyebrow,
+    .cta-block__title,
+    .cta-block__body,
+    .cta-block__actions {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: ctaaRise 900ms var(--ease-out-craft) forwards;
+    }
+    .cta-block__eyebrow { animation-delay: 160ms; }
+    .cta-block__title   { animation-delay: 300ms; }
+    .cta-block__body    { animation-delay: 440ms; }
+    .cta-block__actions { animation-delay: 580ms; }
+    @keyframes ctaaRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .cta-block__title { text-wrap: balance; }
+    .cta-block__body  { text-wrap: pretty; }
+
+    .cta-block__btn {
+      min-height: 48px;
+      transition:
+        background-color 200ms var(--ease-out-craft),
+        color 200ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 220ms var(--ease-out-craft),
+        letter-spacing 220ms var(--ease-out-craft);
+    }
+    .cta-block__btn--primary {
+      box-shadow: 0 6px 24px -12px rgba(16, 16, 16, 0.3);
+    }
+    .cta-block__btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px -10px rgba(16, 16, 16, 0.4);
+    }
+    .cta-block__btn--primary:active { transform: translateY(0) scale(0.98); }
+    .cta-block__btn--primary:focus-visible {
+      outline: 2px solid var(--p-oatmeal);
+      outline-offset: 3px;
+    }
+    .cta-block__btn--secondary:hover {
+      letter-spacing: calc(var(--t-wider) + 0.02em);
+    }
+    .cta-block__btn--secondary:focus-visible {
+      outline: 1px solid var(--p-oatmeal);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta-block__eyebrow,
+      .cta-block__title,
+      .cta-block__body,
+      .cta-block__actions {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="cta-block cta-block--accent" data-brand="tracy" aria-label="Apply to FFM">
+    <div class="cta-block__inner">
+      <p class="cta-block__eyebrow">Limited to 20 women</p>
+      <h2 class="cta-block__title">The room is <em>everything</em>.</h2>
+      <p class="cta-block__body">Freedom Filled® Mastermind is application-only because the room matters. If you're ready, we'd love to hear from you.</p>
+      <div class="cta-block__actions">
+        <a href="/ffm" class="cta-block__btn cta-block__btn--primary">Apply to FFM</a>
+        <a href="/ffm#faq" class="cta-block__btn cta-block__btn--secondary">Read the FAQ</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

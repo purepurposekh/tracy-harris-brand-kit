@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expandable CTA — Quiz (polished)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/expandable-cta/expandable-cta.css" />
+  <style>
+    :root {
+      --ease-out-craft:    cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-drawer:       cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    .spacer { height: 200px; background: var(--p-oatmeal); display: flex; align-items: center; justify-content: center; color: var(--ink-mute); font-size: 14px; }
+
+    /* Polish overlay */
+    .expandable-cta__trigger-wrap {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .expandable-cta__trigger-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 50% 40%,
+        rgba(110, 142, 119, 0.1) 0%,
+        rgba(110, 142, 119, 0.0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .expandable-cta__trigger-title,
+    .expandable-cta__trigger-sub,
+    .expandable-cta__trigger-btn {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: ectaRise 900ms var(--ease-out-craft) forwards;
+    }
+    .expandable-cta__trigger-title { animation-delay: 200ms; }
+    .expandable-cta__trigger-sub   { animation-delay: 340ms; }
+    .expandable-cta__trigger-btn   { animation-delay: 480ms; }
+    @keyframes ectaRise {
+      from { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    .expandable-cta__trigger-title { text-wrap: balance; }
+    .expandable-cta__trigger-sub { text-wrap: pretty; }
+
+    .expandable-cta__trigger-btn {
+      min-height: 48px;
+      transition:
+        background-color 200ms var(--ease-out-craft),
+        transform 200ms var(--ease-out-craft),
+        box-shadow 240ms var(--ease-out-craft);
+      box-shadow: 0 8px 28px -12px rgba(30, 55, 53, 0.45);
+    }
+    .expandable-cta__trigger-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px -10px rgba(30, 55, 53, 0.55);
+    }
+    .expandable-cta__trigger-btn:active { transform: translateY(0) scale(0.98); }
+    .expandable-cta__trigger-btn:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 3px;
+    }
+
+    .expandable-cta__submit {
+      min-height: 48px;
+      transition:
+        background-color 200ms var(--ease-out-craft),
+        transform 180ms var(--ease-out-craft),
+        box-shadow 220ms var(--ease-out-craft);
+      box-shadow: 0 6px 24px -12px rgba(30, 55, 53, 0.45);
+    }
+    .expandable-cta__submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px -10px rgba(30, 55, 53, 0.55);
+    }
+    .expandable-cta__submit:active { transform: translateY(0) scale(0.98); }
+    .expandable-cta__submit:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 3px;
+    }
+
+    .expandable-cta__field-input,
+    .expandable-cta__field-textarea {
+      transition: border-color 200ms var(--ease-out-craft), box-shadow 200ms var(--ease-out-craft);
+    }
+    .expandable-cta__field-input:focus,
+    .expandable-cta__field-textarea:focus {
+      outline: none;
+      border-color: var(--p-aztek);
+      box-shadow: 0 0 0 3px rgba(30, 55, 53, 0.15);
+    }
+
+    .expandable-cta__close {
+      transition: transform 200ms var(--ease-out-craft), background 200ms var(--ease-out-craft);
+    }
+    .expandable-cta__close:hover { transform: rotate(90deg); }
+    .expandable-cta__close:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .expandable-cta__trigger-title,
+      .expandable-cta__trigger-sub,
+      .expandable-cta__trigger-btn {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+      .expandable-cta__close:hover { transform: none; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <div class="spacer">Page content above...</div>
+
+  <div class="expandable-cta">
+    <div class="expandable-cta__trigger-wrap">
+      <h2 class="expandable-cta__trigger-title">Take the <em>quiz</em>.</h2>
+      <p class="expandable-cta__trigger-sub">Two minutes. Five pillars. One personalised recommendation for where to start building your Freedom Filled® business.</p>
+      <button class="expandable-cta__trigger-btn">Take the FRESH Quiz</button>
+    </div>
+
+    <div class="expandable-cta__overlay" data-open="false">
+      <button class="expandable-cta__close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <div class="expandable-cta__overlay-inner">
+        <div class="expandable-cta__sales">
+          <h3 class="expandable-cta__sales-title">Find your <em>starting point</em></h3>
+          <div class="expandable-cta__benefits">
+            <div class="expandable-cta__benefit">
+              <div class="expandable-cta__benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <p class="expandable-cta__benefit-text">Get your personalised FRESH Score across Freedom, Revenue, Engagement, Strategy, and Heart.</p>
+            </div>
+            <div class="expandable-cta__benefit">
+              <div class="expandable-cta__benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <p class="expandable-cta__benefit-text">Receive a clear next-step recommendation based on where your business is right now.</p>
+            </div>
+          </div>
+
+          <div class="expandable-cta__quote">
+            <p class="expandable-cta__quote-text">"I took the quiz expecting a lead magnet. I got a mirror. Haven't looked at my business the same way since."</p>
+            <p class="expandable-cta__quote-name">[MEMBER NAME]</p>
+            <p class="expandable-cta__quote-role">Service business owner</p>
+          </div>
+        </div>
+
+        <div class="expandable-cta__form-wrap">
+          <form class="expandable-cta__form" onsubmit="return false;">
+            <div>
+              <label class="expandable-cta__field-label">Full Name *</label>
+              <input type="text" class="expandable-cta__field-input" placeholder="Tracy Harris" />
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">Email *</label>
+              <input type="email" class="expandable-cta__field-input" placeholder="tracy@example.com" />
+            </div>
+            <div class="expandable-cta__field-row">
+              <div>
+                <label class="expandable-cta__field-label">Business type</label>
+                <input type="text" class="expandable-cta__field-input" placeholder="e.g., Coaching, Courses" />
+              </div>
+              <div>
+                <label class="expandable-cta__field-label">Stage</label>
+                <input type="text" class="expandable-cta__field-input" placeholder="e.g., Just starting" />
+              </div>
+            </div>
+            <div>
+              <label class="expandable-cta__field-label">What's your biggest challenge right now?</label>
+              <textarea class="expandable-cta__field-textarea" placeholder="Tell us what's on your mind..."></textarea>
+            </div>
+            <button type="submit" class="expandable-cta__submit">Start the Quiz</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer">Page content below...</div>
+
+  <script src="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/expandable-cta/expandable-cta.js"></script>
+</body>
+</html>
