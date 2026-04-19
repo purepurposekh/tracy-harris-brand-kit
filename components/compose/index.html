@@ -341,6 +341,53 @@
       pointer-events: auto;
     }
     .tile__preview-btn svg { width: 20px; height: 20px; display: block; stroke-width: 2.5; }
+
+    /* Polish toggle — only rendered on tiles that have both a standard
+       and polished sibling. Sits bottom-right of the thumb, opposite the
+       magnify button at bottom-left. Click to flip between versions. */
+    .tile__polish-toggle {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(16, 16, 16, 0.08);
+      background: var(--p-white);
+      color: var(--ink-mute);
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(16, 16, 16, 0.18), 0 1px 2px rgba(16, 16, 16, 0.12);
+      z-index: 3;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .tile__polish-toggle[data-on="true"] {
+      background: var(--p-sage);
+      color: var(--p-white);
+      border-color: var(--p-sage);
+    }
+    .tile__polish-toggle:hover { transform: scale(1.04); }
+    .tile__polish-toggle:active { transform: scale(0.96); }
+    .tile__polish-toggle:focus-visible {
+      outline: 2px solid var(--p-aztek);
+      outline-offset: 2px;
+    }
+    .tile__polish-toggle::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.6;
+    }
+    .tile__polish-toggle[data-on="true"]::before { opacity: 1; }
     .tile__preview-btn:hover {
       opacity: 1;
       background: var(--p-aztek);
@@ -2768,6 +2815,37 @@
     ];
 
     // ----------------------------------------------------------------------
+    // Consolidate -polished variant entries into their standard sibling.
+    // Each SLOTS[].variants[] gains optional `file_polished` + `variantId_polished`
+    // fields, and the -polished sibling is removed from the array.
+    //
+    // The tile renderer uses these to show a Standard / Polished toggle on
+    // pair-available variants. Default render = polished when available so
+    // Karl gets the preferred version by default, with a one-click switch
+    // to the quiet standard variant when he wants it.
+    // ----------------------------------------------------------------------
+    (function consolidatePolishedPairs() {
+      SLOTS.forEach(slot => {
+        const byKey = new Map();
+        slot.variants.forEach(v => byKey.set(v.key, v));
+        const polishedSuffix = /-polished$/;
+        const toRemove = new Set();
+        slot.variants.forEach(v => {
+          if (!polishedSuffix.test(v.key)) return;
+          const baseKey = v.key.replace(polishedSuffix, '');
+          const base = byKey.get(baseKey);
+          if (base) {
+            base.file_polished = v.file;
+            base.variantId_polished = v.variantId;
+            base.name_polished = v.name;
+            toRemove.add(v.key);
+          }
+        });
+        slot.variants = slot.variants.filter(v => !toRemove.has(v.key));
+      });
+    })();
+
+    // ----------------------------------------------------------------------
     // Page-type filter map
     // Each page type lists: slots to show, and optionally `variants` per slot
     // (if omitted, show all variants for that slot).
@@ -2963,11 +3041,21 @@
         tile.className = 'tile';
         tile.dataset.slotId = slot.id;
         tile.dataset.key = v.key;
-        if (v.variantId) tile.dataset.variantId = v.variantId;
 
-        const thumbSrc = v.hash ? `${v.file}#${v.hash}` : v.file;
+        const hasPolished = !!v.file_polished;
+        // Default to polished when available. Standard otherwise.
+        const startPolished = hasPolished;
+        const initialFile = startPolished && hasPolished ? v.file_polished : v.file;
+        const initialVariantId = startPolished && hasPolished ? v.variantId_polished : v.variantId;
+        if (initialVariantId) tile.dataset.variantId = initialVariantId;
+        if (hasPolished) tile.dataset.polishedOn = startPolished ? 'true' : 'false';
 
+        const thumbSrc = v.hash ? `${initialFile}#${v.hash}` : initialFile;
         const thumbCaption = `${slot.label}: ${v.name}`.replace(/"/g, '&quot;');
+        const polishToggleHtml = hasPolished
+          ? `<button class="tile__polish-toggle" type="button" data-role="polish-toggle" data-on="${startPolished ? 'true' : 'false'}" aria-pressed="${startPolished ? 'true' : 'false'}" aria-label="Toggle polished version">${startPolished ? 'Polished' : 'Standard'}</button>`
+          : '';
+
         tile.innerHTML = `
           <div class="tile__thumb" data-role="thumb" data-preview-src="${thumbSrc}" data-preview-caption="${thumbCaption}">
             <div class="tile__thumb-placeholder">Loading preview</div>
@@ -2975,6 +3063,7 @@
             <button class="tile__preview-btn" type="button" data-role="preview-btn" aria-label="Open larger preview of ${thumbCaption}">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg>
             </button>
+            ${polishToggleHtml}
           </div>
           <div class="tile__body">
             <div>
@@ -2993,6 +3082,35 @@
             e.stopPropagation();
             const thumb = tile.querySelector('[data-role="thumb"]');
             openPreviewModal(thumb.dataset.previewSrc, thumb.dataset.previewCaption);
+            return;
+          }
+          // Polish toggle flips the tile between standard and polished versions
+          // without re-selecting (stops the click bubbling to the tile pick handler).
+          if (e.target.closest('[data-role="polish-toggle"]')) {
+            e.stopPropagation();
+            const toggle = e.target.closest('[data-role="polish-toggle"]');
+            const nowOn = toggle.dataset.on !== 'true';
+            toggle.dataset.on = nowOn ? 'true' : 'false';
+            toggle.setAttribute('aria-pressed', nowOn ? 'true' : 'false');
+            toggle.textContent = nowOn ? 'Polished' : 'Standard';
+            const newFile = nowOn ? v.file_polished : v.file;
+            const newVid = nowOn ? v.variantId_polished : v.variantId;
+            const newSrc = v.hash ? `${newFile}#${v.hash}` : newFile;
+            const thumb = tile.querySelector('[data-role="thumb"]');
+            const iframe = thumb.querySelector('iframe');
+            thumb.dataset.previewSrc = newSrc;
+            // If iframe already loaded, swap src; if still lazy, swap data-src
+            if (iframe.dataset.src) {
+              iframe.dataset.src = newSrc;
+            } else {
+              iframe.src = newSrc;
+            }
+            tile.dataset.polishedOn = nowOn ? 'true' : 'false';
+            if (newVid) tile.dataset.variantId = newVid;
+            // If this tile is currently selected, update the selection to the new variantId.
+            if (tile.classList.contains('is-selected')) {
+              handlePick(slot.id, v.key, tile);
+            }
             return;
           }
           handlePick(slot.id, v.key, tile);
@@ -3293,7 +3411,22 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       const slots = {};
       SLOTS.forEach(s => {
         const v = state[s.id];
-        slots[s.id] = (v === '__skip__' || !v) ? null : v;
+        if (!v || v === '__skip__') {
+          slots[s.id] = v === '__skip__' ? 'skip' : null;
+          return;
+        }
+        // Resolve variantId from the selected tile so the recipe knows
+        // whether the standard or polished version was picked.
+        const tile = document.querySelector(`.tile[data-slot-id="${s.id}"][data-key="${v}"]`);
+        const variant = s.variants.find(x => x.key === v);
+        const polishedOn = tile && tile.dataset.polishedOn === 'true';
+        slots[s.id] = {
+          key: v,
+          variantId: (tile && tile.dataset.variantId)
+            || (polishedOn && variant ? variant.variantId_polished : null)
+            || (variant ? variant.variantId : null),
+          polished: polishedOn || false,
+        };
       });
 
       const rand4 = Math.random().toString(36).slice(2, 6);
