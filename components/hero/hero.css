@@ -456,14 +456,28 @@
 
 .hero__silk-logo {
   position: absolute;
-  top: var(--sp-5);
-  right: var(--sp-5);
+  top: clamp(20px, 3vw, 40px);
+  right: clamp(32px, 4vw, 56px);
   z-index: 3;
-  height: 28px;
-  width: auto;
+  display: block;
+  width: clamp(120px, 12vw, 160px);
+  height: auto;
+  max-width: calc(100% - 80px);
   filter: brightness(0) invert(1);
   opacity: 0;
   animation: silk-fade-in-corner 1s ease-out 1s forwards;
+}
+
+@media (max-width: 640px) {
+  .hero__silk-logo {
+    width: 120px;
+    right: 24px;
+    top: 20px;
+  }
+  .hero__silk-corner {
+    left: 20px;
+    top: 20px;
+  }
 }
 
 @keyframes silk-fade-in-up {

@@ -52,8 +52,8 @@
   "post-grid.editorial": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
   "post-grid.masonry": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
   "content-section.default": { "status": "approved", "at": "2026-04-19T08:15:11Z", "note": null },
-  "hero.classic-ffm-silk": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "The freedom filled mastermind logo is a bit out of frame on the page. Needs to be adjusted" },
-  "hero.tony": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Like Split · dark charcoal, Tracy needs to be shifted accross. The rule needs to be that the human in the image stays hard left. Also on mobile the opacity of the background image needs to change so that the font can be seen" },
+  "hero.classic-ffm-silk": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
+  "hero.tony": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
   "hero.results": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "I think these two need to be split right?" },
   "testimonials.wall": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "The testimonials are overlapping each other, so this is not approved unless that is fixed." },
   "opt-in.banner": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Always name and email" },
@@ -65,9 +65,9 @@
   "podcast-card.compact": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "This player kind of sucks. I just feel like you could do something that's a bit more fun. Do you know, like, the Spotify mini player or something like that? Just the UI on it needs a bit more love." },
   "programs-grid.three-card": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "These are a bit boring. The products need the logos above them, not as massive, but then somehow be able to distinguish them." },
   "programs-grid.two-card": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "This one is just boring. Logos, anything else? Why is it so boring?" },
-  "guarantee.badge": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "The circle looks more like an oval once it's down to mobile view, so can we make that responsive to be a circle?" },
-  "why-block.editorial": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "The small cursive writing is actually a bit too small. I think that's actually the case across the board. It seems like it's so small I can't read it, so it's pointless having it there. I wouldn't want it all so giant, because sometimes that type of text can span across the screen once you put it too large. It needs to be just perfect." },
-  "why-block.dark": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "Again, the cursive here is just a bit too small." },
+  "guarantee.badge": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
+  "why-block.editorial": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
+  "why-block.dark": { "status": "approved", "at": "2026-04-19T11:40:00Z", "note": null },
   "curriculum-preview.grid-preview": { "status": "revise", "at": "2026-04-19T08:15:11Z", "note": "We should only be using brown colours on this. I know that some of these are fresh colours, but it should only then be used with fresh." },
   "hero.classic-fresh-split-right": { "status": "rejected", "at": "2026-04-19T08:15:11Z", "note": null }
 }
