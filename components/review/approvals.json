@@ -265,9 +265,9 @@
     "note": null
   },
   "hero.classic-ffm-silk": {
-    "status": "revise",
-    "at": "2026-04-19T13:30:55.934Z",
-    "note": "Needs to be optimized for mobile"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "hero.tony": {
     "status": "approved",
@@ -275,24 +275,24 @@
     "note": null
   },
   "testimonials.wall": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "The testimonials are overlapping each other, so this is not approved unless that is fixed."
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "opt-in.banner": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "Always name and email"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "opt-in.card": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "Always name and email"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "opt-in.accent-dark": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "Always name and email"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "image-grid.bento": {
     "status": "approved",
@@ -300,9 +300,9 @@
     "note": null
   },
   "expandable-cta.ffm-application": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "The gold is a bit much for the pop-up background. I think we make that the charcoal color."
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "podcast-card.featured": {
     "status": "approved",
@@ -340,9 +340,9 @@
     "note": null
   },
   "curriculum-preview.grid-preview": {
-    "status": "revise",
-    "at": "2026-04-19T08:15:11Z",
-    "note": "We should only be using brown colours on this. I know that some of these are fresh colours, but it should only then be used with fresh."
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "hero.classic-fresh-split-right": {
     "status": "rejected",
@@ -350,9 +350,9 @@
     "note": null
   },
   "hero.classic-tracy-textonly-polished": {
-    "status": "revise",
-    "at": "2026-04-19T13:28:01.688Z",
-    "note": "Buttons need to be centered to screen on mobile"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "hero.classic-ffm-oatmeal-split-left-polished": {
     "status": "approved",
@@ -445,24 +445,24 @@
     "note": null
   },
   "cta-block.canvas-polished": {
-    "status": "revise",
-    "at": "2026-04-19T13:35:58.892Z",
-    "note": "Button formatting is off. Check and fix"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "cta-block.elevated-polished": {
-    "status": "revise",
-    "at": "2026-04-19T13:36:27.802Z",
-    "note": "Again the button padding is off. Button is to big"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "cta-block.accent-polished": {
-    "status": "revise",
-    "at": "2026-04-19T13:36:56.322Z",
-    "note": "Button needs to be checked like the others."
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "cta-block.dark-polished": {
-    "status": "revise",
-    "at": "2026-04-19T13:37:09.074Z",
-    "note": "Button to be fixed"
+    "status": "approved",
+    "at": "2026-04-19T14:24:15.521786Z",
+    "note": null
   },
   "cta-block.ruled-polished": {
     "status": "rejected",
