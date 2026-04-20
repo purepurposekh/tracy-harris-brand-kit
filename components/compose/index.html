@@ -340,7 +340,15 @@
       transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.18s var(--ease-out-craft, cubic-bezier(0.22, 1, 0.36, 1));
       pointer-events: auto;
     }
-    .tile__preview-btn svg { width: 20px; height: 20px; display: block; stroke-width: 2.5; }
+    .tile__preview-btn svg {
+      width: 20px;
+      height: 20px;
+      min-width: 20px; /* flex context was shrinking svg to 0 width */
+      min-height: 20px;
+      flex: none;
+      display: block;
+      stroke-width: 2.5;
+    }
 
     /* Polish toggle — segmented control. Only rendered on tiles that
        have both a static and motion (polished) sibling. Both segments
@@ -366,6 +374,11 @@
       text-transform: uppercase;
       cursor: pointer;
       color: inherit;
+      /* Parent .tile__thumb sets pointer-events: none in the CLS-hardening
+         block below; re-enable on the toggle so clicks register. Without
+         this the click falls through to the tile, which fires the select
+         handler instead of the toggle handler. */
+      pointer-events: auto;
     }
     .tile__polish-toggle__seg {
       padding: 4px 10px;
@@ -378,6 +391,7 @@
       text-transform: inherit;
       cursor: pointer;
       transition: background 0.15s ease, color 0.15s ease;
+      pointer-events: auto;
     }
     .tile__polish-toggle[data-on="false"] .tile__polish-toggle__seg--static,
     .tile__polish-toggle[data-on="true"]  .tile__polish-toggle__seg--motion {
@@ -1026,7 +1040,15 @@
       pointer-events: none;
       transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background 0.15s ease, color 0.15s ease;
     }
-    .preset-slot__thumb-mark svg { width: 18px; height: 18px; display: block; stroke-width: 2.5; }
+    .preset-slot__thumb-mark svg {
+      width: 18px;
+      height: 18px;
+      min-width: 18px; /* flex context was shrinking svg to 0 width */
+      min-height: 18px;
+      flex: none;
+      display: block;
+      stroke-width: 2.5;
+    }
     .preset-slot__thumb:hover .preset-slot__thumb-mark {
       background: var(--p-aztek);
       color: var(--p-white);
