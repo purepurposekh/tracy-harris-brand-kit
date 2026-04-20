@@ -294,6 +294,16 @@
       background: var(--p-oatmeal);
       border-bottom: 1px solid var(--border-hairline);
     }
+    /* Per-slot aspect-ratio overrides. Nav + footer + opt-in variants
+       are short by nature; defaulting to 16/10 leaves a huge empty
+       chunk under the real content. Shrink those tiles so the preview
+       matches the component's actual presence on a page. */
+    .tile[data-slot-id="nav"]     .tile__thumb { aspect-ratio: 1440 / 160; }
+    .tile[data-slot-id="footer"]  .tile__thumb { aspect-ratio: 1440 / 560; }
+    .tile[data-slot-id="opt_in"]  .tile__thumb { aspect-ratio: 16 / 7; }
+    .tile[data-slot-id="guarantee"] .tile__thumb { aspect-ratio: 16 / 6; }
+    .tile[data-slot-id="next_steps"] .tile__thumb { aspect-ratio: 16 / 7; }
+    .tile[data-slot-id="soft_upsell"] .tile__thumb { aspect-ratio: 16 / 7; }
     /* Scaled-iframe pattern (2026-04-18):
        Iframe renders at a fixed 1440x900 desktop viewport so responsive
        components stay in their desktop layout, then CSS transform-scale
@@ -988,6 +998,15 @@
       overflow: hidden;
       cursor: zoom-in;
     }
+    /* Per-slot aspect-ratio overrides for preset modal (matches the
+       composer tile overrides above) so nav + footer + short CTAs
+       don't dominate the preset preview. */
+    .preset-slot[data-slot-id="nav"]     .preset-slot__thumb { aspect-ratio: 1440 / 160; }
+    .preset-slot[data-slot-id="footer"]  .preset-slot__thumb { aspect-ratio: 1440 / 560; }
+    .preset-slot[data-slot-id="opt_in"]  .preset-slot__thumb { aspect-ratio: 16 / 7; }
+    .preset-slot[data-slot-id="guarantee"] .preset-slot__thumb { aspect-ratio: 16 / 6; }
+    .preset-slot[data-slot-id="next_steps"] .preset-slot__thumb { aspect-ratio: 16 / 7; }
+    .preset-slot[data-slot-id="soft_upsell"] .preset-slot__thumb { aspect-ratio: 16 / 7; }
     /* Scaled-iframe pattern — same as .tile__thumb iframe. */
     .preset-slot__thumb iframe {
       position: absolute;
@@ -3713,7 +3732,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
           ? stackItems.map(item => {
               const cap = `${item.slot.label}: ${item.variant.name}`.replace(/"/g, '&quot;');
               return `
-              <div class="preset-slot">
+              <div class="preset-slot" data-slot-id="${item.slot.id}">
                 <div class="preset-slot__label">
                   <strong>${item.slot.label}</strong>
                   <span>${item.variant.name}</span>
