@@ -1,11 +1,88 @@
 {
-  "updated": "2026-04-19T10:55:00Z",
+  "updated": "2026-04-21T01:10:00Z",
   "tasks": [
     {
-      "id": 13,
-      "subject": "Research: where else the hook pattern plugs leaks",
+      "id": "website-astro-pages",
+      "subject": "Build 12 static pages on Astro (tracy-harris-com)",
+      "status": "in_progress",
+      "note": "Astro site scaffolded, 671 posts migrated, images pulled onto repo, WP entities + dup lede cleaned, 231 missing Buzzsprout episodes re-imported with bodies restored. Variable outro system live (7 variants, deterministic by slug). ProductStack widget wired above category pills. Next: finish homepage + 11 static marketing pages.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "brand-kit-creator-phase2",
+      "subject": "Brand-kit creator — Phase 2 (email gate + styled output + AC)",
+      "status": "in_progress",
+      "note": "Phase 0 template library + Phase 1 wizard MVP shipped. Sample page at /brand-kit/example/ shows styled output for a fictional persona. Karl picking between: markdown-only / in-browser styled view / both + PDF. Once direction locked: email gate, AC tag, PDF export, deploy to brandkit.tracyharris.co.",
+      "waiting_on": "Karl picks output direction (A/B/C)"
+    },
+    {
+      "id": "carousel-builder",
+      "subject": "Carousel builder — opt-in funnel app",
+      "status": "in_progress",
+      "note": "Architecture confirmed: Puppeteer screenshotting + Meta Graph direct + custom scheduler on Hetzner + Discord approval + Cloudflare R2 storage. ~$0-5/mo. Rejected Ayrshare ($149/mo). Scoped as an opt-in funnel on tracyharris.co. Building now.",
+      "waiting_on": "me"
+    },
+    {
+      "id": 70,
+      "subject": "framework.tracyharris.co recap microsite",
       "status": "pending",
-      "note": "Scan chat history + error logs + memory files + webhook-server logs for recurring failure modes that structural hooks could prevent. 3-pass validation before proposing. Parked behind higher-priority work.",
+      "note": "Post-class page for MWH 504 listeners. 4 framework models (FRESH / Million Dollar Message / Signature Model / Freedom Filled Pathway) + picker + FFB CTA. Subdomain locked. Not started.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "cf-redirects",
+      "subject": "Cloudflare redirect rules + AI SEO layer",
+      "status": "pending",
+      "note": "Map mumswithhustle.com legacy URLs to tracyharris.co equivalents. Add AI-bot-friendly sitemap + robots + structured data so the rebuild surfaces in LLM answers.",
+      "waiting_on": "me — after Astro pages ship"
+    },
+    {
+      "id": "strip-inline-promos",
+      "subject": "Strip legacy 'share and connect' inline blocks from old posts",
+      "status": "pending",
+      "note": "Karl flagged on MWH 469. Strip on sight + replace with ProductStack widget where the narrative flow allows.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "second-claude-vps",
+      "subject": "Reinstate second Claude instance on VPS",
+      "status": "pending",
+      "note": "Research + reinstate — was running before, need to rebuild the setup so we can have a parallel worker for background jobs.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "image-picker",
+      "subject": "Image/asset selection flow during page build",
+      "status": "pending",
+      "note": "Research done (Dropbox + Frame.io libraries). Next: picker UI so I can pull Tracy's approved photos into pages without her hand-assembling each one.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "docs-picker",
+      "subject": "/docs picker page on brand kit",
+      "status": "pending",
+      "note": "Directory-style browser for all brand-kit docs + templates — so the team can self-serve without asking.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "templates-trio",
+      "subject": "Freebie / Presentation / One-pager templates",
+      "status": "pending",
+      "note": "Three standalone document templates for FFM members. Each needs design + swap tokens + jsDelivr wiring. Follows workbook-a4.html pattern.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "kira-builds-it",
+      "subject": "'Kira builds it for me' button on compose page",
+      "status": "pending",
+      "note": "One-click to generate a full page from brief — composer hands off to me with the recipe + content, I return a rendered page.",
+      "waiting_on": "me"
+    },
+    {
+      "id": "video-library-research",
+      "subject": "Central video resource library for team",
+      "status": "pending",
+      "note": "Research central video library tools so Tracy's training videos + SOP recordings live in one place the team can search.",
       "waiting_on": "me"
     },
     {
@@ -14,34 +91,6 @@
       "status": "in_progress",
       "note": "Brief posted in #1491682034882445313. Karl needs to run the 8-step web-UI flow at claude.ai/code/routines to activate. I cannot create routines from CLI.",
       "waiting_on": "Karl"
-    },
-    {
-      "id": 22,
-      "subject": "Variant split round 2 — footer showcase (4) + nav showcase + others we missed",
-      "status": "pending",
-      "note": "Karl flagged no card should bundle multiple variants. First split pass covered hero, programs-grid, expandable-cta. Footer + nav showcases still pending.",
-      "waiting_on": "me"
-    },
-    {
-      "id": 24,
-      "subject": "Brand system overview section on catalog page",
-      "status": "pending",
-      "note": "A visible brand setup section (palette, typography, spacing, voice rules from DESIGN.md) on the catalog so anyone with access can see the whole system at a glance.",
-      "waiting_on": "me"
-    },
-    {
-      "id": "revisions",
-      "subject": "Component revision pass (18 items in 5 batches)",
-      "status": "pending",
-      "note": "Batch 1 — quick CSS (guarantee.badge circle, why-block cursive size, hero.classic-ffm-silk logo). Batch 2 — layout (hero.stage-portrait photo rule, testimonials.wall overlap, expandable-cta.ffm-application bg). Batch 3 — splits + rules (hero.results, footer splits, opt-in name+email, curriculum-preview brown only). Batch 4 — content (image-grid.bento more images, podcast-card.featured latest image). Batch 5 — creative (podcast-card.compact Spotify-style, programs-grid not-boring with logos).",
-      "waiting_on": "Karl greenlight on batch order"
-    },
-    {
-      "id": "polish-rollout",
-      "subject": "Roll polish across all approved variants + add polished entries to review",
-      "status": "pending",
-      "note": "3 heroes polished as proof (editorial-wordmark, overlay-portrait, classic-ffb-split-right). Karl said direction is good. Next: polish every approved variant, add -polished entries as independent review cards, update composer recipes.",
-      "waiting_on": "me"
     },
     {
       "id": "quiz-verdict",
@@ -65,17 +114,10 @@
       "waiting_on": "Karl"
     },
     {
-      "id": "website-rebuild",
-      "subject": "tracyharris.co rebuild based on 2026 company goals",
-      "status": "queued",
-      "note": "Three strategic goals in Strategy/growth-engine.md: podcasts international, 100K YouTube, 50K email. Nixtio merge dead — rebuild uses the brand kit we've been building. Start with homepage + one sales page as proof.",
-      "waiting_on": "Karl greenlight + goals doc confirmation"
-    },
-    {
       "id": "funnel-mapping",
       "subject": "Funnel mapping — visual deliverable",
       "status": "queued",
-      "note": "Visual map of every funnel (FRESH Quiz → Workshop → FFB → FFM + sub-pipelines) with per-stage tool state: PostHog event, AC tag, form, Stripe product, nurture sequence. Flag gaps. Strategy/pipeline.md has the prose version.",
+      "note": "Visual map of every funnel (FRESH Quiz → Workshop → FFB → FFM + sub-pipelines) with per-stage tool state: PostHog event, AC tag, form, Stripe product, nurture sequence. Flag gaps.",
       "waiting_on": "Karl greenlight"
     },
     {
@@ -84,6 +126,83 @@
       "status": "queued",
       "note": "Standalone teachable asset for FFM members. Need format decision from Karl: PDF, slides, Loom script.",
       "waiting_on": "Karl on format + audience level"
+    },
+    {
+      "id": "revisions",
+      "subject": "Component revision pass (18 items in 5 batches)",
+      "status": "pending",
+      "note": "Batch 1 quick CSS / Batch 2 layout / Batch 3 splits + rules / Batch 4 content / Batch 5 creative. Karl's greenlight on order still open.",
+      "waiting_on": "Karl greenlight on batch order"
+    },
+    {
+      "id": "analytics-system",
+      "subject": "Self-hosted analytics (PostHog shortlisted)",
+      "status": "pending",
+      "note": "Replace Windsor.ai. PostHog self-hosted, all Tracy's events in one place, feeds the dashboard. Parked awaiting greenlight.",
+      "waiting_on": "Karl greenlight"
+    },
+    {
+      "id": 71,
+      "subject": "Brand-kit builder Phase 0: template library",
+      "status": "completed",
+      "completed": "2026-04-20",
+      "note": "Strategic wizard content plan: voice-pillar questions (TSS framed neutrally), messaging spine (MDM adapted), audience definition, visual direction dials, output skeleton, 5 education sidebars."
+    },
+    {
+      "id": 72,
+      "subject": "Brand-kit builder Phase 1: wizard MVP",
+      "status": "completed",
+      "completed": "2026-04-20",
+      "note": "7 steps × 24 fields. Vanilla JS, localStorage state, progress bar, Markdown output, download + copy + sample page at /brand-kit/example/."
+    },
+    {
+      "id": 68,
+      "subject": "Variable outros: 7 variants, deterministic by slug",
+      "status": "completed",
+      "completed": "2026-04-20",
+      "note": "Editorial / Ribbon / Neon / Runway / DanceFloor / Kinetic / DM. pickOutro() uses hashString(slug) % eligible. Pools: podcast / social / default."
+    },
+    {
+      "id": 66,
+      "subject": "Import 231 missing Buzzsprout episodes + body restore",
+      "status": "completed",
+      "completed": "2026-04-20",
+      "note": "Feed re-fetched, htmlToMd() rebuilt bodies, 500/1200-char length caps added to dedup regex so whole HTML bodies no longer get stripped."
+    },
+    {
+      "id": 69,
+      "subject": "Decode all HTML entities across 562 posts",
+      "status": "completed",
+      "completed": "2026-04-20",
+      "note": "Named + numeric decimal + hex entities all decoded. Zero remaining."
+    },
+    {
+      "id": 67,
+      "subject": "Carousel pipeline research v2 — Ayrshare rejected",
+      "status": "completed",
+      "completed": "2026-04-20",
+      "note": "Final architecture: Puppeteer + Meta Graph direct + own scheduler + Discord approval + Cloudflare R2. ~$0-5/mo."
+    },
+    {
+      "id": 65,
+      "subject": "Brand-kit creator product research",
+      "status": "completed",
+      "completed": "2026-04-19",
+      "note": "White-label generator where users build THEIR own brand kit. Wizard UI Tracy-branded, user's output neutral, Tracy's teachings shown only as attributed education callouts."
+    },
+    {
+      "id": 63,
+      "subject": "Clean WP migration artefacts",
+      "status": "completed",
+      "completed": "2026-04-19",
+      "note": "Dup titles stripped, entities decoded, dedup regex bounded to prevent over-stripping."
+    },
+    {
+      "id": 62,
+      "subject": "Pull blog images onto Astro repo",
+      "status": "completed",
+      "completed": "2026-04-19",
+      "note": "All images pulled off mumswithhustle.com, stripToUploads() matches /wp-content/uploads/ regardless of prefix."
     }
   ]
 }
