@@ -126,14 +126,32 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
         )
     sidebar_html = '\n'.join(sidebar_items)
 
-    # Sections
+    # Per-category aspect overrides so iframes scale to the component's natural shape.
+    # Same heuristics the compose page uses.
+    aspect_by_category = {
+        'navigation':  '1440 / 160',
+        'footer':      '1440 / 560',
+        'opt-in':      '16 / 7',
+        'guarantee':   '16 / 6',
+        'next-steps':  '16 / 7',
+        'soft-upsell': '16 / 7',
+        'cta-block':   '16 / 7',
+        'podcast-card':'16 / 9',
+        'testimonials':'16 / 10',
+    }
+
+    # Sections (both list rows + tile cards, toggle between on client)
     section_blocks = []
     for slug, variants in sections:
         cat_title, cat_desc = CATEGORY_META.get(slug, (slug.replace('-', ' ').title(), ''))
+        aspect = aspect_by_category.get(slug, '16 / 10')
+
         rows = []
+        tiles = []
         for v in variants:
+            search_attr = html.escape(v.copy_id + ' ' + v.title)
             rows.append(f'''
-              <tr data-search="{html.escape(v.copy_id + ' ' + v.title)}">
+              <tr data-search="{search_attr}">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="{html.escape(v.copy_id)}">{html.escape(v.copy_id)}</code>
                 </td>
@@ -144,6 +162,19 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
                 </td>
               </tr>
             ''')
+            tiles.append(f'''
+              <article class="ac-tile" data-search="{search_attr}">
+                <a class="ac-tile__thumb" href="{html.escape(v.rel_path)}" target="_blank" rel="noopener" aria-label="Open {html.escape(v.title)}" style="aspect-ratio: {aspect};">
+                  <iframe loading="lazy" src="{html.escape(v.rel_path)}" title="{html.escape(v.title)}" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="{html.escape(v.copy_id)}">{html.escape(v.copy_id)}</code>
+                  <p class="ac-tile__title">{html.escape(v.title)}</p>
+                </div>
+              </article>
+            ''')
+
         section_blocks.append(f'''
           <section class="ac-section" id="cat-{html.escape(slug)}" data-category-slug="{html.escape(slug)}">
             <header class="ac-section__head">
@@ -151,19 +182,22 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
               <span class="ac-section__count">{len(variants)} variant{"s" if len(variants) != 1 else ""}</span>
             </header>
             {f'<p class="ac-section__desc">{html.escape(cat_desc)}</p>' if cat_desc else ''}
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {"".join(rows)}
-              </tbody>
-            </table>
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>{"".join(rows)}</tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">{"".join(tiles)}</div>
+            </div>
           </section>
         ''')
 
@@ -250,6 +284,30 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     .ac-foot {{ text-align: center; padding: 32px 0; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-mute); }}
 
     .ac-section[hidden] {{ display: none; }}
+
+    /* View toggle */
+    .ac-toggle {{ display: inline-flex; align-items: center; gap: 0; border: 1px solid rgba(16,16,16,0.14); border-radius: 999px; padding: 3px; background: var(--p-white); }}
+    .ac-toggle button {{ border: none; background: transparent; padding: 8px 16px; font-family: var(--f-sans); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; color: var(--p-mute); cursor: pointer; border-radius: 999px; transition: background 180ms ease, color 180ms ease; }}
+    .ac-toggle button.is-active {{ background: var(--p-aztek); color: var(--p-oatmeal); }}
+    .ac-toolbar {{ display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }}
+
+    /* Views */
+    .ac-view {{ display: none; }}
+    body[data-view="list"] .ac-view--list {{ display: block; }}
+    body[data-view="tile"] .ac-view--tile {{ display: block; }}
+
+    /* Tile grid (compose-style) */
+    .ac-tiles {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 4px; }}
+    .ac-tile {{ position: relative; border: 1px solid rgba(16,16,16,0.10); border-radius: 8px; background: var(--p-white); overflow: hidden; display: flex; flex-direction: column; transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease; }}
+    .ac-tile:hover {{ border-color: var(--p-copper); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(16,16,16,0.08); }}
+    .ac-tile[hidden] {{ display: none; }}
+    .ac-tile__thumb {{ position: relative; display: block; width: 100%; background: var(--p-oatmeal); overflow: hidden; border-bottom: 1px solid rgba(16,16,16,0.08); text-decoration: none; }}
+    .ac-tile__thumb iframe {{ position: absolute; top: 0; left: 0; width: 1440px; height: 900px; max-width: none; border: 0; pointer-events: none; transform: scale(var(--ac-scale, 0.24)); transform-origin: top left; }}
+    .ac-tile__hover {{ position: absolute; inset: auto 0 0 0; padding: 10px 14px; background: linear-gradient(to top, rgba(16,16,16,0.72), rgba(16,16,16,0)); color: var(--p-oatmeal); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; opacity: 0; transition: opacity 180ms ease; }}
+    .ac-tile__thumb:hover .ac-tile__hover {{ opacity: 1; }}
+    .ac-tile__meta {{ padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; }}
+    .ac-tile__title {{ font-size: 12px; color: var(--p-mute); margin: 0; line-height: 1.4; }}
+    code.ac-copy--tile {{ font-size: 11px; align-self: start; }}
   </style>
 </head>
 <body>
@@ -292,8 +350,14 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
         </div>
       </div>
 
-      <div class="ac-search">
-        <input id="ac-search-input" type="search" placeholder="Search components (e.g. hero, card-flip, ffm dark)" autocomplete="off" />
+      <div class="ac-toolbar">
+        <div class="ac-search" style="flex: 1; min-width: 280px; margin-bottom: 0;">
+          <input id="ac-search-input" type="search" placeholder="Search components (e.g. hero, card-flip, ffm dark)" autocomplete="off" />
+        </div>
+        <div class="ac-toggle" role="group" aria-label="View mode">
+          <button type="button" data-view="list" class="is-active">List</button>
+          <button type="button" data-view="tile">Tile</button>
+        </div>
       </div>
 
       {"".join(section_blocks)}
@@ -321,23 +385,67 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
       }});
     }});
 
-    // Filter
+    // Filter rows AND tiles together
     var input = document.getElementById('ac-search-input');
     if (input) {{
       input.addEventListener('input', function () {{
         var q = input.value.trim().toLowerCase();
         document.querySelectorAll('.ac-section').forEach(function (section) {{
           var anyVisible = false;
+          // Rows (list view)
           section.querySelectorAll('tbody tr').forEach(function (row) {{
             var hay = (row.getAttribute('data-search') || '').toLowerCase();
             var match = !q || hay.indexOf(q) !== -1;
             row.hidden = !match;
             if (match) anyVisible = true;
           }});
+          // Tiles (tile view)
+          section.querySelectorAll('.ac-tile').forEach(function (tile) {{
+            var hay = (tile.getAttribute('data-search') || '').toLowerCase();
+            var match = !q || hay.indexOf(q) !== -1;
+            tile.hidden = !match;
+          }});
           section.hidden = !anyVisible;
         }});
       }});
     }}
+
+    // View toggle (list vs tile)
+    var STORAGE_KEY = 'ac-view-mode';
+    var initial = localStorage.getItem(STORAGE_KEY) || 'list';
+    document.body.setAttribute('data-view', initial);
+    document.querySelectorAll('.ac-toggle button').forEach(function (btn) {{
+      if (btn.getAttribute('data-view') === initial) btn.classList.add('is-active');
+      else btn.classList.remove('is-active');
+      btn.addEventListener('click', function () {{
+        var mode = btn.getAttribute('data-view');
+        document.body.setAttribute('data-view', mode);
+        localStorage.setItem(STORAGE_KEY, mode);
+        document.querySelectorAll('.ac-toggle button').forEach(function (b) {{
+          b.classList.toggle('is-active', b === btn);
+        }});
+        if (mode === 'tile') scaleTiles();
+      }});
+    }});
+
+    // Tile iframe scaling, same pattern as compose page.
+    // Iframe renders at 1440x900 desktop viewport, CSS transform-scale shrinks
+    // to fit the tile. ResizeObserver updates --ac-scale per tile on resize.
+    function scaleTiles() {{
+      document.querySelectorAll('.ac-tile__thumb').forEach(function (thumb) {{
+        var w = thumb.clientWidth;
+        if (!w) return;
+        var scale = w / 1440;
+        thumb.style.setProperty('--ac-scale', scale.toString());
+      }});
+    }}
+    if ('ResizeObserver' in window) {{
+      var ro = new ResizeObserver(scaleTiles);
+      document.querySelectorAll('.ac-tile__thumb').forEach(function (t) {{ ro.observe(t); }});
+    }} else {{
+      window.addEventListener('resize', scaleTiles);
+    }}
+    if (initial === 'tile') scaleTiles();
   </script>
 </body>
 </html>

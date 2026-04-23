@@ -81,6 +81,30 @@
     .ac-foot { text-align: center; padding: 32px 0; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-mute); }
 
     .ac-section[hidden] { display: none; }
+
+    /* View toggle */
+    .ac-toggle { display: inline-flex; align-items: center; gap: 0; border: 1px solid rgba(16,16,16,0.14); border-radius: 999px; padding: 3px; background: var(--p-white); }
+    .ac-toggle button { border: none; background: transparent; padding: 8px 16px; font-family: var(--f-sans); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; color: var(--p-mute); cursor: pointer; border-radius: 999px; transition: background 180ms ease, color 180ms ease; }
+    .ac-toggle button.is-active { background: var(--p-aztek); color: var(--p-oatmeal); }
+    .ac-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+
+    /* Views */
+    .ac-view { display: none; }
+    body[data-view="list"] .ac-view--list { display: block; }
+    body[data-view="tile"] .ac-view--tile { display: block; }
+
+    /* Tile grid (compose-style) */
+    .ac-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 4px; }
+    .ac-tile { position: relative; border: 1px solid rgba(16,16,16,0.10); border-radius: 8px; background: var(--p-white); overflow: hidden; display: flex; flex-direction: column; transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
+    .ac-tile:hover { border-color: var(--p-copper); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(16,16,16,0.08); }
+    .ac-tile[hidden] { display: none; }
+    .ac-tile__thumb { position: relative; display: block; width: 100%; background: var(--p-oatmeal); overflow: hidden; border-bottom: 1px solid rgba(16,16,16,0.08); text-decoration: none; }
+    .ac-tile__thumb iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; max-width: none; border: 0; pointer-events: none; transform: scale(var(--ac-scale, 0.24)); transform-origin: top left; }
+    .ac-tile__hover { position: absolute; inset: auto 0 0 0; padding: 10px 14px; background: linear-gradient(to top, rgba(16,16,16,0.72), rgba(16,16,16,0)); color: var(--p-oatmeal); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; opacity: 0; transition: opacity 180ms ease; }
+    .ac-tile__thumb:hover .ac-tile__hover { opacity: 1; }
+    .ac-tile__meta { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; }
+    .ac-tile__title { font-size: 12px; color: var(--p-mute); margin: 0; line-height: 1.4; }
+    code.ac-copy--tile { font-size: 11px; align-self: start; }
   </style>
 </head>
 <body>
@@ -149,8 +173,14 @@
         </div>
       </div>
 
-      <div class="ac-search">
-        <input id="ac-search-input" type="search" placeholder="Search components (e.g. hero, card-flip, ffm dark)" autocomplete="off" />
+      <div class="ac-toolbar">
+        <div class="ac-search" style="flex: 1; min-width: 280px; margin-bottom: 0;">
+          <input id="ac-search-input" type="search" placeholder="Search components (e.g. hero, card-flip, ffm dark)" autocomplete="off" />
+        </div>
+        <div class="ac-toggle" role="group" aria-label="View mode">
+          <button type="button" data-view="list" class="is-active">List</button>
+          <button type="button" data-view="tile">Tile</button>
+        </div>
       </div>
 
       
@@ -160,17 +190,17 @@
               <span class="ac-section__count">5 variants</span>
             </header>
             <p class="ac-section__desc">Personal intro, founder story, bio blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="about-bio.centered-circle-polished About Bio · Centered circle (polished)">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="about-bio.centered-circle-polished">about-bio.centered-circle-polished</code>
@@ -225,9 +255,67 @@
                   <a class="ac-link" href="../components/about-bio/variants/split-editorial.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="about-bio.centered-circle-polished About Bio · Centered circle (polished)">
+                <a class="ac-tile__thumb" href="../components/about-bio/variants/centered-circle-polished.html" target="_blank" rel="noopener" aria-label="Open About Bio · Centered circle (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/about-bio/variants/centered-circle-polished.html" title="About Bio · Centered circle (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="about-bio.centered-circle-polished">about-bio.centered-circle-polished</code>
+                  <p class="ac-tile__title">About Bio · Centered circle (polished)</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="about-bio.centered-circle About Bio · Centered circle, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/about-bio/variants/centered-circle.html" target="_blank" rel="noopener" aria-label="Open About Bio · Centered circle, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/about-bio/variants/centered-circle.html" title="About Bio · Centered circle, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="about-bio.centered-circle">about-bio.centered-circle</code>
+                  <p class="ac-tile__title">About Bio · Centered circle, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="about-bio.showcase About Bio, Showcase">
+                <a class="ac-tile__thumb" href="../components/about-bio/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open About Bio, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/about-bio/variants/showcase.html" title="About Bio, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="about-bio.showcase">about-bio.showcase</code>
+                  <p class="ac-tile__title">About Bio, Showcase</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="about-bio.split-editorial-polished About Bio · Split editorial (polished)">
+                <a class="ac-tile__thumb" href="../components/about-bio/variants/split-editorial-polished.html" target="_blank" rel="noopener" aria-label="Open About Bio · Split editorial (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/about-bio/variants/split-editorial-polished.html" title="About Bio · Split editorial (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="about-bio.split-editorial-polished">about-bio.split-editorial-polished</code>
+                  <p class="ac-tile__title">About Bio · Split editorial (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="about-bio.split-editorial About Bio · Split editorial, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/about-bio/variants/split-editorial.html" target="_blank" rel="noopener" aria-label="Open About Bio · Split editorial, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/about-bio/variants/split-editorial.html" title="About Bio · Split editorial, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="about-bio.split-editorial">about-bio.split-editorial</code>
+                  <p class="ac-tile__title">About Bio · Split editorial, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-benefit-trio" data-category-slug="benefit-trio">
@@ -236,17 +324,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Three-feature rows with icon/number + short body.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="benefit-trio.icon-row Benefit Trio · Icon row, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="benefit-trio.icon-row">benefit-trio.icon-row</code>
@@ -279,9 +367,45 @@
                   <a class="ac-link" href="../components/benefit-trio/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="benefit-trio.icon-row Benefit Trio · Icon row, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/benefit-trio/variants/icon-row.html" target="_blank" rel="noopener" aria-label="Open Benefit Trio · Icon row, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/benefit-trio/variants/icon-row.html" title="Benefit Trio · Icon row, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="benefit-trio.icon-row">benefit-trio.icon-row</code>
+                  <p class="ac-tile__title">Benefit Trio · Icon row, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="benefit-trio.number-row Benefit Trio · Number row, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/benefit-trio/variants/number-row.html" target="_blank" rel="noopener" aria-label="Open Benefit Trio · Number row, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/benefit-trio/variants/number-row.html" title="Benefit Trio · Number row, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="benefit-trio.number-row">benefit-trio.number-row</code>
+                  <p class="ac-tile__title">Benefit Trio · Number row, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="benefit-trio.showcase Benefit Trio, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/benefit-trio/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Benefit Trio, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/benefit-trio/variants/showcase.html" title="Benefit Trio, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="benefit-trio.showcase">benefit-trio.showcase</code>
+                  <p class="ac-tile__title">Benefit Trio, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-card-flip" data-category-slug="card-flip">
@@ -290,17 +414,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Front/back cards that flip on hover or tap.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="card-flip.showcase Card Flip, Showcase">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="card-flip.showcase">card-flip.showcase</code>
@@ -311,9 +435,23 @@
                   <a class="ac-link" href="../components/card-flip/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="card-flip.showcase Card Flip, Showcase">
+                <a class="ac-tile__thumb" href="../components/card-flip/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Card Flip, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/card-flip/variants/showcase.html" title="Card Flip, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="card-flip.showcase">card-flip.showcase</code>
+                  <p class="ac-tile__title">Card Flip, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-content-section" data-category-slug="content-section">
@@ -322,17 +460,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Generic long-form copy blocks with editorial rhythm.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="content-section.showcase Content Section, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="content-section.showcase">content-section.showcase</code>
@@ -343,9 +481,23 @@
                   <a class="ac-link" href="../components/content-section/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="content-section.showcase Content Section, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/content-section/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Content Section, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/content-section/variants/showcase.html" title="Content Section, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="content-section.showcase">content-section.showcase</code>
+                  <p class="ac-tile__title">Content Section, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-cta-block" data-category-slug="cta-block">
@@ -354,17 +506,17 @@
               <span class="ac-section__count">11 variants</span>
             </header>
             <p class="ac-section__desc">Stand-alone calls to action and mid-page conversion moments.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="cta-block.accent-polished CTA Block · Accent (polished)">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="cta-block.accent-polished">cta-block.accent-polished</code>
@@ -485,9 +637,133 @@
                   <a class="ac-link" href="../components/cta-block/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="cta-block.accent-polished CTA Block · Accent (polished)">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/accent-polished.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Accent (polished)" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/accent-polished.html" title="CTA Block · Accent (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.accent-polished">cta-block.accent-polished</code>
+                  <p class="ac-tile__title">CTA Block · Accent (polished)</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="cta-block.accent CTA Block · Accent, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/accent.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Accent, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/accent.html" title="CTA Block · Accent, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.accent">cta-block.accent</code>
+                  <p class="ac-tile__title">CTA Block · Accent, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.canvas-polished CTA Block · Canvas (polished)">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/canvas-polished.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Canvas (polished)" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/canvas-polished.html" title="CTA Block · Canvas (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.canvas-polished">cta-block.canvas-polished</code>
+                  <p class="ac-tile__title">CTA Block · Canvas (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.canvas CTA Block · Canvas, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/canvas.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Canvas, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/canvas.html" title="CTA Block · Canvas, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.canvas">cta-block.canvas</code>
+                  <p class="ac-tile__title">CTA Block · Canvas, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.dark-polished CTA Block · Dark (polished)">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/dark-polished.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Dark (polished)" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/dark-polished.html" title="CTA Block · Dark (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.dark-polished">cta-block.dark-polished</code>
+                  <p class="ac-tile__title">CTA Block · Dark (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.dark CTA Block · Dark, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/dark.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Dark, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/dark.html" title="CTA Block · Dark, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.dark">cta-block.dark</code>
+                  <p class="ac-tile__title">CTA Block · Dark, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.elevated-polished CTA Block · Elevated (polished)">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/elevated-polished.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Elevated (polished)" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/elevated-polished.html" title="CTA Block · Elevated (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.elevated-polished">cta-block.elevated-polished</code>
+                  <p class="ac-tile__title">CTA Block · Elevated (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.elevated CTA Block · Elevated, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/elevated.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Elevated, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/elevated.html" title="CTA Block · Elevated, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.elevated">cta-block.elevated</code>
+                  <p class="ac-tile__title">CTA Block · Elevated, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.ruled-polished CTA Block · Ruled (polished)">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/ruled-polished.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Ruled (polished)" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/ruled-polished.html" title="CTA Block · Ruled (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.ruled-polished">cta-block.ruled-polished</code>
+                  <p class="ac-tile__title">CTA Block · Ruled (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.ruled CTA Block · Ruled, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/ruled.html" target="_blank" rel="noopener" aria-label="Open CTA Block · Ruled, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/ruled.html" title="CTA Block · Ruled, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.ruled">cta-block.ruled</code>
+                  <p class="ac-tile__title">CTA Block · Ruled, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="cta-block.showcase CTA Block, Showcase">
+                <a class="ac-tile__thumb" href="../components/cta-block/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open CTA Block, Showcase" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/cta-block/variants/showcase.html" title="CTA Block, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="cta-block.showcase">cta-block.showcase</code>
+                  <p class="ac-tile__title">CTA Block, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-curriculum-preview" data-category-slug="curriculum-preview">
@@ -496,17 +772,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Module/lesson breakdowns for courses, programs, workshops.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="curriculum-preview.grid-preview Curriculum Preview · Grid preview, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="curriculum-preview.grid-preview">curriculum-preview.grid-preview</code>
@@ -539,9 +815,45 @@
                   <a class="ac-link" href="../components/curriculum-preview/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="curriculum-preview.grid-preview Curriculum Preview · Grid preview, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/curriculum-preview/variants/grid-preview.html" target="_blank" rel="noopener" aria-label="Open Curriculum Preview · Grid preview, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/curriculum-preview/variants/grid-preview.html" title="Curriculum Preview · Grid preview, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="curriculum-preview.grid-preview">curriculum-preview.grid-preview</code>
+                  <p class="ac-tile__title">Curriculum Preview · Grid preview, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="curriculum-preview.module-stack Curriculum Preview · Module stack, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/curriculum-preview/variants/module-stack.html" target="_blank" rel="noopener" aria-label="Open Curriculum Preview · Module stack, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/curriculum-preview/variants/module-stack.html" title="Curriculum Preview · Module stack, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="curriculum-preview.module-stack">curriculum-preview.module-stack</code>
+                  <p class="ac-tile__title">Curriculum Preview · Module stack, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="curriculum-preview.showcase Curriculum Preview, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/curriculum-preview/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Curriculum Preview, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/curriculum-preview/variants/showcase.html" title="Curriculum Preview, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="curriculum-preview.showcase">curriculum-preview.showcase</code>
+                  <p class="ac-tile__title">Curriculum Preview, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-event-widget" data-category-slug="event-widget">
@@ -550,17 +862,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Live/upcoming event cards and registration blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="event-widget.showcase Event Widget, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="event-widget.showcase">event-widget.showcase</code>
@@ -571,9 +883,23 @@
                   <a class="ac-link" href="../components/event-widget/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="event-widget.showcase Event Widget, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/event-widget/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Event Widget, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/event-widget/variants/showcase.html" title="Event Widget, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="event-widget.showcase">event-widget.showcase</code>
+                  <p class="ac-tile__title">Event Widget, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-expandable-cta" data-category-slug="expandable-cta">
@@ -582,17 +908,17 @@
               <span class="ac-section__count">4 variants</span>
             </header>
             <p class="ac-section__desc">Collapsed CTA that expands to reveal detail or form.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="expandable-cta.ffm-application Expandable CTA, FFM Application">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="expandable-cta.ffm-application">expandable-cta.ffm-application</code>
@@ -636,9 +962,56 @@
                   <a class="ac-link" href="../components/expandable-cta/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="expandable-cta.ffm-application Expandable CTA, FFM Application">
+                <a class="ac-tile__thumb" href="../components/expandable-cta/variants/ffm-application.html" target="_blank" rel="noopener" aria-label="Open Expandable CTA, FFM Application" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/expandable-cta/variants/ffm-application.html" title="Expandable CTA, FFM Application" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="expandable-cta.ffm-application">expandable-cta.ffm-application</code>
+                  <p class="ac-tile__title">Expandable CTA, FFM Application</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="expandable-cta.quiz-polished Expandable CTA, Quiz (polished)">
+                <a class="ac-tile__thumb" href="../components/expandable-cta/variants/quiz-polished.html" target="_blank" rel="noopener" aria-label="Open Expandable CTA, Quiz (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/expandable-cta/variants/quiz-polished.html" title="Expandable CTA, Quiz (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="expandable-cta.quiz-polished">expandable-cta.quiz-polished</code>
+                  <p class="ac-tile__title">Expandable CTA, Quiz (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="expandable-cta.quiz Expandable CTA, Quiz (Tracy)">
+                <a class="ac-tile__thumb" href="../components/expandable-cta/variants/quiz.html" target="_blank" rel="noopener" aria-label="Open Expandable CTA, Quiz (Tracy)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/expandable-cta/variants/quiz.html" title="Expandable CTA, Quiz (Tracy)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="expandable-cta.quiz">expandable-cta.quiz</code>
+                  <p class="ac-tile__title">Expandable CTA, Quiz (Tracy)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="expandable-cta.showcase Expandable CTA, Showcase">
+                <a class="ac-tile__thumb" href="../components/expandable-cta/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Expandable CTA, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/expandable-cta/variants/showcase.html" title="Expandable CTA, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="expandable-cta.showcase">expandable-cta.showcase</code>
+                  <p class="ac-tile__title">Expandable CTA, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-faq" data-category-slug="faq">
@@ -647,17 +1020,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Question/answer lists with accordion or inline patterns.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="faq.showcase FAQ, Showcase">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="faq.showcase">faq.showcase</code>
@@ -690,9 +1063,45 @@
                   <a class="ac-link" href="../components/faq/variants/tabbed.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="faq.showcase FAQ, Showcase">
+                <a class="ac-tile__thumb" href="../components/faq/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open FAQ, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/faq/variants/showcase.html" title="FAQ, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="faq.showcase">faq.showcase</code>
+                  <p class="ac-tile__title">FAQ, Showcase</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="faq.simple FAQ · Simple, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/faq/variants/simple.html" target="_blank" rel="noopener" aria-label="Open FAQ · Simple, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/faq/variants/simple.html" title="FAQ · Simple, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="faq.simple">faq.simple</code>
+                  <p class="ac-tile__title">FAQ · Simple, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="faq.tabbed FAQ · Tabbed, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/faq/variants/tabbed.html" target="_blank" rel="noopener" aria-label="Open FAQ · Tabbed, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/faq/variants/tabbed.html" title="FAQ · Tabbed, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="faq.tabbed">faq.tabbed</code>
+                  <p class="ac-tile__title">FAQ · Tabbed, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-feature-grid" data-category-slug="feature-grid">
@@ -701,17 +1110,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Multi-item feature matrices, for programs or inclusions.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="feature-grid.showcase Feature Grid, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="feature-grid.showcase">feature-grid.showcase</code>
@@ -722,9 +1131,23 @@
                   <a class="ac-link" href="../components/feature-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="feature-grid.showcase Feature Grid, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/feature-grid/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Feature Grid, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/feature-grid/variants/showcase.html" title="Feature Grid, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="feature-grid.showcase">feature-grid.showcase</code>
+                  <p class="ac-tile__title">Feature Grid, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-footer" data-category-slug="footer">
@@ -733,17 +1156,17 @@
               <span class="ac-section__count">6 variants</span>
             </header>
             <p class="ac-section__desc">Site footers across all sub-brands.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="footer.ffb-two-col Footer, FFB two-column">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="footer.ffb-two-col">footer.ffb-two-col</code>
@@ -809,9 +1232,78 @@
                   <a class="ac-link" href="../components/footer/variants/tracy-three-col.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="footer.ffb-two-col Footer, FFB two-column">
+                <a class="ac-tile__thumb" href="../components/footer/variants/ffb-two-col.html" target="_blank" rel="noopener" aria-label="Open Footer, FFB two-column" style="aspect-ratio: 1440 / 560;">
+                  <iframe loading="lazy" src="../components/footer/variants/ffb-two-col.html" title="Footer, FFB two-column" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="footer.ffb-two-col">footer.ffb-two-col</code>
+                  <p class="ac-tile__title">Footer, FFB two-column</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="footer.ffm-dark-two-col Footer, FFM dark two-column">
+                <a class="ac-tile__thumb" href="../components/footer/variants/ffm-dark-two-col.html" target="_blank" rel="noopener" aria-label="Open Footer, FFM dark two-column" style="aspect-ratio: 1440 / 560;">
+                  <iframe loading="lazy" src="../components/footer/variants/ffm-dark-two-col.html" title="Footer, FFM dark two-column" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="footer.ffm-dark-two-col">footer.ffm-dark-two-col</code>
+                  <p class="ac-tile__title">Footer, FFM dark two-column</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="footer.fresh-minimal Footer, FRESH minimal">
+                <a class="ac-tile__thumb" href="../components/footer/variants/fresh-minimal.html" target="_blank" rel="noopener" aria-label="Open Footer, FRESH minimal" style="aspect-ratio: 1440 / 560;">
+                  <iframe loading="lazy" src="../components/footer/variants/fresh-minimal.html" title="Footer, FRESH minimal" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="footer.fresh-minimal">footer.fresh-minimal</code>
+                  <p class="ac-tile__title">Footer, FRESH minimal</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="footer.showcase Footer, Four Brand Showcase">
+                <a class="ac-tile__thumb" href="../components/footer/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Footer, Four Brand Showcase" style="aspect-ratio: 1440 / 560;">
+                  <iframe loading="lazy" src="../components/footer/variants/showcase.html" title="Footer, Four Brand Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="footer.showcase">footer.showcase</code>
+                  <p class="ac-tile__title">Footer, Four Brand Showcase</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="footer.statement-mark Footer, Statement + mark">
+                <a class="ac-tile__thumb" href="../components/footer/variants/statement-mark.html" target="_blank" rel="noopener" aria-label="Open Footer, Statement + mark" style="aspect-ratio: 1440 / 560;">
+                  <iframe loading="lazy" src="../components/footer/variants/statement-mark.html" title="Footer, Statement + mark" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="footer.statement-mark">footer.statement-mark</code>
+                  <p class="ac-tile__title">Footer, Statement + mark</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="footer.tracy-three-col Footer, Tracy three-column">
+                <a class="ac-tile__thumb" href="../components/footer/variants/tracy-three-col.html" target="_blank" rel="noopener" aria-label="Open Footer, Tracy three-column" style="aspect-ratio: 1440 / 560;">
+                  <iframe loading="lazy" src="../components/footer/variants/tracy-three-col.html" title="Footer, Tracy three-column" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="footer.tracy-three-col">footer.tracy-three-col</code>
+                  <p class="ac-tile__title">Footer, Tracy three-column</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-freebies" data-category-slug="freebies">
@@ -820,17 +1312,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Lead-magnet offer blocks and download cards.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="freebies.showcase Freebies, Showcase">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="freebies.showcase">freebies.showcase</code>
@@ -841,9 +1333,23 @@
                   <a class="ac-link" href="../components/freebies/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="freebies.showcase Freebies, Showcase">
+                <a class="ac-tile__thumb" href="../components/freebies/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Freebies, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/freebies/variants/showcase.html" title="Freebies, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="freebies.showcase">freebies.showcase</code>
+                  <p class="ac-tile__title">Freebies, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-guarantee" data-category-slug="guarantee">
@@ -852,17 +1358,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Trust-building, risk-reversal blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="guarantee.badge Guarantee · Badge, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="guarantee.badge">guarantee.badge</code>
@@ -895,9 +1401,45 @@
                   <a class="ac-link" href="../components/guarantee/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="guarantee.badge Guarantee · Badge, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/guarantee/variants/badge.html" target="_blank" rel="noopener" aria-label="Open Guarantee · Badge, Tracy Harris Co" style="aspect-ratio: 16 / 6;">
+                  <iframe loading="lazy" src="../components/guarantee/variants/badge.html" title="Guarantee · Badge, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="guarantee.badge">guarantee.badge</code>
+                  <p class="ac-tile__title">Guarantee · Badge, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="guarantee.editorial Guarantee · Editorial, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/guarantee/variants/editorial.html" target="_blank" rel="noopener" aria-label="Open Guarantee · Editorial, Tracy Harris Co" style="aspect-ratio: 16 / 6;">
+                  <iframe loading="lazy" src="../components/guarantee/variants/editorial.html" title="Guarantee · Editorial, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="guarantee.editorial">guarantee.editorial</code>
+                  <p class="ac-tile__title">Guarantee · Editorial, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="guarantee.showcase Guarantee, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/guarantee/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Guarantee, Tracy Harris Co" style="aspect-ratio: 16 / 6;">
+                  <iframe loading="lazy" src="../components/guarantee/variants/showcase.html" title="Guarantee, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="guarantee.showcase">guarantee.showcase</code>
+                  <p class="ac-tile__title">Guarantee, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-hero" data-category-slug="hero">
@@ -906,17 +1448,17 @@
               <span class="ac-section__count">30 variants</span>
             </header>
             <p class="ac-section__desc">Top-of-page hero blocks. The most used component.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="hero.classic-ffb-split-right-louder Hero, Classic FFB split-right (louder)">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="hero.classic-ffb-split-right-louder">hero.classic-ffb-split-right-louder</code>
@@ -1246,9 +1788,342 @@
                   <a class="ac-link" href="../components/hero/variants/textonly.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="hero.classic-ffb-split-right-louder Hero, Classic FFB split-right (louder)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffb-split-right-louder.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic FFB split-right (louder)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffb-split-right-louder.html" title="Hero, Classic FFB split-right (louder)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffb-split-right-louder">hero.classic-ffb-split-right-louder</code>
+                  <p class="ac-tile__title">Hero, Classic FFB split-right (louder)</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="hero.classic-ffb-split-right-polished Hero, Classic FFB split-right (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffb-split-right-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic FFB split-right (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffb-split-right-polished.html" title="Hero, Classic FFB split-right (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffb-split-right-polished">hero.classic-ffb-split-right-polished</code>
+                  <p class="ac-tile__title">Hero, Classic FFB split-right (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffb-split-right Hero, Classic · FFB split (photo right)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffb-split-right.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFB split (photo right)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffb-split-right.html" title="Hero, Classic · FFB split (photo right)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffb-split-right">hero.classic-ffb-split-right</code>
+                  <p class="ac-tile__title">Hero, Classic · FFB split (photo right)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-dark-split-right-polished Hero, Classic · FFM dark split (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-dark-split-right-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM dark split (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-dark-split-right-polished.html" title="Hero, Classic · FFM dark split (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-dark-split-right-polished">hero.classic-ffm-dark-split-right-polished</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM dark split (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-dark-split-right Hero, Classic · FFM dark split (photo right)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-dark-split-right.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM dark split (photo right)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-dark-split-right.html" title="Hero, Classic · FFM dark split (photo right)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-dark-split-right">hero.classic-ffm-dark-split-right</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM dark split (photo right)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-marquee-polished Hero, Classic · FFM marquee (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-marquee-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM marquee (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-marquee-polished.html" title="Hero, Classic · FFM marquee (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-marquee-polished">hero.classic-ffm-marquee-polished</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM marquee (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-marquee Hero, Classic · FFM marquee (dark)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-marquee.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM marquee (dark)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-marquee.html" title="Hero, Classic · FFM marquee (dark)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-marquee">hero.classic-ffm-marquee</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM marquee (dark)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-oatmeal-split-left-polished Hero, Classic · FFM oatmeal split (photo left, polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-oatmeal-split-left-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM oatmeal split (photo left, polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-oatmeal-split-left-polished.html" title="Hero, Classic · FFM oatmeal split (photo left, polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-oatmeal-split-left-polished">hero.classic-ffm-oatmeal-split-left-polished</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM oatmeal split (photo left, polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-oatmeal-split-left Hero, Classic · FFM oatmeal split (photo left)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-oatmeal-split-left.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM oatmeal split (photo left)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-oatmeal-split-left.html" title="Hero, Classic · FFM oatmeal split (photo left)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-oatmeal-split-left">hero.classic-ffm-oatmeal-split-left</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM oatmeal split (photo left)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-ffm-silk Hero, Classic · FFM silk (animated canvas)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-ffm-silk.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FFM silk (animated canvas)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-ffm-silk.html" title="Hero, Classic · FFM silk (animated canvas)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-ffm-silk">hero.classic-ffm-silk</code>
+                  <p class="ac-tile__title">Hero, Classic · FFM silk (animated canvas)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-fresh-split-right Hero, Classic · FRESH split (photo right)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-fresh-split-right.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · FRESH split (photo right)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-fresh-split-right.html" title="Hero, Classic · FRESH split (photo right)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-fresh-split-right">hero.classic-fresh-split-right</code>
+                  <p class="ac-tile__title">Hero, Classic · FRESH split (photo right)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-tracy-textonly-polished Hero, Classic · Tracy text-only (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-tracy-textonly-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · Tracy text-only (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-tracy-textonly-polished.html" title="Hero, Classic · Tracy text-only (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-tracy-textonly-polished">hero.classic-tracy-textonly-polished</code>
+                  <p class="ac-tile__title">Hero, Classic · Tracy text-only (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.classic-tracy-textonly Hero, Classic · Tracy text-only">
+                <a class="ac-tile__thumb" href="../components/hero/variants/classic-tracy-textonly.html" target="_blank" rel="noopener" aria-label="Open Hero, Classic · Tracy text-only" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/classic-tracy-textonly.html" title="Hero, Classic · Tracy text-only" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.classic-tracy-textonly">hero.classic-tracy-textonly</code>
+                  <p class="ac-tile__title">Hero, Classic · Tracy text-only</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.editorial-wordmark-polished Hero, Editorial wordmark (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/editorial-wordmark-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Editorial wordmark (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/editorial-wordmark-polished.html" title="Hero, Editorial wordmark (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.editorial-wordmark-polished">hero.editorial-wordmark-polished</code>
+                  <p class="ac-tile__title">Hero, Editorial wordmark (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.editorial-wordmark Hero, Editorial wordmark">
+                <a class="ac-tile__thumb" href="../components/hero/variants/editorial-wordmark.html" target="_blank" rel="noopener" aria-label="Open Hero, Editorial wordmark" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/editorial-wordmark.html" title="Hero, Editorial wordmark" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.editorial-wordmark">hero.editorial-wordmark</code>
+                  <p class="ac-tile__title">Hero, Editorial wordmark</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.optin-confirmation Hero, Opt-in confirmation">
+                <a class="ac-tile__thumb" href="../components/hero/variants/optin-confirmation.html" target="_blank" rel="noopener" aria-label="Open Hero, Opt-in confirmation" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/optin-confirmation.html" title="Hero, Opt-in confirmation" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.optin-confirmation">hero.optin-confirmation</code>
+                  <p class="ac-tile__title">Hero, Opt-in confirmation</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.oto-polished Hero, One-time offer (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/oto-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, One-time offer (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/oto-polished.html" title="Hero, One-time offer (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.oto-polished">hero.oto-polished</code>
+                  <p class="ac-tile__title">Hero, One-time offer (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.oto Hero, One-time offer">
+                <a class="ac-tile__thumb" href="../components/hero/variants/oto.html" target="_blank" rel="noopener" aria-label="Open Hero, One-time offer" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/oto.html" title="Hero, One-time offer" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.oto">hero.oto</code>
+                  <p class="ac-tile__title">Hero, One-time offer</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.overlay-portrait-polished Hero, Overlay portrait (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/overlay-portrait-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Overlay portrait (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/overlay-portrait-polished.html" title="Hero, Overlay portrait (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.overlay-portrait-polished">hero.overlay-portrait-polished</code>
+                  <p class="ac-tile__title">Hero, Overlay portrait (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.overlay-portrait Hero, Overlay portrait">
+                <a class="ac-tile__thumb" href="../components/hero/variants/overlay-portrait.html" target="_blank" rel="noopener" aria-label="Open Hero, Overlay portrait" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/overlay-portrait.html" title="Hero, Overlay portrait" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.overlay-portrait">hero.overlay-portrait</code>
+                  <p class="ac-tile__title">Hero, Overlay portrait</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.quiz-result Hero, Quiz result">
+                <a class="ac-tile__thumb" href="../components/hero/variants/quiz-result.html" target="_blank" rel="noopener" aria-label="Open Hero, Quiz result" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/quiz-result.html" title="Hero, Quiz result" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.quiz-result">hero.quiz-result</code>
+                  <p class="ac-tile__title">Hero, Quiz result</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.showcase Hero Component, Four Brand Showcase">
+                <a class="ac-tile__thumb" href="../components/hero/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Hero Component, Four Brand Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/showcase.html" title="Hero Component, Four Brand Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.showcase">hero.showcase</code>
+                  <p class="ac-tile__title">Hero Component, Four Brand Showcase</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.split-dark-polished Hero, Split dark (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/split-dark-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Split dark (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/split-dark-polished.html" title="Hero, Split dark (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.split-dark-polished">hero.split-dark-polished</code>
+                  <p class="ac-tile__title">Hero, Split dark (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.split-dark Hero, Split (dark charcoal + portrait)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/split-dark.html" target="_blank" rel="noopener" aria-label="Open Hero, Split (dark charcoal + portrait)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/split-dark.html" title="Hero, Split (dark charcoal + portrait)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.split-dark">hero.split-dark</code>
+                  <p class="ac-tile__title">Hero, Split (dark charcoal + portrait)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.split-light-polished Hero, Split light (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/split-light-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Split light (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/split-light-polished.html" title="Hero, Split light (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.split-light-polished">hero.split-light-polished</code>
+                  <p class="ac-tile__title">Hero, Split light (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.split-light Hero, Split (light oatmeal + portrait)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/split-light.html" target="_blank" rel="noopener" aria-label="Open Hero, Split (light oatmeal + portrait)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/split-light.html" title="Hero, Split (light oatmeal + portrait)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.split-light">hero.split-light</code>
+                  <p class="ac-tile__title">Hero, Split (light oatmeal + portrait)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.split Hero, Split variant (text left / photo right)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/split.html" target="_blank" rel="noopener" aria-label="Open Hero, Split variant (text left / photo right)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/split.html" title="Hero, Split variant (text left / photo right)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.split">hero.split</code>
+                  <p class="ac-tile__title">Hero, Split variant (text left / photo right)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.stage-portrait Hero, Editorial stage (Tracy Harris interpretation)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/stage-portrait.html" target="_blank" rel="noopener" aria-label="Open Hero, Editorial stage (Tracy Harris interpretation)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/stage-portrait.html" title="Hero, Editorial stage (Tracy Harris interpretation)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.stage-portrait">hero.stage-portrait</code>
+                  <p class="ac-tile__title">Hero, Editorial stage (Tracy Harris interpretation)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.textonly-polished Hero, Text only (polished)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/textonly-polished.html" target="_blank" rel="noopener" aria-label="Open Hero, Text only (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/textonly-polished.html" title="Hero, Text only (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.textonly-polished">hero.textonly-polished</code>
+                  <p class="ac-tile__title">Hero, Text only (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="hero.textonly Hero, Text only (Tracy Harris Co)">
+                <a class="ac-tile__thumb" href="../components/hero/variants/textonly.html" target="_blank" rel="noopener" aria-label="Open Hero, Text only (Tracy Harris Co)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/hero/variants/textonly.html" title="Hero, Text only (Tracy Harris Co)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="hero.textonly">hero.textonly</code>
+                  <p class="ac-tile__title">Hero, Text only (Tracy Harris Co)</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-image-grid" data-category-slug="image-grid">
@@ -1257,17 +2132,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Masonry / gallery / editorial image layouts.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="image-grid.bento Image Grid · Bento, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="image-grid.bento">image-grid.bento</code>
@@ -1300,9 +2175,45 @@
                   <a class="ac-link" href="../components/image-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="image-grid.bento Image Grid · Bento, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/image-grid/variants/bento.html" target="_blank" rel="noopener" aria-label="Open Image Grid · Bento, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/image-grid/variants/bento.html" title="Image Grid · Bento, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="image-grid.bento">image-grid.bento</code>
+                  <p class="ac-tile__title">Image Grid · Bento, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="image-grid.masonry Image Grid · Masonry, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/image-grid/variants/masonry.html" target="_blank" rel="noopener" aria-label="Open Image Grid · Masonry, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/image-grid/variants/masonry.html" title="Image Grid · Masonry, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="image-grid.masonry">image-grid.masonry</code>
+                  <p class="ac-tile__title">Image Grid · Masonry, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="image-grid.showcase Image Grid, Showcase">
+                <a class="ac-tile__thumb" href="../components/image-grid/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Image Grid, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/image-grid/variants/showcase.html" title="Image Grid, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="image-grid.showcase">image-grid.showcase</code>
+                  <p class="ac-tile__title">Image Grid, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-navigation" data-category-slug="navigation">
@@ -1311,17 +2222,17 @@
               <span class="ac-section__count">2 variants</span>
             </header>
             <p class="ac-section__desc">Header menus, sub-nav, in-page jump links.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="navigation.overlay-menu Navigation, Overlay menu">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="navigation.overlay-menu">navigation.overlay-menu</code>
@@ -1343,9 +2254,34 @@
                   <a class="ac-link" href="../components/navigation/variants/sticky-mega-menu.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="navigation.overlay-menu Navigation, Overlay menu">
+                <a class="ac-tile__thumb" href="../components/navigation/variants/overlay-menu.html" target="_blank" rel="noopener" aria-label="Open Navigation, Overlay menu" style="aspect-ratio: 1440 / 160;">
+                  <iframe loading="lazy" src="../components/navigation/variants/overlay-menu.html" title="Navigation, Overlay menu" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="navigation.overlay-menu">navigation.overlay-menu</code>
+                  <p class="ac-tile__title">Navigation, Overlay menu</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="navigation.sticky-mega-menu Navigation, Sticky + mega menu">
+                <a class="ac-tile__thumb" href="../components/navigation/variants/sticky-mega-menu.html" target="_blank" rel="noopener" aria-label="Open Navigation, Sticky + mega menu" style="aspect-ratio: 1440 / 160;">
+                  <iframe loading="lazy" src="../components/navigation/variants/sticky-mega-menu.html" title="Navigation, Sticky + mega menu" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="navigation.sticky-mega-menu">navigation.sticky-mega-menu</code>
+                  <p class="ac-tile__title">Navigation, Sticky + mega menu</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-next-steps" data-category-slug="next-steps">
@@ -1354,17 +2290,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Post-conversion guidance, thank-you page structures.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="next-steps.showcase Next Steps, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="next-steps.showcase">next-steps.showcase</code>
@@ -1375,9 +2311,23 @@
                   <a class="ac-link" href="../components/next-steps/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="next-steps.showcase Next Steps, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/next-steps/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Next Steps, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/next-steps/variants/showcase.html" title="Next Steps, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="next-steps.showcase">next-steps.showcase</code>
+                  <p class="ac-tile__title">Next Steps, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-offer-stack" data-category-slug="offer-stack">
@@ -1386,17 +2336,17 @@
               <span class="ac-section__count">5 variants</span>
             </header>
             <p class="ac-section__desc">Value stack / inclusions stacked with dollar framing.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="offer-stack.detailed-polished Offer Stack · Detailed (polished)">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="offer-stack.detailed-polished">offer-stack.detailed-polished</code>
@@ -1451,9 +2401,67 @@
                   <a class="ac-link" href="../components/offer-stack/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="offer-stack.detailed-polished Offer Stack · Detailed (polished)">
+                <a class="ac-tile__thumb" href="../components/offer-stack/variants/detailed-polished.html" target="_blank" rel="noopener" aria-label="Open Offer Stack · Detailed (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/offer-stack/variants/detailed-polished.html" title="Offer Stack · Detailed (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="offer-stack.detailed-polished">offer-stack.detailed-polished</code>
+                  <p class="ac-tile__title">Offer Stack · Detailed (polished)</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="offer-stack.detailed Offer Stack · Detailed, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/offer-stack/variants/detailed.html" target="_blank" rel="noopener" aria-label="Open Offer Stack · Detailed, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/offer-stack/variants/detailed.html" title="Offer Stack · Detailed, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="offer-stack.detailed">offer-stack.detailed</code>
+                  <p class="ac-tile__title">Offer Stack · Detailed, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="offer-stack.minimal-polished Offer Stack · Minimal (polished)">
+                <a class="ac-tile__thumb" href="../components/offer-stack/variants/minimal-polished.html" target="_blank" rel="noopener" aria-label="Open Offer Stack · Minimal (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/offer-stack/variants/minimal-polished.html" title="Offer Stack · Minimal (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="offer-stack.minimal-polished">offer-stack.minimal-polished</code>
+                  <p class="ac-tile__title">Offer Stack · Minimal (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="offer-stack.minimal Offer Stack · Minimal, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/offer-stack/variants/minimal.html" target="_blank" rel="noopener" aria-label="Open Offer Stack · Minimal, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/offer-stack/variants/minimal.html" title="Offer Stack · Minimal, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="offer-stack.minimal">offer-stack.minimal</code>
+                  <p class="ac-tile__title">Offer Stack · Minimal, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="offer-stack.showcase Offer Stack, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/offer-stack/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Offer Stack, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/offer-stack/variants/showcase.html" title="Offer Stack, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="offer-stack.showcase">offer-stack.showcase</code>
+                  <p class="ac-tile__title">Offer Stack, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-opt-in" data-category-slug="opt-in">
@@ -1462,17 +2470,17 @@
               <span class="ac-section__count">5 variants</span>
             </header>
             <p class="ac-section__desc">Email capture forms and lead-gen sign-up blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="opt-in.accent-dark Opt-in · Split Dark Accent, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="opt-in.accent-dark">opt-in.accent-dark</code>
@@ -1527,9 +2535,67 @@
                   <a class="ac-link" href="../components/opt-in/variants/split.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="opt-in.accent-dark Opt-in · Split Dark Accent, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/opt-in/variants/accent-dark.html" target="_blank" rel="noopener" aria-label="Open Opt-in · Split Dark Accent, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/opt-in/variants/accent-dark.html" title="Opt-in · Split Dark Accent, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="opt-in.accent-dark">opt-in.accent-dark</code>
+                  <p class="ac-tile__title">Opt-in · Split Dark Accent, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="opt-in.banner Opt-in · Banner, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/opt-in/variants/banner.html" target="_blank" rel="noopener" aria-label="Open Opt-in · Banner, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/opt-in/variants/banner.html" title="Opt-in · Banner, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="opt-in.banner">opt-in.banner</code>
+                  <p class="ac-tile__title">Opt-in · Banner, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="opt-in.card Opt-in · Compact Card, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/opt-in/variants/card.html" target="_blank" rel="noopener" aria-label="Open Opt-in · Compact Card, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/opt-in/variants/card.html" title="Opt-in · Compact Card, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="opt-in.card">opt-in.card</code>
+                  <p class="ac-tile__title">Opt-in · Compact Card, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="opt-in.showcase Opt-in, Showcase">
+                <a class="ac-tile__thumb" href="../components/opt-in/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Opt-in, Showcase" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/opt-in/variants/showcase.html" title="Opt-in, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="opt-in.showcase">opt-in.showcase</code>
+                  <p class="ac-tile__title">Opt-in, Showcase</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="opt-in.split Opt-in · Split + Portrait, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/opt-in/variants/split.html" target="_blank" rel="noopener" aria-label="Open Opt-in · Split + Portrait, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/opt-in/variants/split.html" title="Opt-in · Split + Portrait, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="opt-in.split">opt-in.split</code>
+                  <p class="ac-tile__title">Opt-in · Split + Portrait, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-podcast-card" data-category-slug="podcast-card">
@@ -1538,17 +2604,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Podcast episode cards and lineup blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="podcast-card.compact Podcast Card · Compact, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="podcast-card.compact">podcast-card.compact</code>
@@ -1581,9 +2647,45 @@
                   <a class="ac-link" href="../components/podcast-card/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="podcast-card.compact Podcast Card · Compact, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/podcast-card/variants/compact.html" target="_blank" rel="noopener" aria-label="Open Podcast Card · Compact, Tracy Harris Co" style="aspect-ratio: 16 / 9;">
+                  <iframe loading="lazy" src="../components/podcast-card/variants/compact.html" title="Podcast Card · Compact, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="podcast-card.compact">podcast-card.compact</code>
+                  <p class="ac-tile__title">Podcast Card · Compact, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="podcast-card.featured Podcast Card · Featured, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/podcast-card/variants/featured.html" target="_blank" rel="noopener" aria-label="Open Podcast Card · Featured, Tracy Harris Co" style="aspect-ratio: 16 / 9;">
+                  <iframe loading="lazy" src="../components/podcast-card/variants/featured.html" title="Podcast Card · Featured, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="podcast-card.featured">podcast-card.featured</code>
+                  <p class="ac-tile__title">Podcast Card · Featured, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="podcast-card.showcase Podcast Card, Showcase">
+                <a class="ac-tile__thumb" href="../components/podcast-card/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Podcast Card, Showcase" style="aspect-ratio: 16 / 9;">
+                  <iframe loading="lazy" src="../components/podcast-card/variants/showcase.html" title="Podcast Card, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="podcast-card.showcase">podcast-card.showcase</code>
+                  <p class="ac-tile__title">Podcast Card, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-post-grid" data-category-slug="post-grid">
@@ -1592,17 +2694,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Blog post feeds, journal / article list layouts.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="post-grid.editorial Post Grid · Editorial, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="post-grid.editorial">post-grid.editorial</code>
@@ -1635,9 +2737,45 @@
                   <a class="ac-link" href="../components/post-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="post-grid.editorial Post Grid · Editorial, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/post-grid/variants/editorial.html" target="_blank" rel="noopener" aria-label="Open Post Grid · Editorial, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/post-grid/variants/editorial.html" title="Post Grid · Editorial, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="post-grid.editorial">post-grid.editorial</code>
+                  <p class="ac-tile__title">Post Grid · Editorial, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="post-grid.masonry Post Grid · Masonry, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/post-grid/variants/masonry.html" target="_blank" rel="noopener" aria-label="Open Post Grid · Masonry, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/post-grid/variants/masonry.html" title="Post Grid · Masonry, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="post-grid.masonry">post-grid.masonry</code>
+                  <p class="ac-tile__title">Post Grid · Masonry, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="post-grid.showcase Post Grid, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/post-grid/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Post Grid, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/post-grid/variants/showcase.html" title="Post Grid, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="post-grid.showcase">post-grid.showcase</code>
+                  <p class="ac-tile__title">Post Grid, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-pricing" data-category-slug="pricing">
@@ -1646,17 +2784,17 @@
               <span class="ac-section__count">7 variants</span>
             </header>
             <p class="ac-section__desc">Pricing tables and payment option blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="pricing.compact-single-polished Pricing · Compact single (polished)">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="pricing.compact-single-polished">pricing.compact-single-polished</code>
@@ -1733,9 +2871,89 @@
                   <a class="ac-link" href="../components/pricing/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="pricing.compact-single-polished Pricing · Compact single (polished)">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/compact-single-polished.html" target="_blank" rel="noopener" aria-label="Open Pricing · Compact single (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/compact-single-polished.html" title="Pricing · Compact single (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.compact-single-polished">pricing.compact-single-polished</code>
+                  <p class="ac-tile__title">Pricing · Compact single (polished)</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="pricing.compact-single Pricing · Compact single, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/compact-single.html" target="_blank" rel="noopener" aria-label="Open Pricing · Compact single, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/compact-single.html" title="Pricing · Compact single, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.compact-single">pricing.compact-single</code>
+                  <p class="ac-tile__title">Pricing · Compact single, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="pricing.ffb-side-by-side-polished Pricing · FFB side-by-side (polished)">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/ffb-side-by-side-polished.html" target="_blank" rel="noopener" aria-label="Open Pricing · FFB side-by-side (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/ffb-side-by-side-polished.html" title="Pricing · FFB side-by-side (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.ffb-side-by-side-polished">pricing.ffb-side-by-side-polished</code>
+                  <p class="ac-tile__title">Pricing · FFB side-by-side (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="pricing.ffb-side-by-side Pricing · FFB side-by-side, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/ffb-side-by-side.html" target="_blank" rel="noopener" aria-label="Open Pricing · FFB side-by-side, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/ffb-side-by-side.html" title="Pricing · FFB side-by-side, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.ffb-side-by-side">pricing.ffb-side-by-side</code>
+                  <p class="ac-tile__title">Pricing · FFB side-by-side, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="pricing.ffm-dark-premium-polished Pricing · FFM dark premium (polished)">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/ffm-dark-premium-polished.html" target="_blank" rel="noopener" aria-label="Open Pricing · FFM dark premium (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/ffm-dark-premium-polished.html" title="Pricing · FFM dark premium (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.ffm-dark-premium-polished">pricing.ffm-dark-premium-polished</code>
+                  <p class="ac-tile__title">Pricing · FFM dark premium (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="pricing.ffm-dark-premium Pricing · FFM dark premium, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/ffm-dark-premium.html" target="_blank" rel="noopener" aria-label="Open Pricing · FFM dark premium, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/ffm-dark-premium.html" title="Pricing · FFM dark premium, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.ffm-dark-premium">pricing.ffm-dark-premium</code>
+                  <p class="ac-tile__title">Pricing · FFM dark premium, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="pricing.showcase Pricing, Showcase">
+                <a class="ac-tile__thumb" href="../components/pricing/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Pricing, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/pricing/variants/showcase.html" title="Pricing, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="pricing.showcase">pricing.showcase</code>
+                  <p class="ac-tile__title">Pricing, Showcase</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-product-callout" data-category-slug="product-callout">
@@ -1744,17 +2962,17 @@
               <span class="ac-section__count">9 variants</span>
             </header>
             <p class="ac-section__desc">Inline callouts pointing to FFB or FFM.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="product-callout.bento-elite-polished Product Callout · Bento Elite (polished)">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="product-callout.bento-elite-polished">product-callout.bento-elite-polished</code>
@@ -1853,9 +3071,111 @@
                   <a class="ac-link" href="../components/product-callout/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="product-callout.bento-elite-polished Product Callout · Bento Elite (polished)">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/bento-elite-polished.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Bento Elite (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/bento-elite-polished.html" title="Product Callout · Bento Elite (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.bento-elite-polished">product-callout.bento-elite-polished</code>
+                  <p class="ac-tile__title">Product Callout · Bento Elite (polished)</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="product-callout.bento-elite Product Callout · Bento Elite, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/bento-elite.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Bento Elite, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/bento-elite.html" title="Product Callout · Bento Elite, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.bento-elite">product-callout.bento-elite</code>
+                  <p class="ac-tile__title">Product Callout · Bento Elite, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.bento-ffb-polished Product Callout · Bento FFB (polished)">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/bento-ffb-polished.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Bento FFB (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/bento-ffb-polished.html" title="Product Callout · Bento FFB (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.bento-ffb-polished">product-callout.bento-ffb-polished</code>
+                  <p class="ac-tile__title">Product Callout · Bento FFB (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.bento-ffb Product Callout · Bento FFB, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/bento-ffb.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Bento FFB, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/bento-ffb.html" title="Product Callout · Bento FFB, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.bento-ffb">product-callout.bento-ffb</code>
+                  <p class="ac-tile__title">Product Callout · Bento FFB, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.clearer-polished Product Callout · Clearer Bento (polished)">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/clearer-polished.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Clearer Bento (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/clearer-polished.html" title="Product Callout · Clearer Bento (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.clearer-polished">product-callout.clearer-polished</code>
+                  <p class="ac-tile__title">Product Callout · Clearer Bento (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.clearer Product Callout · Clearer Bento, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/clearer.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Clearer Bento, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/clearer.html" title="Product Callout · Clearer Bento, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.clearer">product-callout.clearer</code>
+                  <p class="ac-tile__title">Product Callout · Clearer Bento, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.editorial-polished Product Callout · Editorial (polished)">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/editorial-polished.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Editorial (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/editorial-polished.html" title="Product Callout · Editorial (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.editorial-polished">product-callout.editorial-polished</code>
+                  <p class="ac-tile__title">Product Callout · Editorial (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.editorial Product Callout · Editorial, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/editorial.html" target="_blank" rel="noopener" aria-label="Open Product Callout · Editorial, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/editorial.html" title="Product Callout · Editorial, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.editorial">product-callout.editorial</code>
+                  <p class="ac-tile__title">Product Callout · Editorial, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="product-callout.showcase Product Callout, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/product-callout/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Product Callout, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/product-callout/variants/showcase.html" title="Product Callout, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="product-callout.showcase">product-callout.showcase</code>
+                  <p class="ac-tile__title">Product Callout, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-programs-grid" data-category-slug="programs-grid">
@@ -1864,17 +3184,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">Cards for multiple programs, tiers, or offerings.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="programs-grid.showcase Programs Grid, Showcase">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="programs-grid.showcase">programs-grid.showcase</code>
@@ -1907,9 +3227,45 @@
                   <a class="ac-link" href="../components/programs-grid/variants/two-card.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="programs-grid.showcase Programs Grid, Showcase">
+                <a class="ac-tile__thumb" href="../components/programs-grid/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Programs Grid, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/programs-grid/variants/showcase.html" title="Programs Grid, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="programs-grid.showcase">programs-grid.showcase</code>
+                  <p class="ac-tile__title">Programs Grid, Showcase</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="programs-grid.three-card Programs Grid, Three-card pathway">
+                <a class="ac-tile__thumb" href="../components/programs-grid/variants/three-card.html" target="_blank" rel="noopener" aria-label="Open Programs Grid, Three-card pathway" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/programs-grid/variants/three-card.html" title="Programs Grid, Three-card pathway" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="programs-grid.three-card">programs-grid.three-card</code>
+                  <p class="ac-tile__title">Programs Grid, Three-card pathway</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="programs-grid.two-card Programs Grid, Two-card (sister programs)">
+                <a class="ac-tile__thumb" href="../components/programs-grid/variants/two-card.html" target="_blank" rel="noopener" aria-label="Open Programs Grid, Two-card (sister programs)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/programs-grid/variants/two-card.html" title="Programs Grid, Two-card (sister programs)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="programs-grid.two-card">programs-grid.two-card</code>
+                  <p class="ac-tile__title">Programs Grid, Two-card (sister programs)</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-soft-upsell" data-category-slug="soft-upsell">
@@ -1918,17 +3274,17 @@
               <span class="ac-section__count">1 variant</span>
             </header>
             <p class="ac-section__desc">Gentle upsell blocks that feel like value, not push.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="soft-upsell.showcase Soft Upsell, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="soft-upsell.showcase">soft-upsell.showcase</code>
@@ -1939,9 +3295,23 @@
                   <a class="ac-link" href="../components/soft-upsell/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
-            
-              </tbody>
-            </table>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="soft-upsell.showcase Soft Upsell, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/soft-upsell/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Soft Upsell, Tracy Harris Co" style="aspect-ratio: 16 / 7;">
+                  <iframe loading="lazy" src="../components/soft-upsell/variants/showcase.html" title="Soft Upsell, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="soft-upsell.showcase">soft-upsell.showcase</code>
+                  <p class="ac-tile__title">Soft Upsell, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-testimonials" data-category-slug="testimonials">
@@ -1950,17 +3320,17 @@
               <span class="ac-section__count">11 variants</span>
             </header>
             <p class="ac-section__desc">Member story cards and quote blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="testimonials.columns-marquee Testimonials · Columns Marquee, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="testimonials.columns-marquee">testimonials.columns-marquee</code>
@@ -2081,9 +3451,133 @@
                   <a class="ac-link" href="../components/testimonials/variants/wall.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="testimonials.columns-marquee Testimonials · Columns Marquee, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/columns-marquee.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Columns Marquee, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/columns-marquee.html" title="Testimonials · Columns Marquee, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.columns-marquee">testimonials.columns-marquee</code>
+                  <p class="ac-tile__title">Testimonials · Columns Marquee, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="testimonials.editorial-centered-polished Testimonials · Editorial Centered (polished)">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/editorial-centered-polished.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Editorial Centered (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/editorial-centered-polished.html" title="Testimonials · Editorial Centered (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.editorial-centered-polished">testimonials.editorial-centered-polished</code>
+                  <p class="ac-tile__title">Testimonials · Editorial Centered (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.editorial-centered Testimonials · Editorial Centered, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/editorial-centered.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Editorial Centered, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/editorial-centered.html" title="Testimonials · Editorial Centered, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.editorial-centered">testimonials.editorial-centered</code>
+                  <p class="ac-tile__title">Testimonials · Editorial Centered, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.featured-trio-polished Testimonials · Featured Trio (polished)">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/featured-trio-polished.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Featured Trio (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/featured-trio-polished.html" title="Testimonials · Featured Trio (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.featured-trio-polished">testimonials.featured-trio-polished</code>
+                  <p class="ac-tile__title">Testimonials · Featured Trio (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.featured-trio Testimonials · Featured Trio, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/featured-trio.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Featured Trio, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/featured-trio.html" title="Testimonials · Featured Trio, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.featured-trio">testimonials.featured-trio</code>
+                  <p class="ac-tile__title">Testimonials · Featured Trio, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.real-results-polished Testimonials · Real Results (polished)">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/real-results-polished.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Real Results (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/real-results-polished.html" title="Testimonials · Real Results (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.real-results-polished">testimonials.real-results-polished</code>
+                  <p class="ac-tile__title">Testimonials · Real Results (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.real-results Testimonials · Real Results, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/real-results.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Real Results, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/real-results.html" title="Testimonials · Real Results, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.real-results">testimonials.real-results</code>
+                  <p class="ac-tile__title">Testimonials · Real Results, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.showcase Testimonials, Showcase">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Testimonials, Showcase" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/showcase.html" title="Testimonials, Showcase" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.showcase">testimonials.showcase</code>
+                  <p class="ac-tile__title">Testimonials, Showcase</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.single-hero-polished Testimonials · Single Hero (polished)">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/single-hero-polished.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Single Hero (polished)" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/single-hero-polished.html" title="Testimonials · Single Hero (polished)" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.single-hero-polished">testimonials.single-hero-polished</code>
+                  <p class="ac-tile__title">Testimonials · Single Hero (polished)</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.single-hero Testimonials · Single Hero, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/single-hero.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Single Hero, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/single-hero.html" title="Testimonials · Single Hero, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.single-hero">testimonials.single-hero</code>
+                  <p class="ac-tile__title">Testimonials · Single Hero, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="testimonials.wall Testimonials · Masonry Wall, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/testimonials/variants/wall.html" target="_blank" rel="noopener" aria-label="Open Testimonials · Masonry Wall, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/testimonials/variants/wall.html" title="Testimonials · Masonry Wall, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="testimonials.wall">testimonials.wall</code>
+                  <p class="ac-tile__title">Testimonials · Masonry Wall, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
           <section class="ac-section" id="cat-why-block" data-category-slug="why-block">
@@ -2092,17 +3586,17 @@
               <span class="ac-section__count">3 variants</span>
             </header>
             <p class="ac-section__desc">The &quot;why it works&quot; explainer blocks.</p>
-            <table class="ac-table">
-              <thead>
-                <tr>
-                  <th>Copy name</th>
-                  <th>Title</th>
-                  <th>Size</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                
+            <div class="ac-view ac-view--list">
+              <table class="ac-table">
+                <thead>
+                  <tr>
+                    <th>Copy name</th>
+                    <th>Title</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
               <tr data-search="why-block.dark Why Block · Dark, Tracy Harris Co">
                 <td class="ac-cell ac-cell--id">
                   <code class="ac-copy" data-copy="why-block.dark">why-block.dark</code>
@@ -2135,9 +3629,45 @@
                   <a class="ac-link" href="../components/why-block/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
                 </td>
               </tr>
+            </tbody>
+              </table>
+            </div>
+            <div class="ac-view ac-view--tile">
+              <div class="ac-tiles">
+              <article class="ac-tile" data-search="why-block.dark Why Block · Dark, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/why-block/variants/dark.html" target="_blank" rel="noopener" aria-label="Open Why Block · Dark, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/why-block/variants/dark.html" title="Why Block · Dark, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="why-block.dark">why-block.dark</code>
+                  <p class="ac-tile__title">Why Block · Dark, Tracy Harris Co</p>
+                </div>
+              </article>
             
-              </tbody>
-            </table>
+              <article class="ac-tile" data-search="why-block.editorial Why Block · Editorial, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/why-block/variants/editorial.html" target="_blank" rel="noopener" aria-label="Open Why Block · Editorial, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/why-block/variants/editorial.html" title="Why Block · Editorial, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="why-block.editorial">why-block.editorial</code>
+                  <p class="ac-tile__title">Why Block · Editorial, Tracy Harris Co</p>
+                </div>
+              </article>
+            
+              <article class="ac-tile" data-search="why-block.showcase Why Block, Tracy Harris Co">
+                <a class="ac-tile__thumb" href="../components/why-block/variants/showcase.html" target="_blank" rel="noopener" aria-label="Open Why Block, Tracy Harris Co" style="aspect-ratio: 16 / 10;">
+                  <iframe loading="lazy" src="../components/why-block/variants/showcase.html" title="Why Block, Tracy Harris Co" tabindex="-1"></iframe>
+                  <span class="ac-tile__hover">Open →</span>
+                </a>
+                <div class="ac-tile__meta">
+                  <code class="ac-copy ac-copy--tile" data-copy="why-block.showcase">why-block.showcase</code>
+                  <p class="ac-tile__title">Why Block, Tracy Harris Co</p>
+                </div>
+              </article>
+            </div>
+            </div>
           </section>
         
 
@@ -2164,23 +3694,67 @@
       });
     });
 
-    // Filter
+    // Filter rows AND tiles together
     var input = document.getElementById('ac-search-input');
     if (input) {
       input.addEventListener('input', function () {
         var q = input.value.trim().toLowerCase();
         document.querySelectorAll('.ac-section').forEach(function (section) {
           var anyVisible = false;
+          // Rows (list view)
           section.querySelectorAll('tbody tr').forEach(function (row) {
             var hay = (row.getAttribute('data-search') || '').toLowerCase();
             var match = !q || hay.indexOf(q) !== -1;
             row.hidden = !match;
             if (match) anyVisible = true;
           });
+          // Tiles (tile view)
+          section.querySelectorAll('.ac-tile').forEach(function (tile) {
+            var hay = (tile.getAttribute('data-search') || '').toLowerCase();
+            var match = !q || hay.indexOf(q) !== -1;
+            tile.hidden = !match;
+          });
           section.hidden = !anyVisible;
         });
       });
     }
+
+    // View toggle (list vs tile)
+    var STORAGE_KEY = 'ac-view-mode';
+    var initial = localStorage.getItem(STORAGE_KEY) || 'list';
+    document.body.setAttribute('data-view', initial);
+    document.querySelectorAll('.ac-toggle button').forEach(function (btn) {
+      if (btn.getAttribute('data-view') === initial) btn.classList.add('is-active');
+      else btn.classList.remove('is-active');
+      btn.addEventListener('click', function () {
+        var mode = btn.getAttribute('data-view');
+        document.body.setAttribute('data-view', mode);
+        localStorage.setItem(STORAGE_KEY, mode);
+        document.querySelectorAll('.ac-toggle button').forEach(function (b) {
+          b.classList.toggle('is-active', b === btn);
+        });
+        if (mode === 'tile') scaleTiles();
+      });
+    });
+
+    // Tile iframe scaling, same pattern as compose page.
+    // Iframe renders at 1440x900 desktop viewport, CSS transform-scale shrinks
+    // to fit the tile. ResizeObserver updates --ac-scale per tile on resize.
+    function scaleTiles() {
+      document.querySelectorAll('.ac-tile__thumb').forEach(function (thumb) {
+        var w = thumb.clientWidth;
+        if (!w) return;
+        var scale = w / 1440;
+        thumb.style.setProperty('--ac-scale', scale.toString());
+      });
+    }
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(scaleTiles);
+      document.querySelectorAll('.ac-tile__thumb').forEach(function (t) { ro.observe(t); });
+    } else {
+      window.addEventListener('resize', scaleTiles);
+    }
+    if (initial === 'tile') scaleTiles();
   </script>
 </body>
 </html>
