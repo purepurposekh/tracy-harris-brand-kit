@@ -1,0 +1,27 @@
+{
+  "name": "tracy-harris-brand-kit",
+  "version": "1.0.0",
+  "description": "Brand system for Tracy Harris Co, FFB, FFM, and FRESH.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purepurposekh/tracy-harris-brand-kit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/purepurposekh/tracy-harris-brand-kit/issues"
+  },
+  "homepage": "https://github.com/purepurposekh/tracy-harris-brand-kit#readme",
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
+}
