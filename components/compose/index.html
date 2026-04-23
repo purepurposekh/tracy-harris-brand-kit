@@ -327,7 +327,7 @@
 
     /* Preview zoom button floats on the thumb. It opens the larger modal
        preview while leaving the rest of the tile click for section pick. */
-    /* Preview zoom button — always visible, high-contrast pill so it
+    /* Preview zoom button, always visible, high-contrast pill so it
        reads clearly over any thumbnail (light or dark). Bottom-left
        so it doesn't overlap approve/revise/reject buttons at top/right. */
     .tile__preview-btn {
@@ -360,7 +360,7 @@
       stroke-width: 2.5;
     }
 
-    /* Polish toggle — segmented control. Only rendered on tiles that
+    /* Polish toggle, segmented control. Only rendered on tiles that
        have both a static and motion (polished) sibling. Both segments
        are visible at all times so the toggle reads as a toggle, and the
        active side is filled sage. Click either side to flip. */
@@ -801,7 +801,7 @@
       box-shadow: 0 8px 24px rgba(16,16,16,0.06);
     }
     /* .is-expanded stays as a visual "active" marker on the card, but
-       the actual expanded content now renders in a modal — no grid reflow. */
+       the actual expanded content now renders in a modal, no grid reflow. */
     .preset-card.is-expanded {
       border-color: var(--p-aztek);
       box-shadow: 0 0 0 2px rgba(30,55,53,0.12), 0 10px 24px rgba(16,16,16,0.06);
@@ -1007,7 +1007,7 @@
     .preset-slot[data-slot-id="guarantee"] .preset-slot__thumb { aspect-ratio: 16 / 6; }
     .preset-slot[data-slot-id="next_steps"] .preset-slot__thumb { aspect-ratio: 16 / 7; }
     .preset-slot[data-slot-id="soft_upsell"] .preset-slot__thumb { aspect-ratio: 16 / 7; }
-    /* Scaled-iframe pattern — same as .tile__thumb iframe. */
+    /* Scaled-iframe pattern, same as .tile__thumb iframe. */
     .preset-slot__thumb iframe {
       position: absolute;
       top: 0;
@@ -1191,7 +1191,7 @@
     }
 
     /* ======================================================================
-       CLS HARDENING (2026-04-18) — reserve space for iframes + lazy content
+       CLS HARDENING (2026-04-18), reserve space for iframes + lazy content
        so the page stops jumping while thumbnails and fonts hydrate.
        Scaled-iframe fix (2026-04-18) now renders thumbs at full desktop
        viewport then CSS-scales them, so the previous "smushed mobile layout"
@@ -1216,7 +1216,7 @@
     }
 
     /* ======================================================================
-       MOBILE POLISH (2026-04-17) — fix tap targets, scroll-vs-tap, spacing
+       MOBILE POLISH (2026-04-17), fix tap targets, scroll-vs-tap, spacing
        ====================================================================== */
 
     /* Smooth momentum scroll on any scrollable surface */
@@ -1351,7 +1351,7 @@
         overflow: hidden;
       }
       /* Preset-slot thumbs auto-fit via container-query on base rule;
-         no mobile override needed — container width drives the scale. */
+         no mobile override needed, container width drives the scale. */
       .preset-card__actions {
         flex-direction: column;
         gap: 10px;
@@ -1409,7 +1409,7 @@
     }
 
     /* ======================================================================
-       PREVIEW MODAL (2026-04-18) — shared scaled-iframe modal
+       PREVIEW MODAL (2026-04-18), shared scaled-iframe modal
        ====================================================================== */
     .preview-modal {
       position: fixed;
@@ -1950,13 +1950,13 @@
     /* Hide original inline mode-toggle + pt-filter on /compose/ since they live in the sidebar now. */
     body[data-compose] .mode-toggle,
     body[data-compose] .pt-filter { display: none !important; }
-    /* Also hide the preset gallery's h2 lede duplication — keep copy tight */
+    /* Also hide the preset gallery's h2 lede duplication, keep copy tight */
     body[data-compose] .presets__head h2 { font-size: 26px; }
 
     /* Mobile: nested sidebar section moves OUT of the sidebar overlay and
        into a dedicated bottom-sheet pattern. The .app-sidebar__subsection
        element is kept in the DOM so desktop still uses it, but it's hidden
-       on mobile — filters live in #filterSheet instead. */
+       on mobile, filters live in #filterSheet instead. */
     @media (max-width: 819px) {
       .app-sidebar__subsection { display: none !important; }
     }
@@ -2543,13 +2543,13 @@
     </div>
   </div>
 
-  <!-- Preset modal — centered dialog, replaces in-grid expand so other cards don't shift. -->
+  <!-- Preset modal, centered dialog, replaces in-grid expand so other cards don't shift. -->
   <div class="preset-modal" id="presetModal" role="dialog" aria-modal="true" aria-label="Preset details" data-open="false">
     <div class="preset-modal__backdrop" data-role="preset-modal-close"></div>
     <div class="preset-modal__dialog" role="document">
       <header class="preset-modal__head">
         <div style="min-width:0;">
-          <h2 class="preset-modal__title" id="presetModalTitle">—</h2>
+          <h2 class="preset-modal__title" id="presetModalTitle">,</h2>
           <p class="preset-modal__desc" id="presetModalDesc"></p>
         </div>
         <button type="button" class="preset-modal__close" data-role="preset-modal-close" aria-label="Close preset details">
@@ -3203,17 +3203,40 @@
     });
 
     // ----------------------------------------------------------------------
-    // Two-tier iframe lifecycle — load near viewport, UNLOAD when far.
+    // Two-tier iframe lifecycle, load near viewport, UNLOAD when far.
     // iOS Safari runs out of memory with 100+ iframes and kills the tab
     // (white-screen-on-scroll). Clearing src on distant tiles frees memory.
     // Target URL persists on data-live-src for reload when card returns.
     // ----------------------------------------------------------------------
+    // Scroll-jump guard: some component variants contain <input autofocus>
+    // or call element.focus() on load. In an iframe those calls propagate
+    // up and cause the parent page to scroll that iframe into view.
+    // This captures the user's scroll position whenever an iframe is about
+    // to load, then clamps the scroll back if the load caused a jump of
+    // more than ~80px. Tiny jumps (layout settle) pass through.
+    function preserveScrollAround(iframe) {
+      const before = window.scrollY;
+      // Snapshot again on next frame so late-loading reflow is covered
+      const restoreIfJumped = () => {
+        const now = window.scrollY;
+        if (Math.abs(now - before) > 80) {
+          window.scrollTo({ top: before, behavior: 'instant' });
+        }
+      };
+      iframe.addEventListener('load', () => {
+        requestAnimationFrame(restoreIfJumped);
+        // Also catch late focus calls that fire after the load event
+        setTimeout(restoreIfJumped, 180);
+      }, { once: true });
+    }
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         const iframe = entry.target;
         const targetSrc = iframe.dataset.src || iframe.dataset.liveSrc;
         if (targetSrc && iframe.src !== targetSrc) {
+          preserveScrollAround(iframe);
           iframe.src = targetSrc;
           iframe.dataset.liveSrc = targetSrc;
           iframe.removeAttribute('data-src');
@@ -3274,7 +3297,7 @@
       ptButtonsEl.appendChild(showAll);
     }
 
-    // Hooks fired whenever applyPageType runs — used by the sidebar mirror.
+    // Hooks fired whenever applyPageType runs, used by the sidebar mirror.
     const pageTypeHooks = [];
 
     function applyPageType(key) {
@@ -3328,7 +3351,7 @@
     // On boot, fetch ../review/approvals.json. Apply status to each tile:
     //  - rejected  => hidden (display:none via CSS)
     //  - revise    => dimmed + "Needs work" gold badge
-    //  - approved  => NO badge (approved is the default in composer — every
+    //  - approved  => NO badge (approved is the default in composer, every
     //                 tile here should already be approved, so calling it out
     //                 adds noise)
     //  - unreviewed (not in file) => "Unreviewed" pill so Karl can spot what
@@ -3438,7 +3461,7 @@
     renderStrip();
 
     // ----------------------------------------------------------------------
-    // Preview — opens a new tab stacking selected variant iframes full-width
+    // Preview, opens a new tab stacking selected variant iframes full-width
     // ----------------------------------------------------------------------
     document.getElementById('previewBtn').addEventListener('click', () => {
       const picks = SLOTS
@@ -3480,7 +3503,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     });
 
     // ----------------------------------------------------------------------
-    // Submit — build recipe JSON + copy to clipboard
+    // Submit, build recipe JSON + copy to clipboard
     // ----------------------------------------------------------------------
     document.getElementById('submitBtn').addEventListener('click', async () => {
       const intent = document.getElementById('intent').value.trim();
@@ -3830,7 +3853,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     }
 
     // -------------------------------------------------------------------
-    // Preset details modal — replaces in-grid expand. Zero grid reflow,
+    // Preset details modal, replaces in-grid expand. Zero grid reflow,
     // no orphaned cards, consistent with the variant preview modal.
     // -------------------------------------------------------------------
     const presetModalEl = document.getElementById('presetModal');
@@ -3849,7 +3872,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       card.classList.add('is-expanded');
       card.setAttribute('aria-expanded', 'true');
 
-      presetModalTitleEl.textContent = preset.name || '—';
+      presetModalTitleEl.textContent = preset.name || ',';
       presetModalDescEl.textContent = preset.description || '';
 
       // Move the card's preview content (stack + thumbs) into the modal body.
@@ -3859,7 +3882,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
         // Clone so the card keeps its content in the DOM (simpler than move/restore).
         const clone = preview.cloneNode(true);
         clone.removeAttribute('aria-hidden');
-        // Remove the inner actions buttons (Use/Close) — the modal has its own.
+        // Remove the inner actions buttons (Use/Close), the modal has its own.
         const actions = clone.querySelector('.preset-card__actions');
         if (actions) actions.remove();
         presetModalBodyEl.appendChild(clone);
@@ -4010,7 +4033,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     })();
 
     // ----------------------------------------------------------------------
-    // Nested sidebar "Build a page" section — route-aware.
+    // Nested sidebar "Build a page" section, route-aware.
     // The original inline .mode-toggle and .pt-filter are hidden via CSS on
     // /compose/ pages, but still exist in the DOM. We render sidebar buttons
     // here and proxy interactions to the original buttons so every bit of
@@ -4079,7 +4102,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       modeObserver.observe(document.body, { attributes: true });
       syncSidebarMode();
 
-      // Page-type list — mirror PAGE_TYPES order, with "Show all" last.
+      // Page-type list, mirror PAGE_TYPES order, with "Show all" last.
       var sbPtList = document.getElementById('sbPtList');
       if (!sbPtList) return;
 
@@ -4134,7 +4157,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
     // Mobile filter bottom-sheet
     // Replaces the sidebar nested filter section on ≤819px. Pill trigger
     // opens a bottom-sheet with Mode toggle + Page type list + Done button.
-    // Selection does NOT auto-close — user taps Done (or backdrop/Escape).
+    // Selection does NOT auto-close, user taps Done (or backdrop/Escape).
     // Desktop sidebar filters continue to work unchanged.
     // ----------------------------------------------------------------------
     (function initMobileFilterSheet() {
@@ -4186,7 +4209,7 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       }
       function syncChips() {
         // Only page-type renders as a removable chip. Mode is always set
-        // (one of two) so showing it as a "removable" chip is misleading —
+        // (one of two) so showing it as a "removable" chip is misleading ,
         // it lives in the pill label instead.
         chipsEl.innerHTML = '';
         var chips = [];
