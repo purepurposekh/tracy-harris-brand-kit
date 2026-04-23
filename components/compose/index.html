@@ -277,6 +277,11 @@
       transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
       display: flex;
       flex-direction: column;
+      /* Skip rendering offscreen tiles entirely (Chrome/Edge/Safari).
+         Dramatically cuts memory + CPU when there are 100+ tiles on mobile
+         so iOS Safari stops killing the tab. */
+      content-visibility: auto;
+      contain-intrinsic-size: 300px 340px;
     }
     .tile:hover {
       border-color: var(--p-sage);
@@ -3240,6 +3245,13 @@
       }, { once: true });
     }
 
+    // Mobile needs much tighter iframe lifecycle. iOS Safari kills tabs
+    // with dozens of concurrent iframes. Narrow the load + unload margins
+    // on small viewports so fewer iframes are live at once.
+    const isMobile = window.matchMedia('(max-width: 820px)').matches;
+    const LOAD_MARGIN = isMobile ? '400px' : '800px';
+    const UNLOAD_MARGIN = isMobile ? '600px' : '2000px';
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
@@ -3256,7 +3268,7 @@
           }, { once: true });
         }
       });
-    }, { rootMargin: '800px' });
+    }, { rootMargin: LOAD_MARGIN });
 
     const unloadObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -3266,7 +3278,7 @@
         if (!iframe.src || iframe.src === 'about:blank') return;
         iframe.src = 'about:blank';
       });
-    }, { rootMargin: '2000px' });
+    }, { rootMargin: UNLOAD_MARGIN });
 
     document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => {
       io.observe(f);
