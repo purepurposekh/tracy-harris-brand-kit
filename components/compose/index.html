@@ -277,11 +277,19 @@
       transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
       display: flex;
       flex-direction: column;
-      /* Skip rendering offscreen tiles entirely (Chrome/Edge/Safari).
-         Dramatically cuts memory + CPU when there are 100+ tiles on mobile
-         so iOS Safari stops killing the tab. */
-      content-visibility: auto;
-      contain-intrinsic-size: 300px 340px;
+    }
+    /* Desktop only: content-visibility helps perf. On mobile it causes
+       layout jumps because the intrinsic-size estimate differs from the
+       real rendered size. Scoped to min-width 821px. */
+    @media (min-width: 821px) {
+      .tile { content-visibility: auto; contain-intrinsic-size: 300px 340px; }
+    }
+    /* Mobile: hide the iframes entirely, show a placeholder pattern instead.
+       iOS Safari cannot handle 100+ iframes at any scroll state; tabs go white.
+       Users tap a tile to select (same interaction), or long-press to open
+       the variant full-screen via the existing open button. */
+    @media (max-width: 820px) {
+      .tile__thumb iframe { display: none !important; }
     }
     .tile:hover {
       border-color: var(--p-sage);
@@ -3245,9 +3253,10 @@
       }, { once: true });
     }
 
-    // Mobile needs much tighter iframe lifecycle. iOS Safari kills tabs
-    // with dozens of concurrent iframes. Narrow the load + unload margins
-    // on small viewports so fewer iframes are live at once.
+    // iOS Safari cannot handle 100+ concurrent iframes regardless of how tight
+    // we make the load/unload margins. On mobile we skip iframe rendering
+    // entirely and rely on the hashed placeholder pattern from CSS. Users
+    // tap a tile to select, or use the open-external action to inspect a variant.
     const isMobile = window.matchMedia('(max-width: 820px)').matches;
     const LOAD_MARGIN = isMobile ? '200px' : '800px';
     const UNLOAD_MARGIN = isMobile ? '400px' : '2000px';
@@ -3302,10 +3311,18 @@
       });
     }, { rootMargin: UNLOAD_MARGIN });
 
-    document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => {
-      io.observe(f);
-      unloadObserver.observe(f);
-    });
+    // Mobile: strip data-src so iframes never try to load, never consume memory.
+    // The placeholder pattern behind them stays visible.
+    if (isMobile) {
+      document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => {
+        f.removeAttribute('data-src');
+      });
+    } else {
+      document.querySelectorAll('.tile__thumb iframe[data-src]').forEach(f => {
+        io.observe(f);
+        unloadObserver.observe(f);
+      });
+    }
 
     // Observe every tile thumb so its transform-scale tracks width changes.
     document.querySelectorAll('.tile__thumb').forEach(observeThumb);
