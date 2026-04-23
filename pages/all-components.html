@@ -97,6 +97,11 @@
       body.has-sidebar .ac-top { left: var(--sidebar-width); }
       body.has-sidebar.sidebar-collapsed .ac-top { left: var(--sidebar-collapsed-width); }
     }
+    @media (max-width: 819px) {
+      .ac-top { padding-left: 76px; }  /* room for hamburger (48px + breathing) */
+      .ac-top__title { font-size: 22px !important; }
+      .ac-top__nav { display: none; }  /* nav lives in the sidebar on mobile */
+    }
     body.has-sidebar { padding-top: 72px; }
     .ac-top a { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-aztek); text-decoration: none; margin-left: 20px; }
     .ac-top a:hover { color: var(--p-copper); }
