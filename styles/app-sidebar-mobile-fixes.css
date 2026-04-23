@@ -1,0 +1,18 @@
+/* app-sidebar mobile fixes
+   Applied across all kit pages so:
+   1) page content never sits under the floating hamburger
+   2) hamburger disappears when the sidebar is open (close button is the action)
+   3) hamburger is tighter (44px, 12px offset) and doesn't dominate on small screens
+*/
+@media (max-width: 819px) {
+  body.has-sidebar { padding-top: 60px; }
+  .app-sidebar__hamburger {
+    top: 10px;
+    left: 10px;
+    width: 44px;
+    height: 44px;
+  }
+  body.sidebar-mobile-open .app-sidebar__hamburger {
+    display: none !important;
+  }
+}

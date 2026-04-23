@@ -209,6 +209,7 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
   <title>All Components · Tracy Harris Co Brand Kit</title>
   <meta name="description" content="Index of every component in the brand kit. Copy a component name, share it with Kira." />
   <link rel="icon" type="image/svg+xml" href="../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="stylesheet" href="../styles/app-sidebar-mobile-fixes.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
