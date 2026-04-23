@@ -46,6 +46,13 @@ From the audit, flagged as variants worth adding to existing families:
 
 ---
 
+## Ops + product expansion
+
+- [ ] **Staff onboarding portal**, internal page covering company values, APPLE framework, RISE framework, vision/mission/values, belief statements, and everything else a new hire needs. Reference the existing checklist at https://grow.tracyharris.co/team-onboarding as source material. Structured so it lives on its own sub-route and is maintainable by Karl/Tracy without developer touch.
+- [ ] **Staff onboarding portal, generator version**, product that lets someone input their own company details (values, frameworks, mission, vision) and outputs a finished onboarding page. Same architecture as the brand-kit creator (Karl's existing pattern), just pointed at HR/onboarding instead of visual brand. Potentially productise for Tracy's audience.
+
+---
+
 ## Infrastructure queue
 
 - [ ] **Slack bot routing**, inbound Slack → VPS so one Kira across Discord + Slack with unified memory. ~2hr build
