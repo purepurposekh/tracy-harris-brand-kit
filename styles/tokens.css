@@ -1,10 +1,10 @@
 /*
- * Tracy Harris Co Brand Kit — Token Layer
+ * Tracy Harris Co Brand Kit, Token Layer
  *
  * Three layers:
- *  1. :root — primitives (raw hex, font families, scale). Never reference from components.
- *  2. [data-brand="X"] — brand mappings to semantic names (surface, ink, accent).
- *  3. Components — reference semantic tokens only (var(--surface-canvas), etc).
+ *  1. :root, primitives (raw hex, font families, scale). Never reference from components.
+ *  2. [data-brand="X"], brand mappings to semantic names (surface, ink, accent).
+ *  3. Components, reference semantic tokens only (var(--surface-canvas), etc).
  *
  * To switch brand on any page fragment: add data-brand="tracy|ffb|ffm|fresh".
  */
@@ -23,12 +23,18 @@
 
   /* Greens */
   --p-aztek: #1e3735;
-  --p-ffb-dark: #1e3735;
+  --p-ffb-dark: #243531;
   --p-sage: #6e8e77;
+  --p-sage-alt: #788E75;
 
   /* Golds (FFM) */
   --p-gold-dark: #7b623c;
   --p-gold-mid: #c9a46c;
+
+  /* Warms (FFB accents) */
+  --p-coral: #EF673E;
+  --p-copper: #AD765B;
+  --p-dusty-rose: #CC9989;
 
   /* FRESH palette */
   --p-fresh-navy: #20314c;
@@ -39,8 +45,9 @@
   /* Font families */
   --f-serif-display: 'Editors Note', Georgia, serif;
   --f-serif-italic: 'Editors Note', Georgia, serif;
-  --f-script: 'Jhon Halend', cursive;
+  --f-script: 'Chic Societe Script', 'Jhon Halend', cursive;
   --f-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+  --f-sans-label: 'Public Sans', 'Poppins', system-ui, sans-serif;
 
   /* Weights */
   --w-regular: 400;
@@ -213,4 +220,35 @@ html, body {
 }
 img, svg, video, iframe {
   max-width: 100%;
+}
+
+/* ---------- 5. SCRIPT ACCENT UTILITY ----------
+   Chic Societe Script has low ink density per glyph. Under 40px it turns
+   to mush. This utility class enforces the minimum + colour contrast.
+   Rule: use .tk-script-accent instead of inlining font-family + size.
+   See docs/brand-rules.md rule #6 for when to use (and when to skip). */
+.tk-script-accent {
+  font-family: var(--f-script);
+  font-weight: 400;
+  line-height: 1;
+  display: inline-block;
+  color: var(--type-script-color, var(--p-copper));
+  /* Default: fits under an h2 (~32-48px). Override with .tk-script-accent--hero on a big-display page. */
+  font-size: clamp(32px, 2.4vw, 40px);
+  letter-spacing: -0.005em;
+}
+.tk-script-accent--hero {
+  /* Used under a display h1 >= 60px. Sits proud without dominating. */
+  font-size: clamp(44px, 3.4vw, 56px);
+}
+.tk-script-accent--mini {
+  /* Absolute floor. Only for tiny callouts where a script is essential but space is tight.
+     If you find yourself reaching for this, consider dropping the script entirely. */
+  font-size: clamp(28px, 2vw, 32px);
+}
+@media (max-width: 640px) {
+  /* Never smaller than 28px on mobile, even on the mini variant */
+  .tk-script-accent { font-size: max(32px, var(--_min, 32px)); }
+  .tk-script-accent--hero { font-size: 40px; }
+  .tk-script-accent--mini { font-size: 28px; }
 }
