@@ -303,9 +303,24 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     .ac-layout {{ display: grid; grid-template-columns: 260px 1fr; gap: 48px; padding: 48px clamp(24px, 5vw, 64px); max-width: 1480px; margin: 0 auto; }}
     @media (max-width: 900px) {{ .ac-layout {{ grid-template-columns: 1fr; gap: 24px; }} }}
 
-    /* In-page category sidebar — floats with page scroll, no visible scrollbar. */
-    .ac-sidebar {{ position: sticky; top: 104px; align-self: start; padding-right: 8px; }}
-    @media (max-width: 900px) {{ .ac-sidebar {{ position: static; }} }}
+    /* In-page category sidebar — travels with scroll, pinned inside viewport.
+       Internal overflow so all 25 categories stay reachable, but scrollbar is
+       hidden visually (Karl wanted no visible scrollbar). */
+    .ac-sidebar {{
+      position: sticky;
+      top: 104px;
+      align-self: start;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-right: 8px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }}
+    .ac-sidebar::-webkit-scrollbar {{ width: 0; height: 0; display: none; }}
+    @media (max-width: 900px) {{
+      .ac-sidebar {{ position: static; max-height: none; overflow: visible; }}
+    }}
     .ac-sidebar__h {{ font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 18px; font-weight: 500; }}
     .ac-sidebar ul {{ list-style: none; padding: 0; margin: 0 0 28px; }}
     .ac-sidebar li {{ margin: 0; }}
