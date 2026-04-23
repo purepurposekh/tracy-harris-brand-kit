@@ -129,6 +129,80 @@
     }
     .op-list__add:hover { border-color: var(--p-ffb-dark); color: var(--p-ffb-dark); }
 
+    /* Assets picker */
+    .op-asset-tabs {
+      display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0 14px;
+      border-bottom: 1px solid rgba(16,16,16,0.10);
+    }
+    .op-asset-tab {
+      background: transparent; border: 0; border-bottom: 2px solid transparent;
+      padding: 10px 14px; font-family: var(--f-sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--p-mute);
+      cursor: pointer; transition: color .15s ease, border-color .15s ease;
+    }
+    .op-asset-tab:hover { color: var(--p-charcoal); }
+    .op-asset-tab.is-active { color: var(--p-ffb-dark); border-bottom-color: var(--p-ffb-dark); }
+    .op-asset-panel { padding: 4px 0 16px; }
+    .op-asset-row {
+      display: flex; gap: 8px; align-items: stretch;
+    }
+    .op-asset-row input {
+      flex: 1; font-family: var(--f-sans); font-size: 14px;
+      padding: 10px 12px; border: 1px solid rgba(16,16,16,0.18);
+      border-radius: 8px; background: #fff; color: var(--p-charcoal);
+    }
+    .op-asset-row input:focus { outline: none; border-color: var(--p-ffb-dark); }
+    .op-asset-drop {
+      padding: 32px 20px; text-align: center; font-size: 14px; color: var(--p-mute);
+      background: #fff; border: 2px dashed rgba(16,16,16,0.18); border-radius: 10px;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .op-asset-drop.is-dragging { border-color: var(--p-ffb-dark); background: rgba(36,53,49,0.04); }
+    .op-asset-browse {
+      color: var(--p-ffb-dark); text-decoration: underline; cursor: pointer; font-weight: 600;
+    }
+    .op-asset-results {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;
+      margin-top: 14px;
+    }
+    .op-asset-results__item {
+      position: relative; aspect-ratio: 1 / 1; border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(16,16,16,0.10); background: #fff; cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .op-asset-results__item:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    .op-asset-results__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .op-asset-results__item.is-picked::after {
+      content: 'Picked'; position: absolute; inset: auto 6px 6px auto;
+      background: var(--p-ffb-dark); color: #fff; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border-radius: 4px;
+    }
+    .op-asset-picks {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px;
+      margin-top: 16px;
+    }
+    .op-asset-picks:empty { display: none; }
+    .op-asset {
+      position: relative; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden;
+      background: #fff; border: 1px solid rgba(16,16,16,0.10);
+    }
+    .op-asset img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .op-asset__meta {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 8px;
+      background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
+      color: #fff; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    }
+    .op-asset__badge { background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; }
+    .op-asset__alt { opacity: 0.82; text-transform: none; letter-spacing: 0; font-size: 11px; }
+    .op-asset__remove {
+      position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(255,255,255,0.95); color: var(--p-charcoal); border: 0;
+      font-size: 18px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .op-asset__remove:hover { background: #fff; }
+
     /* Actions */
     .op-actions {
       display: flex; justify-content: space-between; align-items: center; gap: 12px;
@@ -203,7 +277,7 @@
     <div class="op-hero">
       <p class="op-hero__eye">Onboarding Portal Generator</p>
       <h1>A portal your team <em>will actually read</em>.</h1>
-      <p class="op-hero__lead">Walk through eight short steps. Hand over your company's values, vision, mission, frameworks, belief statements. Leave with a finished onboarding page in your colours. Download the HTML, or grab a Claude Projects bundle so your AI assistant can draft onboarding emails in your voice.</p>
+      <p class="op-hero__lead">Walk through a short guided flow. Hand over your company's values, vision, mission, frameworks, belief statements. Add a hero image if you've got one. Leave with a finished onboarding page in your colours. Download the HTML, or grab a Claude Projects bundle so your AI assistant can draft onboarding emails in your voice.</p>
       <button class="op-hero-cta" id="op-start">Start the wizard</button>
       <p class="op-hero-meta">Free. Your answers stay in your browser until you download.</p>
     </div>
@@ -282,8 +356,17 @@
         ],
       },
       {
-        id: 'founder',
+        id: 'assets',
         eye: 'Step 2',
+        title: 'Imagery',
+        intro: 'Optional. Pick a hero image for the portal cover. Upload a file, paste a Dropbox or Frame.io link, or search Unsplash.',
+        fields: [
+          { id: 'photos', kind: 'assets', label: 'Your images' },
+        ],
+      },
+      {
+        id: 'founder',
+        eye: 'Step 3',
         title: 'The founder',
         intro: 'New hires always want to know who they\'re working for and why. Give them the short version.',
         fields: [
@@ -294,7 +377,7 @@
       },
       {
         id: 'vision_mission',
-        eye: 'Step 3',
+        eye: 'Step 4',
         title: 'Vision and mission',
         intro: 'Two paragraphs that anchor everything. Vision is the world you\'re building toward. Mission is what you do, every week, to get there.',
         fields: [
@@ -304,7 +387,7 @@
       },
       {
         id: 'values',
-        eye: 'Step 4',
+        eye: 'Step 5',
         title: 'Values',
         intro: 'Three to eight values. Each one has a short title and a sentence explaining what it actually means in practice.',
         fields: [
@@ -313,7 +396,7 @@
       },
       {
         id: 'frameworks',
-        eye: 'Step 5',
+        eye: 'Step 6',
         title: 'Frameworks (optional)',
         intro: 'Repeatable models your team uses to make decisions and take action. Skip if you don\'t have them yet.',
         fields: [
@@ -325,7 +408,7 @@
       },
       {
         id: 'beliefs',
-        eye: 'Step 6',
+        eye: 'Step 7',
         title: 'Belief statements',
         intro: 'Three to ten short statements your team operates on. "We believe..." lines. These shape culture more than values do.',
         fields: [
@@ -334,7 +417,7 @@
       },
       {
         id: 'next',
-        eye: 'Step 7',
+        eye: 'Step 8',
         title: 'First-week next steps',
         intro: 'Optional. A short list of what a new hire should do in their first week. Tools to set up, people to meet, docs to read.',
         fields: [
@@ -354,6 +437,15 @@
     ];
     if (!Array.isArray(state.beliefs)) state.beliefs = ['', '', ''];
     if (!Array.isArray(state.next_steps)) state.next_steps = [''];
+    // Assets: [{ url, alt, source, license }]
+    if (!Array.isArray(state.photos)) state.photos = [];
+
+    // -------- Third-party API keys (swap these for real keys) --------
+    // Unsplash API: free tier, register at https://unsplash.com/developers.
+    // Karl, drop the Access Key here. Stays client-side for v1.
+    const UNSPLASH_ACCESS_KEY = 'REPLACE_WITH_UNSPLASH_ACCESS_KEY';
+    // Frame.io personal access token (dev tokens + OAuth at https://developer.frame.io).
+    const FRAMEIO_TOKEN = 'REPLACE_WITH_FRAMEIO_TOKEN';
 
     let currentStep = 0;
 
@@ -393,9 +485,80 @@
       if (f.kind === 'repeater') {
         return renderRepeater(f);
       }
+      if (f.kind === 'assets') {
+        return renderAssets(f);
+      }
       // default text
       const val = escAttr(state[f.id] || '');
       return '<div class="op-field"><label for="' + id + '">' + escText(f.label) + '</label>' + hint + '<input type="text" id="' + id + '" value="' + val + '" placeholder="' + escAttr(f.placeholder || '') + '" /></div>';
+    }
+
+    // -------- Assets picker --------
+    // Four sources: Dropbox shared link (public raw URL conversion), Frame.io (API +
+    // bearer token), local file upload (FileReader -> data URI), Unsplash search.
+    function renderAssets(f) {
+      const picks = Array.isArray(state[f.id]) ? state[f.id] : [];
+      const picksHtml = picks.map((p, idx) => {
+        const src = escAttr(p.url || '');
+        const alt = escAttr(p.alt || '');
+        const src_label = escText(p.source || 'source');
+        return (
+          '<div class="op-asset" data-idx="' + idx + '">' +
+            '<img src="' + src + '" alt="' + alt + '" loading="lazy" />' +
+            '<div class="op-asset__meta">' +
+              '<span class="op-asset__badge">' + src_label + '</span>' +
+              (p.alt ? '<span class="op-asset__alt">' + escText(p.alt) + '</span>' : '') +
+            '</div>' +
+            '<button type="button" class="op-asset__remove" data-asset-remove="' + idx + '" aria-label="Remove">&times;</button>' +
+          '</div>'
+        );
+      }).join('');
+
+      return (
+        '<div class="op-field"><label>' + escText(f.label) + '</label>' +
+          '<p class="op-hint">The first photo becomes the portal cover. Leave empty to use the solid colour cover.</p>' +
+          '<div class="op-asset-tabs" role="tablist">' +
+            '<button type="button" class="op-asset-tab is-active" data-asset-tab="upload">Upload</button>' +
+            '<button type="button" class="op-asset-tab" data-asset-tab="dropbox">Dropbox</button>' +
+            '<button type="button" class="op-asset-tab" data-asset-tab="frameio">Frame.io</button>' +
+            '<button type="button" class="op-asset-tab" data-asset-tab="unsplash">Unsplash</button>' +
+          '</div>' +
+
+          '<div class="op-asset-panel" data-asset-panel="upload">' +
+            '<p class="op-hint">Drag and drop, or choose files from your computer. Stored as data URIs in your browser until download.</p>' +
+            '<div class="op-asset-drop" id="op-asset-drop">Drop images here, or <label class="op-asset-browse" for="op-asset-file">browse</label>.<input type="file" id="op-asset-file" accept="image/*" multiple hidden /></div>' +
+          '</div>' +
+
+          '<div class="op-asset-panel" data-asset-panel="dropbox" hidden>' +
+            '<p class="op-hint">Paste a Dropbox shared link to an image or folder. Public links only.</p>' +
+            '<div class="op-asset-row">' +
+              '<input type="url" id="op-asset-dropbox-url" placeholder="https://www.dropbox.com/s/..." />' +
+              '<button type="button" class="op-list__add" id="op-asset-dropbox-add">Add</button>' +
+            '</div>' +
+            '<p class="op-hint" style="margin-top:10px;opacity:0.6;">Link conversion runs client-side (?dl=0 -> ?raw=1). For private folders, add a Dropbox app key + use the Chooser SDK.</p>' +
+          '</div>' +
+
+          '<div class="op-asset-panel" data-asset-panel="frameio" hidden>' +
+            '<p class="op-hint">Paste a Frame.io project or folder link. Requires a bearer token (set FRAMEIO_TOKEN in source).</p>' +
+            '<div class="op-asset-row">' +
+              '<input type="url" id="op-asset-frameio-url" placeholder="https://app.frame.io/projects/..." />' +
+              '<button type="button" class="op-list__add" id="op-asset-frameio-add">Fetch thumbnails</button>' +
+            '</div>' +
+            '<div class="op-asset-results" id="op-asset-frameio-results"></div>' +
+          '</div>' +
+
+          '<div class="op-asset-panel" data-asset-panel="unsplash" hidden>' +
+            '<p class="op-hint">Search the Unsplash stock library. Free tier, attribution auto-saved.</p>' +
+            '<div class="op-asset-row">' +
+              '<input type="search" id="op-asset-unsplash-query" placeholder="e.g. calm workspace, women in conversation" />' +
+              '<button type="button" class="op-list__add" id="op-asset-unsplash-search">Search</button>' +
+            '</div>' +
+            '<div class="op-asset-results" id="op-asset-unsplash-results"></div>' +
+          '</div>' +
+
+          '<div class="op-asset-picks" id="op-asset-picks">' + picksHtml + '</div>' +
+        '</div>'
+      );
     }
 
     function renderRepeater(f) {
@@ -482,12 +645,239 @@
         });
       });
 
+      // Assets picker wiring, only on the assets step.
+      wireAssetsPicker();
+
       document.getElementById('op-back').addEventListener('click', () => {
         if (currentStep > 0) { currentStep -= 1; renderStep(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); }
       });
       document.getElementById('op-next').addEventListener('click', () => {
         if (currentStep < STEPS.length - 1) { currentStep += 1; renderStep(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); }
         else { showOutput(); }
+      });
+    }
+
+    // -------- Assets picker wiring --------
+    function renderPicks() {
+      const host = document.getElementById('op-asset-picks');
+      if (!host) return;
+      const picks = Array.isArray(state.photos) ? state.photos : [];
+      host.innerHTML = picks.map((p, idx) => {
+        const src = escAttr(p.url || '');
+        const alt = escAttr(p.alt || '');
+        const src_label = escText(p.source || 'source');
+        return (
+          '<div class="op-asset" data-idx="' + idx + '">' +
+            '<img src="' + src + '" alt="' + alt + '" loading="lazy" />' +
+            '<div class="op-asset__meta">' +
+              '<span class="op-asset__badge">' + src_label + '</span>' +
+              (p.alt ? '<span class="op-asset__alt">' + escText(p.alt) + '</span>' : '') +
+            '</div>' +
+            '<button type="button" class="op-asset__remove" data-asset-remove="' + idx + '" aria-label="Remove">&times;</button>' +
+          '</div>'
+        );
+      }).join('');
+      host.querySelectorAll('[data-asset-remove]').forEach(b => {
+        b.addEventListener('click', () => {
+          const i = parseInt(b.getAttribute('data-asset-remove'), 10);
+          if (i < 0 || !Array.isArray(state.photos)) return;
+          state.photos.splice(i, 1);
+          saveState();
+          renderPicks();
+        });
+      });
+    }
+
+    function addPhoto(photo) {
+      if (!photo || !photo.url) return;
+      if (!Array.isArray(state.photos)) state.photos = [];
+      // Dedup on url
+      if (state.photos.some(p => p.url === photo.url)) return;
+      state.photos.push({
+        url: photo.url,
+        alt: photo.alt || '',
+        source: photo.source || 'custom',
+        license: photo.license || '',
+      });
+      saveState();
+      renderPicks();
+    }
+
+    // Convert a Dropbox shared link into a direct image URL.
+    // Dropbox serves raw content when the query is ?raw=1 (or dl.dropboxusercontent.com).
+    function dropboxDirectUrl(u) {
+      try {
+        const url = new URL(u);
+        if (url.hostname.indexOf('dropbox.com') === -1 && url.hostname.indexOf('dropboxusercontent.com') === -1) return null;
+        url.searchParams.set('raw', '1');
+        url.searchParams.delete('dl');
+        return url.toString();
+      } catch (e) { return null; }
+    }
+
+    async function searchUnsplash(query) {
+      if (!query) return [];
+      if (!UNSPLASH_ACCESS_KEY || UNSPLASH_ACCESS_KEY.indexOf('REPLACE_') === 0) {
+        alert('Unsplash access key not set yet. Karl needs to drop a real key into UNSPLASH_ACCESS_KEY at the top of the script.');
+        return [];
+      }
+      const endpoint = 'https://api.unsplash.com/search/photos?query=' + encodeURIComponent(query) + '&per_page=12&client_id=' + encodeURIComponent(UNSPLASH_ACCESS_KEY);
+      try {
+        const res = await fetch(endpoint);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        return (data.results || []).map(r => ({
+          thumb: r.urls && r.urls.small,
+          url: (r.urls && (r.urls.regular || r.urls.small)) || '',
+          alt: r.alt_description || r.description || '',
+          source: 'Unsplash',
+          license: 'Unsplash License, credit ' + (r.user && r.user.name ? r.user.name : 'photographer') + (r.user && r.user.links && r.user.links.html ? ' (' + r.user.links.html + ')' : ''),
+        }));
+      } catch (e) {
+        console.error('[unsplash]', e);
+        alert('Unsplash search failed: ' + e.message);
+        return [];
+      }
+    }
+
+    async function fetchFrameioAssets(projectUrl) {
+      if (!FRAMEIO_TOKEN || FRAMEIO_TOKEN.indexOf('REPLACE_') === 0) {
+        alert('Frame.io token not set yet. Karl needs to drop a bearer token into FRAMEIO_TOKEN at the top of the script.');
+        return [];
+      }
+      // Frame.io V4 API: GET /v4/accounts/{account_id}/folders/{folder_id}/children
+      // We can't robustly resolve project -> folder without a fuller integration.
+      // v1 approach: accept a direct folder ID pasted at the end of the URL and
+      // call the children endpoint. Real scoping needs an account_id too.
+      try {
+        const m = /\/folders?\/([a-f0-9-]{8,})/i.exec(projectUrl);
+        if (!m) {
+          alert('Could not extract a Frame.io folder ID from that URL. Paste a URL that includes /folder/<id>.');
+          return [];
+        }
+        const folderId = m[1];
+        const endpoint = 'https://api.frame.io/v4/folders/' + folderId + '/children';
+        const res = await fetch(endpoint, { headers: { Authorization: 'Bearer ' + FRAMEIO_TOKEN } });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        const items = Array.isArray(data) ? data : (data.data || []);
+        return items.filter(x => x.type === 'file' || x.type === 'asset').map(x => ({
+          thumb: x.cover_asset_url || x.thumbnail_url || x.url || '',
+          url: x.original_url || x.url || x.cover_asset_url || '',
+          alt: x.name || 'Frame.io asset',
+          source: 'Frame.io',
+          license: 'Internal, source: Frame.io',
+        }));
+      } catch (e) {
+        console.error('[frame.io]', e);
+        alert('Frame.io fetch failed: ' + e.message);
+        return [];
+      }
+    }
+
+    function wireAssetsPicker() {
+      const host = wizard.querySelector('.op-asset-tabs');
+      if (!host) return;
+
+      // Tab switching
+      host.querySelectorAll('.op-asset-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          host.querySelectorAll('.op-asset-tab').forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          const target = tab.getAttribute('data-asset-tab');
+          wizard.querySelectorAll('[data-asset-panel]').forEach(p => {
+            p.hidden = p.getAttribute('data-asset-panel') !== target;
+          });
+        });
+      });
+
+      // Upload (file input + drag-drop)
+      const fileInput = document.getElementById('op-asset-file');
+      const drop = document.getElementById('op-asset-drop');
+      function ingestFiles(files) {
+        Array.from(files || []).forEach(file => {
+          if (!file || !file.type || file.type.indexOf('image/') !== 0) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            addPhoto({ url: ev.target.result, alt: file.name, source: 'Upload', license: 'User-supplied' });
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+      if (fileInput) fileInput.addEventListener('change', (e) => ingestFiles(e.target.files));
+      if (drop) {
+        ['dragenter', 'dragover'].forEach(evt => drop.addEventListener(evt, (e) => { e.preventDefault(); drop.classList.add('is-dragging'); }));
+        ['dragleave', 'drop'].forEach(evt => drop.addEventListener(evt, (e) => { e.preventDefault(); drop.classList.remove('is-dragging'); }));
+        drop.addEventListener('drop', (e) => { if (e.dataTransfer && e.dataTransfer.files) ingestFiles(e.dataTransfer.files); });
+      }
+
+      // Dropbox
+      const dbxAdd = document.getElementById('op-asset-dropbox-add');
+      if (dbxAdd) dbxAdd.addEventListener('click', () => {
+        const input = document.getElementById('op-asset-dropbox-url');
+        const raw = input ? input.value.trim() : '';
+        if (!raw) return;
+        const direct = dropboxDirectUrl(raw);
+        if (!direct) {
+          alert('That does not look like a Dropbox link.');
+          return;
+        }
+        addPhoto({ url: direct, alt: 'Dropbox image', source: 'Dropbox', license: 'User-supplied via Dropbox share link' });
+        if (input) input.value = '';
+      });
+
+      // Frame.io
+      const fioAdd = document.getElementById('op-asset-frameio-add');
+      if (fioAdd) fioAdd.addEventListener('click', async () => {
+        const input = document.getElementById('op-asset-frameio-url');
+        const raw = input ? input.value.trim() : '';
+        if (!raw) return;
+        fioAdd.disabled = true;
+        const originalLabel = fioAdd.textContent;
+        fioAdd.textContent = 'Fetching...';
+        const results = await fetchFrameioAssets(raw);
+        fioAdd.disabled = false;
+        fioAdd.textContent = originalLabel;
+        renderRemoteResults('op-asset-frameio-results', results);
+      });
+
+      // Unsplash
+      const unsBtn = document.getElementById('op-asset-unsplash-search');
+      if (unsBtn) unsBtn.addEventListener('click', async () => {
+        const input = document.getElementById('op-asset-unsplash-query');
+        const q = input ? input.value.trim() : '';
+        if (!q) return;
+        unsBtn.disabled = true;
+        const originalLabel = unsBtn.textContent;
+        unsBtn.textContent = 'Searching...';
+        const results = await searchUnsplash(q);
+        unsBtn.disabled = false;
+        unsBtn.textContent = originalLabel;
+        renderRemoteResults('op-asset-unsplash-results', results);
+      });
+      // Enter-to-search on the Unsplash query box
+      const unsQuery = document.getElementById('op-asset-unsplash-query');
+      if (unsQuery) unsQuery.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); unsBtn && unsBtn.click(); } });
+
+      // Initial picks render
+      renderPicks();
+    }
+
+    function renderRemoteResults(hostId, results) {
+      const host = document.getElementById(hostId);
+      if (!host) return;
+      if (!results.length) { host.innerHTML = '<p class="op-hint" style="margin-top:10px;opacity:0.7;">No results.</p>'; return; }
+      host.innerHTML = results.map((r, i) => (
+        '<button type="button" class="op-asset-results__item" data-remote-idx="' + i + '"><img src="' + escAttr(r.thumb || r.url) + '" alt="' + escAttr(r.alt || '') + '" loading="lazy" /></button>'
+      )).join('');
+      host.querySelectorAll('[data-remote-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = parseInt(btn.getAttribute('data-remote-idx'), 10);
+          const r = results[i];
+          if (!r) return;
+          addPhoto({ url: r.url, alt: r.alt, source: r.source, license: r.license });
+          btn.classList.add('is-picked');
+        });
       });
     }
 
@@ -528,6 +918,7 @@
         values: [{ title: '', desc: '' }, { title: '', desc: '' }, { title: '', desc: '' }],
         beliefs: ['', '', ''],
         next_steps: [''],
+        photos: [],
       };
       currentStep = 0;
       intro.style.display = 'block';
@@ -561,6 +952,14 @@
       const company = s.company_name || 'Your Company';
       const tagline = s.company_tagline || '';
       const color = s.primary_color || '#243531';
+      const photos = Array.isArray(s.photos) ? s.photos.filter(p => p && p.url) : [];
+      const coverPhoto = photos[0];
+      const coverUrl = coverPhoto ? coverPhoto.url : '';
+      const coverAlt = coverPhoto ? (coverPhoto.alt || '') : '';
+      const creditLine = photos
+        .filter(p => p.license)
+        .map(p => (p.source || '') + ': ' + p.license)
+        .join(' · ');
       const founderName = s.founder_name || '';
       const founderBio = s.founder_bio || '';
       const founderStory = s.founder_story || '';
@@ -595,7 +994,11 @@
 'html, body { margin: 0; padding: 0; }\n' +
 'body { font-family: var(--f-sans, "Poppins", system-ui, sans-serif); background: var(--p-cream, #ece7de); color: var(--p-charcoal, #101010); -webkit-font-smoothing: antialiased; line-height: 1.6; }\n' +
 '.wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }\n' +
-'.cover { background: var(--accent); color: #fff; padding: 96px 24px 84px; }\n' +
+'.cover { position: relative; background: var(--accent); color: #fff; padding: 96px 24px 84px; overflow: hidden; }\n' +
+'.cover__photo { position: absolute; inset: 0; background-size: cover; background-position: center; }\n' +
+'.cover__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.28)); }\n' +
+'.cover__photo + .wrap { position: relative; z-index: 1; }\n' +
+'.cover.has-photo .wrap { position: relative; z-index: 1; }\n' +
 '.cover .wrap { max-width: 880px; margin: 0 auto; padding: 0; }\n' +
 '.cover__eye { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 600; opacity: 0.75; margin: 0 0 18px; }\n' +
 '.cover h1 { font-family: var(--f-serif-display, Georgia, serif); font-weight: 400; font-size: clamp(48px, 7vw, 92px); line-height: 0.95; letter-spacing: -0.02em; margin: 0 0 18px; }\n' +
@@ -633,7 +1036,8 @@
 '<body>\n' +
 
 // Cover / Welcome
-'<header class="cover">\n' +
+'<header class="cover' + (coverUrl ? ' has-photo' : '') + '">\n' +
+(coverUrl ? '  <div class="cover__photo" role="img" aria-label="' + esc(coverAlt) + '" style="background-image:url(\'' + esc(coverUrl) + '\');"></div>\n' : '') +
 '  <div class="wrap">\n' +
 '    <p class="cover__eye">Team onboarding</p>\n' +
 '    <h1>Welcome to <em>' + esc(company) + '</em>.</h1>\n' +
@@ -730,6 +1134,7 @@ nextSteps.map(n => '      <li>' + esc(n) + '</li>').join('\n') + '\n' +
 '<footer class="footer">\n' +
 '  <p><strong>' + esc(company) + '</strong> · Team onboarding portal</p>\n' +
 '  <p style="margin-top: 6px; opacity: 0.7;">Generated with the <a href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/pages/onboarding-portal-generator/" style="color: inherit;">Tracy Harris Co onboarding generator</a></p>\n' +
+(creditLine ? '  <p style="margin-top: 6px; opacity: 0.55; font-size: 11px;">' + esc(creditLine) + '</p>\n' : '') +
 '</footer>\n' +
 
 '</body>\n</html>\n'

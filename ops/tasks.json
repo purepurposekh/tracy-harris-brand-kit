@@ -60,9 +60,9 @@
     {
       "id": "image-picker",
       "subject": "Image/asset selection flow during page build",
-      "status": "pending",
-      "note": "Research done (Dropbox + Frame.io libraries). Next: picker UI so I can pull Tracy's approved photos into pages without her hand-assembling each one.",
-      "waiting_on": "me"
+      "status": "completed",
+      "completed": "2026-04-23",
+      "note": "Assets step added to onboarding-portal-generator wizard (step 2 of 8). Four sources: local upload (drag-drop + file input, stored as data URIs), Dropbox shared link (auto-converted to ?raw=1 direct URL), Frame.io folder ID (API with FRAMEIO_TOKEN placeholder), Unsplash search (client-side API with UNSPLASH_ACCESS_KEY placeholder + auto-credit). First picked photo becomes the cover background in the generated portal HTML. Credit line appended to footer."
     },
     {
       "id": "docs-picker",
@@ -81,9 +81,9 @@
     {
       "id": "kira-builds-it",
       "subject": "'Kira builds it for me' button on compose page",
-      "status": "pending",
-      "note": "One-click to generate a full page from brief, composer hands off to me with the recipe + content, I return a rendered page.",
-      "waiting_on": "me"
+      "status": "completed",
+      "completed": "2026-04-23",
+      "note": "Button added to compose page strip next to Preview/Submit. v1 = scripted rule-based best-fit that reads the intent textarea + active page-type filter and picks a coherent variant per slot (warm editorial sales, dark premium mastermind, optin, blog, thank-you, about). Applies picks to state + tile UI + strip. Upgrade path wired: ANTHROPIC_API_KEY placeholder + client-side fetch with rules fallback when unset or API fails."
     },
     {
       "id": "video-library-research",

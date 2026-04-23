@@ -2553,6 +2553,7 @@
       <div class="strip__chips" id="chips"></div>
       <div class="strip__pill" id="pill">0 picks</div>
       <div class="strip__actions">
+        <button class="btn--ghost" id="kiraBtn" type="button" title="Auto-pick a best-fit recipe based on your intent">✦ Let Kira build it</button>
         <button class="btn--ghost" id="previewBtn" type="button">Preview</button>
         <button id="submitBtn" type="button">Submit recipe</button>
       </div>
@@ -3644,6 +3645,207 @@ ${picks.map(p => `<div class="label">${p.label} · ${p.name}</div><iframe src="$
       }
 
       console.log('Recipe:', recipe);
+    });
+
+    // ----------------------------------------------------------------------
+    // "Let Kira build it" button, scripted best-fit recipe selector.
+    //
+    // v1 = rule-based. Reads the intent textarea + active page-type filter,
+    // picks a coherent variant set, and writes it into state + tile UI.
+    //
+    // Upgrade path: wire Anthropic API here by dropping a key into
+    // ANTHROPIC_API_KEY. Falls back to rules if the key is unset or the
+    // request fails. Client-side for v1. Karl, plug the real key in below.
+    // ----------------------------------------------------------------------
+    const ANTHROPIC_API_KEY = 'REPLACE_WITH_ANTHROPIC_API_KEY';
+
+    function kiraPickRecipe(intentText, pageType) {
+      const t = (intentText || '').toLowerCase();
+
+      // Detect cues from the brief.
+      const isFemaleCoachAudience = /\b(female|women|mum|mums|mom|moms|mother|coach(es|ing)?|creator|creative|founder)\b/.test(t);
+      const isSales     = /\b(sales|buy|enrol|enroll|apply|application|pitch|convert)\b/.test(t) || pageType === 'sales';
+      const isOptin     = /\b(opt-?in|lead|magnet|quiz|download|freebie|subscribe)\b/.test(t) || pageType === 'optin';
+      const isBlog      = /\b(blog|post|article|index|archive)\b/.test(t) || pageType === 'blog';
+      const isTy        = /\b(thank[- ]?you|thanks|ty page|delivery|confirmation|download ready)\b/.test(t) || pageType === 'thankyou';
+      const isAbout     = /\b(about|founder story|my story|bio)\b/.test(t) || pageType === 'about';
+
+      const premium     = /\b(mastermind|ffm|premium|high[- ]touch|private|elite)\b/.test(t);
+      const wantsDark   = /\b(dark|cinematic|aztek|charcoal|moody|editorial dark)\b/.test(t);
+      const wantsWarm   = /\b(warm|editorial|cream|oatmeal|spacious|soft|calm)\b/.test(t) || isFemaleCoachAudience;
+
+      // Base recipe = warm editorial sales page (the most common Tracy ask).
+      const recipe = {
+        nav:                 'overlay-menu',
+        hero:                'classic-ffb-split-right-polished',
+        why_block:           'editorial',
+        benefit_trio:        'number-row',
+        feature_grid:        '__skip__',
+        curriculum_preview:  '__skip__',
+        post_grid:           '__skip__',
+        content_section:     '__skip__',
+        product_callout:     'bento-ffb-polished',
+        offer_stack:         'detailed-polished',
+        testimonials:        'featured-polished',
+        guarantee:           'editorial',
+        opt_in:              '__skip__',
+        faq:                 'simple',
+        next_steps:          '__skip__',
+        soft_upsell:         '__skip__',
+        event_widget:        '__skip__',
+        footer:              'ffb-two-col',
+      };
+
+      if (premium || wantsDark) {
+        recipe.hero             = 'classic-ffm-dark-split-right-polished';
+        recipe.why_block        = 'dark';
+        recipe.product_callout  = 'bento-elite-polished';
+        recipe.testimonials     = 'editorial-polished';
+        recipe.guarantee        = 'badge';
+        recipe.footer           = 'ffm-dark-two-col';
+      } else if (wantsWarm) {
+        recipe.hero             = 'classic-ffb-split-right-polished';
+        recipe.testimonials     = 'featured-polished';
+      }
+
+      if (isOptin) {
+        recipe.hero             = 'editorial-wordmark-polished';
+        recipe.why_block        = 'editorial';
+        recipe.benefit_trio     = 'icon-row';
+        recipe.product_callout  = '__skip__';
+        recipe.offer_stack      = '__skip__';
+        recipe.testimonials     = 'single-polished';
+        recipe.guarantee        = '__skip__';
+        recipe.opt_in           = 'split';
+        recipe.faq              = '__skip__';
+        recipe.footer           = 'fresh-minimal';
+      }
+
+      if (isBlog) {
+        recipe.hero             = 'textonly-polished';
+        recipe.why_block        = '__skip__';
+        recipe.benefit_trio     = '__skip__';
+        recipe.post_grid        = 'editorial';
+        recipe.product_callout  = '__skip__';
+        recipe.offer_stack      = '__skip__';
+        recipe.testimonials     = '__skip__';
+        recipe.guarantee        = '__skip__';
+        recipe.faq              = '__skip__';
+        recipe.footer           = 'tracy-three-col';
+      }
+
+      if (isTy) {
+        recipe.hero             = 'optin-confirmation';
+        recipe.why_block        = '__skip__';
+        recipe.benefit_trio     = '__skip__';
+        recipe.next_steps       = 'default';
+        recipe.soft_upsell      = 'default';
+        recipe.product_callout  = '__skip__';
+        recipe.offer_stack      = '__skip__';
+        recipe.testimonials     = '__skip__';
+        recipe.guarantee        = '__skip__';
+        recipe.faq              = '__skip__';
+        recipe.footer           = 'statement-mark';
+      }
+
+      if (isAbout) {
+        recipe.hero             = 'textonly-polished';
+        recipe.why_block        = 'editorial';
+        recipe.benefit_trio     = '__skip__';
+        recipe.product_callout  = '__skip__';
+        recipe.offer_stack      = '__skip__';
+        recipe.content_section  = 'default';
+        recipe.testimonials     = 'single-polished';
+        recipe.guarantee        = '__skip__';
+        recipe.faq              = '__skip__';
+        recipe.footer           = 'tracy-three-col';
+      }
+
+      return recipe;
+    }
+
+    // Apply a recipe object to state + tile UI + strip.
+    function kiraApplyRecipe(recipe) {
+      SLOTS.forEach(slot => {
+        const target = recipe[slot.id];
+        document.querySelectorAll(`.tile[data-slot-id="${slot.id}"]`).forEach(t => t.classList.remove('is-selected'));
+        if (target === '__skip__') {
+          if (slot.skippable) {
+            state[slot.id] = '__skip__';
+            const skipTile = document.querySelector(`.tile--skip[data-slot-id="${slot.id}"]`);
+            if (skipTile) skipTile.classList.add('is-selected');
+          } else {
+            state[slot.id] = null;
+          }
+          return;
+        }
+        const variant = slot.variants.find(v => v.key === target);
+        if (!variant) { state[slot.id] = null; return; }
+        state[slot.id] = target;
+        const tile = document.querySelector(`.tile[data-slot-id="${slot.id}"][data-key="${target}"]`);
+        if (tile) tile.classList.add('is-selected');
+      });
+      renderStrip();
+    }
+
+    const kiraBtn = document.getElementById('kiraBtn');
+    if (kiraBtn) kiraBtn.addEventListener('click', async () => {
+      const intentEl = document.getElementById('intent');
+      const intent = intentEl ? intentEl.value.trim() : '';
+      // Read current page-type filter. `currentPageType` is declared later in the
+      // same script scope but is fully initialised by the time the user clicks.
+      // Use a safe getter via global-ish accessor fallback in case of refactor.
+      let pageType = 'all';
+      try { pageType = currentPageType || 'all'; } catch (_) { pageType = 'all'; }
+
+      kiraBtn.disabled = true;
+      const originalLabel = kiraBtn.textContent;
+      kiraBtn.textContent = 'Kira picking...';
+
+      let recipe = null;
+      // If an Anthropic key is configured, try the API first. Fall back to rules.
+      if (ANTHROPIC_API_KEY && ANTHROPIC_API_KEY.indexOf('REPLACE_') !== 0) {
+        try {
+          const slotsCatalog = SLOTS.map(s => ({
+            id: s.id,
+            label: s.label,
+            skippable: !!s.skippable,
+            options: s.variants.map(v => v.key),
+          }));
+          const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'x-api-key': ANTHROPIC_API_KEY,
+              'anthropic-version': '2023-06-01',
+              'anthropic-dangerous-direct-browser-access': 'true',
+            },
+            body: JSON.stringify({
+              model: 'claude-opus-4-7',
+              max_tokens: 800,
+              messages: [{
+                role: 'user',
+                content: 'You are Kira, a brand-kit composition assistant. Pick one variant key per slot, or "__skip__" for skippable slots, so the page tells a coherent story.\n\nBrief: ' + (intent || '(empty)') + '\nPage type: ' + (pageType || '(any)') + '\n\nSlots:\n' + JSON.stringify(slotsCatalog, null, 2) + '\n\nReturn a single JSON object mapping slot id to variant key (or "__skip__"). No prose.',
+              }],
+            }),
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const text = (data.content && data.content[0] && data.content[0].text) || '';
+            const jsonMatch = text.match(/\{[\s\S]*\}/);
+            if (jsonMatch) recipe = JSON.parse(jsonMatch[0]);
+          }
+        } catch (e) {
+          console.warn('[kira] Anthropic call failed, falling back to rules:', e);
+        }
+      }
+
+      if (!recipe) recipe = kiraPickRecipe(intent, pageType);
+      kiraApplyRecipe(recipe);
+
+      kiraBtn.disabled = false;
+      kiraBtn.textContent = originalLabel;
+      showToast('Kira built a recipe · tweak any slot, then Preview or Submit');
     });
 
     // ----------------------------------------------------------------------
