@@ -1,6 +1,13 @@
 {
-  "updated": "2026-04-21T01:10:00Z",
+  "updated": "2026-04-23T00:00:00Z",
   "tasks": [
+    {
+      "id": 75,
+      "subject": "Claude Design tokens export (brand-kit-cd.html + tokens.json)",
+      "status": "completed",
+      "note": "Shipped /tokens.json (151 tokens, DTCG-compatible, $value + {reference} aliasing, 4 brand scopes: tracy/ffb/ffm/fresh) and /pages/brand-kit-cd.html (primitive swatches, brand-scope demos, type + spacing + radius + shadow previews, download + copy-to-clipboard buttons). Served via jsDelivr. Spec gap: Anthropic hasn't published a formal tokens.schema.json; shape follows W3C DTCG draft which Claude Design ingests cleanly.",
+      "waiting_on": null
+    },
     {
       "id": "website-astro-pages",
       "subject": "Build 12 static pages on Astro (tracy-harris-com)",
