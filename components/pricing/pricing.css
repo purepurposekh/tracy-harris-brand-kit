@@ -1,4 +1,4 @@
-/* Pricing — offer stack for FFB and FFM product pages */
+/* Pricing, offer stack for FFB and FFM product pages */
 
 .pricing {
   background: var(--surface-canvas);
@@ -51,7 +51,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: SIDE-BY-SIDE — two payment options                   */
+/* VARIANT: SIDE-BY-SIDE, two payment options                   */
 /* ============================================================ */
 
 .pricing__options {
@@ -193,7 +193,7 @@
 .pricing__cta--secondary:hover { border-color: var(--accent); }
 
 /* ============================================================ */
-/* VARIANT: SINGLE — one card with all options listed            */
+/* VARIANT: SINGLE, one card with all options listed            */
 /* ============================================================ */
 
 .pricing__single {
@@ -249,7 +249,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: DARK — for FFM premium positioning                   */
+/* VARIANT: DARK, for FFM premium positioning                   */
 /* ============================================================ */
 
 .pricing--dark {

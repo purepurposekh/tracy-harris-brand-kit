@@ -19,7 +19,7 @@
   },
   "navItemShape": {
     "label": "string (Programs, Podcast, etc.)",
-    "href": "string (optional — if no subMenus, behaves as direct link)",
+    "href": "string (optional, if no subMenus, behaves as direct link)",
     "subMenus": [{
       "title": "string (section heading inside dropdown)",
       "items": [{

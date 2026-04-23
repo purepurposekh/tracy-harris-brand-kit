@@ -13,7 +13,7 @@
       "required": true,
       "description": "Array of program cards. 2-4 cards works; 3 is the default.",
       "fields": {
-        "accent": "sage | gold | green | navy — the brand accent colour for the card",
+        "accent": "sage | gold | green | navy, the brand accent colour for the card",
         "title": "Program name with italic emphasis on differentiator word",
         "tagline": "Short italic line beneath title (3-5 words)",
         "desc": "2-3 sentence description",

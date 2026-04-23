@@ -1,4 +1,4 @@
-/* Opt-in — email capture blocks */
+/* Opt-in, email capture blocks */
 
 .opt-in {
   padding: var(--sp-9) var(--sp-7);
@@ -10,7 +10,7 @@
 .opt-in--accent { background: var(--accent); color: var(--accent-on); }
 
 /* ============================================================ */
-/* VARIANT: SPLIT — big title left, portrait circle right        */
+/* VARIANT: SPLIT, big title left, portrait circle right        */
 /* ============================================================ */
 
 .opt-in__split {
@@ -161,7 +161,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: BANNER — centered, full-width, minimal               */
+/* VARIANT: BANNER, centered, full-width, minimal               */
 /* ============================================================ */
 
 .opt-in__banner {
@@ -189,7 +189,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: CARD — compact card with accent bg, for mid-page     */
+/* VARIANT: CARD, compact card with accent bg, for mid-page     */
 /* ============================================================ */
 
 .opt-in__card {

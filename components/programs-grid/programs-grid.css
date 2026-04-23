@@ -1,4 +1,4 @@
-/* Programs grid component — 3 cards by default, responsive to 1 on mobile */
+/* Programs grid component, 3 cards by default, responsive to 1 on mobile */
 
 .programs {
   background: var(--surface-canvas);
@@ -81,7 +81,7 @@
 .program-card[data-accent="navy"] { border-top-color: var(--p-fresh-navy); }
 .program-card[data-accent="orange"] { border-top-color: var(--p-fresh-orange); }
 
-/* Logo slot — sits above the title, small branded wordmark */
+/* Logo slot, sits above the title, small branded wordmark */
 .program-card__logo {
   display: flex;
   align-items: center;
@@ -124,14 +124,14 @@
 .program-card[data-accent="green"] .program-card__badge::before { background: var(--p-aztek); }
 .program-card[data-accent="orange"] .program-card__badge::before { background: var(--p-fresh-orange); }
 
-/* Gold gradient accent for FFM — subtle top bar replacement for solid border */
+/* Gold gradient accent for FFM, subtle top bar replacement for solid border */
 .program-card[data-accent="gold"] {
   border-top: 3px solid transparent;
   border-image: linear-gradient(90deg, var(--p-gold-dark), var(--p-gold-mid)) 1;
   border-image-slice: 1;
 }
 
-/* Whole-card warm wash per brand — barely-there left edge tint */
+/* Whole-card warm wash per brand, barely-there left edge tint */
 .program-card {
   position: relative;
   background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%);
@@ -236,7 +236,7 @@
   transform: translateX(3px);
 }
 
-/* CTA row — lets CTA sit beside a tag like "Application-based" */
+/* CTA row, lets CTA sit beside a tag like "Application-based" */
 .program-card__cta-row {
   display: flex;
   align-items: center;

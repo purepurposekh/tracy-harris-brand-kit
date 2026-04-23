@@ -1,8 +1,8 @@
 {
   "name": "hero",
   "description": "First section above the fold. Establishes brand + offer + primary CTA in a single glance.",
-  "intent": "Make the visitor know which brand they're on, what's being offered, and where to click — in under 5 seconds.",
-  "whenToUse": "As the first section of any landing page. Not a content divider — heroes are the page's opening statement.",
+  "intent": "Make the visitor know which brand they're on, what's being offered, and where to click, in under 5 seconds.",
+  "whenToUse": "As the first section of any landing page. Not a content divider, heroes are the page's opening statement.",
   "slots": {
     "eyebrow": {
       "required": false,
@@ -45,9 +45,9 @@
       "textOnly": "No image, centred copy + space. For Tracy's editorial minimalism."
     },
     "tone": {
-      "confident": "FFB, Tracy — quiet, grounded, editorial",
-      "premium": "FFM — intimate, gold-accented, application-based",
-      "vibrant": "FRESH — multi-colour, human, framework-led"
+      "confident": "FFB, Tracy, quiet, grounded, editorial",
+      "premium": "FFM, intimate, gold-accented, application-based",
+      "vibrant": "FRESH, multi-colour, human, framework-led"
     }
   },
   "brandCtaLanguage": {
@@ -60,7 +60,7 @@
     "Multiple competing CTAs. One primary, optionally one secondary.",
     "Stock photography that doesn't feature Tracy or real members.",
     "Em dashes in copy.",
-    "The word 'Buy' on FFM — use 'Apply'."
+    "The word 'Buy' on FFM, use 'Apply'."
   ],
   "a11y": {
     "titleAsH1": true,

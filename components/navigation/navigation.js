@@ -1,4 +1,4 @@
-// Navigation — hover + click for desktop dropdowns, burger drawer for mobile.
+// Navigation, hover + click for desktop dropdowns, burger drawer for mobile.
 (function () {
   // --- Desktop dropdowns ---
   const items = document.querySelectorAll('.nav__item[data-has-panel="true"]');

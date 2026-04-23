@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Navigation — Overlay menu</title>
+  <title>Navigation, Overlay menu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -267,7 +267,7 @@
     @media (prefers-reduced-motion: reduce) {
       .mnav__primary a.prog { transition: color .2s ease, -webkit-text-fill-color .2s ease, transform .2s ease; background-size: 100% 100%; background-position: 0 0; }
     }
-    /* Touch devices (iOS / Android): no :hover — show the gradient text permanently */
+    /* Touch devices (iOS / Android): no :hover, show the gradient text permanently */
     @media (hover: none) {
       .mnav__primary a.prog {
         -webkit-text-fill-color: transparent;
@@ -318,7 +318,7 @@
       font-family: var(--f-serif-italic);
     }
 
-    /* Empty canvas — only the nav is the component. The body fills
+    /* Empty canvas, only the nav is the component. The body fills
        the preview viewport so the nav has somewhere to sit. */
     body { background: var(--p-oatmeal); min-height: 100vh; }
 
@@ -458,7 +458,7 @@
       if (e.key === 'Escape' && document.body.classList.contains('mnav-open')) closeMenu();
     });
 
-    // Preview canvas has no hero — keep nav in its default
+    // Preview canvas has no hero, keep nav in its default
     // (light-canvas) state so Karl sees just the nav bar.
     bar.classList.add('mnav--scrolled');
   </script>

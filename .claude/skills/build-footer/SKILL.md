@@ -25,7 +25,7 @@ User asks for "a footer", "bottom of the page", or "closing section" for any of 
 
 ### Tracy Harris Co
 - Signature: "Peace, Profit and Presence."
-- Variant: full (no newsletter — Tracy doesn't currently send one)
+- Variant: full (no newsletter, Tracy doesn't currently send one)
 - CTA slot: "Take the Quiz" → /quiz (primary lead magnet, entry to FRESH)
 - Heading: "Not sure where to start? Take the quiz."
 - Columns: Programs, Resources, Connect
@@ -53,7 +53,7 @@ User asks for "a footer", "bottom of the page", or "closing section" for any of 
 3. Column titles are `<h2 class="footer__col-title">`
 4. Use italic emphasis on key word of the signature via `<em>`
 5. Never hard-code colors. Only semantic tokens.
-6. Copyright line format: `© {year} Tracy Harris Co · {optional}` — current year hard-coded is fine
+6. Copyright line format: `© {year} Tracy Harris Co · {optional}`, current year hard-coded is fine
 7. Include the ® symbol on "Freedom Filled®" everywhere it appears
 8. No em dashes in copy
 
@@ -74,7 +74,7 @@ Return a single `<footer>` block ready to paste. Include:
 
 ## Related files
 
-- `components/footer/spec.json` — machine-readable spec
-- `components/footer/README.md` — intent + brand guidance
-- `components/footer/footer.css` — stylesheet
-- `components/footer/variants/showcase.html` — four-brand showcase
+- `components/footer/spec.json`, machine-readable spec
+- `components/footer/README.md`, intent + brand guidance
+- `components/footer/footer.css`, stylesheet
+- `components/footer/variants/showcase.html`, four-brand showcase

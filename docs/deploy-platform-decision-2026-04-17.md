@@ -16,17 +16,17 @@ Vercel Hobby is legally unusable for Tracy Harris Co (non-commercial clause). Ve
 
 ---
 
-## Part 1 — The pick: Netlify (unchanged)
+## Part 1, The pick: Netlify (unchanged)
 
-1. **It's already there.** Dashboard is on Netlify today. Env vars, build config, DNS, Cloudflare front-proxy — all working. Switching platforms for this workload is pure cost with no upside.
-2. **Free tier allows commercial use.** Netlify Free is legal for a business dashboard. Vercel Hobby is not — Vercel's ToS restricts Hobby to "personal or non-commercial use." Any Tracy Harris Co dashboard on Vercel requires Pro at $20/month on day one.
+1. **It's already there.** Dashboard is on Netlify today. Env vars, build config, DNS, Cloudflare front-proxy, all working. Switching platforms for this workload is pure cost with no upside.
+2. **Free tier allows commercial use.** Netlify Free is legal for a business dashboard. Vercel Hobby is not, Vercel's ToS restricts Hobby to "personal or non-commercial use." Any Tracy Harris Co dashboard on Vercel requires Pro at $20/month on day one.
 3. **Next 16 is supported.** Netlify's runtime deploys Next.js 16 today via OpenNext ([Netlify changelog, Oct 2025](https://www.netlify.com/changelog/next-js-16-deploy-on-netlify/)). The official Adapter API (shipped in Next 16.2) is being added this year with zero-config rollout to existing projects.
-4. **Every SDK in our stack runs on Node by default.** `stripe`, `@hubspot/api-client`, `posthog-node`, the AC fetch wrapper — all Node runtime, all "just works" on Netlify Functions. No edge-runtime gymnastics. Already validated in `dashboard-integration-check-2026-04-17.md`.
+4. **Every SDK in our stack runs on Node by default.** `stripe`, `@hubspot/api-client`, `posthog-node`, the AC fetch wrapper, all Node runtime, all "just works" on Netlify Functions. No edge-runtime gymnastics. Already validated in `dashboard-integration-check-2026-04-17.md`.
 5. **Credentials + infra familiarity.** Kira already holds the Netlify API key (`nfp_6ZKFEcy6Lp6EZ2wwm5DySabbHFz3hcxUca45`). Karl runs ops across Netlify + Cloudflare already. No new surface area.
 
 ---
 
-## Part 2 — Exact cost at Tracy's real usage
+## Part 2, Exact cost at Tracy's real usage
 
 **Realistic workload for `/admin/recipes`:**
 - 1 user (Karl)
@@ -36,7 +36,7 @@ Vercel Hobby is legally unusable for Tracy Harris Co (non-commercial clause). Ve
 - Bandwidth: mostly JSON responses, some chart renders = **~2-5 GB/month** (conservatively 10 GB)
 - Build minutes: 1-3 builds/week × ~3 min = **~40 min/month**
 
-### Netlify Free — what Karl actually gets
+### Netlify Free, what Karl actually gets
 
 | Resource | Free tier limit | Karl's use | Headroom |
 |---|---|---|---|
@@ -49,7 +49,7 @@ Vercel Hobby is legally unusable for Tracy Harris Co (non-commercial clause). Ve
 | Team members | 1 | 1 | fits |
 | Commercial use | **Allowed** | yes | legal |
 
-**Cost: $0.00/month. Hard-capped — the site pauses rather than bills.**
+**Cost: $0.00/month. Hard-capped, the site pauses rather than bills.**
 Sources: [Netlify Free plan](https://www.netlify.com/blog/introducing-netlify-free-plan/), [Credit-based pricing docs](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/).
 
 ### Netlify Pro (if Karl ever upgraded)
@@ -57,12 +57,12 @@ Sources: [Netlify Free plan](https://www.netlify.com/blog/introducing-netlify-fr
 - Overages: ~$0.13/GB bandwidth, ~$0.10/production deploy.
 - Only relevant when Karl adds more team members or hits credit caps. Not today.
 
-### Vercel Hobby — cannot use
+### Vercel Hobby, cannot use
 - $0/month technically, but **non-commercial personal use only** ([Vercel ToS](https://vercel.com/legal/terms), [Hobby plan docs](https://vercel.com/docs/plans/hobby), [Fair Use](https://vercel.com/docs/limits/fair-use-guidelines)).
 - A Tracy Harris Co business dashboard is commercial. Using Hobby here = ToS violation. Policy, not technical.
 - **Effective cost to use legally: $20/month Pro minimum.**
 
-### Vercel Pro — what it would cost
+### Vercel Pro, what it would cost
 - **$20/user/month** base.
 - Includes 1 TB bandwidth, 1M function invocations, pay-as-you-go build minutes.
 - For Karl's workload: no overages, so flat **$20/month**.
@@ -70,18 +70,18 @@ Sources: [Netlify Free plan](https://www.netlify.com/blog/introducing-netlify-fr
 
 ---
 
-## Part 3 — Platform × Next 16 / shadcn / Kiranism fit
+## Part 3, Platform × Next 16 / shadcn / Kiranism fit
 
 **Honest assessment: Vercel ships Next.js features first. For this use case, it doesn't matter.**
 
 | Next 16 feature | Vercel | Netlify | Matters to `/admin/recipes`? |
 |---|---|---|---|
-| App Router / Server Components | Day 0 | Day 0 (via OpenNext) | Yes — both fine |
-| Route Handlers (our PostHog/AC/Stripe calls) | Day 0 | Day 0 | Yes — both fine |
-| Partial Prerendering (PPR) | Day 0 | Delayed weeks-months | No — admin dashboard, not public content |
-| Turbopack builds | Day 0 | Day 0 | No — builds locally identical |
-| `after()` / background callbacks | Day 0 | Day 0 | No — not used in Kiranism template |
-| Next 16 Adapter API (official) | Day 0 | H2 2026 rollout | No — OpenNext already handles it |
+| App Router / Server Components | Day 0 | Day 0 (via OpenNext) | Yes, both fine |
+| Route Handlers (our PostHog/AC/Stripe calls) | Day 0 | Day 0 | Yes, both fine |
+| Partial Prerendering (PPR) | Day 0 | Delayed weeks-months | No, admin dashboard, not public content |
+| Turbopack builds | Day 0 | Day 0 | No, builds locally identical |
+| `after()` / background callbacks | Day 0 | Day 0 | No, not used in Kiranism template |
+| Next 16 Adapter API (official) | Day 0 | H2 2026 rollout | No, OpenNext already handles it |
 | shadcn/ui + Tailwind v4 | Works | Works | Build-time only, platform-agnostic |
 | Recharts / TanStack Query | Works | Works | Pure client/server React, no platform bind |
 
@@ -91,7 +91,7 @@ Source: [Next.js adapter API announcement](https://www.netlify.com/blog/the-next
 
 ---
 
-## Part 4 — Cloudflare integration
+## Part 4, Cloudflare integration
 
 Both platforms sit cleanly behind Cloudflare. No platform-specific gotchas for this setup.
 
@@ -108,12 +108,12 @@ Both platforms sit cleanly behind Cloudflare. No platform-specific gotchas for t
 
 ---
 
-## Part 5 — Migration risk
+## Part 5, Migration risk
 
 **If we picked Netlify and later wanted Vercel:** ~1 day effort.
 - Re-create env vars in Vercel UI (can export from Netlify).
 - Update Cloudflare DNS CNAME.
-- Rebuild — Next.js code is platform-agnostic via the Adapter API.
+- Rebuild, Next.js code is platform-agnostic via the Adapter API.
 - Clerk sessions: keyed by Clerk, not by platform, so sessions persist.
 - Database connections: env-var-driven, portable.
 - **Nothing is locked in.** Both platforms read the same `next.config.ts` and `package.json`.
@@ -126,7 +126,7 @@ The Next.js Adapter API (stable in 16.2) explicitly exists to make this portable
 
 ---
 
-## Part 6 — The recommendation
+## Part 6, The recommendation
 
 **Stay on Netlify Free indefinitely.**
 
@@ -142,14 +142,14 @@ Flip to Netlify Pro ($20/mo) only when one of these hits:
 - **Build minutes tight.** If we push to dashboard >10×/day during active dev sprints, we might brush the 300 min/mo cap. Easy to monitor.
 
 Don't flip to Vercel unless:
-- **PPR becomes critical for a public site** (not the admin dashboard — the public tracyharris.co rebuild on Next instead of WordPress, if that ever happens). At that point, evaluate fresh on the public workload.
+- **PPR becomes critical for a public site** (not the admin dashboard, the public tracyharris.co rebuild on Next instead of WordPress, if that ever happens). At that point, evaluate fresh on the public workload.
 
 ---
 
 ## Appendix: What I verified live
 
-- `curl -I https://dashboard.tracyharris.com.au/` → `server: Netlify`, `x-nf-request-id: 01KPCTE6RS5YJBWE6B3R2ANTGD` — confirmed current host.
-- Memory (`project_dashboard_status.md`): "Key Env Vars (all in Netlify UI)" — already configured.
+- `curl -I https://dashboard.tracyharris.com.au/` → `server: Netlify`, `x-nf-request-id: 01KPCTE6RS5YJBWE6B3R2ANTGD`, confirmed current host.
+- Memory (`project_dashboard_status.md`): "Key Env Vars (all in Netlify UI)", already configured.
 - `dashboard-integration-check-2026-04-17.md` line 164 addendum: Netlify is already the verified target for this workload.
 - Vercel ToS: [vercel.com/legal/terms](https://vercel.com/legal/terms), [Hobby plan](https://vercel.com/docs/plans/hobby), [Fair Use Guidelines](https://vercel.com/docs/limits/fair-use-guidelines).
 - Netlify Free plan: [Netlify Free announcement](https://www.netlify.com/blog/introducing-netlify-free-plan/), [credit docs](https://docs.netlify.com/manage/accounts-and-billing/billing/billing-for-credit-based-plans/credit-based-pricing-plans/).

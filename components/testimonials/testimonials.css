@@ -1,4 +1,4 @@
-/* Testimonials — unified editorial family: wall, featured, single, editorial, real-results, columns-marquee */
+/* Testimonials, unified editorial family: wall, featured, single, editorial, real-results, columns-marquee */
 
 .testimonials {
   background: var(--surface-canvas);
@@ -51,7 +51,7 @@
 }
 
 /* ============================================================ */
-/* SHARED CARD LOOK — used across all variants for consistency  */
+/* SHARED CARD LOOK, used across all variants for consistency  */
 /* ============================================================ */
 
 .testimonial {
@@ -147,7 +147,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: WALL (masonry, 3 columns) — homepage density         */
+/* VARIANT: WALL (masonry, 3 columns), homepage density         */
 /* ============================================================ */
 
 .testimonials__wall {
@@ -168,7 +168,7 @@
 @media (max-width: 600px) { .testimonials__wall { grid-template-columns: minmax(0, 1fr); } }
 
 /* ============================================================ */
-/* VARIANT: FEATURED (3 equal columns, grid) — product pages    */
+/* VARIANT: FEATURED (3 equal columns, grid), product pages    */
 /* ============================================================ */
 
 .testimonials__featured {
@@ -185,7 +185,7 @@
 @media (max-width: 960px) { .testimonials__featured { grid-template-columns: 1fr; } }
 
 /* ============================================================ */
-/* VARIANT: SINGLE HERO — portrait left, big quote right         */
+/* VARIANT: SINGLE HERO, portrait left, big quote right         */
 /* ============================================================ */
 
 .testimonials__single {
@@ -255,7 +255,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: EDITORIAL — centered circle portrait + massive quote */
+/* VARIANT: EDITORIAL, centered circle portrait + massive quote */
 /* ============================================================ */
 
 .testimonials__editorial {
@@ -313,10 +313,10 @@
   margin-top: var(--sp-4);
 }
 
-.testimonials__editorial-name::before { content: "— "; }
+.testimonials__editorial-name::before { content: ", "; }
 
 /* ============================================================ */
-/* VARIANT: REAL-RESULTS — portrait left, floating card right   */
+/* VARIANT: REAL-RESULTS, portrait left, floating card right   */
 /* ============================================================ */
 
 .testimonials__results {
@@ -401,7 +401,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: COLUMNS MARQUEE — 3 vertically scrolling columns    */
+/* VARIANT: COLUMNS MARQUEE, 3 vertically scrolling columns    */
 /* ============================================================ */
 
 .testimonials__columns {

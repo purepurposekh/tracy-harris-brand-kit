@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "name": "Tracy Harris Co Brand Kit — Primitives",
+    "name": "Tracy Harris Co Brand Kit, Primitives",
     "description": "Raw design values. Never reference these directly from components. Use semantic or brand tokens instead.",
     "version": "1.0.0"
   },
@@ -16,12 +16,18 @@
     },
     "green": {
       "aztek": "#1e3735",
-      "ffbDark": "#1e3735",
-      "sage": "#6e8e77"
+      "ffbDark": "#243531",
+      "sage": "#6e8e77",
+      "sageAlt": "#788E75"
     },
     "gold": {
       "dark": "#7b623c",
       "mid": "#c9a46c"
+    },
+    "warm": {
+      "coral": "#EF673E",
+      "copper": "#AD765B",
+      "dustyRose": "#CC9989"
     },
     "fresh": {
       "navy": "#20314c",
@@ -34,8 +40,9 @@
     "family": {
       "serifDisplay": "'Editors Note', Georgia, serif",
       "serifItalic": "'Editors Note', Georgia, serif",
-      "script": "'Jhon Halend', cursive",
-      "sans": "'Poppins', system-ui, -apple-system, sans-serif"
+      "script": "'Chic Societe Script', 'Jhon Halend', cursive",
+      "sans": "'Poppins', system-ui, -apple-system, sans-serif",
+      "sansLabel": "'Public Sans', 'Poppins', system-ui, sans-serif"
     },
     "weight": {
       "regular": 400,

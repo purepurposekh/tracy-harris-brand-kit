@@ -30,8 +30,8 @@
       "title": "Webinar / Workshop Stack with Dynamic Sales Page",
       "captured": "2026-04-19",
       "complexity": "Medium-high",
-      "summary": "Opt-in page → TY page → email-gated replay (48-72h) → dynamic sales page that reshapes to the individual's journey (personalised content + journey-aware + live data). The dynamic piece is the interesting part — Karl's four interpretations captured in the vault.",
-      "status": "concept — to flesh out later"
+      "summary": "Opt-in page → TY page → email-gated replay (48-72h) → dynamic sales page that reshapes to the individual's journey (personalised content + journey-aware + live data). The dynamic piece is the interesting part, Karl's four interpretations captured in the vault.",
+      "status": "concept, to flesh out later"
     },
     {
       "id": 5,
@@ -39,7 +39,7 @@
       "captured": "2026-04-19",
       "complexity": "n/a",
       "summary": "A widget on the sales page that swaps between text-heavy / visual / interactive modes based on how the visitor wants to consume.",
-      "status": "research verdict — don't build. Premise is scientifically debunked (Pashler 2008, Kirschner 2017, d ≈ .04). Zero comparable case studies. Build TL;DR + hybrid multi-format single page + quiz-driven personalisation instead. Full report at opencore-vault/Brain/Research/Learning-style-sales-pages-2026-04-19.md"
+      "status": "research verdict, don't build. Premise is scientifically debunked (Pashler 2008, Kirschner 2017, d ≈ .04). Zero comparable case studies. Build TL;DR + hybrid multi-format single page + quiz-driven personalisation instead. Full report at opencore-vault/Brain/Research/Learning-style-sales-pages-2026-04-19.md"
     }
   ]
 }

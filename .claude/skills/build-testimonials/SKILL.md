@@ -31,8 +31,8 @@ Never fabricate named people or specific revenue figures. Use `[MEMBER NAME]` as
 1. Section: `<section class="testimonials" data-brand="{brand}">`
 2. Header: eyebrow + title (with italic emphasis) + optional sub
 3. Wall: `<div class="testimonials__wall">` with figures; varies with screen (3→2→1 columns)
-4. Featured: `<div class="testimonials__featured">` — 3 cards, middle card gets `data-featured="true"` for accent-color treatment
-5. Single: `<div class="testimonials__single">` — portrait left, big quote right
+4. Featured: `<div class="testimonials__featured">`, 3 cards, middle card gets `data-featured="true"` for accent-color treatment
+5. Single: `<div class="testimonials__single">`, portrait left, big quote right
 6. Each testimonial: `<figure class="testimonial">`, with `<blockquote class="testimonial__quote">`, `<figcaption class="testimonial__attribution">`
 7. Tag pill showing program: `<span class="testimonial__tag">FFB</span>` etc.
 

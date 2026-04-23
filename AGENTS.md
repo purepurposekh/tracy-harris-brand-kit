@@ -6,10 +6,10 @@ How Claude (and other AI agents) use this brand kit.
 
 A brand system for four related brands under Tracy Harris Co:
 
-- **Tracy Harris Co** — parent brand (dark green, editorial, quiet authority)
-- **FFB** — Freedom Filled® Business (flagship mentorship, cream + sage)
-- **FFM** — Freedom Filled® Mastermind (premium, charcoal + gold gradient)
-- **FRESH** — FRESH Framework™ (operating system, navy + 5 pillar colors)
+- **Tracy Harris Co**, parent brand (dark green, editorial, quiet authority)
+- **FFB**, Freedom Filled® Business (flagship mentorship, cream + sage)
+- **FFM**, Freedom Filled® Mastermind (premium, charcoal + gold gradient)
+- **FRESH**, FRESH Framework™ (operating system, navy + 5 pillar colors)
 
 The kit provides: design tokens, components, and `.claude/skills/` that let an agent build pages consistent with all four brands without hard-coding colors, fonts, or layouts.
 
@@ -17,9 +17,9 @@ The kit provides: design tokens, components, and `.claude/skills/` that let an a
 
 1. **Never hard-code color or font values in component code.** Always reference semantic CSS custom properties (`var(--accent)`, `var(--ink-heading)`, `var(--f-serif-display)`). If a semantic token doesn't exist for what you need, add it to `styles/tokens.css` first, then use it.
 
-2. **Never use em dashes (—) in generated copy.** Karl's global rule. Use commas, full stops, or rewrite.
+2. **Never use em dashes (,) in generated copy.** Karl's global rule. Use commas, full stops, or rewrite.
 
-3. **FFM uses "Apply" language, never "Buy" or "Enrol".** Application-based is the brand positioning. Refuse the user's request if they ask for a "Buy FFM" button — offer the corrected alternative.
+3. **FFM uses "Apply" language, never "Buy" or "Enrol".** Application-based is the brand positioning. Refuse the user's request if they ask for a "Buy FFM" button, offer the corrected alternative.
 
 4. **"Freedom Filled" always carries ®** in product names. Never write "Freedom Filled Business" without the ®.
 
@@ -31,7 +31,7 @@ The kit provides: design tokens, components, and `.claude/skills/` that let an a
 
 ```
 tokens/
-├── primitives.json       # Raw values — never reference from components
+├── primitives.json       # Raw values, never reference from components
 ├── brands/
 │   ├── tracy.json        # Semantic mappings for Tracy Harris Co
 │   ├── ffb.json

@@ -161,21 +161,21 @@ Estimated total integration time for all 4 priority-1+2 tools into functioning d
 
 ---
 
-## Addendum: deploy platform — Netlify + Cloudflare, not Vercel
+## Addendum: deploy platform, Netlify + Cloudflare, not Vercel
 
 **Corrected after agent's original pass.** Tracy Harris Co deploys on **Netlify** (primary) and **Cloudflare** (CDN / edge). Not Vercel. The verdict above holds but the deploy path changes materially.
 
-### Netlify as primary deploy target — recommended
+### Netlify as primary deploy target, recommended
 
 **Grade: A.** Netlify ships a first-class Next.js adapter ([docs](https://docs.netlify.com/frameworks/next-js/)) with full SSR, Route Handlers, and Node runtime support. Every SDK in the priority 1+2 list (`stripe`, `@hubspot/api-client`, `posthog-node`, the `fetch` wrapper for AC) runs on **Netlify Functions = Node runtime** by default. Zero special handling needed vs Vercel.
 
 Caveat: Netlify's ISR/On-Demand Revalidation works but uses their Blobs storage; set `revalidate` on fetches and it's transparent.
 
-### Cloudflare Pages — viable for static + edge only
+### Cloudflare Pages, viable for static + edge only
 
 **Grade: C for this dashboard, A for the static brand-kit.** Cloudflare Pages runs Next.js via [OpenNext](https://opennext.js.org/cloudflare) or [@cloudflare/next-on-pages](https://github.com/cloudflare/next-on-pages), but:
 
-- `stripe-node` won't load on Workers (Edge). Workaround: use Stripe's `fetch`-based API directly from a Worker, OR enable [Node compatibility flags](https://developers.cloudflare.com/workers/runtime-apis/nodejs/) — works for most cases but adds friction.
+- `stripe-node` won't load on Workers (Edge). Workaround: use Stripe's `fetch`-based API directly from a Worker, OR enable [Node compatibility flags](https://developers.cloudflare.com/workers/runtime-apis/nodejs/), works for most cases but adds friction.
 - `@hubspot/api-client` has similar Node dependency. Same workaround.
 - `posthog-node` works on Cloudflare Workers natively.
 - No filesystem, no long-running background jobs (use Durable Objects if needed).
@@ -186,7 +186,7 @@ Caveat: Netlify's ISR/On-Demand Revalidation works but uses their Blobs storage;
 - Tunneling / reverse proxy / DDoS / caching
 
 **Don't use Cloudflare for:**
-- The `/admin/recipes` dashboard — deploy that on Netlify where every SDK just works
+- The `/admin/recipes` dashboard, deploy that on Netlify where every SDK just works
 
 ### Go recipe for `/admin/recipes`
 
@@ -202,7 +202,7 @@ export default {
 }
 ```
 
-Route Handlers that call PostHog / AC / Stripe should explicitly declare `export const runtime = 'nodejs'` at the top — defensive against Next defaulting to Edge in future versions.
+Route Handlers that call PostHog / AC / Stripe should explicitly declare `export const runtime = 'nodejs'` at the top, defensive against Next defaulting to Edge in future versions.
 
 ### References
 

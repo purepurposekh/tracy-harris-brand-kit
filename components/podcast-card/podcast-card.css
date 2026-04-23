@@ -1,4 +1,4 @@
-/* Podcast Card — latest episode + listen-on links */
+/* Podcast Card, latest episode + listen-on links */
 
 .podcast-card {
   background: var(--surface-canvas);
@@ -41,7 +41,7 @@
 .podcast-card__title em { font-family: var(--f-serif-italic); font-style: italic; }
 
 /* ============================================================ */
-/* VARIANT: FEATURED — large card, art left, details right       */
+/* VARIANT: FEATURED, large card, art left, details right       */
 /* ============================================================ */
 
 .podcast-card__featured {
@@ -175,7 +175,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: COMPACT — small inline card for homepage              */
+/* VARIANT: COMPACT, small inline card for homepage              */
 /* ============================================================ */
 
 .podcast-card__compact {

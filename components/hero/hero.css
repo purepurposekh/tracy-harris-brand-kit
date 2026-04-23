@@ -1,4 +1,4 @@
-/* Hero component — pure semantic tokens. Never reference primitives directly. */
+/* Hero component, pure semantic tokens. Never reference primitives directly. */
 
 .hero {
   background: var(--surface-canvas);
@@ -150,7 +150,7 @@
   color: var(--accent-on);
 }
 
-/* FFM dark variant — charcoal canvas, white body text, gold as accent */
+/* FFM dark variant, charcoal canvas, white body text, gold as accent */
 [data-brand="ffm"].hero--dark {
   background: var(--p-charcoal);
 }

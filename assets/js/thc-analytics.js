@@ -1,5 +1,5 @@
 /*
- * Tracy Harris Co — Analytics layer (PostHog Cloud EU)
+ * Tracy Harris Co, Analytics layer (PostHog Cloud EU)
  * ----------------------------------------------------
  * This file:
  *   1. Loads PostHog from the EU region with our project API key
@@ -40,7 +40,7 @@
     autocapture: true,                         // clicks / form submits auto-tagged (set false if you want manual only)
     disable_session_recording: false,          // we want replay; mask PII via HTML attributes (see masking section below)
     session_recording: {
-      maskAllInputs: true,                     // hard mask ALL form inputs — never leak Apply/Opt-in submissions
+      maskAllInputs: true,                     // hard mask ALL form inputs, never leak Apply/Opt-in submissions
       maskInputOptions: { password: true, email: true }
     },
     persistence: 'localStorage+cookie',
@@ -64,7 +64,7 @@
         posthog.capture(event, props || {});
       }
     } catch (e) {
-      // silent — analytics must never break page UX
+      // silent, analytics must never break page UX
     }
   }
 

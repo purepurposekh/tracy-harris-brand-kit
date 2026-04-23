@@ -10,14 +10,14 @@
     },
     {
       "id": "brand-kit-creator-phase2",
-      "subject": "Brand-kit creator — Phase 2 (email gate + styled output + AC)",
+      "subject": "Brand-kit creator, Phase 2 (email gate + styled output + AC)",
       "status": "in_progress",
       "note": "Phase 0 template library + Phase 1 wizard MVP shipped. Sample page at /brand-kit/example/ shows styled output for a fictional persona. Karl picking between: markdown-only / in-browser styled view / both + PDF. Once direction locked: email gate, AC tag, PDF export, deploy to brandkit.tracyharris.co.",
       "waiting_on": "Karl picks output direction (A/B/C)"
     },
     {
       "id": "carousel-builder",
-      "subject": "Carousel builder — opt-in funnel app",
+      "subject": "Carousel builder, opt-in funnel app",
       "status": "in_progress",
       "note": "Architecture confirmed: Puppeteer screenshotting + Meta Graph direct + custom scheduler on Hetzner + Discord approval + Cloudflare R2 storage. ~$0-5/mo. Rejected Ayrshare ($149/mo). Scoped as an opt-in funnel on tracyharris.co. Building now.",
       "waiting_on": "me"
@@ -34,7 +34,7 @@
       "subject": "Cloudflare redirect rules + AI SEO layer",
       "status": "pending",
       "note": "Map mumswithhustle.com legacy URLs to tracyharris.co equivalents. Add AI-bot-friendly sitemap + robots + structured data so the rebuild surfaces in LLM answers.",
-      "waiting_on": "me — after Astro pages ship"
+      "waiting_on": "me, after Astro pages ship"
     },
     {
       "id": "strip-inline-promos",
@@ -47,7 +47,7 @@
       "id": "second-claude-vps",
       "subject": "Reinstate second Claude instance on VPS",
       "status": "pending",
-      "note": "Research + reinstate — was running before, need to rebuild the setup so we can have a parallel worker for background jobs.",
+      "note": "Research + reinstate, was running before, need to rebuild the setup so we can have a parallel worker for background jobs.",
       "waiting_on": "me"
     },
     {
@@ -61,7 +61,7 @@
       "id": "docs-picker",
       "subject": "/docs picker page on brand kit",
       "status": "pending",
-      "note": "Directory-style browser for all brand-kit docs + templates — so the team can self-serve without asking.",
+      "note": "Directory-style browser for all brand-kit docs + templates, so the team can self-serve without asking.",
       "waiting_on": "me"
     },
     {
@@ -75,7 +75,7 @@
       "id": "kira-builds-it",
       "subject": "'Kira builds it for me' button on compose page",
       "status": "pending",
-      "note": "One-click to generate a full page from brief — composer hands off to me with the recipe + content, I return a rendered page.",
+      "note": "One-click to generate a full page from brief, composer hands off to me with the recipe + content, I return a rendered page.",
       "waiting_on": "me"
     },
     {
@@ -87,14 +87,14 @@
     },
     {
       "id": 19,
-      "subject": "Claude Routines — daily log summary test",
+      "subject": "Claude Routines, daily log summary test",
       "status": "in_progress",
       "note": "Brief posted in #1491682034882445313. Karl needs to run the 8-step web-UI flow at claude.ai/code/routines to activate. I cannot create routines from CLI.",
       "waiting_on": "Karl"
     },
     {
       "id": "quiz-verdict",
-      "subject": "FFB Quiz v3a/v3b/v3c — pick the winner",
+      "subject": "FFB Quiz v3a/v3b/v3c, pick the winner",
       "status": "pending",
       "note": "Three variants live: v3a editorial, v3b dark cinematic, v3c soft white-space. Karl walks each on phone and picks direction (or hybrid).",
       "waiting_on": "Karl"
@@ -108,21 +108,21 @@
     },
     {
       "id": "funnel-os",
-      "subject": "Funnel OS architecture — repeatable team workflow",
+      "subject": "Funnel OS architecture, repeatable team workflow",
       "status": "pending",
       "note": "Shape proposed: form + Slack + Claude Agent SDK worker. Need Karl's answers on ManyChat Pro, Slack workspace readiness, which funnel to build first.",
       "waiting_on": "Karl"
     },
     {
       "id": "funnel-mapping",
-      "subject": "Funnel mapping — visual deliverable",
+      "subject": "Funnel mapping, visual deliverable",
       "status": "queued",
       "note": "Visual map of every funnel (FRESH Quiz → Workshop → FFB → FFM + sub-pipelines) with per-stage tool state: PostHog event, AC tag, form, Stripe product, nurture sequence. Flag gaps.",
       "waiting_on": "Karl greenlight"
     },
     {
       "id": "mastermind-training",
-      "subject": "Mastermind training — 5 steps to build a brand kit for Claude Design / Cowork",
+      "subject": "Mastermind training, 5 steps to build a brand kit for Claude Design / Cowork",
       "status": "queued",
       "note": "Standalone teachable asset for FFM members. Need format decision from Karl: PDF, slides, Loom script.",
       "waiting_on": "Karl on format + audience level"
@@ -178,7 +178,7 @@
     },
     {
       "id": 67,
-      "subject": "Carousel pipeline research v2 — Ayrshare rejected",
+      "subject": "Carousel pipeline research v2, Ayrshare rejected",
       "status": "completed",
       "completed": "2026-04-20",
       "note": "Final architecture: Puppeteer + Meta Graph direct + own scheduler + Discord approval + Cloudflare R2. ~$0-5/mo."

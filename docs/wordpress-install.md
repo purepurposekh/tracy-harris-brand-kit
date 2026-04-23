@@ -9,7 +9,7 @@
 
 Paste this into your WordPress site header. Two ways:
 
-### Option A — "Insert Headers and Footers" plugin (easiest, 2 minutes)
+### Option A, "Insert Headers and Footers" plugin (easiest, 2 minutes)
 
 1. WP admin → Plugins → Add New → search "Insert Headers and Footers" (by WPBeginner) → Install & Activate
 2. Settings → Insert Headers and Footers
@@ -21,7 +21,7 @@ Paste this into your WordPress site header. Two ways:
 
 4. Save. Done. PostHog now tracks every page on tracyharris.co.
 
-### Option B — direct edit of theme `header.php` (if you want zero external dependency)
+### Option B, direct edit of theme `header.php` (if you want zero external dependency)
 
 If the theme is editable and you can FTP in, paste this block just before the closing `</head>` tag in `header.php`:
 
@@ -35,13 +35,13 @@ Same result as Option A, one fewer plugin on the stack.
 
 Every page on tracyharris.co will auto-capture:
 
-- `$pageview` — when a page loads
-- `$pageleave` — with accurate time-on-page
-- `$autocapture` — every click + form submit, tagged with the element info
+- `$pageview`, when a page loads
+- `$pageleave`, with accurate time-on-page
+- `$autocapture`, every click + form submit, tagged with the element info
 
 ## Recipe attribution
 
-Pages built from a `/compose/` recipe carry `<body data-recipe-id="rcp_...">`. The analytics script reads that on load and registers `recipe_id` as a session super-property. Every subsequent event on that page is auto-tagged with the recipe_id — no extra work.
+Pages built from a `/compose/` recipe carry `<body data-recipe-id="rcp_...">`. The analytics script reads that on load and registers `recipe_id` as a session super-property. Every subsequent event on that page is auto-tagged with the recipe_id, no extra work.
 
 ## Tracking specific CTAs
 
@@ -72,7 +72,7 @@ Or call the JS helpers directly from form handlers:
 1. Load tracyharris.co in your browser
 2. Open DevTools Network tab → filter for "posthog"
 3. You should see `/decide/?...` and `/e/` requests firing
-4. In PostHog dashboard: **Activity → Live Events** — your pageview should appear in real-time
+4. In PostHog dashboard: **Activity → Live Events**, your pageview should appear in real-time
 
 ## Masking form inputs (privacy)
 

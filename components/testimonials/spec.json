@@ -37,7 +37,7 @@
   "avoid": [
     "Fabricated quotes. Always use [MEMBER NAME PLACEHOLDER] or [CHECK: real quote] markers until verified.",
     "Stock photography of women who aren't real members. Use placeholder avatars or real photography only.",
-    "Quotes longer than 4 sentences — reads like a case study, not a testimonial. Break into a case study block if longer.",
+    "Quotes longer than 4 sentences, reads like a case study, not a testimonial. Break into a case study block if longer.",
     "Rating stars. Tracy's brand is editorial, not e-commerce review."
   ],
   "a11y": {

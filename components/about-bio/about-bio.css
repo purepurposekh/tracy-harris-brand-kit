@@ -1,4 +1,4 @@
-/* About Bio — portrait + editorial bio + signature */
+/* About Bio, portrait + editorial bio + signature */
 
 .about-bio {
   background: var(--surface-canvas);
@@ -10,7 +10,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: SPLIT — portrait left, bio right                     */
+/* VARIANT: SPLIT, portrait left, bio right                     */
 /* ============================================================ */
 
 .about-bio__split {
@@ -155,7 +155,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: CENTERED — portrait top, stacked text                */
+/* VARIANT: CENTERED, portrait top, stacked text                */
 /* ============================================================ */
 
 .about-bio__centered {

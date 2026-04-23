@@ -318,7 +318,7 @@
       }
       .meta { margin-top: 0; }
 
-      /* Filter chip rows — wrap tighter, smaller chips */
+      /* Filter chip rows, wrap tighter, smaller chips */
       .filters {
         gap: 5px;
         padding: 6px 0 10px;
@@ -440,7 +440,7 @@
       return s[0].toUpperCase() + s.slice(1);
     };
 
-    // Filter state — persisted in localStorage so Karl's view sticks across reloads
+    // Filter state, persisted in localStorage so Karl's view sticks across reloads
     const FILTERS_KEY = 'thc-ops-filters-v1';
     const STAGES = ['all', 'in_progress', 'pending', 'queued'];
     const ASSIGNEES = ['all', 'kira', 'karl', 'both'];
@@ -621,7 +621,7 @@
       }).join('');
     }
 
-    // Live data lives on the webhook server — page auto-refreshes every
+    // Live data lives on the webhook server, page auto-refreshes every
     // 30s so Karl sees updates without reload. Static JSON in repo is
     // a fallback if the webhook is ever down.
     const OPS_LIVE_URL = 'https://webhook.tracyharris.com.au/ops-state';

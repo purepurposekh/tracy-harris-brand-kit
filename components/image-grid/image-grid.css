@@ -1,4 +1,4 @@
-/* Image Grid — bento-style layout for galleries and about pages */
+/* Image Grid, bento-style layout for galleries and about pages */
 
 .image-grid {
   background: var(--surface-canvas);
@@ -45,7 +45,7 @@
 .image-grid__title em { font-family: var(--f-serif-italic); font-style: italic; }
 
 /* ============================================================ */
-/* VARIANT: BENTO — asymmetric grid, mixed sizes                 */
+/* VARIANT: BENTO, asymmetric grid, mixed sizes                 */
 /* ============================================================ */
 
 .image-grid__bento {
@@ -129,7 +129,7 @@
 }
 
 /* ============================================================ */
-/* VARIANT: MASONRY — equal columns, natural height              */
+/* VARIANT: MASONRY, equal columns, natural height              */
 /* ============================================================ */
 
 .image-grid__masonry {

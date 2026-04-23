@@ -13,16 +13,16 @@ A visitor lands on the page and has under 5 seconds to decide: am I in the right
 | `eyebrow` | No | Product name or positioner. All caps, wide tracking. |
 | `title` | Yes | The single biggest line on the page. 4-8 words. Editor's Note serif. |
 | `supporting` | Yes | One sentence. Who it's for + what they get. 15-30 words. |
-| `primaryCta` | Yes | Button. Brand-specific language — see below. |
+| `primaryCta` | Yes | Button. Brand-specific language, see below. |
 | `secondaryCta` | No | Text link below primary. |
 | `image` | No | Brand photography. See brand guidance below. |
 
 ## Layout variants
 
-- **splitRight** — image right, copy left. Default for FFB + FFM.
-- **splitLeft** — image left, copy right. Alternate editorial rhythm.
-- **stacked** — full-width image + centred copy. Good for FRESH multi-pillar.
-- **textOnly** — no image, centred copy. Tracy's editorial minimalism.
+- **splitRight**, image right, copy left. Default for FFB + FFM.
+- **splitLeft**, image left, copy right. Alternate editorial rhythm.
+- **stacked**, full-width image + centred copy. Good for FRESH multi-pillar.
+- **textOnly**, no image, centred copy. Tracy's editorial minimalism.
 
 ## Brand-specific guidance
 
@@ -61,5 +61,5 @@ A visitor lands on the page and has under 5 seconds to decide: am I in the right
 ## Accessibility
 
 - Title must render as `<h1>`.
-- Image `alt` required — describe what's shown + who's in it.
+- Image `alt` required, describe what's shown + who's in it.
 - CTA text must hit 4.5:1 contrast against its background.

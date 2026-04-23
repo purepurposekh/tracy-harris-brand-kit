@@ -8,11 +8,11 @@ Open `components/hero/variants/showcase.html` in a browser. Four brands, one com
 
 ## Structure
 
-- `tokens/` — design tokens (primitives + per-brand semantic mappings)
-- `styles/tokens.css` — CSS custom properties with `[data-brand]` scoping
-- `components/` — one folder per component (hero, cta, footer, etc.)
-- `.claude/skills/` — invocable skills for generating branded sections
-- `assets/` — logos, fonts (add as delivered)
+- `tokens/`, design tokens (primitives + per-brand semantic mappings)
+- `styles/tokens.css`, CSS custom properties with `[data-brand]` scoping
+- `components/`, one folder per component (hero, cta, footer, etc.)
+- `.claude/skills/`, invocable skills for generating branded sections
+- `assets/`, logos, fonts (add as delivered)
 
 ## Using it
 

@@ -5,7 +5,7 @@
     "tagline": "Peace, Profit and Presence",
     "description": "The parent brand. Quiet authority, editorial, grounded. Dark green + warm cream. No script font outside logos. Minimal ornament.",
     "source": "Tracy Harris Co Brand Guidelines v.1",
-    "pendingRefinement": "Primary colour AZTEK (#1e3735) may be adjusted by designer. When updated, change only primitives.json.color.green.aztek — every reference inherits."
+    "pendingRefinement": "Primary colour AZTEK (#1e3735) may be adjusted by designer. When updated, change only primitives.json.color.green.aztek, every reference inherits."
   },
   "color": {
     "surface": {
@@ -64,7 +64,7 @@
   },
   "voice": {
     "tone": "editorial, warm, quiet authority, grounded",
-    "avoidFor": "fitness, wellness, high-energy sales — that's FRESH or FFB territory",
+    "avoidFor": "fitness, wellness, high-energy sales, that's FRESH or FFB territory",
     "exampleCopy": "Peace, Profit and Presence. A suite of programs for women building freedom-filled businesses."
   }
 }

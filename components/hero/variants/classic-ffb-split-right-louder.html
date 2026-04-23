@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hero — Classic FFB split-right (louder)</title>
-  <meta name="description" content="Freedom Filled® Business — a 12-month mentorship for the woman building something real." />
+  <title>Hero, Classic FFB split-right (louder)</title>
+  <meta name="description" content="Freedom Filled® Business, a 12-month mentorship for the woman building something real." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/components/hero/hero.css" />
 
   <style>
-    /* Classic FFB split-right — LOUDER layer.
+    /* Classic FFB split-right, LOUDER layer.
        Adds:
        - letter-by-letter staggered reveal on headline (each char blurs in)
        - magnetic CTA (cursor follows the button within a radius)
@@ -82,7 +82,7 @@
       align-items: center;
     }
 
-    /* Logo, supporting, actions — same staggered rise as polished, slightly firmer curve */
+    /* Logo, supporting, actions, same staggered rise as polished, slightly firmer curve */
     .hero__logo,
     .hero__supporting,
     .hero__actions {
@@ -104,7 +104,7 @@
       display: block;
     }
 
-    /* Headline — each character rises with blur and a per-char delay.
+    /* Headline, each character rises with blur and a per-char delay.
        JS splits it into spans after load. Scroll tightens letter-spacing. */
     .hero__title {
       letter-spacing: -0.015em;
@@ -138,7 +138,7 @@
       text-wrap: pretty;
     }
 
-    /* CTA — magnetic. Wrapper gets the mouse-follow transform via JS;
+    /* CTA, magnetic. Wrapper gets the mouse-follow transform via JS;
        inner gets the press/hover states. Colored shadow stays. */
     .hero__cta {
       position: relative;
@@ -167,7 +167,7 @@
       outline-offset: 3px;
     }
 
-    /* Secondary link — dot-led sweep underline on hover */
+    /* Secondary link, dot-led sweep underline on hover */
     .hero__secondary {
       position: relative;
       padding: 10px 22px 10px 2px;
@@ -210,7 +210,7 @@
       border-radius: 2px;
     }
 
-    /* Media — cursor parallax applied via JS on the inner img.
+    /* Media, cursor parallax applied via JS on the inner img.
        Base reveal animation kept. */
     .hero__media {
       position: relative;
@@ -244,7 +244,7 @@
       }
     }
 
-    /* Trust badge — quiet opacity pulse so the page feels alive */
+    /* Trust badge, quiet opacity pulse so the page feels alive */
     .ffb-meta {
       position: absolute;
       left: clamp(24px, 5vw, 64px);
@@ -293,7 +293,7 @@
       .hero__actions { gap: 16px; }
     }
 
-    /* REDUCED MOTION — collapse everything to steady final state */
+    /* REDUCED MOTION, collapse everything to steady final state */
     @media (prefers-reduced-motion: reduce) {
       .hero.hero--split-right::before,
       .hero__logo, .hero__title, .hero__supporting, .hero__actions,
@@ -400,7 +400,7 @@
       // ---- Magnetic CTA ----
       const mag = document.querySelector('[data-magnetic]');
       if (mag && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        const RADIUS = 90;    // px — activation range around button center
+        const RADIUS = 90;    // px, activation range around button center
         const STRENGTH = 0.28; // how much to translate toward cursor
         let raf = null;
         const reset = () => { mag.style.transform = ''; };

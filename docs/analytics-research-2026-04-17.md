@@ -1,9 +1,9 @@
-# Analytics Stack Research — Tracy Harris Co
+# Analytics Stack Research, Tracy Harris Co
 *Conducted 2026-04-17 for Karl Harris. Triple-checking the PostHog recommendation.*
 
 ## TL;DR
 
-**Yes, PostHog is the right pick — but use PostHog Cloud, not self-hosted.** Everything Tracy Harris Co needs (MIT-licensed data layer, full HogQL/SQL API, arbitrary event properties like `recipe_id`, funnels, session replay, Next.js/Vercel SDK, Cloudflare-friendly reverse proxy) ships in the free tier. At our traffic volume we'll almost certainly stay free forever.
+**Yes, PostHog is the right pick, but use PostHog Cloud, not self-hosted.** Everything Tracy Harris Co needs (MIT-licensed data layer, full HogQL/SQL API, arbitrary event properties like `recipe_id`, funnels, session replay, Next.js/Vercel SDK, Cloudflare-friendly reverse proxy) ships in the free tier. At our traffic volume we'll almost certainly stay free forever.
 
 Self-hosting PostHog would be a strategic mistake at our scale. PostHog only recommends self-hosting up to ~300k events/month, they sunset Helm support, and it needs Postgres + Redis + ClickHouse + Kafka running. Cloud is cheaper, more reliable, and the data is just as exportable. **Ownership isn't about hosting; it's about the API surface**, and PostHog's API gives raw SQL over ClickHouse via HogQL.
 
@@ -31,7 +31,7 @@ Grades: A = best-in-class, B = solid, C = workable with compromise, D = avoid.
 
 ## Why PostHog wins
 
-**1. We need SQL, not dashboards.** Reason for doing this is building a custom dashboard keyed on `recipe_id`. PostHog's HogQL exposes `POST /api/projects/:id/query` accepting ClickHouse SQL over raw events. No other candidate exposes raw analytics-grade SQL through a clean API. Plausible's Stats API limits custom-property dimensions to `url` and `path` — disqualifying for recipe attribution.
+**1. We need SQL, not dashboards.** Reason for doing this is building a custom dashboard keyed on `recipe_id`. PostHog's HogQL exposes `POST /api/projects/:id/query` accepting ClickHouse SQL over raw events. No other candidate exposes raw analytics-grade SQL through a clean API. Plausible's Stats API limits custom-property dimensions to `url` and `path`, disqualifying for recipe attribution.
 
 **2. Recipe-level attribution is literally what it does.**
 ```
@@ -53,7 +53,7 @@ That's the whole system.
 
 **Where PostHog loses:** JS bundle weight. Mitigations: slim bundle, lazy-load extensions, or `posthog-js-lite` for capture-only.
 
-## Self-hosted vs cloud — cloud wins
+## Self-hosted vs cloud, cloud wins
 
 With PostHog Cloud we already own the data. API identical. Can export events, stream to S3, query via HogQL. Data lives on their ClickHouse instead of ours, but the access surface doesn't change.
 
@@ -66,13 +66,13 @@ What we'd lose by self-hosting:
 
 Only do this with regulatory/sovereignty requirements. Tracy Harris Co doesn't have them.
 
-## "Build your own" (Snowplow / ClickHouse / Grafana) — no
+## "Build your own" (Snowplow / ClickHouse / Grafana), no
 
 10-20× the engineering cost of PostHog and buys nothing we'll actually use. Snowplow was designed for 100M+ events/day with custom entity validation. We're tracking pageviews, clicks, opt-ins, and recipe attribution. Revisit only if we cross 50M events/mo or outgrow the product analytics shape entirely.
 
 ## Red flags / gotchas
 
-- **PostHog sunset Helm chart self-hosting** (late 2024 / early 2025). Docker Compose "hobby" deploy is the only supported self-host path — explicitly a hobby tier.
+- **PostHog sunset Helm chart self-hosting** (late 2024 / early 2025). Docker Compose "hobby" deploy is the only supported self-host path, explicitly a hobby tier.
 - **PostHog bundle size ~45-70 KB** gzip core. Lazy-load everything.
 - **Plausible CE is deliberately crippled.** Funnels and ecommerce stay behind paid Cloud even on CE.
 - **Umami funnels are recent and basic.**
@@ -92,7 +92,7 @@ No licence drift drama found on PostHog as of April 2026. Core still MIT, `ee/` 
 6. **Cost**: $0/mo until ~1M events. Realistic scenario at Tracy's traffic: $0/mo indefinitely. Hard cap set at $20.
 7. **Migration from Fathom**: run both in parallel 2-4 weeks, compare numbers, kill Fathom.
 
-## Watch list — reconsider if…
+## Watch list, reconsider if…
 
 - PostHog relicenses core away from MIT (BSL, Elastic License). What Mongo, Redis, Elastic did. Check the LICENSE file quarterly.
 - PostHog free tier drops below 500k events/mo or adds seat fees.
