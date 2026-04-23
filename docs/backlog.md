@@ -48,7 +48,8 @@ From the audit, flagged as variants worth adding to existing families:
 
 ## Ops + product expansion
 
-- [ ] **Staff onboarding portal**, internal page covering company values, APPLE framework, RISE framework, vision/mission/values, belief statements, and everything else a new hire needs. Reference the existing checklist at https://grow.tracyharris.co/team-onboarding as source material. Structured so it lives on its own sub-route and is maintainable by Karl/Tracy without developer touch.
+- [x] **Staff onboarding portal v1**, shipped 2026-04-23 at `pages/team-onboarding.html`. Covers vision, mission, eight values, ten beliefs, RISE framework (full). APPLE framework section stubbed with "content in progress" note pending Teresa's documentation pass from the retreat meeting. Single-page, editorial treatment, token-driven, no auth. Referenced to the grow.tracyharris.co checklist as source, page was login-gated so content was reconstructed from CLAUDE.md + RISE docs + backlog brief.
+- [ ] **Staff onboarding portal v2**, drop in APPLE framework content once Teresa's Craft doc is approved. Possible adds: team structure diagram, "first week" checklist, tool access map, comms standards block.
 - [ ] **Staff onboarding portal, generator version**, product that lets someone input their own company details (values, frameworks, mission, vision) and outputs a finished onboarding page. Same architecture as the brand-kit creator (Karl's existing pattern), just pointed at HR/onboarding instead of visual brand. Potentially productise for Tracy's audience.
 
 ---

@@ -1,0 +1,553 @@
+<!--
+  Internal page: Team onboarding portal (Tracy Harris Co)
+  Source: team-onboarding portal brief (backlog 2026-04-17)
+  Content covers company values, vision, mission, beliefs, RISE framework.
+  APPLE framework is referenced but copy is pending Teresa's documentation pass.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Onboarding · Tracy Harris Co</title>
+  <meta name="description" content="Internal onboarding for the Tracy Harris Co team. Our vision, mission, values, beliefs, and the frameworks we work by." />
+
+  <link rel="icon" type="image/svg+xml" href="../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/fonts.css" />
+  <link rel="stylesheet" href="../styles/tokens.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+
+    /* Page shell */
+    .ob {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: clamp(40px, 6vw, 96px) clamp(20px, 4vw, 40px) clamp(64px, 8vw, 128px);
+    }
+
+    /* Eyebrow (letter-spaced uppercase) */
+    .ob__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 var(--sp-4);
+    }
+
+    /* Display H1 with italic emphasis */
+    .ob__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(44px, 6vw, 84px);
+      line-height: 1.04;
+      letter-spacing: -0.015em;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-5);
+    }
+    .ob__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-aztek);
+    }
+
+    .ob__intro {
+      font-size: clamp(17px, 1.2vw, 19px);
+      line-height: 1.65;
+      color: var(--p-ink);
+      max-width: 62ch;
+      margin: 0 0 var(--sp-8);
+    }
+    .ob__intro em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    /* Hairline rule */
+    .ob__rule {
+      border: 0;
+      border-top: 1px solid var(--border-hairline);
+      margin: clamp(56px, 8vw, 96px) 0 clamp(40px, 6vw, 64px);
+    }
+
+    /* Section block */
+    .ob__section {
+      margin: 0 0 clamp(40px, 6vw, 64px);
+    }
+    .ob__section-eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 var(--sp-3);
+    }
+    .ob__h2 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(32px, 3.8vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-4);
+    }
+    .ob__h2 em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    .ob__lede {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--p-ink);
+      max-width: 64ch;
+      margin: 0 0 var(--sp-5);
+    }
+    .ob__lede em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    /* Pull quote, editorial */
+    .ob__pull {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(22px, 2.4vw, 28px);
+      line-height: 1.4;
+      color: var(--p-aztek);
+      padding: var(--sp-5) 0 var(--sp-5) var(--sp-5);
+      border-left: 1px solid var(--p-sage);
+      max-width: 56ch;
+      margin: var(--sp-5) 0;
+    }
+
+    /* Values, numbered list */
+    .ob__values {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .ob__value {
+      padding: var(--sp-5) 0;
+      border-top: 1px solid var(--border-hairline);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: var(--sp-4);
+      align-items: baseline;
+    }
+    .ob__value:last-child { border-bottom: 1px solid var(--border-hairline); }
+    .ob__value-num {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--p-sage);
+      line-height: 1;
+    }
+    .ob__value-body h3 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(22px, 2.2vw, 26px);
+      line-height: 1.2;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-2);
+    }
+    .ob__value-body p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--p-ink);
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    /* Framework card */
+    .ob__framework {
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      padding: clamp(28px, 4vw, 48px);
+      background: var(--p-cream);
+      margin: var(--sp-5) 0;
+    }
+    .ob__framework .ob__h2 { margin-bottom: var(--sp-2); }
+    .ob__framework-sub {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--p-aztek);
+      opacity: 0.75;
+      margin: 0 0 var(--sp-5);
+    }
+
+    /* Framework steps (RISE, APPLE) */
+    .ob__steps {
+      list-style: none;
+      padding: 0;
+      margin: var(--sp-5) 0 0;
+      display: grid;
+      gap: var(--sp-4);
+    }
+    .ob__step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: var(--sp-4);
+      padding: var(--sp-4) 0;
+      border-top: 1px solid var(--border-hairline);
+    }
+    .ob__step-letter {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(36px, 4vw, 48px);
+      line-height: 1;
+      color: var(--p-sage);
+    }
+    .ob__step-body h4 {
+      font-family: var(--f-sans);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-2);
+    }
+    .ob__step-body p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--p-ink);
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    /* Belief list */
+    .ob__beliefs {
+      list-style: none;
+      padding: 0;
+      margin: var(--sp-5) 0 0;
+      display: grid;
+      gap: var(--sp-3);
+    }
+    .ob__belief {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(19px, 2vw, 22px);
+      line-height: 1.5;
+      color: var(--p-aztek);
+      padding: var(--sp-3) 0;
+      border-top: 1px solid var(--border-hairline);
+      max-width: 58ch;
+    }
+    .ob__belief:last-child { border-bottom: 1px solid var(--border-hairline); }
+
+    /* Info callout (for pending content) */
+    .ob__note {
+      background: var(--p-oatmeal);
+      border: 1px dashed var(--border-hairline);
+      border-radius: var(--r-md);
+      padding: var(--sp-4) var(--sp-5);
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--p-mute);
+      margin: var(--sp-4) 0 0;
+      max-width: 62ch;
+    }
+    .ob__note strong { color: var(--p-aztek); font-weight: 600; }
+
+    /* TOC (table of contents) */
+    .ob__toc {
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      padding: var(--sp-5);
+      margin: var(--sp-6) 0 var(--sp-8);
+      background: var(--p-white);
+    }
+    .ob__toc h5 {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 var(--sp-3);
+    }
+    .ob__toc ol {
+      margin: 0; padding: 0 0 0 18px;
+      color: var(--p-aztek);
+      font-family: var(--f-serif-display);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+    .ob__toc a {
+      color: var(--p-aztek);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 180ms ease;
+    }
+    .ob__toc a:hover { border-bottom-color: var(--p-sage); }
+    .ob__toc em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    /* Footer */
+    .ob__footer {
+      margin-top: clamp(64px, 8vw, 96px);
+      padding-top: var(--sp-5);
+      border-top: 1px solid var(--border-hairline);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+    }
+    .ob__footer a {
+      color: var(--p-aztek);
+      text-decoration: none;
+      border-bottom: 1px solid var(--p-sage);
+    }
+
+    @media (max-width: 640px) {
+      .ob__value { grid-template-columns: 36px 1fr; gap: var(--sp-3); }
+      .ob__step { grid-template-columns: 44px 1fr; gap: var(--sp-3); }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <main class="ob">
+
+    <p class="ob__eyebrow">Internal · Team onboarding</p>
+    <h1 class="ob__title">Welcome to <em>Tracy Harris Co</em>.</h1>
+    <p class="ob__intro">
+      You are here because you said yes to something bigger than a job. This page is your
+      orientation. Who we are, what we believe, how we make decisions, and what we expect of
+      each other. Read it slowly. Come back to it often. <em>This is the why under the work.</em>
+    </p>
+
+    <nav class="ob__toc" aria-label="On this page">
+      <h5>On this page</h5>
+      <ol>
+        <li><a href="#vision">Our <em>vision</em></a></li>
+        <li><a href="#mission">Our <em>mission</em></a></li>
+        <li><a href="#values">Our <em>values</em></a></li>
+        <li><a href="#beliefs">What we <em>believe</em></a></li>
+        <li><a href="#rise">The <em>RISE</em> framework</a></li>
+        <li><a href="#apple">The <em>APPLE</em> framework</a></li>
+      </ol>
+    </nav>
+
+    <!-- VISION -->
+    <section class="ob__section" id="vision">
+      <p class="ob__section-eyebrow">01 · Vision</p>
+      <h2 class="ob__h2">Where we are <em>going</em>.</h2>
+      <p class="ob__lede">
+        Women leading thriving, freedom-filled businesses by sharing their wisdom, teaching
+        transformational work, and building communities that lift each other higher.
+      </p>
+      <p class="ob__pull">
+        A world where more women say yes to the calling on their life, and have the strategy,
+        support, and spaciousness to actually build it.
+      </p>
+    </section>
+
+    <hr class="ob__rule" />
+
+    <!-- MISSION -->
+    <section class="ob__section" id="mission">
+      <p class="ob__section-eyebrow">02 · Mission</p>
+      <h2 class="ob__h2">What we <em>do</em>.</h2>
+      <p class="ob__lede">
+        We help women build freedom-filled businesses. Not hustle-harder businesses. Not
+        grind-till-you-break businesses. Real, beautiful, profitable businesses that serve the
+        life they want to live.
+      </p>
+      <p class="ob__lede">
+        We do that through mentorship (<strong>FFB</strong>), mastermind
+        (<strong>FFM</strong>), and a body of work that teaches women to scale with strategy,
+        stewardship, and soul.
+      </p>
+    </section>
+
+    <hr class="ob__rule" />
+
+    <!-- VALUES -->
+    <section class="ob__section" id="values">
+      <p class="ob__section-eyebrow">03 · Values</p>
+      <h2 class="ob__h2">What we stand <em>on</em>.</h2>
+      <p class="ob__lede">
+        These eight values are the filter. When a decision is hard, when a message is unclear,
+        when the way forward is murky, you run it through these.
+      </p>
+
+      <ol class="ob__values">
+        <li class="ob__value">
+          <span class="ob__value-num">01</span>
+          <div class="ob__value-body">
+            <h3>Integrity</h3>
+            <p>We do what we said we would do. We tell the truth, even when it costs us. What happens in private matches what happens in public.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">02</span>
+          <div class="ob__value-body">
+            <h3>Leading with love</h3>
+            <p>Every message, every decision, every difficult conversation starts from a posture of love. Firm when it needs to be. Always kind.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">03</span>
+          <div class="ob__value-body">
+            <h3>Collaboration</h3>
+            <p>We build with, not at. Team, clients, partners. The best ideas win, not the loudest voice. We share credit generously.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">04</span>
+          <div class="ob__value-body">
+            <h3>Striving for excellence</h3>
+            <p>Good enough is rarely good enough. We sweat the details clients notice and the ones they do not. Excellence is a habit, not a performance.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">05</span>
+          <div class="ob__value-body">
+            <h3>Radical responsibility</h3>
+            <p>If it is ours, we own it fully. If it broke, we fix it. If we missed it, we name it. No blame, no spin, no waiting to be rescued.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">06</span>
+          <div class="ob__value-body">
+            <h3>Initiative</h3>
+            <p>See the gap, close the gap. We do not wait to be told. We bring the RISE brief, the suggested fix, the next step. Then we move.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">07</span>
+          <div class="ob__value-body">
+            <h3>Communication</h3>
+            <p>Clear beats clever. We over-communicate context, under-communicate noise. If it affects someone else, they hear it from us first.</p>
+          </div>
+        </li>
+        <li class="ob__value">
+          <span class="ob__value-num">08</span>
+          <div class="ob__value-body">
+            <h3>Unparalleled experience</h3>
+            <p>From a cold DM to a retreat in Bali, every touchpoint feels considered, warm, and alive. The bar is, would Tracy be proud to send this?</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="ob__rule" />
+
+    <!-- BELIEFS -->
+    <section class="ob__section" id="beliefs">
+      <p class="ob__section-eyebrow">04 · Beliefs</p>
+      <h2 class="ob__h2">What we <em>believe</em>.</h2>
+      <p class="ob__lede">
+        Not rules. Not slogans. The quiet convictions underneath the work. If you disagree with
+        most of these, you will not be happy here.
+      </p>
+
+      <ul class="ob__beliefs">
+        <li class="ob__belief">Business is a vehicle for freedom, not a cage we build for ourselves.</li>
+        <li class="ob__belief">Profit and peace are not opposites. We hold both.</li>
+        <li class="ob__belief">Every woman has a message worth paying for. Our job is to help her find it, own it, and sell it with confidence.</li>
+        <li class="ob__belief">Family comes before the feed. Freedom Friday exists for a reason.</li>
+        <li class="ob__belief">Slow is often faster. Spaciousness is a strategy.</li>
+        <li class="ob__belief">We are stewards of what we have been given, time, audience, team, influence.</li>
+        <li class="ob__belief">The right-fit client is worth more than ten wrong-fit clients.</li>
+        <li class="ob__belief">A brave decision is not a purchase. Joining is a yes to yourself.</li>
+        <li class="ob__belief">We do not weaponise faith, fear, or urgency to sell.</li>
+        <li class="ob__belief">The team is the business. How we treat each other shapes every client outcome.</li>
+      </ul>
+    </section>
+
+    <hr class="ob__rule" />
+
+    <!-- RISE FRAMEWORK -->
+    <section class="ob__section" id="rise">
+      <p class="ob__section-eyebrow">05 · Operational framework</p>
+      <h2 class="ob__h2">RISE, how we <em>communicate</em> and decide.</h2>
+      <p class="ob__lede">
+        RISE is how we bring problems, decisions, and proposals to the team. It replaces rambling
+        Slack messages and circular back-and-forth with a structure that respects everyone's
+        time, especially Tracy's.
+      </p>
+
+      <div class="ob__framework">
+        <p class="ob__framework-sub">Recognise · Investigate · Suggest · Execute.</p>
+
+        <ol class="ob__steps">
+          <li class="ob__step">
+            <span class="ob__step-letter">R</span>
+            <div class="ob__step-body">
+              <h4>Recognise</h4>
+              <p>State the situation, problem, or opportunity. Just the facts. What is happening, what triggered this. Do not jump to the fix yet.</p>
+            </div>
+          </li>
+          <li class="ob__step">
+            <span class="ob__step-letter">I</span>
+            <div class="ob__step-body">
+              <h4>Investigate</h4>
+              <p>Gather context. What do we know, what have we tried, what are the constraints, what is the relevant history. Show your thinking.</p>
+            </div>
+          </li>
+          <li class="ob__step">
+            <span class="ob__step-letter">S</span>
+            <div class="ob__step-body">
+              <h4>Suggest</h4>
+              <p>Bring a recommendation. One path forward, or options if there is more than one viable route. Be specific. Show the trade-offs.</p>
+            </div>
+          </li>
+          <li class="ob__step">
+            <span class="ob__step-letter">E</span>
+            <div class="ob__step-body">
+              <h4>Execute</h4>
+              <p>Define next steps, owner, and timeline. Once a decision is made, move. Do not loop back into investigation.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <p class="ob__pull">
+        RISE respects Tracy's limited working hours. When the team uses it, Tracy can read a brief
+        and make a decision in minutes, not hours.
+      </p>
+    </section>
+
+    <hr class="ob__rule" />
+
+    <!-- APPLE FRAMEWORK -->
+    <section class="ob__section" id="apple">
+      <p class="ob__section-eyebrow">06 · Client framework</p>
+      <h2 class="ob__h2">APPLE, how we move clients through <em>the zone of doubt</em>.</h2>
+      <p class="ob__lede">
+        APPLE is a framework Tracy learned from George and adapted for Tracy Harris Co. It is how
+        we hold clients (and each other) through the season where doubt hits, the work gets
+        heavy, and the temptation is to quit just before the breakthrough.
+      </p>
+
+      <div class="ob__framework">
+        <p class="ob__framework-sub">Internal tool, client-facing in mentorship and mastermind.</p>
+
+        <div class="ob__note">
+          <strong>Content in progress.</strong> The full A · P · P · L · E breakdown is being
+          documented by Teresa from the team meeting transcript, per Tracy's direction (October
+          2026 retreat plan). Once approved, it replaces the current George replay and lives in
+          Circle alongside the other frameworks. If you need it before it lands here, ask Teresa
+          or check the Craft doc she is building.
+        </div>
+      </div>
+    </section>
+
+    <footer class="ob__footer">
+      <p>Living document · Last updated 2026-04-23 · Owned by Karl &amp; Tracy · Edits go through the <a href="mailto:karl@mumswithhustle.com">ops channel</a>.</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
