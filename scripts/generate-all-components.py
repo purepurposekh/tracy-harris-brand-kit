@@ -158,15 +158,15 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
                 <td class="ac-cell ac-cell--title">{html.escape(v.title)}</td>
                 <td class="ac-cell ac-cell--size">{v.size_kb:.1f} KB</td>
                 <td class="ac-cell ac-cell--actions">
-                  <a class="ac-link" href="{html.escape(v.rel_path)}" target="_blank" rel="noopener">Open →</a>
+                  <a class="ac-link" href="{html.escape(v.rel_path)}" data-ac-preview data-ac-title="{html.escape(v.title)}" data-ac-copy="{html.escape(v.copy_id)}">Open →</a>
                 </td>
               </tr>
             ''')
             tiles.append(f'''
               <article class="ac-tile" data-search="{search_attr}">
-                <a class="ac-tile__thumb" href="{html.escape(v.rel_path)}" target="_blank" rel="noopener" aria-label="Open {html.escape(v.title)}" style="aspect-ratio: {aspect};">
+                <a class="ac-tile__thumb" href="{html.escape(v.rel_path)}" data-ac-preview data-ac-title="{html.escape(v.title)}" data-ac-copy="{html.escape(v.copy_id)}" aria-label="Preview {html.escape(v.title)}" style="aspect-ratio: {aspect};">
                   <iframe loading="lazy" src="{html.escape(v.rel_path)}" title="{html.escape(v.title)}" tabindex="-1"></iframe>
-                  <span class="ac-tile__hover">Open →</span>
+                  <span class="ac-tile__hover">Preview →</span>
                 </a>
                 <div class="ac-tile__meta">
                   <code class="ac-copy ac-copy--tile" data-copy="{html.escape(v.copy_id)}">{html.escape(v.copy_id)}</code>
@@ -234,7 +234,8 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     .ac-layout {{ display: grid; grid-template-columns: 280px 1fr; gap: 48px; padding: 48px clamp(24px, 5vw, 64px); max-width: 1480px; margin: 0 auto; }}
     @media (max-width: 900px) {{ .ac-layout {{ grid-template-columns: 1fr; gap: 24px; }} }}
 
-    .ac-sidebar {{ position: sticky; top: 120px; align-self: start; }}
+    .ac-sidebar {{ position: sticky; top: 104px; align-self: start; max-height: calc(100vh - 120px); overflow-y: auto; padding-right: 8px; }}
+    @media (max-width: 900px) {{ .ac-sidebar {{ position: static; max-height: none; overflow: visible; }} }}
     .ac-sidebar__h {{ font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 18px; font-weight: 500; }}
     .ac-sidebar ul {{ list-style: none; padding: 0; margin: 0 0 28px; }}
     .ac-sidebar li {{ margin: 0; }}
@@ -284,6 +285,26 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     .ac-foot {{ text-align: center; padding: 32px 0; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-mute); }}
 
     .ac-section[hidden] {{ display: none; }}
+
+    /* Preview modal (dialog) */
+    dialog.ac-modal {{
+      border: none; padding: 0; border-radius: 10px; background: var(--p-white);
+      width: min(92vw, 1360px); max-width: 92vw;
+      height: min(88vh, 900px); max-height: 88vh;
+      overflow: hidden; box-shadow: 0 28px 80px rgba(16,16,16,0.32);
+    }}
+    dialog.ac-modal::backdrop {{ background: rgba(16,16,16,0.56); backdrop-filter: blur(2px); }}
+    .ac-modal__frame {{ display: flex; flex-direction: column; height: 100%; }}
+    .ac-modal__head {{ display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 20px; border-bottom: 1px solid rgba(16,16,16,0.08); flex-shrink: 0; }}
+    .ac-modal__title {{ font-family: var(--f-serif-display); font-size: 20px; letter-spacing: -0.01em; color: var(--p-aztek); margin: 0; line-height: 1.2; }}
+    .ac-modal__meta {{ display: flex; align-items: center; gap: 12px; }}
+    .ac-modal__meta a {{ font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--p-aztek); text-decoration: none; font-weight: 500; }}
+    .ac-modal__meta a:hover {{ color: var(--p-copper); }}
+    .ac-modal__close {{ background: transparent; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--p-aztek); font-size: 24px; line-height: 1; }}
+    .ac-modal__close:hover {{ background: var(--p-oatmeal); }}
+    .ac-modal__body {{ flex: 1; overflow: hidden; position: relative; background: var(--p-oatmeal); }}
+    .ac-modal__body iframe {{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--p-white); max-width: none; }}
+    @media (max-width: 640px) {{ dialog.ac-modal {{ width: 100vw; max-width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }} }}
 
     /* View toggle */
     .ac-toggle {{ display: inline-flex; align-items: center; gap: 0; border: 1px solid rgba(16,16,16,0.14); border-radius: 999px; padding: 3px; background: var(--p-white); }}
@@ -366,6 +387,23 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     </div>
   </main>
 
+  <!-- Preview modal -->
+  <dialog class="ac-modal" id="ac-preview">
+    <div class="ac-modal__frame">
+      <header class="ac-modal__head">
+        <h2 class="ac-modal__title" id="ac-preview-title">Preview</h2>
+        <div class="ac-modal__meta">
+          <code class="ac-copy" id="ac-preview-copy" data-copy=""></code>
+          <a id="ac-preview-open" href="#" target="_blank" rel="noopener">Open full page ↗</a>
+          <button class="ac-modal__close" id="ac-preview-close" type="button" aria-label="Close preview">&times;</button>
+        </div>
+      </header>
+      <div class="ac-modal__body">
+        <iframe id="ac-preview-iframe" src="about:blank" title="Variant preview"></iframe>
+      </div>
+    </div>
+  </dialog>
+
   <script>
     // Click-to-copy on .ac-copy nodes
     document.querySelectorAll('code.ac-copy').forEach(function (el) {{
@@ -446,6 +484,34 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
       window.addEventListener('resize', scaleTiles);
     }}
     if (initial === 'tile') scaleTiles();
+
+    // Preview modal: intercept any link with data-ac-preview, open in <dialog>
+    var modal = document.getElementById('ac-preview');
+    var modalTitle = document.getElementById('ac-preview-title');
+    var modalCopy = document.getElementById('ac-preview-copy');
+    var modalOpen = document.getElementById('ac-preview-open');
+    var modalIframe = document.getElementById('ac-preview-iframe');
+    var modalClose = document.getElementById('ac-preview-close');
+    document.addEventListener('click', function (e) {{
+      var link = e.target.closest('[data-ac-preview]');
+      if (!link) return;
+      e.preventDefault();
+      var href = link.getAttribute('href');
+      var title = link.getAttribute('data-ac-title') || '';
+      var copy = link.getAttribute('data-ac-copy') || '';
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalCopy) {{ modalCopy.textContent = copy; modalCopy.setAttribute('data-copy', copy); }}
+      if (modalOpen) modalOpen.href = href;
+      if (modalIframe) modalIframe.src = href;
+      if (typeof modal.showModal === 'function') modal.showModal();
+      else window.open(href, '_blank', 'noopener');
+    }});
+    if (modalClose) modalClose.addEventListener('click', function () {{ modal.close(); }});
+    modal.addEventListener('close', function () {{ if (modalIframe) modalIframe.src = 'about:blank'; }});
+    modal.addEventListener('click', function (e) {{
+      // Close on backdrop click, but not when clicking inside the frame
+      if (e.target === modal) modal.close();
+    }});
   </script>
 </body>
 </html>
