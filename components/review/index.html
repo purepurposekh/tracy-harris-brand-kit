@@ -257,7 +257,7 @@
       width: 1440px;
       height: 900px;
       /* Override the global guardrail `img, svg, video, iframe { max-width: 100% }`
-         in tokens.css — we need the iframe to render at its natural 1440px so the
+         in tokens.css, we need the iframe to render at its natural 1440px so the
          transform: scale() below actually has something to shrink down. */
       max-width: none;
       border: 0;
@@ -268,7 +268,7 @@
     }
 
     /* ----------------------------------------------------------------
-       Preview mode complexity removed 2026-04-17 — desktop render only.
+       Preview mode complexity removed 2026-04-17, desktop render only.
        ---------------------------------------------------------------- */
     .card__preview-placeholder {
       position: absolute;
@@ -307,7 +307,7 @@
     }
     .card__open:hover { opacity: 1; }
 
-    /* Always-visible magnifying-glass mark — signals "click to preview
+    /* Always-visible magnifying-glass mark, signals "click to preview
        at larger size" without relying on hover discovery. */
     .card__preview-mark {
       position: absolute;
@@ -538,7 +538,7 @@
     }
 
     /* ======================================================================
-       CLS HARDENING (2026-04-18) — reserve space for cards + iframes so the
+       CLS HARDENING (2026-04-18), reserve space for cards + iframes so the
        page stops jumping while previews hydrate and approvals.json loads.
        ====================================================================== */
 
@@ -560,7 +560,7 @@
        above already absorbs the most common case. */
 
     /* ======================================================================
-       MOBILE POLISH (2026-04-17) — tap targets, scroll isolation, lean strip
+       MOBILE POLISH (2026-04-17), tap targets, scroll isolation, lean strip
        ====================================================================== */
 
     html, body { -webkit-overflow-scrolling: touch; }
@@ -570,7 +570,7 @@
     .card__preview-placeholder {
       pointer-events: none;
     }
-    /* The "Open ↗" link is a real tap target inside the preview — keep it live */
+    /* The "Open ↗" link is a real tap target inside the preview, keep it live */
     .card__open { pointer-events: auto; }
 
     /* Buttons: 44x44 minimum on touch / small screens */
@@ -588,7 +588,7 @@
         min-height: 44px;
         min-width: 44px;
       }
-      /* Small variant still needs 44 min on touch — override default */
+      /* Small variant still needs 44 min on touch, override default */
       .btn--sm { padding: 10px 16px; font-size: 13px; }
     }
 
@@ -634,7 +634,7 @@
       }
     }
 
-    /* Sticky strip: lean to essentials at <=430px — primary count + export */
+    /* Sticky strip: lean to essentials at <=430px, primary count + export */
     @media (max-width: 430px) {
       .strip {
         padding: 10px var(--sp-4);
@@ -655,7 +655,7 @@
         padding: 10px 14px;
         font-size: 13px;
       }
-      /* Copy summary is secondary — keep it compact */
+      /* Copy summary is secondary, keep it compact */
       #copySummaryBtn { padding: 10px 12px; }
     }
 
@@ -1106,6 +1106,15 @@
         </a>
       </li>
       <li>
+        <a class="app-sidebar__link" data-nav="all-components" href="../../pages/all-components.html">
+          <span class="app-sidebar__icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="5" x2="16" y2="5"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="15" x2="16" y2="15"/><circle cx="2.5" cy="5" r="0.6" fill="currentColor" stroke="none"/><circle cx="2.5" cy="10" r="0.6" fill="currentColor" stroke="none"/><circle cx="2.5" cy="15" r="0.6" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span class="app-sidebar__label">All components</span>
+        </a>
+      </li>
+
+      <li>
         <a class="app-sidebar__link" data-nav="review" href="../../components/review/">
           <span class="app-sidebar__icon" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="15" height="15" rx="2"/><polyline points="6.5 10.5 9 13 14 7.5"/></svg>
@@ -1240,7 +1249,7 @@
     <!-- PERSISTENCE BANNER -->
     <div class="banner">
       <div style="flex:1; min-width:240px;">
-        <strong>State lives in your browser.</strong> Click <em>Save to repo</em> when done — it writes, commits and pushes in one step. Use <em>Export JSON</em> as a fallback if the server is down.
+        <strong>State lives in your browser.</strong> Click <em>Save to repo</em> when done, it writes, commits and pushes in one step. Use <em>Export JSON</em> as a fallback if the server is down.
       </div>
       <span class="banner__dirty" id="dirtyFlag">Unsaved changes</span>
     </div>
@@ -1279,7 +1288,7 @@
 
   <script>
     // -------------------------------------------------------------------
-    // Variant inventory — 47 variants across 18 families
+    // Variant inventory, 47 variants across 18 families
     // -------------------------------------------------------------------
     const FAMILIES = [
       {
@@ -1772,7 +1781,7 @@
     // Status mutations
     // -------------------------------------------------------------------
     function setStatus(variantId, status, note) {
-      // toggle off if clicking the active status again (except revise — handled separately)
+      // toggle off if clicking the active status again (except revise, handled separately)
       const current = state[variantId];
       if (current && current.status === status && status !== 'revise') {
         delete state[variantId];
@@ -1875,7 +1884,7 @@
     //   1. Load when near viewport (IntersectionObserver with 800px root margin)
     //   2. UNLOAD when far from viewport (blur tier past 2000px)
     // Without this, iOS Safari runs out of memory on a page with 100+
-    // iframes and purges the tab — Karl hit the white-screen-on-scroll bug.
+    // iframes and purges the tab, Karl hit the white-screen-on-scroll bug.
     // We keep each iframe's target URL on its data-live-src attribute so
     // we can reload it cheaply when the card scrolls back into view.
     // -------------------------------------------------------------------
@@ -2017,7 +2026,7 @@
       let t = '';
       try { t = localStorage.getItem(TOKEN_KEY) || ''; } catch (e) {}
       if (!t) {
-        t = window.prompt('One-time setup — enter the webhook auth token (ask Karl / check webhook-server/.env):') || '';
+        t = window.prompt('One-time setup, enter the webhook auth token (ask Karl / check webhook-server/.env):') || '';
         t = t.trim();
         if (t) { try { localStorage.setItem(TOKEN_KEY, t); } catch (e) {} }
       }
@@ -2026,7 +2035,7 @@
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
       const token = getOrPromptToken();
-      if (!token) { showToast('No token — cancelled.'); return; }
+      if (!token) { showToast('No token, cancelled.'); return; }
       const btn = document.getElementById('submitBtn');
       const orig = btn.textContent;
       btn.disabled = true;
@@ -2042,12 +2051,12 @@
         });
         if (res.status === 401) {
           try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
-          showToast('Token rejected — clear and retry.');
+          showToast('Token rejected, clear and retry.');
           return;
         }
         if (!res.ok) {
           const detail = await res.text();
-          showToast('Save failed — use Export as fallback.');
+          showToast('Save failed, use Export as fallback.');
           console.error('submit failed', res.status, detail);
           return;
         }
@@ -2057,7 +2066,7 @@
         showToast(`Saved · ${data.counts.approved} approved, ${data.counts.revise} revise, ${data.counts.rejected} rejected`);
       } catch (err) {
         console.error('submit error', err);
-        showToast('Network error — use Export as fallback.');
+        showToast('Network error, use Export as fallback.');
       } finally {
         btn.disabled = false;
         btn.textContent = orig;
