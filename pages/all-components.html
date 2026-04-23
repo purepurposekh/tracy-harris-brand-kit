@@ -86,11 +86,17 @@
 
     .ac-top {
       display: flex; justify-content: space-between; align-items: baseline;
-      padding: 28px clamp(24px, 5vw, 64px);
+      padding: 20px clamp(24px, 5vw, 64px);
       border-bottom: 1px solid rgba(16,16,16,0.08);
       background: var(--p-oatmeal);
-      position: sticky; top: 0; z-index: 10;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+      height: 72px;
     }
+    @media (min-width: 820px) {
+      body.has-sidebar .ac-top { left: var(--sidebar-width); }
+      body.has-sidebar.sidebar-collapsed .ac-top { left: var(--sidebar-collapsed-width); }
+    }
+    body.has-sidebar { padding-top: 72px; }
     .ac-top a { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-aztek); text-decoration: none; margin-left: 20px; }
     .ac-top a:hover { color: var(--p-copper); }
     .ac-top__title { font-family: var(--f-serif-display); font-size: clamp(24px, 2.4vw, 32px); color: var(--p-aztek); margin: 0; letter-spacing: -0.015em; }
@@ -110,9 +116,9 @@
     @media (min-width: 901px) {
       .ac-sidebar {
         position: fixed;
-        top: 104px;
+        top: 96px;  /* 72 header + 24 breathing room */
         width: 260px;
-        max-height: calc(100vh - 120px);
+        max-height: calc(100vh - 116px);
         overflow: hidden;
         z-index: 5;
       }
@@ -3866,7 +3872,8 @@
 
   <script>
     // Position the fixed category sidebar so it aligns with layout left padding.
-    // Re-runs on resize and when app-sidebar collapses.
+    // Re-runs on resize and after app-sidebar state changes. Must run AFTER
+    // body gets has-sidebar class, otherwise layout.left is wrong on first paint.
     function positionCategorySidebar() {
       var layout = document.querySelector('.ac-layout');
       var sidebar = document.querySelector('.ac-sidebar');
@@ -3877,8 +3884,6 @@
       sidebar.style.left = (rect.left + pad) + 'px';
     }
     window.addEventListener('resize', positionCategorySidebar);
-    // Call initially and after any layout shift (sidebar collapse triggers ~220ms transition)
-    positionCategorySidebar();
 
     // App sidebar init
     (function () {
