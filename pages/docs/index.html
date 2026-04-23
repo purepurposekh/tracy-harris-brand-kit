@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brand Kit Docs · Tracy Harris Co</title>
+  <meta name="description" content="Living documentation for the Tracy Harris Co brand kit. Tokens, fonts, components, pages, templates, tools." />
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../styles/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: var(--sp-8) var(--sp-5) var(--sp-10); }
+
+    /* Hero */
+    .hero { padding: var(--sp-7) 0 var(--sp-6); border-bottom: 1px solid var(--border-hairline); margin-bottom: var(--sp-7); }
+    .eyebrow {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--p-sage); margin: 0 0 var(--sp-4) 0;
+    }
+    h1 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(44px, 6vw, 84px);
+      font-weight: 400; line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--sp-5) 0;
+      color: var(--p-charcoal);
+    }
+    h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .hero p {
+      font-size: 17px; line-height: 1.6; max-width: 62ch;
+      margin: 0; color: var(--p-ink);
+    }
+
+    /* Quick links */
+    .quick {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin: var(--sp-6) 0 var(--sp-7);
+    }
+    .quick a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border: 1px solid var(--border-hairline);
+      border-radius: var(--r-pill); background: var(--p-white);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; color: var(--p-charcoal);
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .quick a:hover { border-color: var(--p-sage); background: var(--p-cream); }
+
+    /* Section */
+    .section { margin-bottom: var(--sp-8); }
+    .section__head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: var(--sp-4); margin-bottom: var(--sp-5);
+      padding-bottom: var(--sp-3); border-bottom: 1px solid var(--border-hairline);
+    }
+    .section__title {
+      font-family: var(--f-serif-display);
+      font-size: clamp(28px, 3.2vw, 40px);
+      font-weight: 400; line-height: 1.1;
+      margin: 0; color: var(--p-charcoal);
+    }
+    .section__title em { font-family: var(--f-serif-italic); font-style: italic; }
+    .section__count {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--p-mute); white-space: nowrap;
+    }
+    .section__intro {
+      font-size: 15px; line-height: 1.6; max-width: 62ch;
+      color: var(--p-ink); margin: 0 0 var(--sp-5) 0;
+    }
+
+    /* Grid of cards */
+    .grid {
+      display: grid; gap: var(--sp-5);
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .card {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      background: var(--p-white);
+      text-decoration: none; color: inherit;
+      overflow: hidden;
+      transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+    .card:hover {
+      border-color: var(--p-sage);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(16,16,16,0.06);
+    }
+    .card__thumb {
+      aspect-ratio: 16/10;
+      background: var(--p-oatmeal) center/cover no-repeat;
+      border-bottom: 1px solid var(--border-hairline);
+      position: relative;
+    }
+    .card__thumb::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(16,16,16,0.04));
+    }
+    .card__thumb-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-serif-italic); font-style: italic;
+      font-size: 28px; color: var(--p-sage);
+      background: linear-gradient(135deg, var(--p-cream), var(--p-oatmeal));
+    }
+    .card__body { padding: var(--sp-4) var(--sp-5) var(--sp-5); flex: 1; display: flex; flex-direction: column; }
+    .card__kind {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--p-mute); margin: 0 0 8px 0;
+    }
+    .card__title {
+      font-family: var(--f-serif-display);
+      font-size: 22px; font-weight: 400; line-height: 1.2;
+      margin: 0 0 8px 0; color: var(--p-charcoal);
+    }
+    .card__desc {
+      font-size: 14px; line-height: 1.5;
+      color: var(--p-ink); margin: 0 0 var(--sp-4) 0;
+      flex: 1;
+    }
+    .card__open {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--p-aztek); display: inline-flex; align-items: center; gap: 6px;
+    }
+    .card__open::after {
+      content: "→"; transition: transform 180ms ease;
+    }
+    .card:hover .card__open::after { transform: translateX(4px); }
+
+    .loading {
+      padding: var(--sp-6); text-align: center;
+      border: 1px dashed var(--border-hairline);
+      border-radius: var(--r-lg);
+      color: var(--p-mute);
+      font-size: 14px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: var(--sp-9);
+      padding-top: var(--sp-6);
+      border-top: 1px solid var(--border-hairline);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--p-mute);
+      text-align: center;
+    }
+    footer a { color: var(--p-aztek); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .wrap { padding: var(--sp-6) var(--sp-4) var(--sp-8); }
+      .hero { padding: var(--sp-5) 0 var(--sp-5); margin-bottom: var(--sp-5); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Tracy Harris Co · Brand Kit</p>
+      <h1>Brand Kit <em>documentation</em></h1>
+      <p>Everything in the kit, in one place. Foundations, components, pages, templates, tools. Living index, fetched directly from the repo.</p>
+
+      <nav class="quick" aria-label="Quick links">
+        <a href="#foundations">Foundations</a>
+        <a href="#components">Components</a>
+        <a href="#pages">Pages</a>
+        <a href="#templates">Templates</a>
+        <a href="#tools">Tools</a>
+        <a href="https://github.com/purepurposekh/tracy-harris-brand-kit" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </header>
+
+    <!-- Foundations -->
+    <section class="section" id="foundations">
+      <div class="section__head">
+        <h2 class="section__title">Foundations</h2>
+        <span class="section__count" id="count-foundations"></span>
+      </div>
+      <p class="section__intro">Design tokens, type, colour, spacing. The bedrock every component inherits from.</p>
+      <div class="grid" id="grid-foundations"></div>
+    </section>
+
+    <!-- Components -->
+    <section class="section" id="components">
+      <div class="section__head">
+        <h2 class="section__title">Components</h2>
+        <span class="section__count" id="count-components"></span>
+      </div>
+      <p class="section__intro">Reusable building blocks. Every component in <code>/components/</code> scanned live from the repo.</p>
+      <div class="grid" id="grid-components">
+        <div class="loading">Fetching component list from jsDelivr…</div>
+      </div>
+    </section>
+
+    <!-- Pages -->
+    <section class="section" id="pages">
+      <div class="section__head">
+        <h2 class="section__title">Pages</h2>
+        <span class="section__count" id="count-pages"></span>
+      </div>
+      <p class="section__intro">Full-page references and demos. Walkthroughs, onboarding portals, brand-at-a-glance views.</p>
+      <div class="grid" id="grid-pages">
+        <div class="loading">Fetching pages…</div>
+      </div>
+    </section>
+
+    <!-- Templates -->
+    <section class="section" id="templates">
+      <div class="section__head">
+        <h2 class="section__title">Templates</h2>
+        <span class="section__count" id="count-templates"></span>
+      </div>
+      <p class="section__intro">Ready-to-use layouts: freebie lead magnets, webinar decks, one-pagers. Duplicate, edit, send.</p>
+      <div class="grid" id="grid-templates">
+        <div class="loading">Fetching templates…</div>
+      </div>
+    </section>
+
+    <!-- Tools -->
+    <section class="section" id="tools">
+      <div class="section__head">
+        <h2 class="section__title">Tools</h2>
+        <span class="section__count" id="count-tools"></span>
+      </div>
+      <p class="section__intro">Interactive utilities: wizards, generators, scrapers. Paste a URL or fill a form, get a starter kit.</p>
+      <div class="grid" id="grid-tools"></div>
+    </section>
+
+    <footer>
+      <p>Docs built <span id="build-date"></span> · Open-source under [LICENSE TBD] · By Tracy Harris Co · <a href="../../docs/backlog.md">Backlog</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // ============================================================
+    // Docs picker - auto-scans the repo via jsDelivr flat API.
+    // Zero-build, runs entirely in the browser.
+    // ============================================================
+
+    const REPO = 'purepurposekh/tracy-harris-brand-kit';
+    const BRANCH = 'main';
+    const CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}`;
+    const API_URL = `https://data.jsdelivr.com/v1/package/gh/${REPO}@${BRANCH}/flat`;
+
+    // Curated copy for well-known entries (foundations + tools are hand-described).
+    const FOUNDATIONS = [
+      { title: 'Tokens CSS', desc: 'Colour palette, spacing scale, radii, shadows as CSS custom properties.', href: '../../styles/tokens.css', kind: 'CSS' },
+      { title: 'Fonts CSS', desc: 'Editors Note serif, Chic Societe script, Poppins sans. Loaded from the CDN.', href: '../../styles/fonts.css', kind: 'CSS' },
+      { title: 'Brand System', desc: 'Utility classes for headings, scripts, CTAs. Brand-coherent primitives.', href: '../../styles/brand-system.css', kind: 'CSS' },
+      { title: 'Brand Rules', desc: 'Do/don\u2019t list. Voice, logo usage, colour pairings, typography rules.', href: '../../docs/brand-rules.md', kind: 'Doc' },
+      { title: 'Primitives JSON', desc: 'Machine-readable design tokens for code generators.', href: '../../tokens/primitives.json', kind: 'JSON' },
+      { title: 'Moodboard', desc: 'Visual anchor. Mood, palette, texture, type pairings.', href: '../../docs/moodboard.html', kind: 'Page' }
+    ];
+
+    const TOOLS = [
+      { title: 'URL Scraper', desc: 'Paste any URL, extract its colours, fonts, and logo into a starter brand-kit card. No LLM calls.', href: '../tools/url-scraper.html', kind: 'Tool', thumb: null },
+      { title: 'Onboarding Portal Generator', desc: 'Wizard that generates a client onboarding portal with live preview + HTML export.', href: '../onboarding-portal-generator/', kind: 'Tool' },
+      { title: 'All Components', desc: 'Flat index of every component variant. Copy names, share with Kira, wire into Compose.', href: '../all-components.html', kind: 'Index' },
+      { title: 'Compose', desc: 'Drag-and-drop page composer. Pick components, arrange, preview, export.', href: '../../components/compose/', kind: 'Tool' }
+    ];
+
+    // Short descriptions for known components. Unknown components get a generic blurb.
+    const COMPONENT_BLURBS = {
+      'about-bio': 'Intro block for Tracy or a team member. Photo + story + CTA.',
+      'benefit-trio': 'Three-up benefit grid. Icon + headline + one-line proof.',
+      'card-flip': 'Interactive 3D card flip. Hover or tap to reveal the back.',
+      'compose': 'Page builder. Drag components to assemble a layout.',
+      'content-section': 'Flexible text + image section. Left, right, or stacked.',
+      'cta-block': 'End-of-page conversion block. Headline, sub, button.',
+      'curriculum-preview': 'Module/lesson grid for course sales pages.',
+      'event-widget': 'Upcoming event card. Date, time, location, register CTA.',
+      'expandable-cta': 'Sticky CTA that expands on scroll. Low-friction nudge.',
+      'faq': 'Accordion FAQ section. Answer objections, reduce sales friction.',
+      'feature-grid': 'What\u2019s included grid. Icon + label + short description.',
+      'footer': 'Universal page footer. Nav, socials, legal, newsletter.',
+      'freebies': 'Lead magnet grid. Featured opt-in + supporting offers.',
+      'guarantee': 'Trust block. Guarantee copy + proof badge.',
+      'hero': 'Top-of-page hero. Eyebrow, headline, sub, CTA, image.',
+      'image-grid': 'Gallery layout. Masonry, tile, or magazine grid.',
+      'navigation': 'Primary site nav. Logo, links, CTA, mobile drawer.',
+      'next-steps': 'Post-purchase or post-opt-in next steps block.',
+      'offer-stack': 'What you get list. Stacked item cards with values.',
+      'opt-in': 'Email capture. Inline or modal, with styled success state.',
+      'podcast-card': 'Latest episode card. Artwork + title + play link.',
+      'post-grid': 'Blog or content grid. Thumbnail + title + excerpt.',
+      'pricing': 'Pricing table. One, two, or three tiers.',
+      'product-callout': 'Single product spotlight. Image + sell copy + buy CTA.',
+      'programs-grid': 'FFB/FFM/SMS overview grid. Short pitch per program.',
+      'review': 'Testimonial block. Quote + name + result.',
+      'soft-upsell': 'Mid-page nudge to a deeper offer. Low pressure.',
+      'testimonials': 'Multi-quote carousel or stack. Social proof at scale.',
+      'why-block': 'Why it matters section. Belief statement + proof.'
+    };
+
+    const PAGE_BLURBS = {
+      'all-components.html': 'Master index of every component. Copy-friendly for prompts.',
+      'team-onboarding.html': 'Tracy Harris Co staff onboarding. Vision, mission, values, RISE.',
+      'ffb-strategy-archetype.html': 'FFB strategy archetype reference. Positioning + frameworks.',
+      'index.html': 'Pages landing. Overview of available page demos.'
+    };
+
+    function humanise(slug) {
+      return slug
+        .replace(/[-_]/g, ' ')
+        .replace(/\.html$/, '')
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+    }
+
+    function makeCard({ title, desc, href, kind, thumb }) {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = href;
+      a.innerHTML = `
+        <div class="card__thumb">
+          ${thumb
+            ? `<img src="${thumb}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='<div class=&quot;card__thumb-fallback&quot;>${title.charAt(0).toUpperCase()}</div>'" />`
+            : `<div class="card__thumb-fallback">${title.charAt(0).toUpperCase()}</div>`
+          }
+        </div>
+        <div class="card__body">
+          <p class="card__kind">${kind || ''}</p>
+          <h3 class="card__title">${title}</h3>
+          <p class="card__desc">${desc}</p>
+          <span class="card__open">Open</span>
+        </div>
+      `;
+      return a;
+    }
+
+    function renderGrid(id, items) {
+      const grid = document.getElementById(id);
+      grid.innerHTML = '';
+      if (!items.length) {
+        grid.innerHTML = '<div class="loading">Nothing here yet. Check back soon.</div>';
+        return;
+      }
+      items.forEach((item) => grid.appendChild(makeCard(item)));
+      document.getElementById(id.replace('grid-', 'count-')).textContent = `${items.length} ${items.length === 1 ? 'entry' : 'entries'}`;
+    }
+
+    async function fetchTree() {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error(`jsDelivr API ${res.status}`);
+        const data = await res.json();
+        return data.files || [];
+      } catch (err) {
+        console.error('Failed to fetch jsDelivr tree', err);
+        return null;
+      }
+    }
+
+    function groupFiles(files) {
+      const components = new Map();
+      const pages = [];
+      const templates = [];
+
+      for (const f of files) {
+        const p = f.name;
+
+        // Components: /components/<slug>/... (collect slug once)
+        const comp = p.match(/^\/components\/([^/]+)\//);
+        if (comp && !components.has(comp[1])) {
+          components.set(comp[1], true);
+          continue;
+        }
+
+        // Pages: /pages/*.html (skip docs + tools subdirs)
+        const pageMatch = p.match(/^\/pages\/([^/]+\.html)$/);
+        if (pageMatch) {
+          pages.push(pageMatch[1]);
+          continue;
+        }
+
+        // Templates: /pages/templates/*.html OR /templates/*.html
+        const tmpl = p.match(/^\/(?:pages\/)?templates\/([^/]+\.html)$/);
+        if (tmpl) {
+          templates.push(tmpl[1]);
+          continue;
+        }
+      }
+
+      return {
+        components: [...components.keys()].sort(),
+        pages: pages.sort(),
+        templates: templates.sort()
+      };
+    }
+
+    function componentThumb(slug) {
+      // Try a pre-rendered variant thumbnail via screenshot convention used in the kit.
+      return `${CDN_BASE}/components/${slug}/variants/${slug}.png`;
+    }
+
+    (async () => {
+      document.getElementById('build-date').textContent = new Date().toISOString().slice(0, 10);
+
+      // Foundations + Tools render immediately (curated).
+      renderGrid('grid-foundations', FOUNDATIONS.map((f) => ({ ...f, thumb: null })));
+      renderGrid('grid-tools', TOOLS);
+
+      // Auto-scan everything else.
+      const files = await fetchTree();
+
+      if (!files) {
+        // Graceful fallback: hardcoded list if API fails.
+        // NOTE: keep this in sync with the repo layout. Last checked 2026-04-23.
+        const fallbackComponents = [
+          'about-bio','benefit-trio','card-flip','compose','content-section','cta-block',
+          'curriculum-preview','event-widget','expandable-cta','faq','feature-grid','footer',
+          'freebies','guarantee','hero','image-grid','navigation','next-steps','offer-stack',
+          'opt-in','podcast-card','post-grid','pricing','product-callout','programs-grid',
+          'review','soft-upsell','testimonials','why-block'
+        ];
+        const fallbackPages = ['all-components.html','ffb-strategy-archetype.html','index.html','team-onboarding.html'];
+        renderGrid('grid-components', fallbackComponents.map((slug) => ({
+          title: humanise(slug),
+          desc: COMPONENT_BLURBS[slug] || 'Reusable component. Variants in /components/' + slug + '/.',
+          href: `../../components/${slug}/`,
+          kind: 'Component',
+          thumb: null
+        })));
+        renderGrid('grid-pages', fallbackPages.map((file) => ({
+          title: humanise(file),
+          desc: PAGE_BLURBS[file] || 'Brand-kit page.',
+          href: `../${file}`,
+          kind: 'Page',
+          thumb: null
+        })));
+        renderGrid('grid-templates', []);
+        return;
+      }
+
+      const { components, pages, templates } = groupFiles(files);
+
+      renderGrid('grid-components', components.map((slug) => ({
+        title: humanise(slug),
+        desc: COMPONENT_BLURBS[slug] || 'Reusable component block.',
+        href: `../../components/${slug}/`,
+        kind: 'Component',
+        thumb: componentThumb(slug)
+      })));
+
+      renderGrid('grid-pages', pages.map((file) => ({
+        title: humanise(file),
+        desc: PAGE_BLURBS[file] || 'Brand-kit page.',
+        href: `../${file}`,
+        kind: 'Page',
+        thumb: null
+      })));
+
+      renderGrid('grid-templates', templates.map((file) => ({
+        title: humanise(file),
+        desc: 'Ready-to-use template. Duplicate and customise.',
+        href: `../templates/${file}`,
+        kind: 'Template',
+        thumb: null
+      })));
+    })();
+  </script>
+</body>
+</html>

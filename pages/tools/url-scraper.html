@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>URL Scraper · Brand Kit Tool · Tracy Harris Co</title>
+  <meta name="description" content="Paste a URL, get a starter brand-kit: colours, fonts, logo. Pure client-side, zero LLM calls." />
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../styles/tokens.css" />
+  <!-- palette-scope-exempt: tool UI (not a brand template), uses raw tokens for direct error-state colour -->
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--p-aztek); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: var(--sp-8) var(--sp-5) var(--sp-10); }
+
+    .eyebrow {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--p-sage); margin: 0 0 var(--sp-4) 0;
+    }
+    h1 {
+      font-family: var(--f-serif-display);
+      font-size: clamp(40px, 5.2vw, 68px);
+      font-weight: 400; line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--sp-4) 0;
+      color: var(--p-charcoal);
+    }
+    h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .intro {
+      font-size: 16px; line-height: 1.6; max-width: 62ch;
+      margin: 0 0 var(--sp-6) 0; color: var(--p-ink);
+    }
+
+    /* Input form */
+    .form {
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      padding: var(--sp-5);
+      display: flex; gap: var(--sp-3);
+      margin-bottom: var(--sp-6);
+      flex-wrap: wrap;
+    }
+    .form input[type="url"] {
+      flex: 1; min-width: 260px;
+      padding: 14px 18px;
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      font-family: var(--f-sans); font-size: 15px;
+      background: var(--p-oatmeal);
+      color: var(--p-ink);
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .form input[type="url"]:focus {
+      outline: none;
+      border-color: var(--p-sage);
+      background: var(--p-white);
+    }
+    .form button {
+      padding: 14px 28px;
+      border: none;
+      border-radius: var(--r-pill);
+      background: var(--p-aztek);
+      color: var(--p-white);
+      font-family: var(--f-sans); font-size: 12px;
+      font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 180ms ease;
+    }
+    .form button:hover:not(:disabled) { background: var(--p-sage); }
+    .form button:disabled { opacity: 0.5; cursor: progress; }
+
+    /* Status */
+    .status {
+      font-size: 13px; color: var(--p-mute);
+      margin: 0 0 var(--sp-5) 0;
+      min-height: 20px;
+    }
+    .status.is-error { color: #c94a2e; }
+
+    /* Output card */
+    .result {
+      display: none;
+      background: var(--p-white);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+    .result.is-visible { display: block; }
+
+    .result__head {
+      display: flex; align-items: center; gap: var(--sp-4);
+      padding: var(--sp-5) var(--sp-6);
+      border-bottom: 1px solid var(--border-hairline);
+      background: var(--p-oatmeal);
+    }
+    .result__logo {
+      width: 64px; height: 64px; border-radius: var(--r-md);
+      background: var(--p-white) center/contain no-repeat;
+      border: 1px solid var(--border-hairline);
+      flex-shrink: 0;
+    }
+    .result__title {
+      font-family: var(--f-serif-display);
+      font-size: 24px; line-height: 1.2;
+      margin: 0; color: var(--p-charcoal);
+    }
+    .result__url {
+      font-size: 13px; color: var(--p-mute);
+      word-break: break-all; margin: 2px 0 0 0;
+    }
+
+    .result__body { padding: var(--sp-6); display: grid; gap: var(--sp-6); }
+
+    .field-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--p-mute); margin: 0 0 var(--sp-3) 0;
+    }
+
+    /* Swatches */
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--sp-3);
+    }
+    .swatch {
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      background: var(--p-white);
+    }
+    .swatch__fill { aspect-ratio: 4/3; }
+    .swatch__meta {
+      padding: 10px 12px;
+      font-size: 11px;
+      border-top: 1px solid var(--border-hairline);
+    }
+    .swatch__value {
+      font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 11px; font-weight: 500;
+      color: var(--p-charcoal);
+      display: block; word-break: break-all;
+    }
+    .swatch__count {
+      color: var(--p-mute); font-size: 10px;
+      margin-top: 2px; display: block;
+    }
+
+    /* Fonts */
+    .fonts { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .font-row {
+      padding: var(--sp-4);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      background: var(--p-oatmeal);
+    }
+    .font-name {
+      font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 12px; color: var(--p-aztek);
+      margin: 0 0 6px 0;
+    }
+    .font-sample {
+      font-size: 22px; color: var(--p-charcoal);
+      margin: 0;
+    }
+
+    /* Meta rows */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: var(--sp-3);
+    }
+    .meta-card {
+      padding: var(--sp-3) var(--sp-4);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-md);
+      background: var(--p-oatmeal);
+    }
+    .meta-card__k {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--p-mute); margin: 0 0 4px 0;
+    }
+    .meta-card__v {
+      font-size: 13px; color: var(--p-charcoal);
+      margin: 0; word-break: break-word;
+    }
+
+    /* Actions */
+    .actions {
+      display: flex; gap: var(--sp-3); flex-wrap: wrap;
+      padding: var(--sp-5) var(--sp-6);
+      border-top: 1px solid var(--border-hairline);
+      background: var(--p-oatmeal);
+    }
+    .btn {
+      padding: 12px 22px;
+      border-radius: var(--r-pill);
+      font-family: var(--f-sans); font-size: 11px;
+      font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+      border: 1px solid var(--p-aztek);
+      background: var(--p-aztek);
+      color: var(--p-white);
+    }
+    .btn:hover { background: var(--p-sage); border-color: var(--p-sage); }
+    .btn--ghost {
+      background: transparent;
+      color: var(--p-aztek);
+    }
+    .btn--ghost:hover { background: var(--p-cream); color: var(--p-charcoal); }
+
+    .note {
+      font-size: 12px;
+      color: var(--p-mute);
+      line-height: 1.5;
+      margin: var(--sp-5) 0 0 0;
+      max-width: 62ch;
+    }
+    .note code {
+      font-family: 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 11px;
+      padding: 2px 6px;
+      background: var(--p-cream);
+      border-radius: 3px;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border: 2px solid var(--p-cream);
+      border-top-color: var(--p-aztek);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 640px) {
+      .wrap { padding: var(--sp-5) var(--sp-4) var(--sp-7); }
+      .form { padding: var(--sp-4); flex-direction: column; }
+      .form button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">Brand Kit · Tool</p>
+    <h1>URL <em>scraper</em></h1>
+    <p class="intro">Paste any URL. We fetch the page, parse its stylesheets, and pull out the colours, fonts, and logo into a starter brand kit. No LLMs, no API calls, pure DOM analysis in your browser.</p>
+
+    <form class="form" id="scrape-form" autocomplete="off">
+      <input type="url" id="url" placeholder="https://example.com" required value="" />
+      <button type="submit" id="btn">Scrape</button>
+    </form>
+
+    <p class="status" id="status"></p>
+
+    <article class="result" id="result">
+      <header class="result__head">
+        <div class="result__logo" id="logo"></div>
+        <div>
+          <h2 class="result__title" id="site-title">Site title</h2>
+          <p class="result__url" id="site-url"></p>
+        </div>
+      </header>
+
+      <div class="result__body">
+        <section>
+          <p class="field-label">Colour palette · top 12 by usage</p>
+          <div class="swatches" id="palette"></div>
+        </section>
+
+        <section>
+          <p class="field-label">Font families · top 6</p>
+          <div class="fonts" id="fonts"></div>
+        </section>
+
+        <section>
+          <p class="field-label">Meta + layout signals</p>
+          <div class="meta-grid" id="meta"></div>
+        </section>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="download-json">Download JSON</button>
+        <a class="btn btn--ghost" id="open-creator" href="#">Load in brand-kit creator</a>
+      </div>
+    </article>
+
+    <p class="note">
+      CORS proxy: <code>corsproxy.io</code>. If a site blocks proxy fetches, the tool falls back to a second proxy and then to a direct request (which usually fails on CORS, then gives up gracefully). All processing happens locally in your browser.
+    </p>
+  </div>
+
+  <script>
+    // ============================================================
+    // URL Scraper - zero-LLM brand extraction.
+    // Fetch > DOMParser > CSS parse > rank colours + fonts + meta.
+    // ============================================================
+
+    const CORS_PROXIES = [
+      (u) => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+      (u) => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+      (u) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(u)}`
+    ];
+
+    const form = document.getElementById('scrape-form');
+    const urlInput = document.getElementById('url');
+    const btn = document.getElementById('btn');
+    const statusEl = document.getElementById('status');
+    const resultEl = document.getElementById('result');
+
+    let lastScrape = null;
+
+    function setStatus(msg, isError = false) {
+      statusEl.textContent = msg;
+      statusEl.classList.toggle('is-error', !!isError);
+    }
+
+    function setBusy(busy) {
+      btn.disabled = busy;
+      btn.innerHTML = busy ? '<span class="spinner"></span>Scraping' : 'Scrape';
+    }
+
+    async function fetchThroughProxy(url) {
+      let lastErr;
+      for (const makeProxy of CORS_PROXIES) {
+        try {
+          const res = await fetch(makeProxy(url), { redirect: 'follow' });
+          if (!res.ok) throw new Error(`${res.status}`);
+          return await res.text();
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      // Last resort: direct fetch (usually blocked by CORS).
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`All fetches failed: ${lastErr}`);
+      return await res.text();
+    }
+
+    async function fetchCss(href, baseUrl) {
+      try {
+        const abs = new URL(href, baseUrl).href;
+        return await fetchThroughProxy(abs);
+      } catch {
+        return '';
+      }
+    }
+
+    // ---------- Colour extraction ----------
+    // Match hex, rgb(a), hsl(a). Use a permissive regex.
+    const COLOUR_REGEX = /#[0-9a-f]{3,8}\b|rgba?\([^)]+\)|hsla?\([^)]+\)/gi;
+
+    function parseColour(str) {
+      str = str.trim().toLowerCase();
+      if (str.startsWith('#')) return expandHex(str);
+      if (str.startsWith('rgb')) return rgbStrToHex(str);
+      if (str.startsWith('hsl')) return hslStrToHex(str);
+      return null;
+    }
+
+    function expandHex(h) {
+      h = h.replace('#', '');
+      if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+      if (h.length === 4) h = h.split('').slice(0, 3).map((c) => c + c).join('');
+      if (h.length === 8) h = h.slice(0, 6); // drop alpha
+      if (h.length !== 6) return null;
+      if (!/^[0-9a-f]{6}$/.test(h)) return null;
+      return '#' + h;
+    }
+
+    function rgbStrToHex(s) {
+      const nums = s.match(/[\d.]+/g);
+      if (!nums || nums.length < 3) return null;
+      const [r, g, b] = nums.slice(0, 3).map((n) => Math.round(parseFloat(n)));
+      if ([r, g, b].some((v) => Number.isNaN(v) || v < 0 || v > 255)) return null;
+      return '#' + [r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('');
+    }
+
+    function hslStrToHex(s) {
+      const nums = s.match(/[\d.]+/g);
+      if (!nums || nums.length < 3) return null;
+      const h = parseFloat(nums[0]) / 360;
+      const sat = parseFloat(nums[1]) / 100;
+      const l = parseFloat(nums[2]) / 100;
+      const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      let r, g, b;
+      if (sat === 0) { r = g = b = l; } else {
+        const q = l < 0.5 ? l * (1 + sat) : l + sat - l * sat;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+      }
+      return '#' + [r, g, b].map((v) => Math.round(v * 255).toString(16).padStart(2, '0')).join('');
+    }
+
+    function extractColours(cssText) {
+      const counts = new Map();
+      const matches = cssText.match(COLOUR_REGEX) || [];
+      for (const m of matches) {
+        const hex = parseColour(m);
+        if (!hex) continue;
+        counts.set(hex, (counts.get(hex) || 0) + 1);
+      }
+      return [...counts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 24);
+    }
+
+    // ---------- Font extraction ----------
+    function extractFonts(cssText) {
+      const counts = new Map();
+      const regex = /font-family\s*:\s*([^;}]+)/gi;
+      let m;
+      while ((m = regex.exec(cssText)) !== null) {
+        // Take the first family in the stack.
+        const first = m[1].split(',')[0].trim().replace(/['"]/g, '');
+        if (!first) continue;
+        if (/^(inherit|initial|unset|serif|sans-serif|monospace|cursive|fantasy|system-ui|-apple-system)$/i.test(first)) continue;
+        counts.set(first, (counts.get(first) || 0) + 1);
+      }
+      return [...counts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 6)
+        .map(([name, count]) => ({ name, count }));
+    }
+
+    // ---------- Layout pattern detection ----------
+    function detectFrameworks(html) {
+      const sigs = [];
+      if (/class=["'][^"']*\btw-\b|tailwindcss|\bgrid-cols-\d|\bflex-col\b/i.test(html)) sigs.push('Tailwind');
+      if (/class=["'][^"']*\bcol-(md|lg|sm)-\d|\bcontainer-fluid\b/i.test(html)) sigs.push('Bootstrap');
+      if (/class=["'][^"']*\bwp-block-|wp-content\//i.test(html)) sigs.push('WordPress');
+      if (/__next|_next\/static/i.test(html)) sigs.push('Next.js');
+      if (/shopify\.com|cdn\.shopify/i.test(html)) sigs.push('Shopify');
+      if (/webflow/i.test(html)) sigs.push('Webflow');
+      if (/squarespace/i.test(html)) sigs.push('Squarespace');
+      if (/kajabi/i.test(html)) sigs.push('Kajabi');
+      return sigs;
+    }
+
+    function detectLayout(html) {
+      const gridCount = (html.match(/display\s*:\s*grid|grid-template/gi) || []).length;
+      const flexCount = (html.match(/display\s*:\s*flex/gi) || []).length;
+      if (gridCount > flexCount * 1.2) return 'Grid-heavy';
+      if (flexCount > 0) return 'Flex-heavy';
+      return 'Classic block';
+    }
+
+    // ---------- Meta extraction ----------
+    function extractMeta(doc) {
+      const get = (sel, attr = 'content') => {
+        const el = doc.querySelector(sel);
+        return el ? el.getAttribute(attr) : null;
+      };
+      return {
+        title: doc.querySelector('title')?.textContent?.trim() || '',
+        description: get('meta[name="description"]'),
+        ogImage: get('meta[property="og:image"]') || get('meta[name="og:image"]'),
+        ogTitle: get('meta[property="og:title"]'),
+        themeColor: get('meta[name="theme-color"]'),
+        favicon:
+          get('link[rel="icon"]', 'href') ||
+          get('link[rel="shortcut icon"]', 'href') ||
+          get('link[rel="apple-touch-icon"]', 'href') ||
+          '/favicon.ico',
+        generator: get('meta[name="generator"]'),
+        author: get('meta[name="author"]')
+      };
+    }
+
+    // ---------- Main scrape ----------
+    async function scrape(rawUrl) {
+      const url = new URL(rawUrl).href;
+
+      setStatus('Fetching page...');
+      const html = await fetchThroughProxy(url);
+
+      setStatus('Parsing HTML + stylesheets...');
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+
+      // Collect inline + linked CSS.
+      let cssBundle = '';
+
+      // Inline <style>.
+      doc.querySelectorAll('style').forEach((s) => { cssBundle += '\n' + (s.textContent || ''); });
+
+      // Inline style attributes.
+      doc.querySelectorAll('[style]').forEach((el) => { cssBundle += '\n' + el.getAttribute('style'); });
+
+      // External stylesheets (cap at 6 to keep under control).
+      const linkEls = [...doc.querySelectorAll('link[rel="stylesheet"][href]')].slice(0, 6);
+      for (let i = 0; i < linkEls.length; i++) {
+        setStatus(`Fetching stylesheet ${i + 1}/${linkEls.length}...`);
+        cssBundle += '\n' + await fetchCss(linkEls[i].getAttribute('href'), url);
+      }
+
+      setStatus('Extracting colours + fonts...');
+      const palette = extractColours(cssBundle);
+      const fonts = extractFonts(cssBundle);
+      const meta = extractMeta(doc);
+      const frameworks = detectFrameworks(html);
+      const layout = detectLayout(cssBundle);
+
+      // Resolve relative favicon/logo.
+      let logoUrl = null;
+      if (meta.ogImage) logoUrl = new URL(meta.ogImage, url).href;
+      else if (meta.favicon) logoUrl = new URL(meta.favicon, url).href;
+
+      return {
+        url,
+        title: meta.ogTitle || meta.title || url,
+        description: meta.description,
+        themeColor: meta.themeColor,
+        generator: meta.generator,
+        frameworks,
+        layout,
+        logoUrl,
+        palette: palette.map(([hex, count]) => ({ hex, count })),
+        fonts,
+        scrapedAt: new Date().toISOString()
+      };
+    }
+
+    // ---------- Render ----------
+    function render(data) {
+      document.getElementById('site-title').textContent = data.title;
+      document.getElementById('site-url').textContent = data.url;
+
+      const logo = document.getElementById('logo');
+      logo.style.backgroundImage = data.logoUrl ? `url("${data.logoUrl}")` : 'none';
+      if (!data.logoUrl) logo.textContent = '';
+
+      // Palette
+      const paletteEl = document.getElementById('palette');
+      paletteEl.innerHTML = '';
+      data.palette.slice(0, 12).forEach(({ hex, count }) => {
+        const el = document.createElement('div');
+        el.className = 'swatch';
+        el.innerHTML = `
+          <div class="swatch__fill" style="background:${hex};"></div>
+          <div class="swatch__meta">
+            <span class="swatch__value">${hex}</span>
+            <span class="swatch__count">${count} mentions</span>
+          </div>
+        `;
+        paletteEl.appendChild(el);
+      });
+      if (!data.palette.length) paletteEl.innerHTML = '<p style="color:var(--p-mute);font-size:13px;">No colours extracted.</p>';
+
+      // Fonts
+      const fontsEl = document.getElementById('fonts');
+      fontsEl.innerHTML = '';
+      data.fonts.forEach(({ name, count }) => {
+        const el = document.createElement('div');
+        el.className = 'font-row';
+        const safeName = name.replace(/"/g, '');
+        el.innerHTML = `
+          <p class="font-name">${safeName} · ${count} uses</p>
+          <p class="font-sample" style="font-family:'${safeName}', sans-serif;">The quick brown fox jumps over the lazy dog</p>
+        `;
+        fontsEl.appendChild(el);
+      });
+      if (!data.fonts.length) fontsEl.innerHTML = '<p style="color:var(--p-mute);font-size:13px;">No fonts extracted.</p>';
+
+      // Meta
+      const metaEl = document.getElementById('meta');
+      metaEl.innerHTML = '';
+      const rows = [
+        ['Theme colour', data.themeColor || 'Not set'],
+        ['Layout signal', data.layout],
+        ['Frameworks', data.frameworks.length ? data.frameworks.join(', ') : 'None detected'],
+        ['Description', data.description || 'Not set'],
+        ['Generator', data.generator || 'Unknown']
+      ];
+      rows.forEach(([k, v]) => {
+        const el = document.createElement('div');
+        el.className = 'meta-card';
+        el.innerHTML = `<p class="meta-card__k">${k}</p><p class="meta-card__v">${v}</p>`;
+        metaEl.appendChild(el);
+      });
+
+      resultEl.classList.add('is-visible');
+    }
+
+    function download(data) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      const domain = new URL(data.url).hostname.replace(/^www\./, '');
+      a.href = URL.createObjectURL(blob);
+      a.download = `brand-kit-${domain}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function openInCreator(data) {
+      // Pre-fill the brand-kit creator via URL params.
+      const params = new URLSearchParams();
+      params.set('source', data.url);
+      if (data.palette[0]) params.set('primary', data.palette[0].hex);
+      if (data.palette[1]) params.set('secondary', data.palette[1].hex);
+      if (data.palette[2]) params.set('accent', data.palette[2].hex);
+      if (data.fonts[0]) params.set('heading', data.fonts[0].name);
+      if (data.fonts[1]) params.set('body', data.fonts[1].name);
+      // Creator target. Fall back gracefully if not present.
+      const target = `../brand-kit-creator/?${params.toString()}`;
+      window.open(target, '_blank');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const raw = urlInput.value.trim();
+      if (!raw) return;
+
+      const url = raw.startsWith('http') ? raw : 'https://' + raw;
+      urlInput.value = url;
+
+      resultEl.classList.remove('is-visible');
+      setBusy(true);
+      setStatus('Starting scrape...');
+
+      try {
+        lastScrape = await scrape(url);
+        render(lastScrape);
+        setStatus(`Done. Extracted ${lastScrape.palette.length} colours, ${lastScrape.fonts.length} fonts.`);
+      } catch (err) {
+        console.error(err);
+        setStatus(`Scrape failed: ${err.message}. The site may block cross-origin fetches.`, true);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    document.getElementById('download-json').addEventListener('click', () => {
+      if (lastScrape) download(lastScrape);
+    });
+
+    document.getElementById('open-creator').addEventListener('click', (e) => {
+      e.preventDefault();
+      if (lastScrape) openInCreator(lastScrape);
+    });
+
+    // Pre-fill from ?url= param for sharable links.
+    const initial = new URLSearchParams(location.search).get('url');
+    if (initial) {
+      urlInput.value = initial;
+      form.dispatchEvent(new Event('submit'));
+    }
+  </script>
+</body>
+</html>
