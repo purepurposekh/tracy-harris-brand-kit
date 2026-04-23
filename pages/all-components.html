@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All Components · Tracy Harris Co Brand Kit</title>
+  <meta name="description" content="Index of every component in the brand kit. Copy a component name, share it with Kira." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles/fonts.css" />
+  <link rel="stylesheet" href="../styles/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--f-sans); background: var(--p-oatmeal); color: var(--p-ink); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+
+    .ac-top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 28px clamp(24px, 5vw, 64px);
+      border-bottom: 1px solid rgba(16,16,16,0.08);
+      background: var(--p-oatmeal);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .ac-top a { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-aztek); text-decoration: none; margin-left: 20px; }
+    .ac-top a:hover { color: var(--p-copper); }
+    .ac-top__title { font-family: var(--f-serif-display); font-size: clamp(24px, 2.4vw, 32px); color: var(--p-aztek); margin: 0; letter-spacing: -0.015em; }
+    .ac-top__title em { font-family: var(--f-serif-italic); font-style: italic; color: var(--p-copper); }
+    .ac-top__nav { font-size: 12px; }
+
+    .ac-layout { display: grid; grid-template-columns: 280px 1fr; gap: 48px; padding: 48px clamp(24px, 5vw, 64px); max-width: 1480px; margin: 0 auto; }
+    @media (max-width: 900px) { .ac-layout { grid-template-columns: 1fr; gap: 24px; } }
+
+    .ac-sidebar { position: sticky; top: 120px; align-self: start; }
+    .ac-sidebar__h { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 18px; font-weight: 500; }
+    .ac-sidebar ul { list-style: none; padding: 0; margin: 0 0 28px; }
+    .ac-sidebar li { margin: 0; }
+    .ac-sidebar a { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; font-size: 14px; color: var(--p-aztek); text-decoration: none; border-bottom: 1px solid rgba(16,16,16,0.06); transition: color 180ms ease, border-color 180ms ease; }
+    .ac-sidebar a:hover { color: var(--p-copper); border-color: rgba(173,118,91,0.4); }
+    .ac-count { font-family: var(--f-serif-display); font-style: italic; color: var(--p-copper); font-size: 13px; }
+
+    .ac-intro { margin-bottom: 40px; max-width: 720px; }
+    .ac-intro p { font-size: 15px; line-height: 1.72; color: var(--p-ink); margin: 0 0 14px; }
+    .ac-intro__stats { display: flex; gap: 40px; padding-top: 16px; border-top: 1px solid rgba(16,16,16,0.12); margin-top: 16px; flex-wrap: wrap; }
+    .ac-stat__num { font-family: var(--f-serif-display); font-size: 28px; color: var(--p-aztek); line-height: 1; margin-bottom: 4px; }
+    .ac-stat__label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-mute); }
+
+    .ac-search { margin-bottom: 32px; }
+    .ac-search input { width: 100%; max-width: 480px; padding: 14px 18px; font-family: var(--f-sans); font-size: 15px; border: 1px solid rgba(16,16,16,0.2); border-radius: 4px; background: var(--p-white); color: var(--p-aztek); }
+    .ac-search input:focus { outline: none; border-color: var(--p-copper); }
+
+    .ac-section { background: var(--p-white); border: 1px solid rgba(16,16,16,0.08); border-radius: 6px; padding: 28px 32px; margin-bottom: 24px; }
+    .ac-section__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 6px; }
+    .ac-section__title { font-family: var(--f-serif-display); font-weight: 400; font-size: 28px; letter-spacing: -0.01em; color: var(--p-aztek); margin: 0; }
+    .ac-section__count { font-family: var(--f-serif-italic); font-style: italic; color: var(--p-copper); font-size: 14px; }
+    .ac-section__desc { font-size: 14px; color: var(--p-mute); margin: 0 0 16px; max-width: 70ch; }
+
+    .ac-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .ac-table th { text-align: left; font-weight: 500; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-mute); padding: 10px 12px 10px 0; border-bottom: 1px solid rgba(16,16,16,0.12); }
+    .ac-cell { padding: 12px 12px 12px 0; border-bottom: 1px solid rgba(16,16,16,0.06); vertical-align: top; }
+    .ac-cell--id { width: 32%; }
+    .ac-cell--title { width: 42%; color: var(--p-ink); }
+    .ac-cell--size { width: 10%; color: var(--p-mute); font-variant-numeric: tabular-nums; }
+    .ac-cell--actions { width: 16%; text-align: right; }
+
+    code.ac-copy {
+      font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 12px;
+      background: var(--p-oatmeal); padding: 4px 8px; border-radius: 3px;
+      color: var(--p-aztek); cursor: pointer;
+      border: 1px solid rgba(16,16,16,0.08);
+      transition: background 180ms ease, border-color 180ms ease;
+      user-select: all;
+      display: inline-block;
+    }
+    code.ac-copy:hover { background: var(--p-cream); border-color: var(--p-copper); }
+    code.ac-copy.is-copied { background: var(--p-sage); color: var(--p-white); border-color: var(--p-sage); }
+
+    a.ac-link { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p-aztek); text-decoration: none; font-weight: 500; }
+    a.ac-link:hover { color: var(--p-copper); }
+
+    .ac-foot { text-align: center; padding: 32px 0; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--p-mute); }
+
+    .ac-section[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <header class="ac-top">
+    <h1 class="ac-top__title">All <em>Components</em></h1>
+    <nav class="ac-top__nav">
+      <a href="../">← Home</a>
+      <a href="../components/compose/">Build a Page</a>
+      <a href="../brand/">Brand System</a>
+    </nav>
+  </header>
+
+  <main class="ac-layout">
+    <aside class="ac-sidebar">
+      <p class="ac-sidebar__h">Categories</p>
+      <ul><li><a href="#cat-about-bio"><span>About / Bio</span><span class="ac-count">5</span></a></li>
+<li><a href="#cat-benefit-trio"><span>Benefit Trio</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-card-flip"><span>Card Flip</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-content-section"><span>Content Section</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-cta-block"><span>CTA Block</span><span class="ac-count">11</span></a></li>
+<li><a href="#cat-curriculum-preview"><span>Curriculum Preview</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-event-widget"><span>Event Widget</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-expandable-cta"><span>Expandable CTA</span><span class="ac-count">4</span></a></li>
+<li><a href="#cat-faq"><span>FAQ</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-feature-grid"><span>Feature Grid</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-footer"><span>Footer</span><span class="ac-count">6</span></a></li>
+<li><a href="#cat-freebies"><span>Freebies</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-guarantee"><span>Guarantee</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-hero"><span>Hero</span><span class="ac-count">30</span></a></li>
+<li><a href="#cat-image-grid"><span>Image Grid</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-navigation"><span>Navigation</span><span class="ac-count">2</span></a></li>
+<li><a href="#cat-next-steps"><span>Next Steps</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-offer-stack"><span>Offer Stack</span><span class="ac-count">5</span></a></li>
+<li><a href="#cat-opt-in"><span>Opt-in</span><span class="ac-count">5</span></a></li>
+<li><a href="#cat-podcast-card"><span>Podcast Card</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-post-grid"><span>Post Grid</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-pricing"><span>Pricing</span><span class="ac-count">7</span></a></li>
+<li><a href="#cat-product-callout"><span>Product Callout</span><span class="ac-count">9</span></a></li>
+<li><a href="#cat-programs-grid"><span>Programs Grid</span><span class="ac-count">3</span></a></li>
+<li><a href="#cat-soft-upsell"><span>Soft Upsell</span><span class="ac-count">1</span></a></li>
+<li><a href="#cat-testimonials"><span>Testimonials</span><span class="ac-count">11</span></a></li>
+<li><a href="#cat-why-block"><span>Why Block</span><span class="ac-count">3</span></a></li></ul>
+      <p class="ac-sidebar__h">How to use</p>
+      <p style="font-size: 13px; line-height: 1.65; color: var(--p-ink); margin: 0;">
+        Click any <code style="font-size: 11px; background: var(--p-oatmeal); padding: 2px 6px; border-radius: 3px;">name.variant</code> to copy it. Say to Kira "I want hero.classic-ffb-split-right-polished" and she'll know exactly which variant.
+      </p>
+    </aside>
+
+    <div>
+      <div class="ac-intro">
+        <p>Every visual component in the brand kit, in one place. Naming convention: <code style="font-size: 12px; background: var(--p-white); padding: 3px 7px; border-radius: 3px; border: 1px solid rgba(16,16,16,0.08);">category.variant-slug</code>. Click a name to copy it, click Open to preview the live variant.</p>
+        <p>Updated whenever the <code style="font-size: 12px;">components/</code> tree changes. Run <code style="font-size: 12px;">python3 scripts/generate-all-components.py</code> after adding a new variant to refresh this page.</p>
+        <div class="ac-intro__stats">
+          <div>
+            <div class="ac-stat__num">27</div>
+            <div class="ac-stat__label">Categories</div>
+          </div>
+          <div>
+            <div class="ac-stat__num">129</div>
+            <div class="ac-stat__label">Variants</div>
+          </div>
+          <div>
+            <div class="ac-stat__num">2026-04-23</div>
+            <div class="ac-stat__label">Last regen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ac-search">
+        <input id="ac-search-input" type="search" placeholder="Search components (e.g. hero, card-flip, ffm dark)" autocomplete="off" />
+      </div>
+
+      
+          <section class="ac-section" id="cat-about-bio" data-category-slug="about-bio">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">About / Bio</h2>
+              <span class="ac-section__count">5 variants</span>
+            </header>
+            <p class="ac-section__desc">Personal intro, founder story, bio blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="about-bio.centered-circle-polished About Bio · Centered circle (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="about-bio.centered-circle-polished">about-bio.centered-circle-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">About Bio · Centered circle (polished)</td>
+                <td class="ac-cell ac-cell--size">4.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/about-bio/variants/centered-circle-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="about-bio.centered-circle About Bio · Centered circle, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="about-bio.centered-circle">about-bio.centered-circle</code>
+                </td>
+                <td class="ac-cell ac-cell--title">About Bio · Centered circle, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/about-bio/variants/centered-circle.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="about-bio.showcase About Bio, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="about-bio.showcase">about-bio.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">About Bio, Showcase</td>
+                <td class="ac-cell ac-cell--size">4.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/about-bio/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="about-bio.split-editorial-polished About Bio · Split editorial (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="about-bio.split-editorial-polished">about-bio.split-editorial-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">About Bio · Split editorial (polished)</td>
+                <td class="ac-cell ac-cell--size">6.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/about-bio/variants/split-editorial-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="about-bio.split-editorial About Bio · Split editorial, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="about-bio.split-editorial">about-bio.split-editorial</code>
+                </td>
+                <td class="ac-cell ac-cell--title">About Bio · Split editorial, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/about-bio/variants/split-editorial.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-benefit-trio" data-category-slug="benefit-trio">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Benefit Trio</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Three-feature rows with icon/number + short body.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="benefit-trio.icon-row Benefit Trio · Icon row, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="benefit-trio.icon-row">benefit-trio.icon-row</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Benefit Trio · Icon row, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">5.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/benefit-trio/variants/icon-row.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="benefit-trio.number-row Benefit Trio · Number row, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="benefit-trio.number-row">benefit-trio.number-row</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Benefit Trio · Number row, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">4.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/benefit-trio/variants/number-row.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="benefit-trio.showcase Benefit Trio, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="benefit-trio.showcase">benefit-trio.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Benefit Trio, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/benefit-trio/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-card-flip" data-category-slug="card-flip">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Card Flip</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Front/back cards that flip on hover or tap.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="card-flip.showcase Card Flip, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="card-flip.showcase">card-flip.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Card Flip, Showcase</td>
+                <td class="ac-cell ac-cell--size">7.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/card-flip/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-content-section" data-category-slug="content-section">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Content Section</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Generic long-form copy blocks with editorial rhythm.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="content-section.showcase Content Section, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="content-section.showcase">content-section.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Content Section, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">11.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/content-section/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-cta-block" data-category-slug="cta-block">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">CTA Block</h2>
+              <span class="ac-section__count">11 variants</span>
+            </header>
+            <p class="ac-section__desc">Stand-alone calls to action and mid-page conversion moments.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="cta-block.accent-polished CTA Block · Accent (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.accent-polished">cta-block.accent-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Accent (polished)</td>
+                <td class="ac-cell ac-cell--size">4.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/accent-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.accent CTA Block · Accent, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.accent">cta-block.accent</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Accent, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/accent.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.canvas-polished CTA Block · Canvas (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.canvas-polished">cta-block.canvas-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Canvas (polished)</td>
+                <td class="ac-cell ac-cell--size">4.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/canvas-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.canvas CTA Block · Canvas, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.canvas">cta-block.canvas</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Canvas, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/canvas.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.dark-polished CTA Block · Dark (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.dark-polished">cta-block.dark-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Dark (polished)</td>
+                <td class="ac-cell ac-cell--size">3.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/dark-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.dark CTA Block · Dark, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.dark">cta-block.dark</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Dark, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/dark.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.elevated-polished CTA Block · Elevated (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.elevated-polished">cta-block.elevated-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Elevated (polished)</td>
+                <td class="ac-cell ac-cell--size">3.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/elevated-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.elevated CTA Block · Elevated, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.elevated">cta-block.elevated</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Elevated, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/elevated.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.ruled-polished CTA Block · Ruled (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.ruled-polished">cta-block.ruled-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Ruled (polished)</td>
+                <td class="ac-cell ac-cell--size">2.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/ruled-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.ruled CTA Block · Ruled, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.ruled">cta-block.ruled</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block · Ruled, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/ruled.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="cta-block.showcase CTA Block, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="cta-block.showcase">cta-block.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">CTA Block, Showcase</td>
+                <td class="ac-cell ac-cell--size">4.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/cta-block/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-curriculum-preview" data-category-slug="curriculum-preview">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Curriculum Preview</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Module/lesson breakdowns for courses, programs, workshops.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="curriculum-preview.grid-preview Curriculum Preview · Grid preview, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="curriculum-preview.grid-preview">curriculum-preview.grid-preview</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Curriculum Preview · Grid preview, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">8.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/curriculum-preview/variants/grid-preview.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="curriculum-preview.module-stack Curriculum Preview · Module stack, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="curriculum-preview.module-stack">curriculum-preview.module-stack</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Curriculum Preview · Module stack, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">12.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/curriculum-preview/variants/module-stack.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="curriculum-preview.showcase Curriculum Preview, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="curriculum-preview.showcase">curriculum-preview.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Curriculum Preview, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">19.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/curriculum-preview/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-event-widget" data-category-slug="event-widget">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Event Widget</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Live/upcoming event cards and registration blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="event-widget.showcase Event Widget, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="event-widget.showcase">event-widget.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Event Widget, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">22.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/event-widget/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-expandable-cta" data-category-slug="expandable-cta">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Expandable CTA</h2>
+              <span class="ac-section__count">4 variants</span>
+            </header>
+            <p class="ac-section__desc">Collapsed CTA that expands to reveal detail or form.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="expandable-cta.ffm-application Expandable CTA, FFM Application">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="expandable-cta.ffm-application">expandable-cta.ffm-application</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Expandable CTA, FFM Application</td>
+                <td class="ac-cell ac-cell--size">4.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/expandable-cta/variants/ffm-application.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="expandable-cta.quiz-polished Expandable CTA, Quiz (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="expandable-cta.quiz-polished">expandable-cta.quiz-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Expandable CTA, Quiz (polished)</td>
+                <td class="ac-cell ac-cell--size">8.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/expandable-cta/variants/quiz-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="expandable-cta.quiz Expandable CTA, Quiz (Tracy)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="expandable-cta.quiz">expandable-cta.quiz</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Expandable CTA, Quiz (Tracy)</td>
+                <td class="ac-cell ac-cell--size">4.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/expandable-cta/variants/quiz.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="expandable-cta.showcase Expandable CTA, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="expandable-cta.showcase">expandable-cta.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Expandable CTA, Showcase</td>
+                <td class="ac-cell ac-cell--size">9.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/expandable-cta/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-faq" data-category-slug="faq">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">FAQ</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Question/answer lists with accordion or inline patterns.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="faq.showcase FAQ, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="faq.showcase">faq.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">FAQ, Showcase</td>
+                <td class="ac-cell ac-cell--size">11.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/faq/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="faq.simple FAQ · Simple, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="faq.simple">faq.simple</code>
+                </td>
+                <td class="ac-cell ac-cell--title">FAQ · Simple, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">3.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/faq/variants/simple.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="faq.tabbed FAQ · Tabbed, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="faq.tabbed">faq.tabbed</code>
+                </td>
+                <td class="ac-cell ac-cell--title">FAQ · Tabbed, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/faq/variants/tabbed.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-feature-grid" data-category-slug="feature-grid">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Feature Grid</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Multi-item feature matrices, for programs or inclusions.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="feature-grid.showcase Feature Grid, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="feature-grid.showcase">feature-grid.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Feature Grid, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/feature-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-footer" data-category-slug="footer">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Footer</h2>
+              <span class="ac-section__count">6 variants</span>
+            </header>
+            <p class="ac-section__desc">Site footers across all sub-brands.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="footer.ffb-two-col Footer, FFB two-column">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="footer.ffb-two-col">footer.ffb-two-col</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Footer, FFB two-column</td>
+                <td class="ac-cell ac-cell--size">3.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/footer/variants/ffb-two-col.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="footer.ffm-dark-two-col Footer, FFM dark two-column">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="footer.ffm-dark-two-col">footer.ffm-dark-two-col</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Footer, FFM dark two-column</td>
+                <td class="ac-cell ac-cell--size">3.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/footer/variants/ffm-dark-two-col.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="footer.fresh-minimal Footer, FRESH minimal">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="footer.fresh-minimal">footer.fresh-minimal</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Footer, FRESH minimal</td>
+                <td class="ac-cell ac-cell--size">2.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/footer/variants/fresh-minimal.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="footer.showcase Footer, Four Brand Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="footer.showcase">footer.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Footer, Four Brand Showcase</td>
+                <td class="ac-cell ac-cell--size">11.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/footer/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="footer.statement-mark Footer, Statement + mark">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="footer.statement-mark">footer.statement-mark</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Footer, Statement + mark</td>
+                <td class="ac-cell ac-cell--size">12.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/footer/variants/statement-mark.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="footer.tracy-three-col Footer, Tracy three-column">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="footer.tracy-three-col">footer.tracy-three-col</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Footer, Tracy three-column</td>
+                <td class="ac-cell ac-cell--size">3.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/footer/variants/tracy-three-col.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-freebies" data-category-slug="freebies">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Freebies</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Lead-magnet offer blocks and download cards.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="freebies.showcase Freebies, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="freebies.showcase">freebies.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Freebies, Showcase</td>
+                <td class="ac-cell ac-cell--size">4.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/freebies/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-guarantee" data-category-slug="guarantee">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Guarantee</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Trust-building, risk-reversal blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="guarantee.badge Guarantee · Badge, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="guarantee.badge">guarantee.badge</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Guarantee · Badge, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">4.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/guarantee/variants/badge.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="guarantee.editorial Guarantee · Editorial, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="guarantee.editorial">guarantee.editorial</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Guarantee · Editorial, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/guarantee/variants/editorial.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="guarantee.showcase Guarantee, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="guarantee.showcase">guarantee.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Guarantee, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/guarantee/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-hero" data-category-slug="hero">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Hero</h2>
+              <span class="ac-section__count">30 variants</span>
+            </header>
+            <p class="ac-section__desc">Top-of-page hero blocks. The most used component.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="hero.classic-ffb-split-right-louder Hero, Classic FFB split-right (louder)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffb-split-right-louder">hero.classic-ffb-split-right-louder</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic FFB split-right (louder)</td>
+                <td class="ac-cell ac-cell--size">16.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffb-split-right-louder.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffb-split-right-polished Hero, Classic FFB split-right (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffb-split-right-polished">hero.classic-ffb-split-right-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic FFB split-right (polished)</td>
+                <td class="ac-cell ac-cell--size">9.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffb-split-right-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffb-split-right Hero, Classic · FFB split (photo right)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffb-split-right">hero.classic-ffb-split-right</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFB split (photo right)</td>
+                <td class="ac-cell ac-cell--size">1.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffb-split-right.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-dark-split-right-polished Hero, Classic · FFM dark split (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-dark-split-right-polished">hero.classic-ffm-dark-split-right-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM dark split (polished)</td>
+                <td class="ac-cell ac-cell--size">8.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-dark-split-right-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-dark-split-right Hero, Classic · FFM dark split (photo right)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-dark-split-right">hero.classic-ffm-dark-split-right</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM dark split (photo right)</td>
+                <td class="ac-cell ac-cell--size">1.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-dark-split-right.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-marquee-polished Hero, Classic · FFM marquee (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-marquee-polished">hero.classic-ffm-marquee-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM marquee (polished)</td>
+                <td class="ac-cell ac-cell--size">8.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-marquee-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-marquee Hero, Classic · FFM marquee (dark)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-marquee">hero.classic-ffm-marquee</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM marquee (dark)</td>
+                <td class="ac-cell ac-cell--size">4.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-marquee.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-oatmeal-split-left-polished Hero, Classic · FFM oatmeal split (photo left, polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-oatmeal-split-left-polished">hero.classic-ffm-oatmeal-split-left-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM oatmeal split (photo left, polished)</td>
+                <td class="ac-cell ac-cell--size">8.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-oatmeal-split-left-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-oatmeal-split-left Hero, Classic · FFM oatmeal split (photo left)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-oatmeal-split-left">hero.classic-ffm-oatmeal-split-left</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM oatmeal split (photo left)</td>
+                <td class="ac-cell ac-cell--size">1.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-oatmeal-split-left.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-ffm-silk Hero, Classic · FFM silk (animated canvas)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-ffm-silk">hero.classic-ffm-silk</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FFM silk (animated canvas)</td>
+                <td class="ac-cell ac-cell--size">4.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-ffm-silk.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-fresh-split-right Hero, Classic · FRESH split (photo right)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-fresh-split-right">hero.classic-fresh-split-right</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · FRESH split (photo right)</td>
+                <td class="ac-cell ac-cell--size">1.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-fresh-split-right.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-tracy-textonly-polished Hero, Classic · Tracy text-only (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-tracy-textonly-polished">hero.classic-tracy-textonly-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · Tracy text-only (polished)</td>
+                <td class="ac-cell ac-cell--size">6.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-tracy-textonly-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.classic-tracy-textonly Hero, Classic · Tracy text-only">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.classic-tracy-textonly">hero.classic-tracy-textonly</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Classic · Tracy text-only</td>
+                <td class="ac-cell ac-cell--size">1.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/classic-tracy-textonly.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.editorial-wordmark-polished Hero, Editorial wordmark (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.editorial-wordmark-polished">hero.editorial-wordmark-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Editorial wordmark (polished)</td>
+                <td class="ac-cell ac-cell--size">16.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/editorial-wordmark-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.editorial-wordmark Hero, Editorial wordmark">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.editorial-wordmark">hero.editorial-wordmark</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Editorial wordmark</td>
+                <td class="ac-cell ac-cell--size">10.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/editorial-wordmark.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.optin-confirmation Hero, Opt-in confirmation">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.optin-confirmation">hero.optin-confirmation</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Opt-in confirmation</td>
+                <td class="ac-cell ac-cell--size">8.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/optin-confirmation.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.oto-polished Hero, One-time offer (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.oto-polished">hero.oto-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, One-time offer (polished)</td>
+                <td class="ac-cell ac-cell--size">9.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/oto-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.oto Hero, One-time offer">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.oto">hero.oto</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, One-time offer</td>
+                <td class="ac-cell ac-cell--size">7.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/oto.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.overlay-portrait-polished Hero, Overlay portrait (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.overlay-portrait-polished">hero.overlay-portrait-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Overlay portrait (polished)</td>
+                <td class="ac-cell ac-cell--size">15.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/overlay-portrait-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.overlay-portrait Hero, Overlay portrait">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.overlay-portrait">hero.overlay-portrait</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Overlay portrait</td>
+                <td class="ac-cell ac-cell--size">8.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/overlay-portrait.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.quiz-result Hero, Quiz result">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.quiz-result">hero.quiz-result</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Quiz result</td>
+                <td class="ac-cell ac-cell--size">7.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/quiz-result.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.showcase Hero Component, Four Brand Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.showcase">hero.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero Component, Four Brand Showcase</td>
+                <td class="ac-cell ac-cell--size">14.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.split-dark-polished Hero, Split dark (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.split-dark-polished">hero.split-dark-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Split dark (polished)</td>
+                <td class="ac-cell ac-cell--size">14.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/split-dark-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.split-dark Hero, Split (dark charcoal + portrait)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.split-dark">hero.split-dark</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Split (dark charcoal + portrait)</td>
+                <td class="ac-cell ac-cell--size">10.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/split-dark.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.split-light-polished Hero, Split light (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.split-light-polished">hero.split-light-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Split light (polished)</td>
+                <td class="ac-cell ac-cell--size">14.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/split-light-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.split-light Hero, Split (light oatmeal + portrait)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.split-light">hero.split-light</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Split (light oatmeal + portrait)</td>
+                <td class="ac-cell ac-cell--size">11.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/split-light.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.split Hero, Split variant (text left / photo right)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.split">hero.split</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Split variant (text left / photo right)</td>
+                <td class="ac-cell ac-cell--size">15.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/split.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.stage-portrait Hero, Editorial stage (Tracy Harris interpretation)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.stage-portrait">hero.stage-portrait</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Editorial stage (Tracy Harris interpretation)</td>
+                <td class="ac-cell ac-cell--size">19.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/stage-portrait.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.textonly-polished Hero, Text only (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.textonly-polished">hero.textonly-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Text only (polished)</td>
+                <td class="ac-cell ac-cell--size">6.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/textonly-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="hero.textonly Hero, Text only (Tracy Harris Co)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="hero.textonly">hero.textonly</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Hero, Text only (Tracy Harris Co)</td>
+                <td class="ac-cell ac-cell--size">4.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/hero/variants/textonly.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-image-grid" data-category-slug="image-grid">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Image Grid</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Masonry / gallery / editorial image layouts.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="image-grid.bento Image Grid · Bento, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="image-grid.bento">image-grid.bento</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Image Grid · Bento, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">4.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/image-grid/variants/bento.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="image-grid.masonry Image Grid · Masonry, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="image-grid.masonry">image-grid.masonry</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Image Grid · Masonry, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/image-grid/variants/masonry.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="image-grid.showcase Image Grid, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="image-grid.showcase">image-grid.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Image Grid, Showcase</td>
+                <td class="ac-cell ac-cell--size">5.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/image-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-navigation" data-category-slug="navigation">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Navigation</h2>
+              <span class="ac-section__count">2 variants</span>
+            </header>
+            <p class="ac-section__desc">Header menus, sub-nav, in-page jump links.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="navigation.overlay-menu Navigation, Overlay menu">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="navigation.overlay-menu">navigation.overlay-menu</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Navigation, Overlay menu</td>
+                <td class="ac-cell ac-cell--size">14.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/navigation/variants/overlay-menu.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="navigation.sticky-mega-menu Navigation, Sticky + mega menu">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="navigation.sticky-mega-menu">navigation.sticky-mega-menu</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Navigation, Sticky + mega menu</td>
+                <td class="ac-cell ac-cell--size">5.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/navigation/variants/sticky-mega-menu.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-next-steps" data-category-slug="next-steps">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Next Steps</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Post-conversion guidance, thank-you page structures.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="next-steps.showcase Next Steps, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="next-steps.showcase">next-steps.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Next Steps, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">6.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/next-steps/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-offer-stack" data-category-slug="offer-stack">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Offer Stack</h2>
+              <span class="ac-section__count">5 variants</span>
+            </header>
+            <p class="ac-section__desc">Value stack / inclusions stacked with dollar framing.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="offer-stack.detailed-polished Offer Stack · Detailed (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="offer-stack.detailed-polished">offer-stack.detailed-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Offer Stack · Detailed (polished)</td>
+                <td class="ac-cell ac-cell--size">12.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/offer-stack/variants/detailed-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="offer-stack.detailed Offer Stack · Detailed, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="offer-stack.detailed">offer-stack.detailed</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Offer Stack · Detailed, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">9.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/offer-stack/variants/detailed.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="offer-stack.minimal-polished Offer Stack · Minimal (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="offer-stack.minimal-polished">offer-stack.minimal-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Offer Stack · Minimal (polished)</td>
+                <td class="ac-cell ac-cell--size">7.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/offer-stack/variants/minimal-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="offer-stack.minimal Offer Stack · Minimal, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="offer-stack.minimal">offer-stack.minimal</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Offer Stack · Minimal, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">5.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/offer-stack/variants/minimal.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="offer-stack.showcase Offer Stack, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="offer-stack.showcase">offer-stack.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Offer Stack, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">14.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/offer-stack/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-opt-in" data-category-slug="opt-in">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Opt-in</h2>
+              <span class="ac-section__count">5 variants</span>
+            </header>
+            <p class="ac-section__desc">Email capture forms and lead-gen sign-up blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="opt-in.accent-dark Opt-in · Split Dark Accent, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="opt-in.accent-dark">opt-in.accent-dark</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Opt-in · Split Dark Accent, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/opt-in/variants/accent-dark.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="opt-in.banner Opt-in · Banner, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="opt-in.banner">opt-in.banner</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Opt-in · Banner, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/opt-in/variants/banner.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="opt-in.card Opt-in · Compact Card, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="opt-in.card">opt-in.card</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Opt-in · Compact Card, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/opt-in/variants/card.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="opt-in.showcase Opt-in, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="opt-in.showcase">opt-in.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Opt-in, Showcase</td>
+                <td class="ac-cell ac-cell--size">4.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/opt-in/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="opt-in.split Opt-in · Split + Portrait, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="opt-in.split">opt-in.split</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Opt-in · Split + Portrait, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/opt-in/variants/split.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-podcast-card" data-category-slug="podcast-card">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Podcast Card</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Podcast episode cards and lineup blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="podcast-card.compact Podcast Card · Compact, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="podcast-card.compact">podcast-card.compact</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Podcast Card · Compact, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">6.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/podcast-card/variants/compact.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="podcast-card.featured Podcast Card · Featured, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="podcast-card.featured">podcast-card.featured</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Podcast Card · Featured, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/podcast-card/variants/featured.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="podcast-card.showcase Podcast Card, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="podcast-card.showcase">podcast-card.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Podcast Card, Showcase</td>
+                <td class="ac-cell ac-cell--size">3.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/podcast-card/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-post-grid" data-category-slug="post-grid">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Post Grid</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Blog post feeds, journal / article list layouts.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="post-grid.editorial Post Grid · Editorial, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="post-grid.editorial">post-grid.editorial</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Post Grid · Editorial, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">6.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/post-grid/variants/editorial.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="post-grid.masonry Post Grid · Masonry, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="post-grid.masonry">post-grid.masonry</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Post Grid · Masonry, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/post-grid/variants/masonry.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="post-grid.showcase Post Grid, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="post-grid.showcase">post-grid.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Post Grid, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">11.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/post-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-pricing" data-category-slug="pricing">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Pricing</h2>
+              <span class="ac-section__count">7 variants</span>
+            </header>
+            <p class="ac-section__desc">Pricing tables and payment option blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="pricing.compact-single-polished Pricing · Compact single (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.compact-single-polished">pricing.compact-single-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing · Compact single (polished)</td>
+                <td class="ac-cell ac-cell--size">4.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/compact-single-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="pricing.compact-single Pricing · Compact single, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.compact-single">pricing.compact-single</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing · Compact single, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/compact-single.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="pricing.ffb-side-by-side-polished Pricing · FFB side-by-side (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.ffb-side-by-side-polished">pricing.ffb-side-by-side-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing · FFB side-by-side (polished)</td>
+                <td class="ac-cell ac-cell--size">6.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/ffb-side-by-side-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="pricing.ffb-side-by-side Pricing · FFB side-by-side, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.ffb-side-by-side">pricing.ffb-side-by-side</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing · FFB side-by-side, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/ffb-side-by-side.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="pricing.ffm-dark-premium-polished Pricing · FFM dark premium (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.ffm-dark-premium-polished">pricing.ffm-dark-premium-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing · FFM dark premium (polished)</td>
+                <td class="ac-cell ac-cell--size">5.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/ffm-dark-premium-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="pricing.ffm-dark-premium Pricing · FFM dark premium, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.ffm-dark-premium">pricing.ffm-dark-premium</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing · FFM dark premium, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/ffm-dark-premium.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="pricing.showcase Pricing, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="pricing.showcase">pricing.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Pricing, Showcase</td>
+                <td class="ac-cell ac-cell--size">6.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/pricing/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-product-callout" data-category-slug="product-callout">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Product Callout</h2>
+              <span class="ac-section__count">9 variants</span>
+            </header>
+            <p class="ac-section__desc">Inline callouts pointing to FFB or FFM.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="product-callout.bento-elite-polished Product Callout · Bento Elite (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.bento-elite-polished">product-callout.bento-elite-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Bento Elite (polished)</td>
+                <td class="ac-cell ac-cell--size">11.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/bento-elite-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.bento-elite Product Callout · Bento Elite, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.bento-elite">product-callout.bento-elite</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Bento Elite, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">8.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/bento-elite.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.bento-ffb-polished Product Callout · Bento FFB (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.bento-ffb-polished">product-callout.bento-ffb-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Bento FFB (polished)</td>
+                <td class="ac-cell ac-cell--size">12.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/bento-ffb-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.bento-ffb Product Callout · Bento FFB, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.bento-ffb">product-callout.bento-ffb</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Bento FFB, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">9.2 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/bento-ffb.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.clearer-polished Product Callout · Clearer Bento (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.clearer-polished">product-callout.clearer-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Clearer Bento (polished)</td>
+                <td class="ac-cell ac-cell--size">14.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/clearer-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.clearer Product Callout · Clearer Bento, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.clearer">product-callout.clearer</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Clearer Bento, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">10.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/clearer.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.editorial-polished Product Callout · Editorial (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.editorial-polished">product-callout.editorial-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Editorial (polished)</td>
+                <td class="ac-cell ac-cell--size">14.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/editorial-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.editorial Product Callout · Editorial, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.editorial">product-callout.editorial</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout · Editorial, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">9.9 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/editorial.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="product-callout.showcase Product Callout, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="product-callout.showcase">product-callout.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Product Callout, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">35.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/product-callout/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-programs-grid" data-category-slug="programs-grid">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Programs Grid</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">Cards for multiple programs, tiers, or offerings.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="programs-grid.showcase Programs Grid, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="programs-grid.showcase">programs-grid.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Programs Grid, Showcase</td>
+                <td class="ac-cell ac-cell--size">6.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/programs-grid/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="programs-grid.three-card Programs Grid, Three-card pathway">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="programs-grid.three-card">programs-grid.three-card</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Programs Grid, Three-card pathway</td>
+                <td class="ac-cell ac-cell--size">5.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/programs-grid/variants/three-card.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="programs-grid.two-card Programs Grid, Two-card (sister programs)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="programs-grid.two-card">programs-grid.two-card</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Programs Grid, Two-card (sister programs)</td>
+                <td class="ac-cell ac-cell--size">3.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/programs-grid/variants/two-card.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-soft-upsell" data-category-slug="soft-upsell">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Soft Upsell</h2>
+              <span class="ac-section__count">1 variant</span>
+            </header>
+            <p class="ac-section__desc">Gentle upsell blocks that feel like value, not push.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="soft-upsell.showcase Soft Upsell, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="soft-upsell.showcase">soft-upsell.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Soft Upsell, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">5.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/soft-upsell/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-testimonials" data-category-slug="testimonials">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Testimonials</h2>
+              <span class="ac-section__count">11 variants</span>
+            </header>
+            <p class="ac-section__desc">Member story cards and quote blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="testimonials.columns-marquee Testimonials · Columns Marquee, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.columns-marquee">testimonials.columns-marquee</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Columns Marquee, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/columns-marquee.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.editorial-centered-polished Testimonials · Editorial Centered (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.editorial-centered-polished">testimonials.editorial-centered-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Editorial Centered (polished)</td>
+                <td class="ac-cell ac-cell--size">4.4 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/editorial-centered-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.editorial-centered Testimonials · Editorial Centered, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.editorial-centered">testimonials.editorial-centered</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Editorial Centered, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/editorial-centered.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.featured-trio-polished Testimonials · Featured Trio (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.featured-trio-polished">testimonials.featured-trio-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Featured Trio (polished)</td>
+                <td class="ac-cell ac-cell--size">5.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/featured-trio-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.featured-trio Testimonials · Featured Trio, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.featured-trio">testimonials.featured-trio</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Featured Trio, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">2.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/featured-trio.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.real-results-polished Testimonials · Real Results (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.real-results-polished">testimonials.real-results-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Real Results (polished)</td>
+                <td class="ac-cell ac-cell--size">5.1 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/real-results-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.real-results Testimonials · Real Results, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.real-results">testimonials.real-results</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Real Results, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.8 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/real-results.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.showcase Testimonials, Showcase">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.showcase">testimonials.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials, Showcase</td>
+                <td class="ac-cell ac-cell--size">19.5 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.single-hero-polished Testimonials · Single Hero (polished)">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.single-hero-polished">testimonials.single-hero-polished</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Single Hero (polished)</td>
+                <td class="ac-cell ac-cell--size">4.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/single-hero-polished.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.single-hero Testimonials · Single Hero, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.single-hero">testimonials.single-hero</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Single Hero, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">1.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/single-hero.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="testimonials.wall Testimonials · Masonry Wall, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="testimonials.wall">testimonials.wall</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Testimonials · Masonry Wall, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">6.3 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/testimonials/variants/wall.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+          <section class="ac-section" id="cat-why-block" data-category-slug="why-block">
+            <header class="ac-section__head">
+              <h2 class="ac-section__title">Why Block</h2>
+              <span class="ac-section__count">3 variants</span>
+            </header>
+            <p class="ac-section__desc">The &quot;why it works&quot; explainer blocks.</p>
+            <table class="ac-table">
+              <thead>
+                <tr>
+                  <th>Copy name</th>
+                  <th>Title</th>
+                  <th>Size</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              <tr data-search="why-block.dark Why Block · Dark, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="why-block.dark">why-block.dark</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Why Block · Dark, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">3.6 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/why-block/variants/dark.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="why-block.editorial Why Block · Editorial, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="why-block.editorial">why-block.editorial</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Why Block · Editorial, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">3.7 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/why-block/variants/editorial.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              <tr data-search="why-block.showcase Why Block, Tracy Harris Co">
+                <td class="ac-cell ac-cell--id">
+                  <code class="ac-copy" data-copy="why-block.showcase">why-block.showcase</code>
+                </td>
+                <td class="ac-cell ac-cell--title">Why Block, Tracy Harris Co</td>
+                <td class="ac-cell ac-cell--size">7.0 KB</td>
+                <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" href="../components/why-block/variants/showcase.html" target="_blank" rel="noopener">Open →</a>
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+          </section>
+        
+
+      <p class="ac-foot">Tracy Harris Co Brand Kit · generated 2026-04-23</p>
+    </div>
+  </main>
+
+  <script>
+    // Click-to-copy on .ac-copy nodes
+    document.querySelectorAll('code.ac-copy').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var text = el.getAttribute('data-copy') || el.textContent;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(function () {
+          el.classList.add('is-copied');
+          setTimeout(function () { el.classList.remove('is-copied'); }, 1400);
+        }).catch(function () {
+          // fallback: select the text
+          var range = document.createRange();
+          range.selectNode(el);
+          window.getSelection().removeAllRanges();
+          window.getSelection().addRange(range);
+        });
+      });
+    });
+
+    // Filter
+    var input = document.getElementById('ac-search-input');
+    if (input) {
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase();
+        document.querySelectorAll('.ac-section').forEach(function (section) {
+          var anyVisible = false;
+          section.querySelectorAll('tbody tr').forEach(function (row) {
+            var hay = (row.getAttribute('data-search') || '').toLowerCase();
+            var match = !q || hay.indexOf(q) !== -1;
+            row.hidden = !match;
+            if (match) anyVisible = true;
+          });
+          section.hidden = !anyVisible;
+        });
+      });
+    }
+  </script>
+</body>
+</html>
