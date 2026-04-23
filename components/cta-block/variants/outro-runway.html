@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block · Outro Runway, Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; background: var(--p-cream); padding: 48px 24px; }
+    .outro-runway {
+      max-width: 960px; margin: 0 auto;
+      position: relative; border-radius: 14px; overflow: hidden; color: var(--p-oatmeal);
+      background:
+        linear-gradient(180deg, rgba(26,51,47,0.15) 0%, rgba(7,11,10,0.85) 100%),
+        url('https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/tracy-outfit8-39.jpg');
+      background-size: cover; background-position: 35% 18%; background-repeat: no-repeat;
+      min-height: 520px; padding: 44px 44px 36px;
+    }
+    .outro-runway__slate {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 18px; border-bottom: 1px solid rgba(246,244,241,0.25);
+      font-family: var(--f-sans); font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+      font-weight: 600; opacity: 0.9;
+    }
+    .outro-runway__body {
+      position: absolute; bottom: 36px; left: 44px; right: 44px;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap;
+    }
+    .outro-runway__title {
+      font-family: var(--f-serif-display); font-weight: 400;
+      font-size: clamp(46px, 7vw, 84px); line-height: 0.88; letter-spacing: -0.02em;
+      margin: 0; max-width: 56%;
+    }
+    .outro-runway__title em { font-family: var(--f-serif-italic); font-style: italic; color: #d8b97a; }
+    .outro-runway__looks { display: flex; flex-direction: column; gap: 10px; min-width: 220px; }
+    .outro-runway__look-label {
+      font-family: var(--f-sans); font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase;
+      opacity: 0.7; margin: 0 0 4px;
+    }
+    .outro-runway__look {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+      padding: 10px 16px; background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px); border: 1px solid rgba(246,244,241,0.15);
+      border-radius: 8px; text-decoration: none; color: var(--p-oatmeal);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .outro-runway__look:hover { background: rgba(255,255,255,0.16); transform: translateX(4px); }
+    .outro-runway__look-num { font-family: var(--f-serif-italic); font-style: italic; font-size: 18px; color: #d8b97a; }
+    .outro-runway__look-name { font-family: var(--f-serif-display); font-size: 15px; flex: 1; text-align: left; padding-left: 12px; }
+    .outro-runway__look-walk { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; color: #d8b97a; }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="outro-runway" data-brand="tracy">
+    <div class="outro-runway__slate">
+      <span>FREEDOM FILLED · FW26 COLLECTION</span>
+      <span>PARIS · BALI · SYDNEY</span>
+      <span>EP 01</span>
+    </div>
+    <div class="outro-runway__body">
+      <h3 class="outro-runway__title">What's your <em>next look</em>?</h3>
+      <div class="outro-runway__looks">
+        <p class="outro-runway__look-label">Now walking</p>
+        <a class="outro-runway__look" href="#quiz">
+          <span class="outro-runway__look-num">01</span>
+          <span class="outro-runway__look-name">The Quiz</span>
+          <span class="outro-runway__look-walk">3 MIN</span>
+        </a>
+        <a class="outro-runway__look" href="#podcast">
+          <span class="outro-runway__look-num">02</span>
+          <span class="outro-runway__look-name">The Podcast</span>
+          <span class="outro-runway__look-walk">WKLY</span>
+        </a>
+        <a class="outro-runway__look" href="#instagram">
+          <span class="outro-runway__look-num">03</span>
+          <span class="outro-runway__look-name">Instagram</span>
+          <span class="outro-runway__look-walk">DAILY</span>
+        </a>
+        <a class="outro-runway__look" href="#letters">
+          <span class="outro-runway__look-num">04</span>
+          <span class="outro-runway__look-name">Letters</span>
+          <span class="outro-runway__look-walk">WKLY</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

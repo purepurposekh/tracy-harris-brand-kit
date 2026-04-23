@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block · Outro Kinetic, Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; background: var(--p-cream); padding: 48px 24px; }
+    .outro-kinetic {
+      max-width: 960px; margin: 0 auto;
+      position: relative;
+      padding: 72px 44px; border-radius: 16px; overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, #9db4a4 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, #d8c8b6 0%, transparent 50%),
+        var(--p-oatmeal);
+      text-align: center;
+    }
+    .outro-kinetic::before {
+      content: "";
+      position: absolute; inset: -50% -10%;
+      background: conic-gradient(from 0deg, #d8c8b6, #9db4a4, #b79e83, #d8c8b6);
+      filter: blur(80px); opacity: 0.35;
+      animation: kinetic-spin 28s linear infinite;
+      z-index: 0;
+    }
+    @keyframes kinetic-spin { to { transform: rotate(360deg); } }
+    .outro-kinetic__inner { position: relative; z-index: 1; }
+    .outro-kinetic__sig {
+      font-family: var(--f-script);
+      font-size: clamp(56px, 8vw, 90px); line-height: 1; margin: 0 0 10px;
+      color: var(--p-charcoal);
+    }
+    .outro-kinetic__sub {
+      font-family: var(--f-serif-display);
+      font-size: clamp(20px, 2.2vw, 26px);
+      margin: 0 0 28px; color: var(--p-charcoal);
+    }
+    .outro-kinetic__sub em { font-family: var(--f-serif-italic); font-style: italic; }
+    .outro-kinetic__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 24px; }
+    .outro-kinetic__chip {
+      padding: 11px 22px; background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(16,16,16,0.1);
+      backdrop-filter: blur(10px); border-radius: var(--r-pill);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--p-charcoal); text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .outro-kinetic__chip:hover { transform: translateY(-2px); background: rgba(255,255,255,1); }
+    .outro-kinetic__primary {
+      display: inline-block; padding: 16px 32px;
+      background: var(--p-charcoal); color: var(--p-oatmeal);
+      border-radius: var(--r-pill); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+      transition: transform .2s ease;
+      position: relative;
+    }
+    .outro-kinetic__primary::after {
+      content: ""; position: absolute; inset: -4px; border-radius: inherit;
+      border: 1px solid var(--p-charcoal); opacity: 0;
+      transition: all .3s ease;
+    }
+    .outro-kinetic__primary:hover { transform: translateY(-2px); }
+    .outro-kinetic__primary:hover::after { opacity: 1; inset: -8px; }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="outro-kinetic" data-brand="tracy">
+    <div class="outro-kinetic__inner">
+      <p class="outro-kinetic__sig tk-script-accent">Xx Tracy</p>
+      <p class="outro-kinetic__sub">Thanks for spending <em>this one</em> with me.</p>
+      <div class="outro-kinetic__row">
+        <a class="outro-kinetic__chip" href="#instagram">Instagram</a>
+        <a class="outro-kinetic__chip" href="#apple">Apple Podcasts</a>
+        <a class="outro-kinetic__chip" href="#spotify">Spotify</a>
+        <a class="outro-kinetic__chip" href="#youtube">YouTube</a>
+        <a class="outro-kinetic__chip" href="#letters">Letters</a>
+      </div>
+      <a class="outro-kinetic__primary" href="#quiz">Take the FRESH Quiz</a>
+    </div>
+  </section>
+</body>
+</html>

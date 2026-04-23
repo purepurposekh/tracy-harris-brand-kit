@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block · Outro Dance Floor, Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; background: var(--p-cream); padding: 48px 24px; }
+    .outro-dancefloor {
+      max-width: 960px; margin: 0 auto;
+      padding: 80px 44px; border-radius: 14px;
+      background: #0a0805; color: var(--p-oatmeal); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .outro-dancefloor__strobe {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(circle at 15% 25%, rgba(216,185,122,0.4) 0%, transparent 18%),
+        radial-gradient(circle at 85% 75%, rgba(168,195,168,0.35) 0%, transparent 18%),
+        radial-gradient(circle at 75% 20%, rgba(243,213,166,0.3) 0%, transparent 14%);
+      animation: dancefloor-pulse 3.5s ease-in-out infinite alternate;
+      mix-blend-mode: screen;
+    }
+    @keyframes dancefloor-pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1) rotate(4deg); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.85; }
+    }
+    .outro-dancefloor__tiles {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.018) 0 40px, rgba(255,255,255,0) 40px 80px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.018) 0 40px, rgba(255,255,255,0) 40px 80px);
+    }
+    .outro-dancefloor__inner { position: relative; z-index: 2; }
+    .outro-dancefloor__eye {
+      font-family: var(--f-script); font-size: 34px; color: #f3d5a6; margin: 0 0 6px;
+    }
+    .outro-dancefloor__lead {
+      font-family: var(--f-serif-display); font-weight: 400;
+      font-size: clamp(48px, 7.5vw, 98px); line-height: 0.95; letter-spacing: -0.02em;
+      margin: 0 0 18px;
+    }
+    .outro-dancefloor__lead em { font-family: var(--f-serif-italic); font-style: italic; color: #d8b97a; }
+    .outro-dancefloor__beat {
+      display: inline-flex; align-items: center; gap: 6px; margin: 0 0 34px;
+      font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 600; opacity: 0.7;
+    }
+    .outro-dancefloor__beat span {
+      width: 6px; height: 20px; background: #d8b97a; border-radius: 2px;
+      animation: dancefloor-bar 0.8s ease-in-out infinite;
+    }
+    .outro-dancefloor__beat span:nth-child(2) { animation-delay: .1s; height: 26px; }
+    .outro-dancefloor__beat span:nth-child(3) { animation-delay: .2s; height: 14px; }
+    .outro-dancefloor__beat span:nth-child(4) { animation-delay: .3s; height: 22px; }
+    .outro-dancefloor__beat span:nth-child(5) { animation-delay: .4s; height: 18px; }
+    @keyframes dancefloor-bar { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+    .outro-dancefloor__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .outro-dancefloor__link {
+      padding: 14px 28px; background: rgba(246,244,241,0.1);
+      border: 1px solid rgba(246,244,241,0.3);
+      backdrop-filter: blur(10px);
+      color: var(--p-oatmeal); text-decoration: none;
+      border-radius: var(--r-pill);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .outro-dancefloor__link:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: #d8b97a; color: var(--p-charcoal); border-color: #d8b97a;
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="outro-dancefloor" data-brand="tracy">
+    <div class="outro-dancefloor__tiles"></div>
+    <div class="outro-dancefloor__strobe"></div>
+    <div class="outro-dancefloor__inner">
+      <p class="outro-dancefloor__eye tk-script-accent">Hey lovely,</p>
+      <h3 class="outro-dancefloor__lead">stay for <em>one more song.</em></h3>
+      <p class="outro-dancefloor__beat">NOW PLAYING <span></span><span></span><span></span><span></span><span></span></p>
+      <div class="outro-dancefloor__links">
+        <a class="outro-dancefloor__link" href="#quiz">Take the Quiz</a>
+        <a class="outro-dancefloor__link" href="#podcast">Subscribe</a>
+        <a class="outro-dancefloor__link" href="#instagram">Instagram</a>
+        <a class="outro-dancefloor__link" href="#letters">Letters</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

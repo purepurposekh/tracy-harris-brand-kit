@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTA Block · Outro DM, Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <style>
+    body { margin: 0; font-family: var(--f-sans); -webkit-font-smoothing: antialiased; background: var(--p-cream); padding: 48px 24px; }
+    .outro-dm {
+      max-width: 720px; margin: 0 auto;
+      padding: 48px 40px; background: var(--p-oatmeal); border-radius: 14px;
+    }
+    .outro-dm__top {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 18px; margin-bottom: 24px;
+      border-bottom: 1px solid rgba(16,16,16,0.12);
+    }
+    .outro-dm__avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background-image: url('https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/tracy-outfit8-39.jpg');
+      background-size: cover; background-position: 35% 20%; background-repeat: no-repeat;
+    }
+    .outro-dm__name { font-weight: 600; font-size: 14px; margin: 0; color: var(--p-charcoal); }
+    .outro-dm__handle { font-size: 12px; opacity: 0.6; margin: 0; color: var(--p-charcoal); }
+    .outro-dm__online {
+      margin-left: auto; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+      font-weight: 600; color: #6e8f72;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .outro-dm__online::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+    }
+    .outro-dm__bubbles { display: flex; flex-direction: column; gap: 12px; }
+    .outro-dm__bubble {
+      max-width: 75%; padding: 14px 18px; border-radius: 20px;
+      font-size: 14.5px; line-height: 1.5; color: var(--p-charcoal);
+    }
+    .outro-dm__bubble--them {
+      align-self: flex-start; background: #fff; border-bottom-left-radius: 6px;
+    }
+    .outro-dm__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .outro-dm__action {
+      padding: 10px 18px; background: var(--p-charcoal); color: var(--p-oatmeal);
+      border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: transform .2s ease;
+    }
+    .outro-dm__action--ghost {
+      background: transparent; color: var(--p-charcoal); border: 1px solid rgba(16,16,16,0.25);
+    }
+    .outro-dm__action:hover { transform: translateY(-2px); }
+    .outro-dm__typing {
+      align-self: flex-start; display: inline-flex; gap: 4px;
+      padding: 14px 18px; background: #fff; border-radius: 20px; border-bottom-left-radius: 6px;
+    }
+    .outro-dm__typing span {
+      width: 8px; height: 8px; background: rgba(16,16,16,0.35); border-radius: 50%;
+      animation: dm-pulse 1.4s infinite;
+    }
+    .outro-dm__typing span:nth-child(2) { animation-delay: .2s; }
+    .outro-dm__typing span:nth-child(3) { animation-delay: .4s; }
+    @keyframes dm-pulse { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+  </style>
+</head>
+<body data-brand="tracy">
+  <section class="outro-dm" data-brand="tracy">
+    <div class="outro-dm__top">
+      <div class="outro-dm__avatar"></div>
+      <div>
+        <p class="outro-dm__name">Tracy Harris</p>
+        <p class="outro-dm__handle">@tracyharrisco</p>
+      </div>
+      <span class="outro-dm__online">Active now</span>
+    </div>
+    <div class="outro-dm__bubbles">
+      <div class="outro-dm__bubble outro-dm__bubble--them">Hey lovely, thanks for reading all the way through.</div>
+      <div class="outro-dm__bubble outro-dm__bubble--them">If something sparked, here's where to go next.</div>
+      <div class="outro-dm__typing"><span></span><span></span><span></span></div>
+      <div class="outro-dm__actions">
+        <a class="outro-dm__action" href="#quiz">Take the FRESH Quiz</a>
+        <a class="outro-dm__action outro-dm__action--ghost" href="#instagram">Say hi on Instagram</a>
+        <a class="outro-dm__action outro-dm__action--ghost" href="#podcast">Subscribe to the podcast</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
