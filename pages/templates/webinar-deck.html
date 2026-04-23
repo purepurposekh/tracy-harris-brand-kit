@@ -1,0 +1,617 @@
+<!--
+  Template: Webinar / Presentation deck
+  Slide-deck style HTML. 16:9 at desktop, keyboard + click navigation.
+  Each slide is a full-viewport section. Print-friendly: each slide = one page.
+  Generic for any creator. Replace [INSERT YOUR ...] placeholders.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Webinar Deck · Template</title>
+  <meta name="description" content="Editorial webinar/presentation deck template for the Tracy Harris Co brand kit." />
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- v4 brand system (jsDelivr) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/workbook-print.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; overflow: hidden; height: 100%; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-aztek);
+      color: var(--p-ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Deck shell */
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Each slide is absolutely positioned, only active is visible */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(32px, 6vw, 96px);
+      background: var(--p-oatmeal);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 280ms ease;
+    }
+    .slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide--dark {
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+    }
+    .slide--cream { background: var(--p-cream); }
+
+    /* Common text styles */
+    .sl-eyebrow {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 var(--sp-4);
+    }
+    .slide--dark .sl-eyebrow { color: var(--p-sage-alt); }
+
+    .sl-h1 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(48px, 7vw, 120px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-5);
+      max-width: 18ch;
+    }
+    .slide--dark .sl-h1 { color: var(--p-oatmeal); }
+    .sl-h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    .sl-h2 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-5);
+      max-width: 20ch;
+    }
+    .slide--dark .sl-h2 { color: var(--p-oatmeal); }
+    .sl-h2 em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    .sl-subtitle {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.4;
+      color: var(--p-aztek);
+      opacity: 0.8;
+      margin: 0 0 var(--sp-6);
+      max-width: 40ch;
+    }
+    .slide--dark .sl-subtitle { color: var(--p-oatmeal); opacity: 0.8; }
+
+    .sl-body {
+      font-size: clamp(16px, 1.4vw, 20px);
+      line-height: 1.6;
+      max-width: 56ch;
+      color: inherit;
+    }
+    .sl-body em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    /* Slide layouts */
+    .sl-center {
+      align-items: flex-start;
+      justify-content: center;
+      gap: var(--sp-5);
+    }
+    .sl-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(24px, 4vw, 64px);
+      align-items: center;
+      height: 100%;
+    }
+    @media (max-width: 900px) {
+      .sl-split { grid-template-columns: 1fr; gap: var(--sp-5); }
+    }
+
+    /* Footer meta (slide 1) */
+    .sl-meta {
+      position: absolute;
+      left: clamp(32px, 6vw, 96px);
+      right: clamp(32px, 6vw, 96px);
+      bottom: clamp(32px, 6vw, 64px);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      flex-wrap: wrap;
+    }
+    .slide--dark .sl-meta { color: var(--p-sage-alt); opacity: 0.8; }
+
+    /* Credentials list */
+    .sl-creds {
+      list-style: none;
+      padding: 0;
+      margin: var(--sp-5) 0 0;
+      display: grid;
+      gap: var(--sp-3);
+      max-width: 44ch;
+    }
+    .sl-creds li {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: var(--sp-3);
+      align-items: baseline;
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.5;
+      padding: var(--sp-3) 0;
+      border-top: 1px solid var(--border-hairline);
+    }
+    .slide--dark .sl-creds li { border-top-color: rgba(246,244,241,0.14); }
+    .sl-creds li::before {
+      content: attr(data-num);
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-sage);
+      font-size: 16px;
+    }
+
+    /* Teaching point big number */
+    .sl-point-num {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(80px, 12vw, 180px);
+      line-height: 1;
+      color: var(--p-sage);
+      opacity: 0.8;
+      margin: 0 0 var(--sp-3);
+    }
+
+    /* Testimonials */
+    .sl-testimonials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-5);
+      margin-top: var(--sp-4);
+    }
+    @media (max-width: 900px) {
+      .sl-testimonials { grid-template-columns: 1fr; }
+    }
+    .sl-quote {
+      padding: var(--sp-5);
+      background: var(--p-oatmeal);
+      border: 1px solid var(--border-hairline);
+      border-radius: var(--r-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .sl-quote p {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(16px, 1.3vw, 19px);
+      line-height: 1.5;
+      color: var(--p-aztek);
+      margin: 0;
+    }
+    .sl-quote cite {
+      font-style: normal;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+    }
+
+    /* Offer panel */
+    .sl-offer {
+      background: var(--p-cream);
+      border-radius: var(--r-lg);
+      padding: var(--sp-6);
+      border: 1px solid var(--border-hairline);
+      display: grid;
+      gap: var(--sp-4);
+    }
+    .sl-offer__price {
+      font-family: var(--f-serif-display);
+      font-size: clamp(32px, 4vw, 56px);
+      color: var(--p-aztek);
+      line-height: 1;
+    }
+    .sl-offer__price em { font-family: var(--f-serif-italic); font-style: italic; }
+    .sl-offer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--sp-2);
+    }
+    .sl-offer ul li {
+      padding-left: 22px;
+      position: relative;
+      font-size: clamp(15px, 1.2vw, 17px);
+      line-height: 1.5;
+    }
+    .sl-offer ul li::before {
+      content: "";
+      position: absolute;
+      left: 4px; top: 10px;
+      width: 10px; height: 1px;
+      background: var(--p-sage);
+    }
+
+    /* Buttons */
+    .sl-btn {
+      display: inline-block;
+      padding: 16px 32px;
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--p-aztek);
+      transition: background 180ms ease;
+    }
+    .sl-btn:hover { background: var(--p-sage); border-color: var(--p-sage); }
+    .slide--dark .sl-btn {
+      background: var(--p-oatmeal);
+      color: var(--p-aztek);
+      border-color: var(--p-oatmeal);
+    }
+    .slide--dark .sl-btn:hover { background: var(--p-sage); color: var(--p-white); border-color: var(--p-sage); }
+
+    /* FAQ */
+    .sl-faq {
+      display: grid;
+      gap: var(--sp-4);
+      margin-top: var(--sp-4);
+      max-width: 60ch;
+    }
+    .sl-faq dt {
+      font-family: var(--f-serif-display);
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--p-aztek);
+      margin: 0 0 6px;
+    }
+    .slide--dark .sl-faq dt { color: var(--p-oatmeal); }
+    .sl-faq dd {
+      margin: 0;
+      font-size: clamp(14px, 1.1vw, 16px);
+      line-height: 1.55;
+      color: inherit;
+      opacity: 0.85;
+      padding-bottom: var(--sp-4);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .slide--dark .sl-faq dd { border-bottom-color: rgba(246,244,241,0.14); }
+
+    /* Nav + counter */
+    .deck-nav {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(16,16,16,0.72);
+      padding: 8px 14px;
+      border-radius: var(--r-pill);
+      z-index: 10;
+      color: var(--p-oatmeal);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .deck-nav button {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(246,244,241,0.28);
+      background: transparent;
+      color: var(--p-oatmeal);
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .deck-nav button:hover { background: rgba(246,244,241,0.12); }
+    .deck-nav__counter { min-width: 54px; text-align: center; }
+
+    /* Hint (first load) */
+    .deck-hint {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      z-index: 10;
+      background: rgba(16,16,16,0.72);
+      color: var(--p-oatmeal);
+      padding: 8px 14px;
+      border-radius: var(--r-pill);
+      font-family: var(--f-sans);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: opacity 300ms ease;
+    }
+    .deck-hint.is-hidden { opacity: 0; pointer-events: none; }
+
+    /* PRINT: each slide = one page, static block flow */
+    @media print {
+      @page { size: A4 landscape; margin: 0; }
+      html, body { overflow: visible; height: auto; background: var(--p-white); }
+      .deck { height: auto; width: auto; }
+      .slide {
+        position: relative;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        page-break-after: always;
+        height: 100vh;
+        min-height: 100vh;
+        inset: auto;
+        width: 100%;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .slide:last-child { page-break-after: auto; }
+      .deck-nav, .deck-hint { display: none !important; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: Cover -->
+  <section class="slide is-active sl-center slide--dark" id="slide-1">
+    <p class="sl-eyebrow">Live workshop</p>
+    <h1 class="sl-h1">[INSERT YOUR <em>webinar title</em>].</h1>
+    <p class="sl-subtitle">[INSERT a one-line subtitle, what the audience will walk away with].</p>
+    <div class="sl-meta">
+      <span>Hosted by <em style="font-family: var(--f-serif-italic); font-style: italic; color: var(--p-oatmeal);">[INSERT YOUR NAME]</em></span>
+      <span>[INSERT DATE]</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: Who I am -->
+  <section class="slide sl-center" id="slide-2">
+    <p class="sl-eyebrow">About your host</p>
+    <h2 class="sl-h2">Hi, I'm <em>[INSERT YOUR NAME]</em>.</h2>
+    <p class="sl-body">[INSERT 2 to 3 sentences about who you are, who you serve, and the work you do. Speak to the version of your reader who doesn't know you yet.]</p>
+    <ul class="sl-creds">
+      <li data-num="01">[INSERT a credential, result, or story beat that builds trust]</li>
+      <li data-num="02">[INSERT a second credential, result, or story beat]</li>
+      <li data-num="03">[INSERT a third, optional, keep the list tight]</li>
+    </ul>
+  </section>
+
+  <!-- SLIDE 3: Problem -->
+  <section class="slide sl-center slide--cream" id="slide-3">
+    <p class="sl-eyebrow">The problem</p>
+    <h2 class="sl-h2">Right now, you are <em>stuck</em> in the gap between [INSERT pain] and [INSERT desire].</h2>
+    <p class="sl-body">[INSERT 2 to 3 sentences describing the pain. Be specific. Name the thought they are having on Sunday night. Make them feel seen before you offer a solution.]</p>
+  </section>
+
+  <!-- SLIDE 4: Promise -->
+  <section class="slide sl-center" id="slide-4">
+    <p class="sl-eyebrow">The promise</p>
+    <h2 class="sl-h2">By the end of today, you will <em>know exactly</em> how to [INSERT transformation].</h2>
+    <p class="sl-body">[INSERT 2 to 3 sentences outlining what you'll teach and the state they'll be in when they leave. Name the tangible outcome.]</p>
+  </section>
+
+  <!-- SLIDE 5: Teaching 1 -->
+  <section class="slide" id="slide-5">
+    <div class="sl-split">
+      <div>
+        <p class="sl-eyebrow">Teaching point one</p>
+        <p class="sl-point-num">01</p>
+        <h2 class="sl-h2">[INSERT <em>key insight one</em>].</h2>
+      </div>
+      <div>
+        <p class="sl-body">[INSERT 3 to 5 sentences or bullets unpacking this teaching point. Give them one clear idea, one simple example, and one action they can take.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: Teaching 2 -->
+  <section class="slide slide--cream" id="slide-6">
+    <div class="sl-split">
+      <div>
+        <p class="sl-eyebrow">Teaching point two</p>
+        <p class="sl-point-num">02</p>
+        <h2 class="sl-h2">[INSERT <em>key insight two</em>].</h2>
+      </div>
+      <div>
+        <p class="sl-body">[INSERT 3 to 5 sentences or bullets unpacking this teaching point.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: Teaching 3 -->
+  <section class="slide" id="slide-7">
+    <div class="sl-split">
+      <div>
+        <p class="sl-eyebrow">Teaching point three</p>
+        <p class="sl-point-num">03</p>
+        <h2 class="sl-h2">[INSERT <em>key insight three</em>].</h2>
+      </div>
+      <div>
+        <p class="sl-body">[INSERT 3 to 5 sentences or bullets unpacking this teaching point.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: Teaching 4 -->
+  <section class="slide slide--cream" id="slide-8">
+    <div class="sl-split">
+      <div>
+        <p class="sl-eyebrow">Teaching point four</p>
+        <p class="sl-point-num">04</p>
+        <h2 class="sl-h2">[INSERT <em>key insight four</em>].</h2>
+      </div>
+      <div>
+        <p class="sl-body">[INSERT 3 to 5 sentences or bullets unpacking this teaching point.]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: Social proof -->
+  <section class="slide sl-center" id="slide-9">
+    <p class="sl-eyebrow">What people say</p>
+    <h2 class="sl-h2">You don't have to take <em>my word for it</em>.</h2>
+    <div class="sl-testimonials">
+      <div class="sl-quote">
+        <p>"[INSERT CLIENT testimonial one. Specific results beat general praise.]"</p>
+        <cite>[CLIENT NAME · ROLE]</cite>
+      </div>
+      <div class="sl-quote">
+        <p>"[INSERT CLIENT testimonial two.]"</p>
+        <cite>[CLIENT NAME · ROLE]</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10: The offer -->
+  <section class="slide slide--dark sl-center" id="slide-10">
+    <p class="sl-eyebrow">The invitation</p>
+    <h2 class="sl-h2">Introducing <em>[INSERT PRODUCT NAME]</em>.</h2>
+    <div class="sl-offer" style="background: var(--p-oatmeal); color: var(--p-ink);">
+      <div>
+        <p style="font-family: var(--f-sans); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 6px;">Your investment</p>
+        <p class="sl-offer__price"><em>[INSERT PRICE]</em></p>
+      </div>
+      <ul>
+        <li>[INSERT deliverable or feature one]</li>
+        <li>[INSERT deliverable or feature two]</li>
+        <li>[INSERT deliverable or feature three]</li>
+        <li>[INSERT deliverable or feature four]</li>
+      </ul>
+      <a class="sl-btn" href="[INSERT CTA URL]" style="justify-self: start;">[INSERT CTA LABEL]</a>
+    </div>
+  </section>
+
+  <!-- SLIDE 11: FAQ -->
+  <section class="slide sl-center" id="slide-11">
+    <p class="sl-eyebrow">Common questions</p>
+    <h2 class="sl-h2">You might be <em>wondering</em>.</h2>
+    <dl class="sl-faq">
+      <dt>[INSERT OBJECTION one, phrased as the question they're asking]</dt>
+      <dd>[INSERT honest, direct answer. Don't dodge, don't oversell.]</dd>
+
+      <dt>[INSERT OBJECTION two]</dt>
+      <dd>[INSERT answer.]</dd>
+
+      <dt>[INSERT OBJECTION three]</dt>
+      <dd>[INSERT answer.]</dd>
+    </dl>
+  </section>
+
+  <!-- SLIDE 12: Close -->
+  <section class="slide slide--dark sl-center" id="slide-12">
+    <p class="sl-eyebrow">The close</p>
+    <h2 class="sl-h2">Here's what you <em>came here for</em>.</h2>
+    <p class="sl-body" style="opacity: 0.9; margin-bottom: var(--sp-5);">
+      [INSERT 2 to 3 sentences. Recap what they've learned, name the decision in front of them,
+      and frame the next step as a yes to themselves. No fake urgency.]
+    </p>
+    <a class="sl-btn" href="[INSERT CTA URL]">[INSERT PRIMARY CTA]</a>
+    <div class="sl-meta">
+      <span>[INSERT YOUR NAME]</span>
+      <span>[INSERT YOUR WEBSITE]</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- Nav + counter -->
+<div class="deck-nav" role="navigation" aria-label="Slide navigation">
+  <button id="prev" aria-label="Previous slide">&lsaquo;</button>
+  <span class="deck-nav__counter" id="counter">1 / 12</span>
+  <button id="next" aria-label="Next slide">&rsaquo;</button>
+</div>
+
+<div class="deck-hint" id="hint">Use &larr; &rarr; or click to advance</div>
+
+<script>
+  (function () {
+    var slides = document.querySelectorAll('.slide');
+    var total = slides.length;
+    var current = 0;
+    var counter = document.getElementById('counter');
+    var hint = document.getElementById('hint');
+    var hintTimer = setTimeout(function () { hint.classList.add('is-hidden'); }, 4000);
+
+    function go(i) {
+      if (i < 0) i = 0;
+      if (i >= total) i = total - 1;
+      slides[current].classList.remove('is-active');
+      slides[i].classList.add('is-active');
+      current = i;
+      counter.textContent = (i + 1) + ' / ' + total;
+      if (window.location.hash !== '#' + (i + 1)) {
+        history.replaceState(null, '', '#' + (i + 1));
+      }
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(current + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1); }
+      if (e.key === 'Home') { e.preventDefault(); go(0); }
+      if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+    });
+
+    // Click anywhere on the slide advances (but not on links/buttons)
+    document.getElementById('deck').addEventListener('click', function (e) {
+      if (e.target.closest('a, button')) return;
+      go(current + 1);
+    });
+
+    document.getElementById('prev').addEventListener('click', function (e) { e.stopPropagation(); go(current - 1); });
+    document.getElementById('next').addEventListener('click', function (e) { e.stopPropagation(); go(current + 1); });
+
+    // Deep link via hash (#5 loads slide 5)
+    var hashNum = parseInt((window.location.hash || '').replace('#', ''), 10);
+    if (!isNaN(hashNum) && hashNum >= 1 && hashNum <= total) {
+      go(hashNum - 1);
+    } else {
+      counter.textContent = '1 / ' + total;
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!--
+  Template: Freebie / Lead-magnet
+  A single-document freebie or lead-magnet. Print-ready A4.
+  Generic for any creator using the Tracy Harris Co brand kit.
+  Replace [INSERT YOUR ...] placeholders before publishing.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Freebie · Lead Magnet Template</title>
+  <meta name="description" content="Editorial lead-magnet template for the Tracy Harris Co brand kit. A4 print-ready." />
+
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- v4 brand system (jsDelivr) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/workbook-print.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-cream);
+      color: var(--p-ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    img { max-width: 100%; display: block; }
+
+    /* A4: 210mm x 297mm. Screen preview uses mm with a shadow. */
+    .lm-doc {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 24px auto;
+      background: var(--p-oatmeal);
+      box-shadow: 0 12px 40px rgba(16,16,16,0.08);
+      padding: 22mm 20mm;
+      position: relative;
+    }
+
+    /* Shared typography */
+    .lm-eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      margin: 0 0 var(--sp-3);
+    }
+    .lm-h1 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 52px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-4);
+    }
+    .lm-h1 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .lm-h2 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 34px;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-3);
+    }
+    .lm-h2 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .lm-h3 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-2);
+    }
+    .lm-body {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--p-ink);
+      margin: 0 0 var(--sp-4);
+      max-width: 62ch;
+    }
+    .lm-body em { font-family: var(--f-serif-italic); font-style: italic; }
+    .lm-pull {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.4;
+      color: var(--p-aztek);
+      padding: var(--sp-4) 0 var(--sp-4) var(--sp-5);
+      border-left: 1px solid var(--p-sage);
+      max-width: 56ch;
+      margin: var(--sp-5) 0;
+    }
+    .lm-rule {
+      border: 0;
+      border-top: 1px solid var(--border-hairline);
+      margin: var(--sp-6) 0;
+    }
+
+    /* COVER */
+    .lm-cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 253mm;
+      padding-bottom: var(--sp-6);
+    }
+    .lm-cover__subtitle {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.4;
+      color: var(--p-aztek);
+      opacity: 0.8;
+      max-width: 52ch;
+      margin: var(--sp-4) 0 0;
+    }
+    .lm-cover__byline {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      margin-top: var(--sp-7);
+    }
+    .lm-cover__photo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--p-cream);
+      border: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-sage);
+      font-size: 12px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .lm-cover__byline-text .lm-cover__by {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      margin: 0;
+    }
+    .lm-cover__byline-text .lm-cover__name {
+      font-family: var(--f-serif-display);
+      font-size: 22px;
+      color: var(--p-aztek);
+      margin: 2px 0 0;
+    }
+    .lm-cover__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--border-hairline);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+    }
+    .lm-cover__meta span em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--p-aztek);
+      margin-left: 6px;
+    }
+
+    /* PAGE BLOCK */
+    .lm-page {
+      page-break-before: always;
+      margin-top: var(--sp-8);
+    }
+
+    /* LETTER */
+    .lm-letter p { font-size: 15.5px; line-height: 1.7; margin: 0 0 var(--sp-4); color: var(--p-ink); max-width: 62ch; }
+    .lm-letter__signoff {
+      margin-top: var(--sp-5);
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--p-aztek);
+    }
+
+    /* CONCEPT FRAMES */
+    .lm-concept {
+      padding: var(--sp-5) 0;
+      border-top: 1px solid var(--border-hairline);
+    }
+    .lm-concept:last-child { border-bottom: 1px solid var(--border-hairline); }
+    .lm-concept__num {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--p-sage);
+      margin: 0 0 var(--sp-2);
+    }
+    .lm-concept__diagram {
+      margin: var(--sp-4) 0 0;
+      padding: var(--sp-5);
+      background: var(--p-cream);
+      border: 1px dashed var(--border-hairline);
+      border-radius: var(--r-md);
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--p-mute);
+      text-align: center;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* WORKSHEET */
+    .lm-worksheet__prompt {
+      margin: var(--sp-5) 0 var(--sp-6);
+    }
+    .lm-worksheet__prompt h3 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--p-aztek);
+      margin: 0 0 var(--sp-3);
+    }
+    .lm-worksheet__prompt h3 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .lm-lines--stack {
+      display: grid;
+      gap: 22px;
+    }
+    .lm-lines--stack .lm-line {
+      height: 1px;
+      background: var(--p-mute);
+      opacity: 0.35;
+    }
+
+    /* CTA */
+    .lm-cta {
+      margin-top: var(--sp-6);
+      padding: var(--sp-6);
+      background: var(--p-aztek);
+      color: var(--p-oatmeal);
+      border-radius: var(--r-lg);
+    }
+    .lm-cta h2 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.15;
+      color: var(--p-oatmeal);
+      margin: 0 0 var(--sp-3);
+    }
+    .lm-cta h2 em { font-family: var(--f-serif-italic); font-style: italic; }
+    .lm-cta p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--p-oatmeal);
+      opacity: 0.85;
+      margin: 0 0 var(--sp-4);
+      max-width: 56ch;
+    }
+    .lm-btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border: 1px solid var(--p-sage);
+      color: var(--p-oatmeal);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: var(--r-pill);
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .lm-btn:hover { background: var(--p-sage); color: var(--p-white); }
+
+    /* FOOTER */
+    .lm-footer {
+      margin-top: var(--sp-6);
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+    }
+    .lm-footer__social { display: flex; gap: var(--sp-4); }
+    .lm-footer__social a {
+      color: var(--p-aztek);
+      text-decoration: none;
+      border-bottom: 1px solid var(--p-sage);
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: var(--p-oatmeal); }
+      .lm-doc {
+        margin: 0;
+        box-shadow: none;
+        width: 210mm;
+        min-height: 297mm;
+        padding: 18mm 16mm;
+      }
+      .lm-page { page-break-before: always; }
+      .lm-cta {
+        background: var(--p-aztek) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+<main class="lm-doc">
+
+  <!-- ============ PAGE 1: COVER ============ -->
+  <section class="lm-cover">
+    <div class="lm-cover__top">
+      <p class="lm-eyebrow">Free guide</p>
+      <h1 class="lm-h1">[INSERT YOUR <em>guide title</em>].</h1>
+      <p class="lm-cover__subtitle">[INSERT YOUR subtitle, one sentence that promises the reader the specific outcome they get from reading this].</p>
+    </div>
+
+    <div>
+      <div class="lm-cover__byline">
+        <div class="lm-cover__photo">[PHOTO]</div>
+        <div class="lm-cover__byline-text">
+          <p class="lm-cover__by">A guide by</p>
+          <p class="lm-cover__name">[INSERT YOUR NAME]</p>
+        </div>
+      </div>
+
+      <div class="lm-cover__meta">
+        <span>Version <em>1.0</em></span>
+        <span>Downloaded <em>[INSERT DATE]</em></span>
+        <span>[INSERT YOUR WEBSITE]</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 2: INTRO LETTER ============ -->
+  <section class="lm-page lm-letter">
+    <p class="lm-eyebrow">A note from me</p>
+    <h2 class="lm-h2">Before we <em>begin</em>.</h2>
+
+    <p>Hey lovely,</p>
+    <p>
+      [INSERT YOUR introductory paragraph. Start with a warm, personal moment. Name the tension or
+      question your reader is sitting in right now, and why this guide exists. Keep it human.]
+    </p>
+    <p>
+      [INSERT YOUR second paragraph. Share what you will walk them through in the pages ahead, and
+      what they will walk away with. Be specific. No filler.]
+    </p>
+    <p>
+      [INSERT YOUR third paragraph. Permission, invitation, or reassurance. Something that lowers
+      the stakes so they actually use what is inside.]
+    </p>
+
+    <p class="lm-letter__signoff">Xx [INSERT YOUR NAME]</p>
+  </section>
+
+  <!-- ============ PAGE 3-4: KEY CONCEPTS ============ -->
+  <section class="lm-page">
+    <p class="lm-eyebrow">The core ideas</p>
+    <h2 class="lm-h2">Four things worth <em>knowing</em>.</h2>
+    <p class="lm-body">
+      These are the frames that change how you think about [INSERT YOUR topic]. Read each one
+      twice. Then keep going.
+    </p>
+
+    <article class="lm-concept">
+      <p class="lm-concept__num">01</p>
+      <h3 class="lm-h3">[INSERT CONCEPT ONE headline].</h3>
+      <p class="lm-body">[INSERT 2 to 3 sentences unpacking this concept. What it is, why it matters, what most people miss about it.]</p>
+      <div class="lm-concept__diagram">[OPTIONAL diagram, illustration, or stat]</div>
+    </article>
+
+    <article class="lm-concept">
+      <p class="lm-concept__num">02</p>
+      <h3 class="lm-h3">[INSERT CONCEPT TWO headline].</h3>
+      <p class="lm-body">[INSERT 2 to 3 sentences unpacking this concept. What it is, why it matters, what most people miss about it.]</p>
+    </article>
+
+    <article class="lm-concept">
+      <p class="lm-concept__num">03</p>
+      <h3 class="lm-h3">[INSERT CONCEPT THREE headline].</h3>
+      <p class="lm-body">[INSERT 2 to 3 sentences unpacking this concept. What it is, why it matters, what most people miss about it.]</p>
+    </article>
+
+    <article class="lm-concept">
+      <p class="lm-concept__num">04</p>
+      <h3 class="lm-h3">[INSERT CONCEPT FOUR headline].</h3>
+      <p class="lm-body">[INSERT 2 to 3 sentences unpacking this concept. What it is, why it matters, what most people miss about it.]</p>
+    </article>
+
+    <p class="lm-pull">
+      [INSERT a one-line pull quote that lands the big idea of this section].
+    </p>
+  </section>
+
+  <!-- ============ PAGE 5: WORKSHEET ============ -->
+  <section class="lm-page lm-worksheet">
+    <p class="lm-eyebrow">Action worksheet</p>
+    <h2 class="lm-h2">Your <em>turn</em>.</h2>
+    <p class="lm-body">
+      Pick up a pen. Writing by hand changes how your brain processes the prompt. Take your time.
+    </p>
+
+    <div class="lm-worksheet__prompt">
+      <h3>1. [INSERT PROMPT <em>one</em>]</h3>
+      <div class="lm-lines--stack">
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+      </div>
+    </div>
+
+    <div class="lm-worksheet__prompt">
+      <h3>2. [INSERT PROMPT <em>two</em>]</h3>
+      <div class="lm-lines--stack">
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+      </div>
+    </div>
+
+    <div class="lm-worksheet__prompt">
+      <h3>3. [INSERT PROMPT <em>three</em>]</h3>
+      <div class="lm-lines--stack">
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+        <div class="lm-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 6: CTA + FOOTER ============ -->
+  <section class="lm-page">
+    <div class="lm-cta">
+      <p class="lm-eyebrow" style="color: var(--p-sage);">Your next step</p>
+      <h2>Ready to <em>go deeper</em>?</h2>
+      <p>
+        [INSERT 2 to 3 sentences naming the logical next step, a call, a community, or a product.
+        Make the invitation feel personal, not pushy. What do they get, and why is it the right
+        next move.]
+      </p>
+      <a class="lm-btn" href="[INSERT YOUR CTA URL]">[INSERT CTA LABEL]</a>
+    </div>
+
+    <footer class="lm-footer">
+      <div class="lm-footer__social">
+        <a href="[INSERT URL]">Instagram</a>
+        <a href="[INSERT URL]">Website</a>
+        <a href="[INSERT URL]">Email</a>
+      </div>
+      <div>&copy; <span id="year">2026</span> [INSERT YOUR BUSINESS NAME]. All rights reserved.</div>
+    </footer>
+  </section>
+
+</main>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
