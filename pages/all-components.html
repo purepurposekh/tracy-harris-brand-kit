@@ -97,23 +97,28 @@
     .ac-top__title em { font-family: var(--f-serif-italic); font-style: italic; color: var(--p-copper); }
     .ac-top__nav { font-size: 12px; }
 
-    .ac-layout { display: grid; grid-template-columns: 260px 1fr; gap: 48px; padding: 48px clamp(24px, 5vw, 64px); max-width: 1480px; margin: 0 auto; }
-    @media (max-width: 900px) { .ac-layout { grid-template-columns: 1fr; gap: 24px; } }
+    .ac-layout { padding: 48px clamp(24px, 5vw, 64px); max-width: 1480px; margin: 0 auto; position: relative; }
+    .ac-main { /* main content column */ }
+    @media (min-width: 901px) {
+      .ac-main { margin-left: 308px; }  /* sidebar 260 + gap 48 */
+    }
 
-    /* In-page category sidebar — sticky, compact enough to fit the viewport
-       without internal scrolling so sticky actually engages and all categories
-       stay visible at every scroll position. */
-    .ac-sidebar {
-      position: sticky;
-      top: 96px;
-      align-self: start;
-      height: fit-content;
-      max-height: calc(100vh - 112px);
-      overflow: hidden;
-      padding-right: 4px;
+    /* In-page category sidebar — FIXED on desktop so it stays visible at every
+       scroll position regardless of grid/flex quirks. left position is set by
+       JS so it aligns with the layout's left padding and adapts when the
+       app-sidebar collapses. */
+    @media (min-width: 901px) {
+      .ac-sidebar {
+        position: fixed;
+        top: 104px;
+        width: 260px;
+        max-height: calc(100vh - 120px);
+        overflow: hidden;
+        z-index: 5;
+      }
     }
     @media (max-width: 900px) {
-      .ac-sidebar { position: static; max-height: none; overflow: visible; }
+      .ac-sidebar { position: static; max-height: none; overflow: visible; margin-bottom: 24px; }
     }
     .ac-sidebar__h { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 8px; font-weight: 500; }
     .ac-sidebar ul { list-style: none; padding: 0; margin: 0 0 14px; }
@@ -320,7 +325,7 @@
 <li><a href="#cat-why-block"><span>Why Block</span><span class="ac-count">3</span></a></li></ul>
     </aside>
 
-    <div>
+    <div class="ac-main">
       <div class="ac-intro">
         <p>Every visual component in the brand kit, in one place. Naming convention: <code style="font-size: 12px; background: var(--p-white); padding: 3px 7px; border-radius: 3px; border: 1px solid rgba(16,16,16,0.08);">category.variant-slug</code>. Click a name to copy it, click Open to preview the live variant.</p>
         <p>Updated whenever the <code style="font-size: 12px;">components/</code> tree changes. Run <code style="font-size: 12px;">python3 scripts/generate-all-components.py</code> after adding a new variant to refresh this page.</p>
@@ -3860,6 +3865,21 @@
   </dialog>
 
   <script>
+    // Position the fixed category sidebar so it aligns with layout left padding.
+    // Re-runs on resize and when app-sidebar collapses.
+    function positionCategorySidebar() {
+      var layout = document.querySelector('.ac-layout');
+      var sidebar = document.querySelector('.ac-sidebar');
+      if (!layout || !sidebar) return;
+      if (window.innerWidth < 901) { sidebar.style.left = ''; return; }
+      var rect = layout.getBoundingClientRect();
+      var pad = parseFloat(getComputedStyle(layout).paddingLeft) || 0;
+      sidebar.style.left = (rect.left + pad) + 'px';
+    }
+    window.addEventListener('resize', positionCategorySidebar);
+    // Call initially and after any layout shift (sidebar collapse triggers ~220ms transition)
+    positionCategorySidebar();
+
     // App sidebar init
     (function () {
       var body = document.body;
@@ -3890,8 +3910,12 @@
           var collapsed = body.classList.contains('sidebar-collapsed');
           try { localStorage.setItem(LS_KEY, collapsed ? 'true' : 'false'); } catch (e) {}
           syncCollapsedUI();
+          // App-sidebar width change shifts the layout, re-position category sidebar after transition
+          setTimeout(positionCategorySidebar, 240);
         });
       }
+      // Re-position category sidebar once the collapsed state is loaded (body padding updates)
+      requestAnimationFrame(positionCategorySidebar);
       // Active state: this page is all-components
       var links = document.querySelectorAll('.app-sidebar__link');
       for (var i = 0; i < links.length; i++) {
