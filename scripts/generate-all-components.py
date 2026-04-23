@@ -303,30 +303,27 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     .ac-layout {{ display: grid; grid-template-columns: 260px 1fr; gap: 48px; padding: 48px clamp(24px, 5vw, 64px); max-width: 1480px; margin: 0 auto; }}
     @media (max-width: 900px) {{ .ac-layout {{ grid-template-columns: 1fr; gap: 24px; }} }}
 
-    /* In-page category sidebar — travels with scroll, pinned inside viewport.
-       Internal overflow so all 25 categories stay reachable, but scrollbar is
-       hidden visually (Karl wanted no visible scrollbar). */
+    /* In-page category sidebar — sticky, compact enough to fit the viewport
+       without internal scrolling so sticky actually engages and all categories
+       stay visible at every scroll position. */
     .ac-sidebar {{
       position: sticky;
-      top: 104px;
+      top: 96px;
       align-self: start;
-      max-height: calc(100vh - 120px);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding-right: 8px;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      height: fit-content;
+      max-height: calc(100vh - 112px);
+      overflow: hidden;
+      padding-right: 4px;
     }}
-    .ac-sidebar::-webkit-scrollbar {{ width: 0; height: 0; display: none; }}
     @media (max-width: 900px) {{
       .ac-sidebar {{ position: static; max-height: none; overflow: visible; }}
     }}
-    .ac-sidebar__h {{ font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 18px; font-weight: 500; }}
-    .ac-sidebar ul {{ list-style: none; padding: 0; margin: 0 0 28px; }}
+    .ac-sidebar__h {{ font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--p-mute); margin: 0 0 8px; font-weight: 500; }}
+    .ac-sidebar ul {{ list-style: none; padding: 0; margin: 0 0 14px; }}
     .ac-sidebar li {{ margin: 0; }}
-    .ac-sidebar a {{ display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; font-size: 14px; color: var(--p-aztek); text-decoration: none; border-bottom: 1px solid rgba(16,16,16,0.06); transition: color 180ms ease, border-color 180ms ease; }}
+    .ac-sidebar a {{ display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; font-size: 12px; line-height: 1.35; color: var(--p-aztek); text-decoration: none; border-bottom: 1px solid rgba(16,16,16,0.05); transition: color 180ms ease, border-color 180ms ease; }}
     .ac-sidebar a:hover {{ color: var(--p-copper); border-color: rgba(173,118,91,0.4); }}
-    .ac-count {{ font-family: var(--f-serif-display); font-style: italic; color: var(--p-copper); font-size: 13px; }}
+    .ac-count {{ font-family: var(--f-serif-display); font-style: italic; color: var(--p-copper); font-size: 11px; }}
 
     .ac-intro {{ margin-bottom: 40px; max-width: 720px; }}
     .ac-intro p {{ font-size: 15px; line-height: 1.72; color: var(--p-ink); margin: 0 0 14px; }}
@@ -498,10 +495,6 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     <aside class="ac-sidebar">
       <p class="ac-sidebar__h">Categories</p>
       <ul>{sidebar_html}</ul>
-      <p class="ac-sidebar__h">How to use</p>
-      <p style="font-size: 13px; line-height: 1.65; color: var(--p-ink); margin: 0;">
-        Click any <code style="font-size: 11px; background: var(--p-oatmeal); padding: 2px 6px; border-radius: 3px;">name.variant</code> to copy it. Say to Kira "I want hero.classic-ffb-split-right-polished" and she'll know exactly which variant.
-      </p>
     </aside>
 
     <div>
