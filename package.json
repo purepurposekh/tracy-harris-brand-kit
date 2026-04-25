@@ -8,7 +8,10 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "design-md": "node scripts/generate-design-md.mjs",
+    "design-md:lint": "design.md lint exports/design-md/tracy.md && design.md lint exports/design-md/ffb.md && design.md lint exports/design-md/ffm.md && design.md lint exports/design-md/fresh.md",
+    "design-md:export-tailwind": "design.md export --format tailwind exports/design-md/tracy.md > exports/tailwind-tracy.json"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
   },
   "homepage": "https://github.com/purepurposekh/tracy-harris-brand-kit#readme",
   "devDependencies": {
+    "@google/design.md": "^0.1.1",
     "sharp": "^0.34.5"
   }
 }
