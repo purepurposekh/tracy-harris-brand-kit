@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Library · Tracy Harris Co Brand Kit</title>
+  <meta name="description" content="Tagged brand image library, filterable by mood, score, and use case." />
+  <link rel="icon" type="image/svg+xml" href="../../assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../styles/tokens.css" />
+  <style>
+    /* palette-scope-exempt: page is wrapped in data-brand="tracy" so primitive tokens resolve through the tracy semantic mappings */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--surface-elevated);
+      color: var(--ink-body);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    button { font-family: inherit; }
+
+    /* Header */
+    .lib-top {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 18px clamp(20px, 4vw, 48px);
+      background: var(--surface-elevated);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .lib-top__brand {
+      display: inline-flex; align-items: baseline; gap: 12px;
+      text-decoration: none;
+    }
+    .lib-top__back {
+      font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+      font-weight: 500; color: var(--ink-mute);
+    }
+    .lib-top__title {
+      font-family: var(--f-serif-display);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--ink-heading);
+    }
+    .lib-top__count {
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 500; color: var(--ink-mute);
+    }
+
+    /* Filter bar */
+    .lib-filters {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: end;
+      padding: 20px clamp(20px, 4vw, 48px);
+      background: var(--surface-elevated);
+      filter: brightness(0.97);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .lib-filters__field {
+      display: inline-flex; flex-direction: column; gap: 4px;
+    }
+    .lib-filters__label {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 500; color: var(--ink-mute);
+    }
+    .lib-filters__select,
+    .lib-filters__input {
+      padding: 8px 14px;
+      font-family: var(--f-sans); font-size: 13px;
+      background: var(--surface-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 4px;
+      color: var(--ink-body);
+      min-width: 140px;
+    }
+    .lib-filters__input { min-width: 220px; }
+    .lib-filters__clear {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--accent-hover);
+      border-radius: 999px;
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      font-weight: 500; color: var(--accent);
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    .lib-filters__clear:hover { background: var(--accent-hover); color: var(--ink-inverse); }
+
+    /* Grid */
+    .lib-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 32px clamp(20px, 4vw, 48px) 64px;
+    }
+    .lib-empty {
+      padding: 64px clamp(20px, 4vw, 48px);
+      text-align: center;
+      color: var(--ink-mute);
+      font-style: italic;
+    }
+
+    /* Card */
+    .lib-card {
+      display: flex; flex-direction: column;
+      background: var(--surface-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+    .lib-card:hover {
+      border-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(16,16,16,0.08);
+    }
+    .lib-card[hidden] { display: none; }
+
+    .lib-card__thumb {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      background: var(--surface-elevated);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .lib-card__thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .lib-card:hover .lib-card__thumb img { transform: scale(1.03); }
+    .lib-card__score {
+      position: absolute; top: 12px; right: 12px;
+      padding: 4px 10px;
+      background: rgba(16,16,16,0.7);
+      backdrop-filter: blur(8px);
+      color: var(--ink-inverse);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em;
+      border-radius: 999px;
+    }
+    .lib-card__score[data-tier="hero"] { background: rgba(110, 142, 119, 0.92); }
+    .lib-card__score[data-tier="mid"] { background: rgba(173, 118, 91, 0.92); }
+    .lib-card__score[data-tier="low"] { background: rgba(114, 114, 114, 0.92); }
+
+    .lib-card__body {
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 12px;
+      flex: 1;
+    }
+    .lib-card__subject {
+      font-size: 13px; line-height: 1.4;
+      color: var(--ink-body);
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .lib-card__moods {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .lib-card__mood {
+      padding: 3px 10px;
+      background: var(--surface-elevated);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .lib-card__palette {
+      display: flex; gap: 6px;
+    }
+    .lib-card__swatch {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--border-hairline);
+      flex-shrink: 0;
+    }
+    .lib-card__uses {
+      font-size: 11px; color: var(--ink-mute);
+      line-height: 1.5;
+    }
+    .lib-card__actions {
+      display: flex; gap: 8px;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-hairline);
+    }
+    .lib-card__btn {
+      flex: 1;
+      padding: 8px 12px;
+      background: transparent;
+      border: 1px solid var(--border-hairline);
+      border-radius: 4px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500; color: var(--accent);
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+      text-decoration: none;
+      text-align: center;
+    }
+    .lib-card__btn:hover { background: var(--accent); color: var(--accent-on); border-color: var(--accent); }
+    .lib-card__btn--copied { background: var(--accent-hover); color: var(--ink-inverse); border-color: var(--accent-hover); }
+
+    /* Detail dialog */
+    dialog.lib-modal {
+      width: min(960px, 96vw);
+      max-height: 92vh;
+      padding: 0;
+      border: 0;
+      border-radius: 12px;
+      background: var(--surface-elevated);
+      box-shadow: 0 30px 80px rgba(16,16,16,0.32);
+      overflow: hidden;
+    }
+    dialog.lib-modal::backdrop { background: rgba(16,16,16,0.5); }
+    .lib-modal__header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .lib-modal__title { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; color: var(--ink-heading); margin: 0; }
+    .lib-modal__close {
+      background: transparent; border: 0; width: 32px; height: 32px;
+      cursor: pointer; color: var(--accent); font-size: 22px; line-height: 1;
+    }
+    .lib-modal__body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      max-height: calc(92vh - 60px);
+      overflow: hidden;
+    }
+    @media (max-width: 720px) {
+      .lib-modal__body { grid-template-columns: 1fr; overflow-y: auto; }
+    }
+    .lib-modal__photo {
+      background: var(--surface-inverse);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .lib-modal__photo img { width: 100%; height: 100%; max-height: 88vh; object-fit: contain; }
+    .lib-modal__meta { padding: 24px; overflow-y: auto; }
+    .lib-modal__field { margin-bottom: 18px; }
+    .lib-modal__label {
+      font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+      font-weight: 500; color: var(--ink-mute);
+      margin: 0 0 6px;
+    }
+    .lib-modal__value {
+      font-size: 13px; line-height: 1.5; color: var(--ink-body);
+      margin: 0;
+    }
+    .lib-modal__url {
+      display: block; word-break: break-all;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      background: var(--surface-canvas);
+      padding: 8px 10px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <header class="lib-top">
+    <a class="lib-top__brand" href="../">
+      <span class="lib-top__back">&larr; Brand Kit</span>
+      <span class="lib-top__title">Image Library</span>
+    </a>
+    <span class="lib-top__count" id="libCount">Loading...</span>
+  </header>
+
+  <section class="lib-filters" aria-label="Filters">
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterSearch">Search</label>
+      <input type="search" id="filterSearch" class="lib-filters__input" placeholder="tags, subject, alt text..." />
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterMood">Mood</label>
+      <select id="filterMood" class="lib-filters__select">
+        <option value="">All moods</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterUseCase">Use case</label>
+      <select id="filterUseCase" class="lib-filters__select">
+        <option value="">All use cases</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterScore">On-brand score</label>
+      <select id="filterScore" class="lib-filters__select">
+        <option value="">Any score</option>
+        <option value="0.9">0.90+ (hero-grade)</option>
+        <option value="0.8">0.80+ (strong)</option>
+        <option value="0.7">0.70+ (usable)</option>
+        <option value="0.5">0.50+ (consider)</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterSort">Sort</label>
+      <select id="filterSort" class="lib-filters__select">
+        <option value="score-desc">Score, high to low</option>
+        <option value="score-asc">Score, low to high</option>
+        <option value="filename">Filename</option>
+      </select>
+    </div>
+    <button type="button" class="lib-filters__clear" id="filterClear">Clear filters</button>
+  </section>
+
+  <main class="lib-grid" id="libGrid" aria-live="polite"></main>
+  <div class="lib-empty" id="libEmpty" hidden>No images match the current filters.</div>
+
+  <dialog class="lib-modal" id="libModal">
+    <header class="lib-modal__header">
+      <h2 class="lib-modal__title" id="libModalTitle"></h2>
+      <button type="button" class="lib-modal__close" id="libModalClose" aria-label="Close">&times;</button>
+    </header>
+    <div class="lib-modal__body">
+      <div class="lib-modal__photo"><img id="libModalImg" alt="" /></div>
+      <div class="lib-modal__meta" id="libModalMeta"></div>
+    </div>
+  </dialog>
+
+  <script>
+    const INDEX_URL = 'https://assets.tracyharris.com.au/index.json';
+    const state = { items: [], filtered: [] };
+
+    const els = {
+      count: document.getElementById('libCount'),
+      grid: document.getElementById('libGrid'),
+      empty: document.getElementById('libEmpty'),
+      search: document.getElementById('filterSearch'),
+      mood: document.getElementById('filterMood'),
+      useCase: document.getElementById('filterUseCase'),
+      score: document.getElementById('filterScore'),
+      sort: document.getElementById('filterSort'),
+      clear: document.getElementById('filterClear'),
+      modal: document.getElementById('libModal'),
+      modalImg: document.getElementById('libModalImg'),
+      modalMeta: document.getElementById('libModalMeta'),
+      modalTitle: document.getElementById('libModalTitle'),
+      modalClose: document.getElementById('libModalClose'),
+    };
+
+    function scoreTier(s) {
+      if (s >= 0.85) return 'hero';
+      if (s >= 0.7) return 'mid';
+      return 'low';
+    }
+
+    function hex(palette) {
+      const map = {
+        cream: '#ece7de', 'soft cream': '#ece7de', 'warm beige': '#d6c8b4',
+        amber: '#c9a46c', 'dusty rose': '#cc9989', sage: '#788e75',
+        'soft white': '#f6f4f1', white: '#ffffff', 'warm white': '#f6f4f1',
+        oatmeal: '#f6f4f1', ink: '#313131', charcoal: '#101010',
+        navy: '#20314c', orange: '#ca6b4d', peach: '#ddab7d',
+        clay: '#ad765b', copper: '#ad765b', coral: '#ef673e',
+        gold: '#c9a46c', 'gold-mid': '#c9a46c', mute: '#727272',
+        green: '#6e8e77', moss: '#6e8e77', olive: '#788e75',
+        terracotta: '#c87a5a', stone: '#c4bfb3', black: '#000000',
+      };
+      const key = String(palette).toLowerCase().trim();
+      return map[key] || '#e0d8c8';
+    }
+
+    function uniqueLowered(items, field) {
+      const set = new Set();
+      items.forEach(it => {
+        const v = it[field];
+        if (Array.isArray(v)) v.forEach(x => set.add(String(x).toLowerCase()));
+        else if (v) set.add(String(v).toLowerCase());
+      });
+      return Array.from(set).sort();
+    }
+
+    function populateFilter(select, values) {
+      values.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = v;
+        select.appendChild(opt);
+      });
+    }
+
+    function render() {
+      const f = state.filtered;
+      els.grid.innerHTML = '';
+      if (!f.length) {
+        els.empty.hidden = false;
+      } else {
+        els.empty.hidden = true;
+        const frag = document.createDocumentFragment();
+        f.forEach(item => frag.appendChild(makeCard(item)));
+        els.grid.appendChild(frag);
+      }
+      els.count.textContent = `${f.length} of ${state.items.length}`;
+    }
+
+    function makeCard(item) {
+      const card = document.createElement('article');
+      card.className = 'lib-card';
+      card.dataset.slug = item.slug;
+
+      const thumb = document.createElement('div');
+      thumb.className = 'lib-card__thumb';
+      thumb.innerHTML = `
+        <img loading="lazy" src="${item.photo_url}" alt="${(item.alt || '').replace(/"/g, '&quot;')}" />
+        <span class="lib-card__score" data-tier="${scoreTier(item.on_brand_score || 0)}">${(item.on_brand_score || 0).toFixed(2)}</span>
+      `;
+      thumb.addEventListener('click', () => openModal(item));
+
+      const body = document.createElement('div');
+      body.className = 'lib-card__body';
+      const moods = (item.mood || []).slice(0, 4).map(m => `<span class="lib-card__mood">${m}</span>`).join('');
+      const swatches = (item.palette || []).slice(0, 5).map(p => `<span class="lib-card__swatch" style="background:${hex(p)}" title="${p}"></span>`).join('');
+      const uses = (item.use_cases || []).slice(0, 3).join(' · ');
+      body.innerHTML = `
+        <p class="lib-card__subject">${item.subject || item.alt || item.filename || ''}</p>
+        <div class="lib-card__moods">${moods}</div>
+        <div class="lib-card__palette">${swatches}</div>
+        <p class="lib-card__uses">${uses}</p>
+        <div class="lib-card__actions">
+          <button type="button" class="lib-card__btn" data-action="copy">Copy URL</button>
+          <a class="lib-card__btn" href="${item.photo_url}" target="_blank" rel="noopener">Open</a>
+        </div>
+      `;
+      card.appendChild(thumb);
+      card.appendChild(body);
+
+      body.querySelector('[data-action="copy"]').addEventListener('click', e => {
+        navigator.clipboard.writeText(item.photo_url).then(() => {
+          e.target.classList.add('lib-card__btn--copied');
+          e.target.textContent = 'Copied';
+          setTimeout(() => {
+            e.target.classList.remove('lib-card__btn--copied');
+            e.target.textContent = 'Copy URL';
+          }, 1500);
+        });
+      });
+
+      return card;
+    }
+
+    function openModal(item) {
+      els.modalTitle.textContent = item.filename;
+      els.modalImg.src = item.photo_url;
+      els.modalImg.alt = item.alt || '';
+
+      const fields = [
+        { label: 'Alt text', value: item.alt },
+        { label: 'Subject', value: item.subject },
+        { label: 'Mood', value: (item.mood || []).join(', ') },
+        { label: 'Lighting', value: item.lighting },
+        { label: 'Composition', value: item.composition },
+        { label: 'Palette', value: (item.palette || []).join(', ') },
+        { label: 'Tags', value: (item.tags || []).join(', ') },
+        { label: 'Use cases', value: (item.use_cases || []).join(' · ') },
+        { label: 'On-brand score', value: (item.on_brand_score ?? '').toString() },
+        { label: 'People', value: `${item.people_count || 0}${item.tracy_present ? ' (Tracy present)' : ''}${item.kids_present ? ', kids present' : ''}` },
+        { label: 'Style', value: item.candid_or_posed },
+        { label: 'Notes', value: item.notes },
+      ];
+      const html = fields.filter(f => f.value).map(f => `
+        <div class="lib-modal__field">
+          <p class="lib-modal__label">${f.label}</p>
+          <p class="lib-modal__value">${f.value}</p>
+        </div>
+      `).join('') + `
+        <div class="lib-modal__field">
+          <p class="lib-modal__label">Public URL</p>
+          <code class="lib-modal__url">${item.photo_url}</code>
+        </div>
+        <div class="lib-modal__field">
+          <p class="lib-modal__label">Sidecar JSON</p>
+          <code class="lib-modal__url"><a href="${item.sidecar_url}" target="_blank">${item.sidecar_url}</a></code>
+        </div>
+      `;
+      els.modalMeta.innerHTML = html;
+      els.modal.showModal();
+    }
+
+    function applyFilters() {
+      const q = els.search.value.trim().toLowerCase();
+      const mood = els.mood.value;
+      const useCase = els.useCase.value;
+      const minScore = parseFloat(els.score.value) || 0;
+
+      const filtered = state.items.filter(item => {
+        if (mood && !(item.mood || []).map(m => m.toLowerCase()).includes(mood)) return false;
+        if (useCase && !(item.use_cases || []).map(u => u.toLowerCase()).includes(useCase)) return false;
+        if ((item.on_brand_score || 0) < minScore) return false;
+        if (q) {
+          const haystack = [
+            item.filename, item.alt, item.subject, item.notes,
+            (item.tags || []).join(' '),
+            (item.mood || []).join(' '),
+            (item.use_cases || []).join(' '),
+            (item.palette || []).join(' '),
+          ].join(' ').toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+
+      const sort = els.sort.value;
+      filtered.sort((a, b) => {
+        if (sort === 'score-desc') return (b.on_brand_score || 0) - (a.on_brand_score || 0);
+        if (sort === 'score-asc') return (a.on_brand_score || 0) - (b.on_brand_score || 0);
+        if (sort === 'filename') return String(a.filename).localeCompare(String(b.filename));
+        return 0;
+      });
+      state.filtered = filtered;
+      render();
+    }
+
+    async function init() {
+      try {
+        const res = await fetch(INDEX_URL, { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`Fetch ${INDEX_URL} returned ${res.status}`);
+        const data = await res.json();
+        state.items = data.items || [];
+
+        populateFilter(els.mood, uniqueLowered(state.items, 'mood'));
+        populateFilter(els.useCase, uniqueLowered(state.items, 'use_cases'));
+
+        ['input', 'change'].forEach(evt => {
+          els.search.addEventListener(evt, applyFilters);
+          els.mood.addEventListener(evt, applyFilters);
+          els.useCase.addEventListener(evt, applyFilters);
+          els.score.addEventListener(evt, applyFilters);
+          els.sort.addEventListener(evt, applyFilters);
+        });
+        els.clear.addEventListener('click', () => {
+          els.search.value = '';
+          els.mood.value = '';
+          els.useCase.value = '';
+          els.score.value = '';
+          els.sort.value = 'score-desc';
+          applyFilters();
+        });
+        els.modalClose.addEventListener('click', () => els.modal.close());
+        els.modal.addEventListener('click', e => {
+          if (e.target === els.modal) els.modal.close();
+        });
+
+        applyFilters();
+      } catch (err) {
+        els.count.textContent = 'Failed to load';
+        els.grid.innerHTML = `<p style="grid-column: 1 / -1; padding: 32px; color: var(--ink-mute); text-align: center;">Could not load image index. ${err.message}</p>`;
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
