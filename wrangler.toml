@@ -1,0 +1,18 @@
+name = "tracy-harris-brand-kit"
+compatibility_date = "2026-05-13"
+pages_build_output_dir = "."
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "tracy-brand-assets"
+
+[vars]
+WEBHOOK_TAG_URL = "https://webhook.tracyharris.com.au/tag-by-slug"
+
+[env.preview]
+[[env.preview.r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "tracy-brand-assets"
+
+[env.preview.vars]
+WEBHOOK_TAG_URL = "https://webhook.tracyharris.com.au/tag-by-slug"
