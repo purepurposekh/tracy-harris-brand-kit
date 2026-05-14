@@ -53,6 +53,86 @@
       font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
       font-weight: 500; color: var(--ink-mute);
     }
+    .lib-top__actions {
+      display: inline-flex; align-items: center; gap: 18px;
+    }
+    .lib-top__upload {
+      appearance: none; border: 1px solid var(--p-aztek);
+      background: var(--p-aztek); color: var(--p-oatmeal);
+      padding: 10px 18px; border-radius: 999px;
+      font-family: var(--f-sans); font-size: 12px;
+      letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
+      cursor: pointer; transition: background 200ms ease, transform 160ms ease;
+    }
+    .lib-top__upload:hover { background: var(--p-charcoal); transform: translateY(-1px); }
+    .lib-top__upload:focus-visible { outline: 2px solid var(--p-sage); outline-offset: 2px; }
+
+    /* Upload dialog */
+    .lib-up {
+      border: none; padding: 0; border-radius: 16px;
+      max-width: 520px; width: 92vw;
+      background: var(--surface-canvas); color: var(--ink-body);
+      box-shadow: 0 24px 64px rgba(16,16,16,0.2);
+    }
+    .lib-up::backdrop { background: rgba(30,55,53,0.55); backdrop-filter: blur(4px); }
+    .lib-up__head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+    .lib-up__title {
+      margin: 0; font-family: var(--f-serif-display); font-weight: 400;
+      font-size: 22px; color: var(--ink-heading);
+    }
+    .lib-up__close {
+      appearance: none; border: none; background: transparent;
+      font-size: 28px; line-height: 1; color: var(--ink-mute);
+      cursor: pointer; padding: 4px 10px;
+    }
+    .lib-up__close:hover { color: var(--ink-body); }
+    .lib-up__body { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+    .lib-up__field { display: flex; flex-direction: column; gap: 6px; }
+    .lib-up__label {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      font-weight: 500; color: var(--ink-mute);
+    }
+    .lib-up__input {
+      padding: 10px 14px;
+      font-family: var(--f-sans); font-size: 13px;
+      background: var(--surface-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px; color: var(--ink-body);
+    }
+    .lib-up__input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .lib-up__drop {
+      border: 2px dashed var(--border-hairline);
+      border-radius: 12px;
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 200ms ease, background 200ms ease;
+    }
+    .lib-up__drop:hover, .lib-up__drop.is-hover {
+      border-color: var(--p-sage); background: var(--surface-elevated);
+    }
+    .lib-up__droptitle {
+      margin: 0 0 6px;
+      font-family: var(--f-serif-display); font-size: 16px; color: var(--ink-heading);
+    }
+    .lib-up__dropsub {
+      margin: 0; font-size: 12px; color: var(--ink-mute);
+    }
+    .lib-up__status {
+      margin: 0; padding: 12px 14px; border-radius: 8px;
+      font-size: 13px; line-height: 1.5;
+      background: var(--surface-elevated); color: var(--ink-body);
+    }
+    .lib-up__status[data-state="error"] {
+      background: rgba(239, 103, 62, 0.12); color: #b9450f;
+    }
+    .lib-up__status[data-state="ok"] {
+      background: rgba(110, 142, 119, 0.15); color: #3d5d44;
+    }
 
     /* Filter bar */
     .lib-filters {
@@ -276,8 +356,30 @@
       <span class="lib-top__back">&larr; Brand Kit</span>
       <span class="lib-top__title">Image Library</span>
     </a>
-    <span class="lib-top__count" id="libCount">Loading...</span>
+    <div class="lib-top__actions">
+      <span class="lib-top__count" id="libCount">Loading...</span>
+      <button type="button" class="lib-top__upload" id="libUploadOpen">+ Upload photo</button>
+    </div>
   </header>
+
+  <dialog class="lib-up" id="libUp">
+    <header class="lib-up__head">
+      <h2 class="lib-up__title">Upload a brand photo</h2>
+      <button type="button" class="lib-up__close" id="libUpClose" aria-label="Close">&times;</button>
+    </header>
+    <div class="lib-up__body">
+      <div class="lib-up__field">
+        <label class="lib-up__label" for="libUpToken">Upload passphrase</label>
+        <input type="password" id="libUpToken" class="lib-up__input" placeholder="Saved in this browser, paste once" autocomplete="off" />
+      </div>
+      <div class="lib-up__drop" id="libUpDrop" tabindex="0">
+        <p class="lib-up__droptitle">Drop a photo here, or click to pick</p>
+        <p class="lib-up__dropsub">JPG, PNG, WebP, HEIC. Up to 30 MB. Tagging runs on upload.</p>
+        <input type="file" id="libUpFile" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" hidden />
+      </div>
+      <p class="lib-up__status" id="libUpStatus" hidden></p>
+    </div>
+  </dialog>
 
   <section class="lib-filters" aria-label="Filters">
     <div class="lib-filters__field">
@@ -524,15 +626,19 @@
       render();
     }
 
+    async function loadIndex() {
+      const res = await fetch(INDEX_URL, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`Fetch ${INDEX_URL} returned ${res.status}`);
+      const data = await res.json();
+      state.items = data.items || [];
+      populateFilter(els.mood, uniqueLowered(state.items, 'mood'));
+      populateFilter(els.useCase, uniqueLowered(state.items, 'use_cases'));
+      applyFilters();
+    }
+
     async function init() {
       try {
-        const res = await fetch(INDEX_URL, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`Fetch ${INDEX_URL} returned ${res.status}`);
-        const data = await res.json();
-        state.items = data.items || [];
-
-        populateFilter(els.mood, uniqueLowered(state.items, 'mood'));
-        populateFilter(els.useCase, uniqueLowered(state.items, 'use_cases'));
+        await loadIndex();
 
         ['input', 'change'].forEach(evt => {
           els.search.addEventListener(evt, applyFilters);
@@ -554,10 +660,103 @@
           if (e.target === els.modal) els.modal.close();
         });
 
-        applyFilters();
+        wireUpload();
       } catch (err) {
         els.count.textContent = 'Failed to load';
         els.grid.innerHTML = `<p style="grid-column: 1 / -1; padding: 32px; color: var(--ink-mute); text-align: center;">Could not load image index. ${err.message}</p>`;
+      }
+    }
+
+    // Inline upload dialog. Posts to same /api/upload Function the standalone page uses.
+    // Token is shared via localStorage key so users only enter it once across both pages.
+    function wireUpload() {
+      const TOKEN_KEY = 'thc.brandkit.uploadToken';
+      const ENDPOINT = '/api/upload';
+      const up = {
+        dialog: document.getElementById('libUp'),
+        open: document.getElementById('libUploadOpen'),
+        close: document.getElementById('libUpClose'),
+        token: document.getElementById('libUpToken'),
+        drop: document.getElementById('libUpDrop'),
+        file: document.getElementById('libUpFile'),
+        status: document.getElementById('libUpStatus'),
+      };
+      if (!up.dialog) return;
+
+      up.token.value = localStorage.getItem(TOKEN_KEY) || '';
+      up.token.addEventListener('change', () => {
+        const v = up.token.value.trim();
+        if (v) localStorage.setItem(TOKEN_KEY, v);
+        else localStorage.removeItem(TOKEN_KEY);
+      });
+
+      function setStatus(msg, state) {
+        if (!msg) { up.status.hidden = true; up.status.textContent = ''; return; }
+        up.status.hidden = false;
+        up.status.textContent = msg;
+        if (state) up.status.dataset.state = state;
+        else delete up.status.dataset.state;
+      }
+
+      up.open.addEventListener('click', () => {
+        setStatus('');
+        up.dialog.showModal();
+      });
+      up.close.addEventListener('click', () => up.dialog.close());
+      up.dialog.addEventListener('click', e => {
+        if (e.target === up.dialog) up.dialog.close();
+      });
+
+      ['dragenter', 'dragover'].forEach(evt => {
+        up.drop.addEventListener(evt, e => {
+          e.preventDefault();
+          up.drop.classList.add('is-hover');
+        });
+      });
+      ['dragleave', 'drop'].forEach(evt => {
+        up.drop.addEventListener(evt, e => {
+          e.preventDefault();
+          up.drop.classList.remove('is-hover');
+        });
+      });
+      up.drop.addEventListener('click', () => up.file.click());
+      up.drop.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); up.file.click(); }
+      });
+      up.drop.addEventListener('drop', e => {
+        const f = e.dataTransfer?.files?.[0];
+        if (f) uploadFile(f);
+      });
+      up.file.addEventListener('change', () => {
+        const f = up.file.files?.[0];
+        if (f) uploadFile(f);
+        up.file.value = '';
+      });
+
+      async function uploadFile(file) {
+        const token = up.token.value.trim() || localStorage.getItem(TOKEN_KEY) || '';
+        if (!token) { setStatus('Paste your upload passphrase above first.', 'error'); return; }
+        if (file.size > 30 * 1024 * 1024) { setStatus(`File ${file.name} is over 30 MB.`, 'error'); return; }
+        setStatus(`Uploading ${file.name}... Claude is tagging on the way in. Around 30 seconds.`);
+        const fd = new FormData();
+        fd.append('image', file);
+        try {
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: fd,
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.ok) {
+            setStatus(`Upload failed: ${data.error || res.statusText || 'unknown error'}`, 'error');
+            return;
+          }
+          setStatus(`Saved as ${data.slug}. Reloading the library...`, 'ok');
+          await loadIndex();
+          setTimeout(() => up.dialog.close(), 1200);
+        } catch (err) {
+          setStatus(`Network error: ${err.message}`, 'error');
+        }
       }
     }
 
