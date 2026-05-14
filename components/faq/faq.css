@@ -186,3 +186,93 @@
 /* Simple variant (no tabs, just accordion) */
 .faq--simple .faq__tabs { display: none; }
 .faq--simple .faq__panel { display: block; }
+
+/* -------- WORDMARK EDITORIAL VARIANT --------
+   Giant serif "QUESTIONS" wordmark header, downward arrow, native
+   <details>/<summary> accordion rows. Zero JS needed. */
+.faq--wordmark .faq__tabs { display: none; }
+.faq--wordmark .faq__panel { display: block; }
+.faq--wordmark .faq__inner { max-width: 1100px; }
+.faq--wordmark .faq__header {
+  margin: 0 0 var(--sp-7) 0;
+}
+.faq__wordmark {
+  font-family: var(--f-serif-display);
+  font-weight: 400;
+  font-size: clamp(80px, 14vw, 160px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--p-aztek);
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.faq__wordmark em {
+  font-family: var(--f-serif-italic);
+  font-style: italic;
+}
+.faq__wordmark-arrow {
+  display: block;
+  margin: 24px auto 0;
+  color: var(--p-sage);
+}
+
+.faq--wordmark .faq__row {
+  border-bottom: 1px solid var(--border-hairline);
+  padding: 0;
+}
+.faq--wordmark .faq__row[open] .faq__row-icon {
+  transform: rotate(45deg);
+}
+.faq--wordmark .faq__row > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-5) 0;
+  font-family: var(--f-serif-display);
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.25;
+  letter-spacing: -0.008em;
+  color: var(--p-aztek);
+  transition: color 0.2s;
+}
+.faq--wordmark .faq__row > summary::-webkit-details-marker { display: none; }
+.faq--wordmark .faq__row > summary:hover { color: var(--p-sage); }
+.faq--wordmark .faq__row-icon {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.faq--wordmark .faq__row-icon::before,
+.faq--wordmark .faq__row-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--p-aztek);
+  top: 50%;
+  left: 50%;
+}
+.faq--wordmark .faq__row-icon::before {
+  width: 14px;
+  height: 1.5px;
+  transform: translate(-50%, -50%);
+}
+.faq--wordmark .faq__row-icon::after {
+  width: 1.5px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+}
+.faq--wordmark .faq__row-answer {
+  padding: 0 0 var(--sp-5) 0;
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--p-ink);
+  max-width: 72ch;
+  margin: 0;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benefit Trio · Question row, Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-oatmeal);
+      color: var(--p-charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .section {
+      padding: clamp(56px, 7vw, 104px) clamp(20px, 5vw, 64px);
+    }
+
+    .bt__wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bt__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--p-sage);
+      line-height: 1;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+    .bt__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(30px, 3.6vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--p-charcoal);
+      margin: 0 auto 56px;
+      max-width: 28ch;
+      text-align: center;
+    }
+    .bt__title em { font-family: var(--f-serif-italic); font-style: italic; }
+
+    /* -------- QUESTION ROW VARIANT --------
+       4 cream cards. Big serif italic "?" replaces icon. No card title.
+       The pain-point question framing IS the heading. */
+    .bt-question .bt__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(16px, 1.8vw, 24px);
+    }
+    .bt-question .bt__item {
+      background: var(--p-cream);
+      border: 1px solid var(--border-hairline, rgba(16, 16, 16, 0.08));
+      border-radius: 14px;
+      padding: clamp(28px, 3vw, 40px);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .bt-question .bt__qmark {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(64px, 5vw, 88px);
+      line-height: 0.85;
+      color: var(--p-aztek);
+      display: block;
+    }
+    .bt-question .bt__body {
+      font-family: var(--f-sans);
+      font-size: clamp(15px, 1.05vw, 16px);
+      line-height: 1.55;
+      color: var(--p-ink);
+      margin: 0;
+    }
+
+    @media (max-width: 980px) {
+      .bt-question .bt__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .bt-question .bt__grid { grid-template-columns: 1fr; }
+      .section { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body data-brand="tracy">
+
+  <section class="section bt-question" aria-label="Benefit trio, question row">
+    <div class="bt__wrap">
+      <p class="bt__eyebrow">The Problem</p>
+      <h2 class="bt__title">Four questions that might be running on a loop in your head.</h2>
+
+      <div class="bt__grid">
+        <article class="bt__item">
+          <span class="bt__qmark" aria-hidden="true">?</span>
+          <p class="bt__body">How long can you keep selling on Instagram every day before something gives?</p>
+        </article>
+
+        <article class="bt__item">
+          <span class="bt__qmark" aria-hidden="true">?</span>
+          <p class="bt__body">What happens to the offer you know works if you never let yourself launch it again?</p>
+        </article>
+
+        <article class="bt__item">
+          <span class="bt__qmark" aria-hidden="true">?</span>
+          <p class="bt__body">Could you really build a sales team and run discovery calls forever?</p>
+        </article>
+
+        <article class="bt__item">
+          <span class="bt__qmark" aria-hidden="true">?</span>
+          <p class="bt__body">Five-day challenges that empty you for a fortnight. Is that really the path?</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
