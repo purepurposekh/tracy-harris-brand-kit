@@ -135,8 +135,8 @@ function intentMatch(item, slotTags) {
 
 function primaryUseMatch(item, slot) {
   // Slot names align with the primary_use enum on purpose. If primary_use
-  // matches, that's a strong positive signal (use as a bonus, not a hard gate
-  // — secondary_uses might also justify inclusion).
+  // matches, that's a strong positive signal (use as a bonus, not a hard gate,
+  // since secondary_uses might also justify inclusion).
   const pu = String(item.primary_use || '').toLowerCase();
   if (pu === slot.toLowerCase()) return 'primary';
   const sec = (item.secondary_uses || []).map(s => String(s).toLowerCase());
@@ -163,7 +163,7 @@ function reasons(item, slot, weights, slotIntentTags) {
     out.push(`${d}=${dims[d].toFixed(2)} (weight ${w})`);
   }
   if (!item.score_dimensions) {
-    out.push('legacy v1 record — score_dimensions inferred from on_brand_score');
+    out.push('legacy v1 record, score_dimensions inferred from on_brand_score');
   }
   return out;
 }
@@ -212,7 +212,7 @@ export async function selectPhotos(opts) {
       if (!locationTypes.map(x => x.toLowerCase()).includes(lt)) return false;
     }
     // Intent-tag gate. Skipped for legacy v1 records that have no intent_tags
-    // at all — they get evaluated on weighted score only, and the selector
+    // at all. Those get evaluated on weighted score only, and the selector
     // notes that in the reasons list.
     if ((item.intent_tags || []).length > 0 && !intentMatch(item, slotIntentTags)) return false;
     return true;
@@ -241,7 +241,7 @@ export async function selectPhotos(opts) {
 
   // Series diversity. Don't return more than one photo from the same shoot_id
   // unless the caller explicitly opted in or the photo has no shoot_id yet
-  // (legacy items — fall back to filename diversity).
+  // (legacy items, fall back to filename diversity).
   const seenShoots = new Set(excludeShootIds.map(s => String(s).toLowerCase()));
   const chosen = [];
   for (const cand of scored) {
