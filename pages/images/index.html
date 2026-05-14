@@ -267,6 +267,18 @@
     .lib-card__uses {
       font-size: 11px; color: var(--ink-mute);
       line-height: 1.5;
+      margin: 0;
+    }
+    .lib-card__shoot-line {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      color: var(--ink-mute);
+      opacity: 0.85;
+    }
+    .lib-card__shoot {
+      padding: 2px 6px;
+      background: var(--surface-elevated);
+      border-radius: 3px;
     }
     .lib-card__actions {
       display: flex; gap: 8px;
@@ -387,13 +399,37 @@
       <input type="search" id="filterSearch" class="lib-filters__input" placeholder="tags, subject, alt text..." />
     </div>
     <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterPrimaryUse">Primary use</label>
+      <select id="filterPrimaryUse" class="lib-filters__select">
+        <option value="">All primary uses</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterIntentTag">Intent tag</label>
+      <select id="filterIntentTag" class="lib-filters__select">
+        <option value="">All intent tags</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterShootId">Shoot</label>
+      <select id="filterShootId" class="lib-filters__select">
+        <option value="">All shoots</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
+      <label class="lib-filters__label" for="filterLocationType">Location</label>
+      <select id="filterLocationType" class="lib-filters__select">
+        <option value="">All locations</option>
+      </select>
+    </div>
+    <div class="lib-filters__field">
       <label class="lib-filters__label" for="filterMood">Mood</label>
       <select id="filterMood" class="lib-filters__select">
         <option value="">All moods</option>
       </select>
     </div>
     <div class="lib-filters__field">
-      <label class="lib-filters__label" for="filterUseCase">Use case</label>
+      <label class="lib-filters__label" for="filterUseCase">Use case (legacy)</label>
       <select id="filterUseCase" class="lib-filters__select">
         <option value="">All use cases</option>
       </select>
@@ -411,8 +447,14 @@
     <div class="lib-filters__field">
       <label class="lib-filters__label" for="filterSort">Sort</label>
       <select id="filterSort" class="lib-filters__select">
-        <option value="score-desc">Score, high to low</option>
-        <option value="score-asc">Score, low to high</option>
+        <option value="score-desc">On-brand, high to low</option>
+        <option value="score-asc">On-brand, low to high</option>
+        <option value="brand_fit-desc">Brand fit, high to low</option>
+        <option value="proof_value-desc">Proof value, high to low</option>
+        <option value="authenticity-desc">Authenticity, high to low</option>
+        <option value="production_quality-desc">Production quality, high to low</option>
+        <option value="crop_flexibility-desc">Crop flexibility, high to low</option>
+        <option value="emotional_fit-desc">Emotional fit, high to low</option>
         <option value="filename">Filename</option>
       </select>
     </div>
@@ -442,6 +484,10 @@
       grid: document.getElementById('libGrid'),
       empty: document.getElementById('libEmpty'),
       search: document.getElementById('filterSearch'),
+      primaryUse: document.getElementById('filterPrimaryUse'),
+      intentTag: document.getElementById('filterIntentTag'),
+      shootId: document.getElementById('filterShootId'),
+      locationType: document.getElementById('filterLocationType'),
       mood: document.getElementById('filterMood'),
       useCase: document.getElementById('filterUseCase'),
       score: document.getElementById('filterScore'),
@@ -453,6 +499,18 @@
       modalTitle: document.getElementById('libModalTitle'),
       modalClose: document.getElementById('libModalClose'),
     };
+
+    // v2 score_dimensions axes, used for sort + modal display.
+    const DIMS = ['brand_fit', 'proof_value', 'authenticity', 'production_quality', 'crop_flexibility', 'emotional_fit'];
+
+    // Return either the v2 score_dimensions value or the legacy on_brand_score
+    // as a fallback. Lets v1 + v2 records coexist in the gallery.
+    function dimValue(item, dim) {
+      if (item.score_dimensions && typeof item.score_dimensions[dim] === 'number') {
+        return item.score_dimensions[dim];
+      }
+      return Number(item.on_brand_score) || 0;
+    }
 
     function scoreTier(s) {
       if (s >= 0.85) return 'hero';
@@ -476,14 +534,20 @@
       return map[key] || '#e0d8c8';
     }
 
-    function uniqueLowered(items, field) {
-      const set = new Set();
+    // Preserve original casing in dropdown values. Each unique raw string keeps
+    // its first-seen form (case-insensitive dedup).
+    function uniqueRaw(items, field) {
+      const seen = new Map();
       items.forEach(it => {
         const v = it[field];
-        if (Array.isArray(v)) v.forEach(x => set.add(String(x).toLowerCase()));
-        else if (v) set.add(String(v).toLowerCase());
+        const arr = Array.isArray(v) ? v : (v ? [v] : []);
+        arr.forEach(x => {
+          const s = String(x);
+          const key = s.toLowerCase();
+          if (!seen.has(key)) seen.set(key, s);
+        });
       });
-      return Array.from(set).sort();
+      return Array.from(seen.values()).sort((a, b) => a.localeCompare(b));
     }
 
     function populateFilter(select, values) {
@@ -499,6 +563,25 @@
       const f = state.filtered;
       els.grid.innerHTML = '';
       if (!f.length) {
+        // Diagnose which filter is most restrictive so the user can relax it.
+        const eb = state.eliminatedBy || {};
+        const labels = {
+          primaryUse: 'Primary use',
+          intentTag: 'Intent tag',
+          shootId: 'Shoot',
+          locationType: 'Location',
+          mood: 'Mood',
+          useCase: 'Use case (legacy)',
+          score: 'On-brand score',
+          search: 'Search text',
+        };
+        const sorted = Object.entries(eb).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+        if (sorted.length) {
+          const top = sorted[0];
+          els.empty.textContent = `No images match. The "${labels[top[0]] || top[0]}" filter rejected ${top[1]} item${top[1] === 1 ? '' : 's'}. Try clearing or loosening that one first.`;
+        } else {
+          els.empty.textContent = 'No images match the current filters.';
+        }
         els.empty.hidden = false;
       } else {
         els.empty.hidden = true;
@@ -524,14 +607,20 @@
 
       const body = document.createElement('div');
       body.className = 'lib-card__body';
-      const moods = (item.mood || []).slice(0, 4).map(m => `<span class="lib-card__mood">${m}</span>`).join('');
+      // Prefer the sharper v2 mood_v2 tags when present, fall back to v1 mood.
+      const moodSource = (item.mood_v2 && item.mood_v2.length) ? item.mood_v2 : (item.mood || []);
+      const moods = moodSource.slice(0, 4).map(m => `<span class="lib-card__mood">${m}</span>`).join('');
       const swatches = (item.palette || []).slice(0, 5).map(p => `<span class="lib-card__swatch" style="background:${hex(p)}" title="${p}"></span>`).join('');
-      const uses = (item.use_cases || []).slice(0, 3).join(' · ');
+      // Surface v2 primary_use and shoot_id so duplicates from same shoot are
+      // visible at a glance. Falls back to legacy use_cases.
+      const primaryLine = item.primary_use ? `<strong>${item.primary_use}</strong>` : (item.use_cases || []).slice(0, 3).join(' · ');
+      const shootLine = item.shoot_id ? `<span class="lib-card__shoot">shoot: ${item.shoot_id}</span>` : '';
       body.innerHTML = `
         <p class="lib-card__subject">${item.subject || item.alt || item.filename || ''}</p>
         <div class="lib-card__moods">${moods}</div>
         <div class="lib-card__palette">${swatches}</div>
-        <p class="lib-card__uses">${uses}</p>
+        <p class="lib-card__uses">${primaryLine}</p>
+        ${shootLine ? `<p class="lib-card__uses lib-card__shoot-line">${shootLine}</p>` : ''}
         <div class="lib-card__actions">
           <button type="button" class="lib-card__btn" data-action="copy">Copy URL</button>
           <a class="lib-card__btn" href="${item.photo_url}" target="_blank" rel="noopener">Open</a>
@@ -559,16 +648,36 @@
       els.modalImg.src = item.photo_url;
       els.modalImg.alt = item.alt || '';
 
+      // Build score_dimensions readable block if present.
+      const sd = item.score_dimensions;
+      const sdBlock = sd
+        ? DIMS.map(d => `${d}: ${(Number(sd[d]) || 0).toFixed(2)}`).join('  ·  ')
+        : null;
+
       const fields = [
         { label: 'Alt text', value: item.alt },
         { label: 'Subject', value: item.subject },
-        { label: 'Mood', value: (item.mood || []).join(', ') },
+        // v2 fields first when present.
+        { label: 'Primary use (v2)', value: item.primary_use },
+        { label: 'Secondary uses (v2)', value: (item.secondary_uses || []).join(' · ') },
+        { label: 'Intent tags (v2)', value: (item.intent_tags || []).join(', ') },
+        { label: 'Intent explanation (v2)', value: item.intent_tag_explanation },
+        { label: 'Placements (v2)', value: (item.placements || []).join(' · ') },
+        { label: 'Mood v2', value: (item.mood_v2 || []).join(', ') },
+        { label: 'Shoot ID (v2)', value: item.shoot_id },
+        { label: 'Series ID (v2)', value: item.series_id },
+        { label: 'Outfit ID (v2)', value: item.outfit_id },
+        { label: 'Location type (v2)', value: item.location_type },
+        { label: 'Shoot year (v2)', value: item.shoot_year ? String(item.shoot_year) : null },
+        { label: 'Score dimensions (v2)', value: sdBlock },
+        // Legacy / shared fields.
+        { label: 'Mood (legacy)', value: (item.mood || []).join(', ') },
         { label: 'Lighting', value: item.lighting },
         { label: 'Composition', value: item.composition },
         { label: 'Palette', value: (item.palette || []).join(', ') },
         { label: 'Tags', value: (item.tags || []).join(', ') },
-        { label: 'Use cases', value: (item.use_cases || []).join(' · ') },
-        { label: 'On-brand score', value: (item.on_brand_score ?? '').toString() },
+        { label: 'Use cases (legacy)', value: (item.use_cases || []).join(' · ') },
+        { label: 'On-brand score (legacy)', value: (item.on_brand_score ?? '').toString() },
         { label: 'People', value: `${item.people_count || 0}${item.tracy_present ? ' (Tracy present)' : ''}${item.kids_present ? ', kids present' : ''}` },
         { label: 'Style', value: item.candid_or_posed },
         { label: 'Notes', value: item.notes },
@@ -592,25 +701,48 @@
       els.modal.showModal();
     }
 
+    // Track which filter eliminated the most candidates, so the empty-state
+    // can tell the user which dropdown to relax first.
     function applyFilters() {
       const q = els.search.value.trim().toLowerCase();
+      const primaryUse = els.primaryUse.value;
+      const intentTag = els.intentTag.value;
+      const shootId = els.shootId.value;
+      const locationType = els.locationType.value;
       const mood = els.mood.value;
       const useCase = els.useCase.value;
       const minScore = parseFloat(els.score.value) || 0;
 
+      const eliminatedBy = {
+        primaryUse: 0, intentTag: 0, shootId: 0, locationType: 0,
+        mood: 0, useCase: 0, score: 0, search: 0,
+      };
+
       const filtered = state.items.filter(item => {
-        if (mood && !(item.mood || []).map(m => m.toLowerCase()).includes(mood)) return false;
-        if (useCase && !(item.use_cases || []).map(u => u.toLowerCase()).includes(useCase)) return false;
-        if ((item.on_brand_score || 0) < minScore) return false;
+        if (primaryUse && String(item.primary_use || '').toLowerCase() !== primaryUse.toLowerCase()) { eliminatedBy.primaryUse++; return false; }
+        if (intentTag && !(item.intent_tags || []).map(t => String(t).toLowerCase()).includes(intentTag.toLowerCase())) { eliminatedBy.intentTag++; return false; }
+        if (shootId && String(item.shoot_id || '').toLowerCase() !== shootId.toLowerCase()) { eliminatedBy.shootId++; return false; }
+        if (locationType && String(item.location_type || '').toLowerCase() !== locationType.toLowerCase()) { eliminatedBy.locationType++; return false; }
+        if (mood) {
+          const moods = [...(item.mood || []), ...(item.mood_v2 || [])].map(m => String(m).toLowerCase());
+          if (!moods.includes(mood.toLowerCase())) { eliminatedBy.mood++; return false; }
+        }
+        if (useCase && !(item.use_cases || []).map(u => String(u).toLowerCase()).includes(useCase.toLowerCase())) { eliminatedBy.useCase++; return false; }
+        if ((item.on_brand_score || 0) < minScore) { eliminatedBy.score++; return false; }
         if (q) {
           const haystack = [
             item.filename, item.alt, item.subject, item.notes,
+            item.primary_use, item.shoot_id, item.location_type, item.intent_tag_explanation,
             (item.tags || []).join(' '),
             (item.mood || []).join(' '),
+            (item.mood_v2 || []).join(' '),
             (item.use_cases || []).join(' '),
+            (item.secondary_uses || []).join(' '),
+            (item.placements || []).join(' '),
+            (item.intent_tags || []).join(' '),
             (item.palette || []).join(' '),
-          ].join(' ').toLowerCase();
-          if (!haystack.includes(q)) return false;
+          ].filter(Boolean).join(' ').toLowerCase();
+          if (!haystack.includes(q)) { eliminatedBy.search++; return false; }
         }
         return true;
       });
@@ -620,9 +752,17 @@
         if (sort === 'score-desc') return (b.on_brand_score || 0) - (a.on_brand_score || 0);
         if (sort === 'score-asc') return (a.on_brand_score || 0) - (b.on_brand_score || 0);
         if (sort === 'filename') return String(a.filename).localeCompare(String(b.filename));
+        // Per-dimension sorts: '<dim>-desc' or '<dim>-asc'.
+        const m = /^(.+)-(desc|asc)$/.exec(sort);
+        if (m && DIMS.includes(m[1])) {
+          const va = dimValue(a, m[1]);
+          const vb = dimValue(b, m[1]);
+          return m[2] === 'desc' ? (vb - va) : (va - vb);
+        }
         return 0;
       });
       state.filtered = filtered;
+      state.eliminatedBy = eliminatedBy;
       render();
     }
 
@@ -631,8 +771,15 @@
       if (!res.ok) throw new Error(`Fetch ${INDEX_URL} returned ${res.status}`);
       const data = await res.json();
       state.items = data.items || [];
-      populateFilter(els.mood, uniqueLowered(state.items, 'mood'));
-      populateFilter(els.useCase, uniqueLowered(state.items, 'use_cases'));
+      // Pull mood from both v1 (mood) and v2 (mood_v2) so the dropdown stays
+      // representative through the migration window.
+      const combinedMood = state.items.flatMap(it => [...(it.mood || []), ...(it.mood_v2 || [])]);
+      populateFilter(els.mood, Array.from(new Set(combinedMood.map(String))).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())));
+      populateFilter(els.useCase, uniqueRaw(state.items, 'use_cases'));
+      populateFilter(els.primaryUse, uniqueRaw(state.items, 'primary_use'));
+      populateFilter(els.intentTag, uniqueRaw(state.items, 'intent_tags'));
+      populateFilter(els.shootId, uniqueRaw(state.items, 'shoot_id'));
+      populateFilter(els.locationType, uniqueRaw(state.items, 'location_type'));
       applyFilters();
     }
 
@@ -642,6 +789,10 @@
 
         ['input', 'change'].forEach(evt => {
           els.search.addEventListener(evt, applyFilters);
+          els.primaryUse.addEventListener(evt, applyFilters);
+          els.intentTag.addEventListener(evt, applyFilters);
+          els.shootId.addEventListener(evt, applyFilters);
+          els.locationType.addEventListener(evt, applyFilters);
           els.mood.addEventListener(evt, applyFilters);
           els.useCase.addEventListener(evt, applyFilters);
           els.score.addEventListener(evt, applyFilters);
@@ -649,6 +800,10 @@
         });
         els.clear.addEventListener('click', () => {
           els.search.value = '';
+          els.primaryUse.value = '';
+          els.intentTag.value = '';
+          els.shootId.value = '';
+          els.locationType.value = '';
           els.mood.value = '';
           els.useCase.value = '';
           els.score.value = '';

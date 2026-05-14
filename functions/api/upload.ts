@@ -128,7 +128,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       idx = await idxObj.json();
     } else {
       idx = {
-        schema_version: '1.0',
+        schema_version: '2.0',
         generated_at: new Date().toISOString(),
         count: 0,
         public_base: 'https://assets.tracyharris.com.au',
@@ -136,6 +136,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         items: [],
       };
     }
+    // Schema v2: bump the version on every write so new uploads land in the
+    // v2 namespace. Existing items (v1) live alongside in the same items[];
+    // the gallery + selector handle both shapes.
+    idx.schema_version = '2.0';
     idx.items.push(tagged);
     idx.count = idx.items.length;
     idx.generated_at = new Date().toISOString();
