@@ -36,11 +36,17 @@
   --p-copper: #AD765B;
   --p-dusty-rose: #CC9989;
 
-  /* FRESH palette */
-  --p-fresh-navy: #20314c;
-  --p-fresh-orange: #ca6b4d;
-  --p-fresh-yellow: #ddab7d;
-  --p-fresh-peach: #cc9989;
+  /* FRESH palette (5 dedicated colours, no borrowing from Tracy palette) */
+  --p-fresh-copper-red: #c07152;  /* Fitness pillar */
+  --p-fresh-calico: #d7ad82;       /* Relationships pillar */
+  --p-fresh-laurel: #748d78;       /* Self pillar */
+  --p-fresh-quicksand: #c69b8b;    /* Environment pillar */
+  --p-fresh-onyx: #101010;         /* Hustle pillar */
+  /* Legacy aliases (kept for any third-party CSS that still references them) */
+  --p-fresh-navy: var(--p-fresh-onyx);
+  --p-fresh-orange: var(--p-fresh-copper-red);
+  --p-fresh-yellow: var(--p-fresh-calico);
+  --p-fresh-peach: var(--p-fresh-quicksand);
 
   /* Font families */
   --f-serif-display: 'Editors Note', Georgia, serif;
@@ -143,7 +149,7 @@
   --accent: var(--p-ffb-dark);
   --accent-on: var(--p-oatmeal);
   --accent-hover: var(--p-sage);
-  --accent-warmth: var(--p-fresh-peach);
+  --accent-warmth: var(--p-fresh-quicksand);
 
   --border-hairline: rgba(36, 53, 49, 0.12);
   --border-divider: var(--p-ffb-dark);
@@ -193,13 +199,13 @@
 
   --accent: var(--p-aztek);
   --accent-on: var(--p-oatmeal);
-  --accent-hover: var(--p-fresh-orange);
+  --accent-hover: var(--p-fresh-copper-red);
 
-  --pillar-fitness: var(--p-fresh-orange);
-  --pillar-relationships: var(--p-fresh-yellow);
-  --pillar-environment: var(--p-fresh-peach);
-  --pillar-self: var(--p-sage);
-  --pillar-hustle: var(--p-aztek);
+  --pillar-fitness: var(--p-fresh-copper-red);
+  --pillar-relationships: var(--p-fresh-calico);
+  --pillar-environment: var(--p-fresh-quicksand);
+  --pillar-self: var(--p-fresh-laurel);
+  --pillar-hustle: var(--p-fresh-onyx);
 
   --border-hairline: rgba(30, 55, 53, 0.12);
   --border-divider: var(--p-aztek);
