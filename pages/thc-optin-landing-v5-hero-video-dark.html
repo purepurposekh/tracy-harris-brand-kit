@@ -347,16 +347,16 @@
       color: var(--p-gold-mid);
     }
 
-    /* Supporting / "for whom" line, smaller italic serif so it visually
-       differentiates from the authority-sans sub and reads as an editorial
-       kicker rather than a second paragraph. */
+    /* Supporting / "for whom" line. Small sans, no italic, decent contrast
+       so it stays legible. Distinguished from sub by size, weight, and
+       opacity rather than font-style. */
     .hero.hero--marquee.hero--dark-bands .hero__supporting {
-      font-family: var(--f-serif-italic);
-      font-style: italic;
-      font-size: clamp(14px, 1.15vw, 16px);
+      font-family: var(--f-sans);
+      font-size: clamp(13px, 1.05vw, 15px);
+      font-weight: 500;
       line-height: 1.55;
-      color: rgba(246, 244, 241, 0.62);
-      max-width: 52ch;
+      color: rgba(246, 244, 241, 0.78);
+      max-width: 56ch;
       margin: clamp(14px, 1.8vw, 22px) auto 0;
       text-wrap: pretty;
     }
@@ -378,7 +378,8 @@
     .hero__video-frame {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      height: 100%;
+      min-height: 0;
       border: 1px solid var(--p-gold-mid);
       border-radius: 6px;
       overflow: hidden;
@@ -386,9 +387,10 @@
       box-shadow:
         0 30px 80px -30px rgba(201, 164, 108, 0.35),
         0 8px 24px -16px rgba(0, 0, 0, 0.6);
-      align-self: center;
+      align-self: stretch;
     }
-    .hero__video-frame iframe {
+    .hero__video-frame iframe,
+    .hero__video-frame wistia-player {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -561,6 +563,11 @@
       }
       .hero__band-media {
         grid-template-columns: 1fr;
+      }
+      /* Stacked: restore aspect-ratio on video so it doesn't collapse */
+      .hero__video-frame {
+        aspect-ratio: 16 / 9;
+        height: auto;
       }
     }
 
