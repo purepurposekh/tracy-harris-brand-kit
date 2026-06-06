@@ -1734,6 +1734,112 @@
       .fmarquee__strip { overflow-x: auto; }
     }
 
+    /* ---------- Rolling testimonial rail (replaces static 3-card section) ---------- */
+    .testi-rail {
+      background: var(--p-white);
+      padding: clamp(56px, 7vw, 88px) 0;
+      overflow: hidden;
+    }
+    .testi-rail__head {
+      text-align: center;
+      margin-bottom: clamp(36px, 5vw, 56px);
+      padding: 0 clamp(20px, 5vw, 64px);
+    }
+    .testi-rail__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+      margin: 0 0 clamp(10px, 1.2vw, 16px);
+    }
+    .testi-rail__h2 {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--p-charcoal);
+      margin: 0;
+      text-wrap: balance;
+    }
+    .testi-rail__h2 em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-gold-dark);
+    }
+    .testi-rail__strip {
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent 0, black 4%, black 96%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, black 4%, black 96%, transparent 100%);
+    }
+    .testi-rail__track {
+      display: flex;
+      gap: clamp(20px, 2vw, 32px);
+      animation: testiRailScroll 80s linear infinite;
+      width: max-content;
+    }
+    .testi-rail__strip:hover .testi-rail__track { animation-play-state: paused; }
+    .testi-card {
+      flex: 0 0 auto;
+      width: clamp(300px, 28vw, 380px);
+      background: var(--p-oatmeal);
+      border: 1px solid rgba(201, 164, 108, 0.22);
+      border-radius: 6px;
+      padding: clamp(22px, 2vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 8px 24px -16px rgba(123, 98, 60, 0.18);
+    }
+    .testi-card__stars {
+      color: var(--p-gold-mid);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .testi-card__quote {
+      font-family: var(--f-serif-display);
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.5;
+      color: var(--p-charcoal);
+      margin: 0;
+    }
+    .testi-card__who {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 4px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(201, 164, 108, 0.18);
+    }
+    .testi-card__name {
+      font-family: var(--f-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--p-charcoal);
+    }
+    .testi-card__role {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      color: var(--p-mute);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    @keyframes testiRailScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .testi-rail__track { animation: none; }
+      .testi-rail__strip { overflow-x: auto; }
+    }
+    @media (max-width: 880px) {
+      .testi-card { width: clamp(260px, 80vw, 320px); }
+    }
+
     /* ---------- About Tracy ---------- */
     .about__grid {
       display: grid;
@@ -2116,9 +2222,110 @@
   </div><!-- /.hero-and-creds-wrap -->
 
   <!-- ============================================================
-       SECTION 2 · "Picture it" marquee restored per Karl's gradient
-       request. New order remains: Hero, Credibility, Picture it,
-       Testimonials, Meet Tracy, What you'll get, Final CTA.
+       SECTION 2 · Rolling testimonial rail (Karl 2026-06-06).
+       First section under the hero. Replaces the previous static 3-card
+       Testimonials section that lived further down the page. 8 unique
+       cards, duplicated for seamless loop, sourced from
+       opencore-vault/Clients/Tracy-Harris-Co/Testimonials.md.
+       ============================================================ -->
+  <section class="testi-rail" aria-label="Member testimonials">
+    <div class="testi-rail__head">
+      <p class="testi-rail__eyebrow">Real women, real results</p>
+      <h2 class="testi-rail__h2">From women walking <em>the pathway</em>.</h2>
+    </div>
+    <div class="testi-rail__strip">
+      <div class="testi-rail__track">
+
+        <!-- 8 unique cards -->
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"19 people responded to my DMs. I usually get zero. Tried it again and got another 13. Her stuff works."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Claire Abbott</span><span class="testi-card__role">FFB · Stories That Sell</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Because of F.R.E.S.H. I started running in October. Just ran 100km in February. Off antidepressants, building self-trust, huge ripple effects on the business."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Sarah Braybrook</span><span class="testi-card__role">Freedom Filled® Mastermind</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"I'm having consistent $10K months and working 12 hour weeks."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Dante Amato</span><span class="testi-card__role">Coach + Business Owner</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"200 new email subscribers in 4 weeks. Consistent effort, repurposing content, focusing on community really does pay off."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Ange Zhan</span><span class="testi-card__role">FFB Mentorship</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Tracy brought my thoughts some new clarity. I recommend it for anyone feeling a little stuck and needing a perspective shift."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Belinda Bayliss</span><span class="testi-card__role">FFB Mentorship</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"From a few thousand followers and not knowing how to use Instagram, to 174,000 followers and a best-selling book."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Vanya Insull</span><span class="testi-card__role">Food Blogger, NZ</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"263% more views in October. Views tripled from 2k to 7k this month. Definitely building my Instagram muscle."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Laura Swain</span><span class="testi-card__role">Social Method Society</span></div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Thank you for helping me break down those steps and see the picture more clearly."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Monica Verde</span><span class="testi-card__role">Million Dollar Message</span></div>
+        </article>
+
+        <!-- Duplicate set for seamless infinite scroll -->
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"19 people responded to my DMs. I usually get zero. Tried it again and got another 13. Her stuff works."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Claire Abbott</span><span class="testi-card__role">FFB · Stories That Sell</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Because of F.R.E.S.H. I started running in October. Just ran 100km in February. Off antidepressants, building self-trust, huge ripple effects on the business."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Sarah Braybrook</span><span class="testi-card__role">Freedom Filled® Mastermind</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"I'm having consistent $10K months and working 12 hour weeks."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Dante Amato</span><span class="testi-card__role">Coach + Business Owner</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"200 new email subscribers in 4 weeks. Consistent effort, repurposing content, focusing on community really does pay off."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Ange Zhan</span><span class="testi-card__role">FFB Mentorship</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Tracy brought my thoughts some new clarity. I recommend it for anyone feeling a little stuck and needing a perspective shift."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Belinda Bayliss</span><span class="testi-card__role">FFB Mentorship</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"From a few thousand followers and not knowing how to use Instagram, to 174,000 followers and a best-selling book."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Vanya Insull</span><span class="testi-card__role">Food Blogger, NZ</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"263% more views in October. Views tripled from 2k to 7k this month. Definitely building my Instagram muscle."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Laura Swain</span><span class="testi-card__role">Social Method Society</span></div>
+        </article>
+        <article class="testi-card" aria-hidden="true">
+          <div class="testi-card__stars">★★★★★</div>
+          <p class="testi-card__quote">"Thank you for helping me break down those steps and see the picture more clearly."</p>
+          <div class="testi-card__who"><span class="testi-card__name">Monica Verde</span><span class="testi-card__role">Million Dollar Message</span></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 · "Picture it" marquee
        ============================================================ -->
   <section class="fmarquee" aria-label="What does a freedom-filled business look like">
     <div class="fmarquee__head">
@@ -2141,37 +2348,6 @@
         <div class="fmarquee__item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
         <div class="fmarquee__item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
         <div class="fmarquee__item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SECTION 3 · Testimonials (moved up from 5 per Karl 2026-06-06)
-       Placeholders pending real testimonial scrape supporting pathway,
-       clarity, and freedom-back themes.
-       ============================================================ -->
-  <section class="fsec" aria-label="Member testimonials">
-    <div class="fsec__wrap">
-      <div class="fsec__center">
-        <span class="tag">Testimonials</span>
-        <h2 class="fsec__h2">Real women, <em>real</em> businesses.</h2>
-      </div>
-      <div class="tcards">
-        <article class="tcard">
-          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
-          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
-        </article>
-        <article class="tcard">
-          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
-          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
-        </article>
-        <article class="tcard">
-          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
-          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
-        </article>
       </div>
     </div>
   </section>
