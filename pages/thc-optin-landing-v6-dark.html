@@ -1840,6 +1840,126 @@
       .testi-card { width: clamp(260px, 80vw, 320px); }
     }
 
+    /* ---------- Meet Tracy · about-bio.split-editorial-polished (kit) ---------- */
+    .about-bio {
+      background: var(--surface-canvas, var(--p-oatmeal));
+      padding: clamp(56px, 7vw, 96px) clamp(20px, 5vw, 64px);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .about-bio::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 30% 30%,
+        rgba(123, 98, 60, 0.07) 0%,
+        rgba(123, 98, 60, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-bio__split {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(32px, 4vw, 56px);
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 820px) {
+      .about-bio__split { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .about-bio__portrait {
+      aspect-ratio: 3/4;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(123, 98, 60, 0.06);
+    }
+    .about-bio__portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-bio__content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: clamp(8px, 1vw, 16px);
+    }
+    .about-bio__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+      margin: 0;
+    }
+    .about-bio__name {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--p-charcoal);
+      margin: 0;
+      text-wrap: balance;
+    }
+    .about-bio__name em { font-family: var(--f-serif-italic); font-style: italic; color: var(--p-gold-dark); }
+    .about-bio__tagline {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--p-charcoal);
+      opacity: 0.75;
+      margin: 0;
+    }
+    .about-bio__body {
+      font-family: var(--f-sans);
+      font-size: clamp(15px, 1.2vw, 17px);
+      line-height: 1.65;
+      color: var(--p-charcoal);
+      opacity: 0.85;
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .about-bio__body + .about-bio__body { margin-top: 6px; }
+    .about-bio__body strong { font-weight: 600; opacity: 1; color: var(--p-charcoal); }
+    .about-bio__signature {
+      font-family: var(--f-script, var(--f-serif-italic));
+      font-size: clamp(36px, 4vw, 52px);
+      color: var(--p-gold-dark);
+      margin: clamp(12px, 1.5vw, 22px) 0 0;
+      line-height: 1;
+    }
+    .about-bio__facts {
+      display: flex;
+      gap: clamp(24px, 3vw, 44px);
+      margin-top: clamp(20px, 2.5vw, 32px);
+      padding-top: clamp(20px, 2.5vw, 28px);
+      border-top: 1px solid rgba(16,16,16,0.12);
+      flex-wrap: wrap;
+    }
+    .about-bio__fact { display: flex; flex-direction: column; gap: 4px; }
+    .about-bio__fact-value {
+      font-family: var(--f-serif-display);
+      font-size: clamp(28px, 2.8vw, 36px);
+      font-weight: 400;
+      color: var(--p-charcoal);
+      line-height: 1.1;
+    }
+    .about-bio__fact-label {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--p-charcoal);
+      opacity: 0.65;
+    }
+
     /* ---------- "What you'll get" offer-stack (kit: offer-stack.detailed-polished, adapted for free content) ---------- */
     .wyg {
       background: var(--p-oatmeal);
@@ -2467,25 +2587,34 @@
   </section>
 
   <!-- ============================================================
-       SECTION 3 · Meet Tracy (moved up from 4 per Karl 2026-06-06)
+       SECTION 3 · Meet Tracy (kit: about-bio.split-editorial-polished)
        ============================================================ -->
-  <section class="fsec fsec--alt" aria-label="About Tracy">
-    <div class="fsec__wrap">
-      <div class="fsec__center">
-        <span class="tag">Meet Tracy</span>
-        <h2 class="fsec__h2">The woman teaching <em>it</em>.</h2>
+  <section class="about-bio" data-brand="tracy" aria-label="About Tracy">
+    <div class="about-bio__split">
+      <div class="about-bio__portrait">
+        <img src="../assets/photos/tracy-outfit8-39.jpg" alt="Tracy Harris, editorial portrait." />
       </div>
-      <div class="about__grid">
-        <figure class="about__media">
-          <img src="../assets/photos/tracy-outfit8-39.jpg" alt="Tracy Harris, editorial portrait." />
-        </figure>
-        <div>
-          <p class="fsec__lead" style="margin-top:0;max-width:48ch;">I'm Tracy. I run Freedom Filled&reg; Business, a 12-month mentorship for women building beautiful, profitable, freedom-filled businesses. I've spent 9 years hosting the Mums With Hustle Podcast (500+ episodes), built a multi-7-figure business while working 20 hours a week, and helped thousands of women turn their work into a life they actually want.</p>
-          <ul class="creds">
-            <li>500+ podcast episodes</li>
-            <li>9 years mentoring women in business</li>
-            <li>6,000+ business owners served</li>
-          </ul>
+      <div class="about-bio__content">
+        <p class="about-bio__eyebrow">Meet Tracy</p>
+        <h2 class="about-bio__name">Tracy <em>Harris</em></h2>
+        <p class="about-bio__tagline">Mentor, podcaster, mum of two, builder of freedom-filled businesses.</p>
+        <p class="about-bio__body">I spent years building a business that looked successful on the outside but felt like a cage on the inside. Overworked, overwhelmed, and quietly wondering whether the version of success I was chasing was even the one I wanted.</p>
+        <p class="about-bio__body">Then I rebuilt the whole thing. Not just the strategy, the foundation. A business that runs on my terms, makes real money without burning me out, and gives me the freedom to actually show up for the people I love.</p>
+        <p class="about-bio__body"><strong>That's what I teach.</strong> Not hustle. Not grind. A business built by design, not by default. A Freedom Filled® life.</p>
+        <p class="about-bio__signature">Tracy</p>
+        <div class="about-bio__facts">
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">500+</span>
+            <span class="about-bio__fact-label">Podcast episodes</span>
+          </div>
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">9</span>
+            <span class="about-bio__fact-label">Years mentoring</span>
+          </div>
+          <div class="about-bio__fact">
+            <span class="about-bio__fact-value">6,000+</span>
+            <span class="about-bio__fact-label">Women served</span>
+          </div>
         </div>
       </div>
     </div>
