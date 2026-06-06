@@ -327,15 +327,16 @@
     }
 
     /* Authority-transfer sub-headline (sans, prominent, sits directly under H1).
-       Bumped ~20% per Karl's ask. */
+       max-width pushed to 82ch + extra top margin so the combined sentence
+       fits on two lines with breathing room from the H1. */
     .hero.hero--marquee.hero--dark-bands .hero__sub {
       font-family: var(--f-sans);
       font-size: clamp(20px, 1.85vw, 23px);
       line-height: 1.5;
       color: rgba(246, 244, 241, 0.94);
-      max-width: 58ch;
-      margin: 0 auto;
-      text-wrap: pretty;
+      max-width: 82ch;
+      margin: clamp(18px, 2vw, 28px) auto 0;
+      text-wrap: balance;
     }
 
     /* Hero is now clean charcoal: no background marquee, no scrim layers.
@@ -417,24 +418,25 @@
     }
 
     /* Audience callout strip above the video column.
-       Sans, sentence-case, single-line with white-space:nowrap so the
-       full line stays on one row inside the video column width.
-       Distinct from H1 (serif) and the body sans by size + gold tint. */
+       Uppercase, bold, single-line with white-space:nowrap so the full
+       line stays on one row inside the video column width. Sized small
+       enough that the 80-char line fits inside the desktop video column. */
     .hero__media-callout {
       grid-area: callout;
-      padding: clamp(10px, 1.1vw, 14px) clamp(14px, 1.4vw, 20px);
+      padding: clamp(10px, 1.1vw, 14px) clamp(10px, 1.2vw, 16px);
       font-family: var(--f-sans);
       font-style: normal;
-      font-size: clamp(11px, 1.05vw, 13px);
-      font-weight: 500;
-      letter-spacing: 0.01em;
+      font-size: clamp(9px, 0.78vw, 11px);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       line-height: 1.4;
-      color: rgba(246, 244, 241, 0.92);
+      color: var(--p-gold-mid);
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      background: rgba(201, 164, 108, 0.1);
+      background: rgba(201, 164, 108, 0.12);
       border-right: 1px solid var(--p-gold-mid);
       border-bottom: 1px solid var(--p-gold-mid);
     }
