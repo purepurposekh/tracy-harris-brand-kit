@@ -711,38 +711,58 @@
       <h2 class="sec__title">From women walking <em>the pathway</em>.</h2>
     </div>
 
-    <div class="tcards">
+    <div class="tcards" id="testimonialsList">
 
       <!-- LIFESTYLE 1: Madeline (FFB) - family time + burnout recovery -->
-      <article class="tcard">
+      <article class="tcard"
+               data-lever="energy_identity|offer_model"
+               data-stage="7f_plus,6f_plus"
+               data-offer="any"
+               data-theme="lifestyle">
         <div class="tcard__stars">★★★★★</div>
         <p class="tcard__quote">"I went from burnt out in a seven-figure business to building a profitable online model aligned with my passion, reclaiming time with my family. Tracy's mentorship came at the exact moment I needed to pivot."</p>
         <div class="tcard__who"><span class="tcard__name">Madeline</span><span class="tcard__role">FFB Mentorship</span></div>
       </article>
 
       <!-- LIFESTYLE 2: Sarah Braybrook (FFM) - F.R.E.S.H. health + freedom -->
-      <article class="tcard">
+      <article class="tcard"
+               data-lever="energy_identity"
+               data-stage="any"
+               data-offer="any"
+               data-theme="lifestyle">
         <div class="tcard__stars">★★★★★</div>
         <p class="tcard__quote">"Because of F.R.E.S.H. I started running in October. Just ran 100km in February. Off antidepressants, building self-trust, huge ripple effects on the business."</p>
         <div class="tcard__who"><span class="tcard__name">Sarah Braybrook</span><span class="tcard__role">Freedom Filled® Mastermind</span></div>
       </article>
 
       <!-- RESULT: Claire Abbott (FFB) - sales mechanism -->
-      <article class="tcard">
+      <article class="tcard"
+               data-lever="messaging_sales|visibility_content"
+               data-stage="under_6f,6f_plus"
+               data-offer="course,coaching,group_program,membership"
+               data-theme="result">
         <div class="tcard__stars">★★★★★</div>
         <p class="tcard__quote">"19 people responded to my DMs. I usually get zero. Tried it again and got another 13. That's why I joined Freedom Filled® Business. Her stuff works."</p>
         <div class="tcard__who"><span class="tcard__name">Claire Abbott</span><span class="tcard__role">FFB Mentorship</span></div>
       </article>
 
       <!-- RESULT: Ange Zhan (FFB) - visibility/growth -->
-      <article class="tcard">
+      <article class="tcard"
+               data-lever="visibility_content"
+               data-stage="just_starting,under_6f"
+               data-offer="any"
+               data-theme="result">
         <div class="tcard__stars">★★★★★</div>
         <p class="tcard__quote">"200 new email subscribers in 4 weeks. Consistent effort, repurposing content, and focusing on community really does pay off."</p>
         <div class="tcard__who"><span class="tcard__name">Ange Zhan</span><span class="tcard__role">FFB Mentorship</span></div>
       </article>
 
       <!-- RESULT: Ashley Boston (FFB) - first sale before the offer is even built -->
-      <article class="tcard">
+      <article class="tcard"
+               data-lever="offer_model|launches|messaging_sales"
+               data-stage="just_starting,under_6f"
+               data-offer="course,coaching,group_program"
+               data-theme="result">
         <div class="tcard__stars">★★★★★</div>
         <p class="tcard__quote">"Just had my first student sign up to my program for pre-sale. It isn't even created yet. So bloody excited, we start 16th Sept."</p>
         <div class="tcard__who"><span class="tcard__name">Ashley Boston</span><span class="tcard__role">FFB Mentorship</span></div>
@@ -898,6 +918,38 @@
         personal.innerHTML = sentence;
         personal.hidden = false;
         fallback.hidden = true;
+      }
+
+      // ----------------------------------------------------------
+      // Testimonial relevance scoring: each card has data-lever,
+      // data-stage, data-offer tags. Score each, sort by score, the
+      // best-matching ones surface first in the grid.
+      // ----------------------------------------------------------
+      var rail = document.getElementById('testimonialsList');
+      if (rail) {
+        var cards = Array.prototype.slice.call(rail.querySelectorAll('.tcard'));
+        cards.forEach(function (card) {
+          var score = 0;
+
+          var leverAttr = (card.getAttribute('data-lever') || '').split('|');
+          if (leverAttr.indexOf(seg.lever) === 0) score += 3;        // primary lever
+          else if (leverAttr.indexOf(seg.lever) > 0) score += 2;      // secondary lever
+
+          var stageAttr = (card.getAttribute('data-stage') || '').split(',');
+          if (stageAttr.indexOf('any') !== -1 || stageAttr.indexOf(seg.stage) !== -1) score += 2;
+
+          var offerAttr = (card.getAttribute('data-offer') || '').split(',');
+          if (offerAttr.indexOf('any') !== -1 || offerAttr.indexOf(seg.offer) !== -1) score += 1;
+
+          // Time signal: if she's time-poor (<10 hrs), prioritise lifestyle
+          // testimonials that show what's possible without crushing hours.
+          if (seg.time === 'under_10' && card.getAttribute('data-theme') === 'lifestyle') score += 1;
+
+          card.dataset.score = score;
+        });
+
+        cards.sort(function (a, b) { return parseInt(b.dataset.score, 10) - parseInt(a.dataset.score, 10); });
+        cards.forEach(function (card) { rail.appendChild(card); });
       }
     })();
 
