@@ -388,32 +388,39 @@
       border-top: 1px solid rgba(201, 164, 108, 0.4);
     }
 
-    /* Band 2: two-column row, video LEFT + opt-in card RIGHT.
-       flex: 0 0 auto stops it stretching, so it hugs the bottom of the
-       headline block instead of floating in the middle of the hero. */
+    /* Band 2: video LEFT + opt-in card RIGHT, joined into a single module
+       with one shared frame, gold hairline divider between them. */
     .hero__band-media {
       display: grid;
       grid-template-columns: 58fr 42fr;
-      gap: clamp(20px, 2.4vw, 36px);
+      gap: 0;
       align-items: stretch;
       width: 100%;
       max-width: 1180px;
       margin: 0 auto;
       flex: 0 0 auto;
-    }
-
-    .hero__video-frame {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      min-height: 0;
       border: 1px solid var(--p-gold-mid);
-      border-radius: 6px;
+      border-radius: 8px;
       overflow: hidden;
-      background: var(--p-charcoal);
+      background: rgba(255, 255, 255, 0.6);
       box-shadow:
         0 30px 80px -30px rgba(123, 98, 60, 0.4),
         0 8px 24px -16px rgba(16, 16, 16, 0.2);
+    }
+
+    /* Video frame sets the row height via its 16/9 aspect ratio; card
+       fits to match. Border removed because the outer hero__band-media
+       owns the frame now. */
+    .hero__video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      border-right: 1px solid var(--p-gold-mid);
+      border-radius: 0;
+      overflow: hidden;
+      background: var(--p-charcoal);
+      box-shadow: none;
       align-self: stretch;
     }
     .hero__video-frame iframe,
@@ -462,25 +469,26 @@
       margin: 0;
     }
 
-    /* Opt-in card inside Band 2.
-       Same opt-in__card pattern as v4 hero, sized to fit alongside video. */
+    /* Opt-in card · sits inside the shared media frame, no individual
+       border or shadow (the outer hero__band-media owns those now).
+       Padding + gap tightened so content fits within the video's 16/9
+       row height. */
     .hero__optin-card {
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(201, 164, 108, 0.45);
+      background: rgba(255, 255, 255, 0.55);
+      border: 0;
+      border-radius: 0;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-radius: 6px;
-      padding: clamp(22px, 2.4vw, 32px);
+      padding: clamp(18px, 1.9vw, 26px);
       display: flex;
       flex-direction: column;
-      gap: var(--sp-3);
+      justify-content: center;
+      gap: clamp(10px, 0.9vw, 14px);
       text-align: left;
       width: 100%;
       box-sizing: border-box;
-      align-self: center;
-      box-shadow:
-        0 20px 48px -20px rgba(123, 98, 60, 0.25),
-        0 1px 4px -2px rgba(16, 16, 16, 0.06);
+      align-self: stretch;
+      box-shadow: none;
     }
     .hero__optin-card .opt-in__sub {
       font-family: var(--f-sans);
@@ -494,7 +502,7 @@
     .hero__optin-card .opt-in__title {
       font-family: var(--f-serif-display);
       font-weight: 400;
-      font-size: clamp(20px, 2.1vw, 26px);
+      font-size: clamp(18px, 1.7vw, 22px);
       line-height: 1.15;
       letter-spacing: -0.015em;
       color: var(--p-charcoal);
@@ -507,21 +515,21 @@
     }
     .hero__optin-card .opt-in__desc {
       font-family: var(--f-sans);
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 13px;
+      line-height: 1.5;
       color: var(--p-ink);
       margin: 0;
     }
     .hero__optin-card .opt-in__form {
       display: flex;
       flex-direction: column;
-      gap: var(--sp-3);
+      gap: clamp(8px, 0.8vw, 12px);
       margin: 0;
     }
     .hero__optin-card .opt-in__name-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: var(--sp-3);
+      gap: clamp(8px, 0.8vw, 12px);
     }
     @media (max-width: 480px) {
       .hero__optin-card .opt-in__name-row {
@@ -533,7 +541,7 @@
       box-sizing: border-box;
       font-family: var(--f-sans);
       font-size: 14px;
-      padding: 14px 16px;
+      padding: 11px 14px;
       border: 1px solid rgba(16, 16, 16, 0.18);
       border-radius: 4px;
       background: var(--p-white);
@@ -549,7 +557,7 @@
     .hero__optin-card .opt-in__btn {
       width: 100%;
       box-sizing: border-box;
-      padding: 16px 24px;
+      padding: 13px 22px;
       font-family: var(--f-sans);
       font-size: 13px;
       font-weight: 600;
@@ -591,10 +599,10 @@
       .hero__band-media {
         grid-template-columns: 1fr;
       }
-      /* Stacked: restore aspect-ratio on video so it doesn't collapse */
+      /* Stacked: vertical divider becomes horizontal */
       .hero__video-frame {
-        aspect-ratio: 16 / 9;
-        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--p-gold-mid);
       }
     }
 
