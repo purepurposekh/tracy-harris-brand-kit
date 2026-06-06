@@ -173,7 +173,7 @@
     }
     .hero.hero--marquee.hero--dark-bands {
       position: relative;
-      padding: clamp(24px, 3vh, 48px) clamp(24px, 5vw, 64px) clamp(8px, 1vh, 16px);
+      padding: clamp(24px, 3vh, 48px) clamp(24px, 5vw, 64px) 0;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -662,7 +662,8 @@
        ============================================================ */
     .credibility-row {
       background: transparent;
-      padding: clamp(0px, 0.5vw, 6px) clamp(20px, 5vw, 64px) clamp(140px, 16vw, 220px);
+      padding: 0 clamp(20px, 5vw, 64px) clamp(140px, 16vw, 220px);
+      margin-top: -20px;
       text-align: center;
       border-top: 1px solid rgba(201, 164, 108, 0.18);
     }
