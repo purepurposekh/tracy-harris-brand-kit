@@ -339,6 +339,22 @@
       margin: clamp(18px, 2vw, 28px) auto 0;
       text-wrap: balance;
     }
+    /* Editorial highlighter strip behind "Your effort was never the problem."
+       Subtle gold wash across the lower band of the text, hugs the inline
+       phrase width, wraps cleanly across line breaks. */
+    .hero__sub-highlight {
+      background-image: linear-gradient(
+        180deg,
+        transparent 0%,
+        transparent 58%,
+        rgba(201, 164, 108, 0.28) 58%,
+        rgba(201, 164, 108, 0.28) 92%,
+        transparent 92%
+      );
+      padding: 0 0.18em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
 
     /* Hero is now clean charcoal: no background marquee, no scrim layers.
        Section 1B (freedom-strip) below carries the photo carousel. */
@@ -410,8 +426,7 @@
       margin: 0 auto;
       flex: 0 0 auto;
       border: 1px solid var(--p-gold-mid);
-      border-bottom: 0;
-      border-radius: 8px 8px 0 0;
+      border-radius: 8px;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.04);
       box-shadow:
@@ -2024,7 +2039,7 @@
         <h1 class="hero__title">Why your business feels like it's <em>running you</em>. And what to do first.</h1>
 
         <p class="hero__sub">
-          Your effort was never the problem. In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
+          <span class="hero__sub-highlight">Your effort was never the problem.</span> In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
         </p>
       </div>
 
