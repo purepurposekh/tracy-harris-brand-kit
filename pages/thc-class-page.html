@@ -444,19 +444,24 @@
     .tcards {
       max-width: 1180px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(20px, 2.4vw, 32px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(20px, 2.4vw, 28px);
     }
-    @media (max-width: 820px) { .tcards { grid-template-columns: 1fr; } }
     .tcard {
+      flex: 1 1 calc((100% - clamp(40px, 4.8vw, 56px)) / 3);
+      max-width: calc((100% - clamp(40px, 4.8vw, 56px)) / 3);
       background: var(--p-oatmeal);
       border: 1px solid rgba(123, 98, 60, 0.22);
       border-radius: 12px;
-      padding: clamp(24px, 2.4vw, 32px);
+      padding: clamp(24px, 2.4vw, 30px);
       display: flex;
       flex-direction: column;
       gap: 14px;
+    }
+    @media (max-width: 820px) {
+      .tcard { flex: 1 1 100%; max-width: 100%; }
     }
     .tcard__stars {
       color: var(--p-gold-mid);
@@ -691,21 +696,42 @@
     </div>
 
     <div class="tcards">
+
+      <!-- LIFESTYLE 1: Madeline (FFB) - family time + burnout recovery -->
       <article class="tcard">
         <div class="tcard__stars">★★★★★</div>
-        <p class="tcard__quote">"19 people responded to my DMs. I usually get zero. Tried it again and got another 13. Her stuff works."</p>
-        <div class="tcard__who"><span class="tcard__name">Claire Abbott</span><span class="tcard__role">FFB · Stories That Sell</span></div>
+        <p class="tcard__quote">"I went from burnt out in a seven-figure business to building a profitable online model aligned with my passion, reclaiming time with my family. Tracy's mentorship came at the exact moment I needed to pivot."</p>
+        <div class="tcard__who"><span class="tcard__name">Madeline</span><span class="tcard__role">FFB Mentorship</span></div>
       </article>
+
+      <!-- LIFESTYLE 2: Sarah Braybrook (FFM) - F.R.E.S.H. health + freedom -->
       <article class="tcard">
         <div class="tcard__stars">★★★★★</div>
         <p class="tcard__quote">"Because of F.R.E.S.H. I started running in October. Just ran 100km in February. Off antidepressants, building self-trust, huge ripple effects on the business."</p>
         <div class="tcard__who"><span class="tcard__name">Sarah Braybrook</span><span class="tcard__role">Freedom Filled® Mastermind</span></div>
       </article>
+
+      <!-- RESULT: Claire Abbott (FFB) - sales mechanism -->
       <article class="tcard">
         <div class="tcard__stars">★★★★★</div>
-        <p class="tcard__quote">"I'm having consistent $10K months and working 12 hour weeks."</p>
-        <div class="tcard__who"><span class="tcard__name">Dante Amato</span><span class="tcard__role">Coach + Business Owner</span></div>
+        <p class="tcard__quote">"19 people responded to my DMs. I usually get zero. Tried it again and got another 13. That's why I joined Freedom Filled® Business. Her stuff works."</p>
+        <div class="tcard__who"><span class="tcard__name">Claire Abbott</span><span class="tcard__role">FFB Mentorship</span></div>
       </article>
+
+      <!-- RESULT: Ange Zhan (FFB) - visibility/growth -->
+      <article class="tcard">
+        <div class="tcard__stars">★★★★★</div>
+        <p class="tcard__quote">"200 new email subscribers in 4 weeks. Consistent effort, repurposing content, and focusing on community really does pay off."</p>
+        <div class="tcard__who"><span class="tcard__name">Ange Zhan</span><span class="tcard__role">FFB Mentorship</span></div>
+      </article>
+
+      <!-- RESULT: Ashley Boston (FFB) - first sale before the offer is even built -->
+      <article class="tcard">
+        <div class="tcard__stars">★★★★★</div>
+        <p class="tcard__quote">"Just had my first student sign up to my program for pre-sale. It isn't even created yet. So bloody excited, we start 16th Sept."</p>
+        <div class="tcard__who"><span class="tcard__name">Ashley Boston</span><span class="tcard__role">FFB Mentorship</span></div>
+      </article>
+
     </div>
   </section>
 
