@@ -178,9 +178,9 @@
       z-index: 0;
     }
 
-    /* Inner stack: Band 1 (headline), Band 2 (marquee), Band 3 (media).
-       Bands sized with flex-grow ratios so they hold ~25 / ~30 / ~45 on
-       a 100vh hero without going pixel-locked. */
+    /* Inner stack: headline block (eyebrow + H1 + sub + supporting) sits
+       directly above the media row (video + opt-in). No big gap, content
+       hugs from the top so the media doesn't visually float. */
     .hero.hero--marquee.hero--dark-bands .hero__inner {
       position: relative;
       z-index: 3;
@@ -189,7 +189,8 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: clamp(28px, 4vh, 48px);
+      justify-content: flex-start;
+      gap: clamp(20px, 2.2vh, 32px);
       flex: 1;
     }
 
@@ -265,7 +266,7 @@
 
     /* Named-system eyebrow above H1 */
     .hero__eyebrow {
-      display: inline-block;
+      display: block;
       font-family: var(--f-sans);
       font-size: 11px;
       font-weight: 600;
@@ -279,6 +280,17 @@
       vertical-align: super;
       margin-left: 2px;
       letter-spacing: 0;
+    }
+
+    /* Authority-transfer sub-headline, sits between H1 and the small supporting line */
+    .hero.hero--marquee.hero--dark-bands .hero__sub {
+      font-family: var(--f-sans);
+      font-size: clamp(17px, 1.6vw, 20px);
+      line-height: 1.5;
+      color: rgba(246, 244, 241, 0.92);
+      max-width: 60ch;
+      margin: 0 auto clamp(10px, 1.2vw, 16px);
+      text-wrap: pretty;
     }
 
     /* Hero is now clean charcoal: no background marquee, no scrim layers.
@@ -310,7 +322,7 @@
       letter-spacing: -0.015em;
       color: var(--p-oatmeal);
       text-wrap: balance;
-      max-width: 22ch;
+      max-width: 26ch;
       margin: 0 auto var(--sp-3);
     }
     .hero.hero--marquee.hero--dark-bands .hero__title em {
@@ -329,7 +341,9 @@
       text-wrap: pretty;
     }
 
-    /* Band 3 · video LEFT + opt-in card RIGHT */
+    /* Band 3 · video LEFT + opt-in card RIGHT.
+       flex: 0 0 auto stops it stretching, so it hugs the bottom of the
+       headline block instead of floating in the middle of the hero. */
     .hero__band-media {
       display: grid;
       grid-template-columns: 58fr 42fr;
@@ -338,7 +352,7 @@
       width: 100%;
       max-width: 1180px;
       margin: 0 auto;
-      flex: 1 1 auto;
+      flex: 0 0 auto;
     }
 
     .hero__video-frame {
@@ -1885,10 +1899,14 @@
           </span>
         </div>
         <p class="hero__eyebrow">The Freedom Filled Pathway<sup>&trade;</sup></p>
-        <h1 class="hero__title">Your business was meant to give you <em>freedom</em>. Now it's taking up more of your life.</h1>
+        <h1 class="hero__title">The exact <em>system</em> behind a freedom-filled business.</h1>
+
+        <p class="hero__sub">
+          Learn how I built a multi-7-figure business in 20 hours a week, and the simple system that gets you there too.
+        </p>
 
         <p class="hero__supporting">
-          A free 20-minute mini class for women in business who built something real and want it to fit the life they built it for.
+          The free 20-minute mini class for women in business who built something real and want it to fit the life they built it for.
         </p>
       </div>
 
@@ -1903,9 +1921,9 @@
         <!-- Opt-in card, dark glass, gold hairline, gold-dark CTA -->
         <aside class="hero__optin-card" aria-label="Get the free mini class">
           <p class="opt-in__sub">Free 20-minute mini class</p>
-          <h2 class="opt-in__title">Get the free <em>mini class</em></h2>
+          <h2 class="opt-in__title">Get the <em>system</em>.</h2>
           <p class="opt-in__desc">
-            Drop your name and email, I'll send the four-chapter pathway straight to your inbox.
+            Drop your name and email. I'll send the 4-chapter pathway straight to your inbox.
           </p>
           <form class="opt-in__form" action="/api/opt-in" method="post" data-redirect="/thanks">
             <div class="opt-in__name-row">
@@ -1934,9 +1952,9 @@
               aria-label="Your email address"
               autocomplete="email"
               required />
-            <button type="submit" class="opt-in__btn">Send me the free mini class</button>
+            <button type="submit" class="opt-in__btn">Send me the system</button>
           </form>
-          <p class="opt-in__fine">Free. Instant access. No spam, just the mini class and what's coming next.</p>
+          <p class="opt-in__fine">Free. Instant access. No spam, just the pathway and what's coming next.</p>
         </aside>
 
       </div>
