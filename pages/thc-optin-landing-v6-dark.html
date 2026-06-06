@@ -648,6 +648,21 @@
     /* Mobile: stack Band 3 vertically, video first, opt-in second.
        Marquee band stays full width with hairlines. */
     @media (max-width: 880px) {
+      /* On mobile the credibility row stacks vertically (4 stats on 4 lines),
+         which stretches the gradient zone and pulls the cream italic stats
+         into the warm-grey transition where they become unreadable. Hold
+         charcoal much longer here so the stats stay on a fully dark surface. */
+      .hero-and-creds-wrap {
+        background: linear-gradient(
+          to bottom,
+          var(--p-charcoal) 0%,
+          var(--p-charcoal) 92%,
+          rgba(110, 100, 86, 1) 96%,
+          var(--p-white) 100%
+        );
+      }
+      .credibility-row--inline { padding-bottom: clamp(60px, 12vw, 100px); }
+
       .hero.hero--marquee.hero--dark-bands {
         padding-top: 0;
         min-height: auto;
