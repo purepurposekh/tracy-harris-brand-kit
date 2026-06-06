@@ -156,18 +156,17 @@
        Scrim layer covers Bands 1 + 3 only. Marquee Band 2 is left
        unscrimmed so the photos pop at full intensity.
        ============================================================ */
-    /* Hero + credibility row sit inside a single gradient wrapper that
-       tapers from charcoal at the top, through the credibility row,
-       all the way to white by the bottom edge (which butts against the
-       Picture It section's white background). */
+    /* Hero + credibility row sit inside a single gradient wrapper.
+       Charcoal holds through hero AND through the credibility row text
+       (white text needs the black background for contrast), then a
+       sharper transition runs to white at the very bottom edge. */
     .hero-and-creds-wrap {
       background: linear-gradient(
         to bottom,
         var(--p-charcoal) 0%,
-        var(--p-charcoal) 42%,
-        rgba(60, 56, 50, 1) 60%,
-        rgba(150, 140, 122, 1) 78%,
-        rgba(220, 212, 196, 1) 92%,
+        var(--p-charcoal) 72%,
+        rgba(60, 56, 50, 1) 82%,
+        rgba(170, 160, 142, 1) 92%,
         var(--p-white) 100%
       );
     }
@@ -211,7 +210,7 @@
     /* Band 1 · Headline block */
     .hero__band-headline {
       text-align: center;
-      max-width: 760px;
+      max-width: 940px;
       margin: 0 auto;
       width: 100%;
       flex: 0 0 auto;
@@ -328,14 +327,14 @@
     }
 
     /* Authority-transfer sub-headline (sans, prominent, sits directly under H1).
-       max-width pushed to 82ch + extra top margin so the combined sentence
-       fits on two lines with breathing room from the H1. */
+       max-width 100ch + balance so the combined sentence fits cleanly on
+       two lines. Extra top margin gives breathing room from the H1. */
     .hero.hero--marquee.hero--dark-bands .hero__sub {
       font-family: var(--f-sans);
       font-size: clamp(20px, 1.85vw, 23px);
       line-height: 1.5;
       color: rgba(246, 244, 241, 0.94);
-      max-width: 82ch;
+      max-width: 100ch;
       margin: clamp(18px, 2vw, 28px) auto 0;
       text-wrap: balance;
     }
@@ -369,7 +368,7 @@
       letter-spacing: -0.015em;
       color: var(--p-oatmeal);
       text-wrap: balance;
-      max-width: 24ch;
+      max-width: 36ch;
       margin: 0 auto var(--sp-3);
     }
     .hero.hero--marquee.hero--dark-bands .hero__title em {
@@ -662,7 +661,7 @@
        ============================================================ */
     .credibility-row {
       background: transparent;
-      padding: clamp(12px, 1.5vw, 20px) clamp(20px, 5vw, 64px) clamp(120px, 14vw, 200px);
+      padding: clamp(0px, 0.5vw, 6px) clamp(20px, 5vw, 64px) clamp(140px, 16vw, 220px);
       text-align: center;
       border-top: 1px solid rgba(201, 164, 108, 0.18);
     }
