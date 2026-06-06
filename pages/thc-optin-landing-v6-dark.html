@@ -158,12 +158,15 @@
        ============================================================ */
     /* Hero + credibility row sit inside a single gradient wrapper that
        tapers from charcoal at the top through credibility row to oatmeal
-       at the bottom. So the hero itself goes transparent. */
+       at the bottom. Softer transition: charcoal holds through the hero,
+       then a long gradual fade to oatmeal across the credibility row. */
     .hero-and-creds-wrap {
       background: linear-gradient(
         to bottom,
         var(--p-charcoal) 0%,
-        var(--p-charcoal) 72%,
+        var(--p-charcoal) 50%,
+        rgba(60, 56, 50, 1) 70%,
+        rgba(180, 168, 148, 1) 88%,
         var(--p-oatmeal) 100%
       );
     }
@@ -656,7 +659,7 @@
        ============================================================ */
     .credibility-row {
       background: transparent;
-      padding: clamp(56px, 7vw, 88px) clamp(20px, 5vw, 64px);
+      padding: clamp(20px, 2.5vw, 36px) clamp(20px, 5vw, 64px) clamp(48px, 6vw, 80px);
       text-align: center;
       border-top: 1px solid rgba(201, 164, 108, 0.18);
     }
