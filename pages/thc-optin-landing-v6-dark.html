@@ -662,9 +662,15 @@
        ============================================================ */
     .credibility-row {
       background: transparent;
-      padding: 0 clamp(20px, 5vw, 64px) clamp(140px, 16vw, 220px);
-      margin-top: -20px;
+      padding: 0 clamp(20px, 5vw, 64px);
       text-align: center;
+    }
+    /* When the credibility row is rendered inline inside the hero,
+       it sits immediately under the joined media module with no extra
+       padding above and a long bottom buffer so the gradient has room
+       to fade to white before the Picture It section. */
+    .credibility-row--inline {
+      padding-bottom: clamp(120px, 14vw, 200px);
       border-top: 1px solid rgba(201, 164, 108, 0.18);
     }
     .credibility-row__eyebrow {
@@ -2070,24 +2076,24 @@
         </aside>
 
       </div>
+
+      <!-- Credibility row, moved INSIDE the hero so it sits directly under
+           the joined media module as a third band of the hero, not as a
+           separate section underneath. -->
+      <div class="credibility-row credibility-row--inline" aria-label="Trusted by women building real businesses">
+        <p class="credibility-row__eyebrow">Trusted by women building real businesses</p>
+        <div class="credibility-row__stats">
+          <span class="credibility-row__stat">500+ podcast episodes</span>
+          <span class="credibility-row__dot" aria-hidden="true"></span>
+          <span class="credibility-row__stat">9 years mentoring women</span>
+          <span class="credibility-row__dot" aria-hidden="true"></span>
+          <span class="credibility-row__stat">6,000+ business owners served</span>
+          <span class="credibility-row__dot" aria-hidden="true"></span>
+          <span class="credibility-row__stat">7-figure business owner</span>
+        </div>
+      </div>
     </div>
 
-  </section>
-
-  <!-- ============================================================
-       SECTION 1B · Credibility row (editorial, dark)
-       ============================================================ -->
-  <section class="credibility-row" aria-label="Trusted by women building real businesses">
-    <p class="credibility-row__eyebrow">Trusted by women building real businesses</p>
-    <div class="credibility-row__stats">
-      <span class="credibility-row__stat">500+ podcast episodes</span>
-      <span class="credibility-row__dot" aria-hidden="true"></span>
-      <span class="credibility-row__stat">9 years mentoring women</span>
-      <span class="credibility-row__dot" aria-hidden="true"></span>
-      <span class="credibility-row__stat">6,000+ business owners served</span>
-      <span class="credibility-row__dot" aria-hidden="true"></span>
-      <span class="credibility-row__stat">7-figure business owner</span>
-    </div>
   </section>
 
   </div><!-- /.hero-and-creds-wrap -->
