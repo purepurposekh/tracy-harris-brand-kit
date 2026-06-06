@@ -653,6 +653,8 @@
          into the warm-grey transition where they become unreadable. Hold
          charcoal much longer here so the stats stay on a fully dark surface. */
       .hero-and-creds-wrap {
+        margin-top: 0;
+        padding-top: 0;
         background: linear-gradient(
           to bottom,
           var(--p-charcoal) 0%,
@@ -664,17 +666,20 @@
       .credibility-row--inline { padding-bottom: clamp(60px, 12vw, 100px); }
 
       .hero.hero--marquee.hero--dark-bands {
-        padding-top: 0;
+        padding-top: clamp(8px, 1.2vh, 14px);
         min-height: auto;
       }
       .hero.hero--marquee.hero--dark-bands .hero__inner {
-        gap: clamp(14px, 1.8vh, 22px);
+        gap: clamp(20px, 2.6vh, 30px);
       }
       .hero.hero--marquee.hero--dark-bands .hero__logo {
-        margin: 0 auto clamp(10px, 1.6vw, 18px);
+        margin: 0 auto clamp(12px, 1.8vw, 20px);
       }
       .hero.hero--marquee.hero--dark-bands .hero__callout {
-        margin: 0 0 clamp(14px, 2vw, 22px);
+        margin: 0 0 clamp(28px, 4.5vw, 44px);
+      }
+      .hero.hero--marquee.hero--dark-bands .hero__eyebrow {
+        margin: 0 0 clamp(14px, 2vw, 20px);
       }
       .hero.hero--marquee.hero--dark-bands .hero__title {
         font-size: clamp(40px, 10vw, 56px);
