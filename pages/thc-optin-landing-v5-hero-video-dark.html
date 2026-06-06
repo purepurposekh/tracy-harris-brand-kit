@@ -158,8 +158,7 @@
        ============================================================ */
     .hero.hero--marquee.hero--dark-bands {
       position: relative;
-      min-height: 100vh;
-      padding: clamp(10px, 1.25vh, 16px) clamp(24px, 5vw, 64px) clamp(64px, 8vh, 96px);
+      padding: clamp(24px, 3vh, 48px) clamp(24px, 5vw, 64px) clamp(40px, 5vh, 64px);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -264,32 +263,49 @@
       color: rgba(246, 244, 241, 0.6);
     }
 
+    /* Text-only variant: single inline line, no avatar pile. Drops visual noise. */
+    .hero__callout--text-only {
+      padding: 5px 14px;
+    }
+    .hero__callout--text-only .hero__callout-text {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .hero__callout--text-only .hero__callout-label {
+      font-size: 10px;
+    }
+    .hero__callout--text-only .hero__callout-text strong {
+      font-size: 14px;
+    }
+
     /* Named-system eyebrow above H1 */
     .hero__eyebrow {
       display: block;
       font-family: var(--f-sans);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--p-gold-mid);
-      margin: 0 0 clamp(14px, 1.6vw, 22px);
+      opacity: 0.85;
+      margin: 0 0 clamp(8px, 1vw, 14px);
     }
     .hero__eyebrow sup {
-      font-size: 0.55em;
+      font-size: 0.6em;
       vertical-align: super;
       margin-left: 2px;
       letter-spacing: 0;
     }
 
-    /* Authority-transfer sub-headline, sits between H1 and the small supporting line */
+    /* Authority-transfer sub-headline (sans, prominent, sits directly under H1) */
     .hero.hero--marquee.hero--dark-bands .hero__sub {
       font-family: var(--f-sans);
-      font-size: clamp(17px, 1.6vw, 20px);
+      font-size: clamp(17px, 1.55vw, 19px);
       line-height: 1.5;
-      color: rgba(246, 244, 241, 0.92);
-      max-width: 60ch;
-      margin: 0 auto clamp(10px, 1.2vw, 16px);
+      color: rgba(246, 244, 241, 0.94);
+      max-width: 56ch;
+      margin: 0 auto;
       text-wrap: pretty;
     }
 
@@ -331,13 +347,17 @@
       color: var(--p-gold-mid);
     }
 
+    /* Supporting / "for whom" line, smaller italic serif so it visually
+       differentiates from the authority-sans sub and reads as an editorial
+       kicker rather than a second paragraph. */
     .hero.hero--marquee.hero--dark-bands .hero__supporting {
-      font-family: var(--f-sans);
-      font-size: clamp(15px, 1.3vw, 17px);
-      line-height: 1.6;
-      color: rgba(246, 244, 241, 0.85);
-      max-width: 56ch;
-      margin: 0 auto;
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(14px, 1.15vw, 16px);
+      line-height: 1.55;
+      color: rgba(246, 244, 241, 0.62);
+      max-width: 52ch;
+      margin: clamp(14px, 1.8vw, 22px) auto 0;
       text-wrap: pretty;
     }
 
@@ -1887,26 +1907,21 @@
       <!-- BAND 1 · Headline block -->
       <div class="hero__band-headline">
         <img class="hero__logo" src="../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris" />
-        <div class="hero__callout" aria-label="Trusted by 6,000+ women coached">
-          <div class="hero__callout-avatars" aria-hidden="true">
-            <span class="hero__callout-avatar" style="background-image:url('https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg');"></span>
-            <span class="hero__callout-avatar" style="background-image:url('https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg');"></span>
-            <span class="hero__callout-avatar" style="background-image:url('https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg');"></span>
-          </div>
+        <div class="hero__callout hero__callout--text-only" aria-label="Trusted by 6,000+ women coached">
           <span class="hero__callout-text">
             <strong>6,000+</strong>
             <span class="hero__callout-label">women coached</span>
           </span>
         </div>
         <p class="hero__eyebrow">The Freedom Filled Pathway<sup>&trade;</sup></p>
-        <h1 class="hero__title">The exact <em>system</em> behind a freedom-filled business.</h1>
+        <h1 class="hero__title">What you built was meant to give you <em>a life</em>. Right now, it's taking it.</h1>
 
         <p class="hero__sub">
-          Learn how I built a multi-7-figure business in 20 hours a week, and the simple system that gets you there too.
+          A free 20-minute class. We'll look at the four places the freedom usually goes off, and how to find your starting point back.
         </p>
 
         <p class="hero__supporting">
-          The free 20-minute mini class for women in business who built something real and want it to fit the life they built it for.
+          For women coaches running a course, a membership, or a group program who want their peace, profit, and presence back.
         </p>
       </div>
 
@@ -1921,9 +1936,9 @@
         <!-- Opt-in card, dark glass, gold hairline, gold-dark CTA -->
         <aside class="hero__optin-card" aria-label="Get the free mini class">
           <p class="opt-in__sub">Free 20-minute mini class</p>
-          <h2 class="opt-in__title">Get the <em>system</em>.</h2>
+          <h2 class="opt-in__title">Get the <em>class</em>.</h2>
           <p class="opt-in__desc">
-            Drop your name and email. I'll send the 4-chapter pathway straight to your inbox.
+            Drop your name and email. The 4-chapter pathway lands in your inbox in a minute.
           </p>
           <form class="opt-in__form" action="/api/opt-in" method="post" data-redirect="/thanks">
             <div class="opt-in__name-row">
@@ -1952,9 +1967,9 @@
               aria-label="Your email address"
               autocomplete="email"
               required />
-            <button type="submit" class="opt-in__btn">Send me the system</button>
+            <button type="submit" class="opt-in__btn">Send me the class</button>
           </form>
-          <p class="opt-in__fine">Free. Instant access. No spam, just the pathway and what's coming next.</p>
+          <p class="opt-in__fine">Free. Instant access. No spam, just the class and what's coming next.</p>
         </aside>
 
       </div>
