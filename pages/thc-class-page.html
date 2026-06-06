@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
-  <script src="https://fast.wistia.com/player.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
@@ -91,6 +91,7 @@
         0 40px 100px -40px rgba(201, 164, 108, 0.5),
         0 10px 30px -20px rgba(0, 0, 0, 0.6);
     }
+    .video-wrap mux-player,
     .video-wrap wistia-player,
     .video-wrap iframe {
       position: absolute;
@@ -99,6 +100,12 @@
       height: 100%;
       border: 0;
       display: block;
+      --media-object-fit: cover;
+    }
+    .video-wrap mux-player {
+      --primary-color: var(--p-gold-mid);
+      --secondary-color: rgba(11, 13, 19, 0.85);
+      --controls-backdrop-color: rgba(11, 13, 19, 0.55);
     }
     .video-help {
       margin: clamp(14px, 1.6vw, 22px) auto 0;
@@ -109,6 +116,152 @@
       text-align: center;
     }
     .video-help strong { color: var(--p-gold-mid); font-weight: 600; }
+
+    /* ---------- Bonus stack (chapter-boundary unlocks) ---------- */
+    .bonuses {
+      max-width: 1080px;
+      margin: clamp(28px, 3.5vw, 44px) auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(12px, 1.2vw, 18px);
+    }
+    @media (max-width: 720px) {
+      .bonuses { grid-template-columns: 1fr; gap: 12px; }
+    }
+    .bonus {
+      position: relative;
+      background: rgba(246, 244, 241, 0.04);
+      border: 1px solid rgba(201, 164, 108, 0.18);
+      border-radius: 12px;
+      padding: clamp(16px, 1.6vw, 22px);
+      color: rgba(246, 244, 241, 0.55);
+      text-align: left;
+      transition: background 700ms ease, border-color 700ms ease, color 700ms ease, transform 700ms ease, box-shadow 700ms ease;
+      text-decoration: none;
+      display: block;
+      cursor: default;
+      overflow: hidden;
+    }
+    .bonus__step {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(201, 164, 108, 0.55);
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+    .bonus__title {
+      font-family: var(--f-serif-display);
+      font-size: clamp(17px, 1.6vw, 21px);
+      line-height: 1.2;
+      color: rgba(246, 244, 241, 0.78);
+      margin: 0 0 6px;
+      transition: color 700ms ease;
+    }
+    .bonus__state {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      color: rgba(246, 244, 241, 0.45);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .bonus__state::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(246, 244, 241, 0.25);
+      transition: background 700ms ease, box-shadow 700ms ease;
+    }
+    .bonus.is-unlocked {
+      background: linear-gradient(135deg, rgba(201, 164, 108, 0.16), rgba(201, 164, 108, 0.04));
+      border-color: rgba(201, 164, 108, 0.55);
+      color: var(--p-oatmeal);
+      cursor: pointer;
+    }
+    .bonus.is-unlocked .bonus__step { color: var(--p-gold-mid); }
+    .bonus.is-unlocked .bonus__title { color: var(--p-oatmeal); }
+    .bonus.is-unlocked .bonus__state { color: var(--p-gold-mid); }
+    .bonus.is-unlocked .bonus__state::before {
+      background: var(--p-gold-mid);
+      box-shadow: 0 0 0 4px rgba(201, 164, 108, 0.18);
+    }
+    .bonus.is-just-unlocked {
+      animation: bonusFlash 1400ms ease-out;
+    }
+    @keyframes bonusFlash {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201, 164, 108, 0); }
+      35% { transform: scale(1.02); box-shadow: 0 18px 50px -20px rgba(201, 164, 108, 0.7); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(201, 164, 108, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .bonus, .bonus.is-just-unlocked { animation: none; transition: none; }
+    }
+
+    /* ---------- Body-state tints driven by watch progress ---------- */
+    body { transition: background-color 1.2s ease; }
+    body.is-watching-25 .sec--alt { background: #fbf3e6; }
+    body.is-watching-50 .sec--alt { background: #faf0df; }
+    body.is-watching-75 .sec--alt { background: #f8ecd6; }
+    body.is-class-complete .sec--alt {
+      background: linear-gradient(180deg, #f8ecd6 0%, #fbf6ec 100%);
+    }
+
+    /* ---------- End-of-class reveal moment ---------- */
+    .completion-banner {
+      display: none;
+      max-width: 1080px;
+      margin: 0 auto clamp(20px, 2.4vw, 32px);
+      padding: clamp(18px, 2vw, 26px) clamp(22px, 2.4vw, 32px);
+      background: linear-gradient(135deg, rgba(201, 164, 108, 0.18), rgba(201, 164, 108, 0.04));
+      border: 1px solid rgba(201, 164, 108, 0.55);
+      border-radius: 14px;
+      text-align: center;
+      animation: completionRise 900ms ease-out;
+    }
+    body.is-class-complete .completion-banner { display: block; }
+    .completion-banner__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--p-gold-mid);
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+    .completion-banner__title {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(20px, 2.2vw, 28px);
+      color: var(--p-charcoal);
+      margin: 0 0 8px;
+      line-height: 1.25;
+    }
+    .completion-banner__sub {
+      font-family: var(--f-sans);
+      font-size: clamp(14px, 1.2vw, 16px);
+      color: rgba(11, 13, 19, 0.7);
+      margin: 0;
+      line-height: 1.5;
+    }
+    @keyframes completionRise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    body.is-class-complete .ew--recommended {
+      animation: ewPulseShadowIntense 2.2s ease-in-out infinite;
+    }
+    @keyframes ewPulseShadowIntense {
+      0%, 100% { box-shadow: 0 30px 70px -30px rgba(201, 164, 108, 0.45), 0 0 0 4px rgba(201, 164, 108, 0.18); }
+      50% { box-shadow: 0 40px 100px -30px rgba(201, 164, 108, 0.75), 0 0 0 9px rgba(201, 164, 108, 0.32); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body.is-class-complete .ew--recommended { animation: none; }
+      .completion-banner { animation: none; }
+    }
 
     /* ---------- Section base ---------- */
     .sec {
@@ -676,16 +829,46 @@
     <p class="hero__sub">Hit play. We'll meet on the other side. I'll walk you through the 5 symptoms, the 3 traps, the Freedom Filled Pathway™, and the one place to start.</p>
 
     <div class="video-wrap" aria-label="The Freedom Filled Pathway, free 20-minute class">
-      <wistia-player media-id="4y4z7lx148" aspect="1.7777777777777777"></wistia-player>
+      <mux-player
+        id="thcClassPlayer"
+        playback-id="MJUESIILzWiDC1itKXKHWbmlmUWf02eJ5SnO6mcJtKis"
+        metadata-video-title="The Freedom Filled Pathway"
+        metadata-video-id="thc-class-placeholder-2026-06-06"
+        stream-type="on-demand"
+        accent-color="#c9a46c"
+        playsinline></mux-player>
     </div>
 
     <p class="video-help"><strong>Tip:</strong> watch full-screen in one sitting. Take 30 seconds when prompted to identify your loudest symptom. You'll need it.</p>
+
+    <div class="bonuses" id="bonusStack" aria-label="Unlocks as you watch">
+      <a class="bonus" id="bonusSymptoms" href="#bonus-symptoms-modal" tabindex="-1" aria-disabled="true">
+        <p class="bonus__step">Chapter 1 · Symptoms</p>
+        <h3 class="bonus__title">Your symptom shortlist</h3>
+        <p class="bonus__state" data-locked="Unlocks at 5:00" data-unlocked="Tap to open">Unlocks at 5:00</p>
+      </a>
+      <a class="bonus" id="bonusTraps" href="#bonus-traps-modal" tabindex="-1" aria-disabled="true">
+        <p class="bonus__step">Chapter 2 · Causes</p>
+        <h3 class="bonus__title">The 3 traps · one-pager</h3>
+        <p class="bonus__state" data-locked="Unlocks at 10:00" data-unlocked="Tap to open">Unlocks at 10:00</p>
+      </a>
+      <a class="bonus" id="bonusPathway" href="/assets/freedom-filled-pathway-map.pdf" tabindex="-1" aria-disabled="true">
+        <p class="bonus__step">Chapter 3 · Treatment</p>
+        <h3 class="bonus__title">Freedom Filled Pathway™ Map</h3>
+        <p class="bonus__state" data-locked="Unlocks at 15:00" data-unlocked="Download the map">Unlocks at 15:00</p>
+      </a>
+    </div>
   </section>
 
   <!-- ============================================================
        Two-up CTAs (workshop + quiz), now first under the video
        ============================================================ -->
   <section class="sec sec--alt" aria-label="Your next steps">
+    <div class="completion-banner" id="completionBanner" role="status" aria-live="polite">
+      <p class="completion-banner__eyebrow">You've finished the class</p>
+      <p class="completion-banner__title">Now choose your next 30 minutes.</p>
+      <p class="completion-banner__sub">You've seen the symptoms, the traps, and the pathway. The next step is below.</p>
+    </div>
     <div class="sec__head">
       <p class="sec__eyebrow">When you're ready</p>
       <h2 class="sec__title">Two ways to go <em>deeper</em>.</h2>
@@ -1055,6 +1238,88 @@
       }
       tick();
       setInterval(tick, 1000);
+    })();
+
+    // ============================================================
+    // Mux player: chapter-boundary bonus unlocks, gradient evolution,
+    // end-of-class reveal. Idempotent. Each milestone fires once per session.
+    // ============================================================
+    (function () {
+      var player = document.getElementById('thcClassPlayer');
+      if (!player) return;
+
+      var qs = new URLSearchParams(window.location.search);
+      var demoMode = qs.get('demo') === '1';
+
+      // Real thresholds for the 20-min class. In demo mode we scale to %
+      // of actual duration so the placeholder asset can show the full flow.
+      var bonuses = [
+        { id: 'bonusSymptoms', at: 5 * 60,  demoPct: 0.25 },
+        { id: 'bonusTraps',    at: 10 * 60, demoPct: 0.50 },
+        { id: 'bonusPathway',  at: 15 * 60, demoPct: 0.75 }
+      ];
+      var watchMilestones = [
+        { pct: 0.25, cls: 'is-watching-25' },
+        { pct: 0.50, cls: 'is-watching-50' },
+        { pct: 0.75, cls: 'is-watching-75' }
+      ];
+      var fired = Object.create(null);
+
+      function unlockBonus(id) {
+        if (fired['b:' + id]) return;
+        fired['b:' + id] = true;
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add('is-unlocked', 'is-just-unlocked');
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('aria-disabled', 'false');
+        var state = el.querySelector('.bonus__state');
+        if (state) state.textContent = state.getAttribute('data-unlocked') || 'Unlocked';
+        setTimeout(function () { el.classList.remove('is-just-unlocked'); }, 1500);
+      }
+
+      function checkProgress(currentTime, duration) {
+        bonuses.forEach(function (b) {
+          var trigger = (demoMode && duration > 0) ? (duration * b.demoPct) : b.at;
+          if (currentTime >= trigger) unlockBonus(b.id);
+        });
+        if (duration && duration > 0) {
+          var pct = currentTime / duration;
+          watchMilestones.forEach(function (m) {
+            if (!fired['m:' + m.cls] && pct >= m.pct) {
+              fired['m:' + m.cls] = true;
+              document.body.classList.add(m.cls);
+            }
+          });
+        }
+      }
+
+      function onEnded() {
+        if (fired['ended']) return;
+        fired['ended'] = true;
+        bonuses.forEach(function (b) { unlockBonus(b.id); });
+        document.body.classList.add('is-class-complete');
+        var banner = document.getElementById('completionBanner');
+        if (banner && 'scrollIntoView' in banner) {
+          setTimeout(function () { banner.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 400);
+        }
+      }
+
+      // Mux Player is a web component, events bubble on the element.
+      player.addEventListener('timeupdate', function () {
+        var t = player.currentTime || 0;
+        var d = player.duration || 0;
+        checkProgress(t, d);
+        if (d > 0 && t >= d - 0.4) onEnded();
+      });
+      player.addEventListener('ended', onEnded);
+
+      // Dev shortcut: ?fastforward=14 jumps the player to 14 minutes for testing.
+      var ff = parseFloat(qs.get('fastforward'));
+      if (!isNaN(ff)) {
+        var seekWhenReady = function () { try { player.currentTime = ff * 60; } catch (e) {} };
+        player.addEventListener('loadedmetadata', seekWhenReady, { once: true });
+      }
     })();
   </script>
 
