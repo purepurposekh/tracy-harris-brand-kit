@@ -282,6 +282,52 @@
       text-transform: uppercase;
       color: rgba(246, 244, 241, 0.45);
     }
+
+    /* ---------- Mobile: stop centering the question, pin question
+       to the top with the progress bar, keep controls + footer
+       sticky at the bottom inside the iOS safe area ---------- */
+    @media (max-width: 720px) {
+      .gatebar {
+        padding: clamp(12px, 2.4vw, 18px) 20px 8px;
+        gap: 18px;
+      }
+      .gatebar__logo { width: 64px; }
+      .gatebar__count { font-size: 9.5px; letter-spacing: 0.24em; }
+
+      .step-wrap {
+        flex: 1;
+        align-items: flex-start;
+        padding: clamp(10px, 2vw, 18px) 20px 16px;
+      }
+      .step__eyebrow { font-size: 14px; margin-bottom: 8px; }
+      .step__title {
+        font-size: clamp(28px, 7.5vw, 36px);
+        margin-bottom: clamp(14px, 2.5vw, 20px);
+        max-width: 22ch;
+      }
+      .step__sub {
+        font-size: 13px;
+        margin-bottom: clamp(16px, 3vw, 22px);
+      }
+      .options { gap: 8px; }
+      .option {
+        padding: 14px 16px;
+        font-size: 14.5px;
+      }
+      .option__bullet { width: 16px; height: 16px; }
+
+      .controls {
+        position: sticky;
+        bottom: 0;
+        background: linear-gradient(to top, var(--p-charcoal) 70%, transparent 100%);
+        padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
+        margin: 0;
+        z-index: 5;
+      }
+      .control-next { padding: 13px 24px; }
+
+      .footer { display: none; }
+    }
   </style>
 </head>
 <body data-brand="ffm">
