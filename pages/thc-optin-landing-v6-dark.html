@@ -112,8 +112,10 @@
       --accent-on:    var(--p-oatmeal);
     }
 
+    html { margin: 0; padding: 0; }
     body {
       margin: 0;
+      padding: 0;
       font-family: var(--f-sans);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -652,9 +654,10 @@
          which stretches the gradient zone and pulls the cream italic stats
          into the warm-grey transition where they become unreadable. Hold
          charcoal much longer here so the stats stay on a fully dark surface. */
+      html, body { margin: 0 !important; padding: 0 !important; }
       .hero-and-creds-wrap {
-        margin-top: 0;
-        padding-top: 0;
+        margin: 0;
+        padding: 0;
         background: linear-gradient(
           to bottom,
           var(--p-charcoal) 0%,
@@ -666,11 +669,17 @@
       .credibility-row--inline { padding-bottom: clamp(60px, 12vw, 100px); }
 
       .hero.hero--marquee.hero--dark-bands {
-        padding-top: clamp(8px, 1.2vh, 14px);
+        padding-top: 0;
+        margin-top: 0;
         min-height: auto;
       }
       .hero.hero--marquee.hero--dark-bands .hero__inner {
         gap: clamp(20px, 2.6vh, 30px);
+        padding-top: 0;
+      }
+      .hero.hero--marquee.hero--dark-bands .hero__band-headline {
+        padding-top: 0;
+        margin-top: 0;
       }
       .hero.hero--marquee.hero--dark-bands .hero__logo {
         margin: 0 auto clamp(12px, 1.8vw, 20px);
