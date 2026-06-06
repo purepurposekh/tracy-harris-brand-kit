@@ -386,14 +386,19 @@
         0 8px 24px -16px rgba(0, 0, 0, 0.6);
     }
 
-    /* Audience callout strip, spans both columns at the top of the module */
+    /* Audience callout strip, spans both columns at the top of the module.
+       Sans, uppercase tag style with letter-tracking so it reads as a label
+       (different register from the H1/sub serif and the body sans). */
     .hero__media-callout {
       grid-area: callout;
       padding: clamp(10px, 1.1vw, 14px) clamp(20px, 2vw, 28px);
-      font-family: var(--f-serif-italic);
-      font-style: italic;
-      font-size: clamp(13px, 1.05vw, 15px);
-      line-height: 1.45;
+      font-family: var(--f-sans);
+      font-style: normal;
+      font-size: clamp(11px, 0.85vw, 12px);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1.5;
       color: rgba(246, 244, 241, 0.82);
       text-align: center;
       background: rgba(201, 164, 108, 0.08);
