@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>One more thing · Tracy Harris</title>
+  <meta name="description" content="A few quick questions so I can show you the right version of the class." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; min-height: 100%; }
+    body {
+      font-family: var(--f-sans);
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Subtle gold radial glow behind everything */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%,
+        rgba(201, 164, 108, 0.10) 0%,
+        rgba(201, 164, 108, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .stage {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---------- Header: logo + progress ---------- */
+    .gatebar {
+      padding: clamp(18px, 2vw, 28px) clamp(20px, 5vw, 64px);
+      display: flex;
+      align-items: center;
+      gap: clamp(20px, 3vw, 36px);
+    }
+    .gatebar__logo {
+      width: clamp(74px, 6vw, 96px);
+      height: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.92;
+    }
+    .gatebar__progress {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .gatebar__count {
+      font-family: var(--f-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-gold-mid);
+      margin: 0;
+    }
+    .gatebar__track {
+      width: 100%;
+      height: 2px;
+      background: rgba(201, 164, 108, 0.2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .gatebar__fill {
+      display: block;
+      height: 100%;
+      background: var(--p-gold-mid);
+      width: 25%;
+      transition: width 380ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* ---------- Question step layout ---------- */
+    .step-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(20px, 4vw, 56px) clamp(20px, 5vw, 64px);
+    }
+    .step {
+      max-width: 760px;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 360ms cubic-bezier(0.23, 1, 0.32, 1),
+                  transform 360ms cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+      position: absolute;
+    }
+    .step.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .step__eyebrow {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(16px, 1.4vw, 19px);
+      color: var(--p-gold-mid);
+      opacity: 0.9;
+      margin: 0 0 12px;
+    }
+    .step__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(30px, 4.4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--p-oatmeal);
+      margin: 0 auto clamp(24px, 3vw, 36px);
+      max-width: 22ch;
+      text-wrap: balance;
+    }
+    .step__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-gold-mid);
+    }
+    .step__sub {
+      font-family: var(--f-sans);
+      font-size: clamp(14px, 1.2vw, 16px);
+      line-height: 1.5;
+      color: rgba(246, 244, 241, 0.7);
+      margin: -8px auto clamp(24px, 3vw, 36px);
+      max-width: 48ch;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(10px, 1.2vw, 14px);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    @media (max-width: 540px) {
+      .options { grid-template-columns: 1fr; }
+    }
+    .option {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(201, 164, 108, 0.3);
+      border-radius: 10px;
+      padding: clamp(16px, 1.8vw, 22px) clamp(18px, 2vw, 24px);
+      color: var(--p-oatmeal);
+      font-family: var(--f-sans);
+      font-size: clamp(14px, 1.2vw, 16px);
+      font-weight: 500;
+      line-height: 1.35;
+      text-align: left;
+      cursor: pointer;
+      transition: background 200ms ease, border-color 200ms ease, transform 120ms ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .option:hover {
+      background: rgba(201, 164, 108, 0.12);
+      border-color: var(--p-gold-mid);
+    }
+    .option:active { transform: scale(0.985); }
+    .option.is-selected {
+      background: var(--p-gold-mid);
+      border-color: var(--p-gold-mid);
+      color: var(--p-charcoal);
+      font-weight: 600;
+    }
+    .option__bullet {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      opacity: 0.5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .option.is-selected .option__bullet {
+      background: var(--p-charcoal);
+      border-color: var(--p-charcoal);
+      opacity: 1;
+    }
+    .option.is-selected .option__bullet::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--p-gold-mid);
+      border-radius: 50%;
+    }
+
+    /* ---------- Controls ---------- */
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      max-width: 620px;
+      margin: clamp(28px, 3.5vw, 44px) auto 0;
+    }
+    .control-back,
+    .control-next {
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 0;
+      cursor: pointer;
+      transition: opacity 200ms ease, background 200ms ease, transform 120ms ease;
+    }
+    .control-back {
+      background: transparent;
+      color: var(--p-oatmeal);
+      opacity: 0.55;
+      padding: 12px 18px;
+      letter-spacing: 0.18em;
+    }
+    .control-back:hover { opacity: 0.9; }
+    .control-back[disabled] { opacity: 0.18; cursor: default; }
+    .control-next {
+      background: var(--p-gold-mid);
+      color: var(--p-charcoal);
+      padding: 14px 30px;
+      border-radius: 999px;
+    }
+    .control-next:hover { background: var(--p-oatmeal); }
+    .control-next:active { transform: scale(0.985); }
+    .control-next[disabled] {
+      background: rgba(201, 164, 108, 0.3);
+      color: rgba(246, 244, 241, 0.5);
+      cursor: default;
+    }
+
+    /* ---------- Final / loading step ---------- */
+    .step--final .step__title { max-width: 28ch; }
+    .step--final .signature {
+      font-family: var(--f-script, var(--f-serif-italic));
+      font-size: clamp(36px, 4vw, 48px);
+      color: var(--p-gold-mid);
+      margin: 18px 0 0;
+      line-height: 1;
+    }
+    .step__spinner {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(201, 164, 108, 0.3);
+      border-top-color: var(--p-gold-mid);
+      border-radius: 50%;
+      animation: spin 800ms linear infinite;
+      margin: 18px auto 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      padding: clamp(16px, 2vw, 24px) clamp(20px, 5vw, 64px);
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(246, 244, 241, 0.45);
+    }
+  </style>
+</head>
+<body data-brand="ffm">
+
+  <div class="stage">
+
+    <header class="gatebar">
+      <img class="gatebar__logo" src="../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris" />
+      <div class="gatebar__progress" aria-label="Progress">
+        <p class="gatebar__count" id="progressCount">Step 1 of 4</p>
+        <span class="gatebar__track" aria-hidden="true"><span class="gatebar__fill" id="progressFill"></span></span>
+      </div>
+    </header>
+
+    <main class="step-wrap" id="stage">
+
+      <!-- STEP 1 · Where in business -->
+      <section class="step is-active" data-step="1">
+        <p class="step__eyebrow">Before I show you the class.</p>
+        <h1 class="step__title">Where are you <em>right now</em>?</h1>
+        <p class="step__sub">Pick the one that's closest. I'll tailor what you see next.</p>
+        <div class="options" role="radiogroup" aria-label="Where are you in business">
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="stage" data-value="just_starting">
+            <span class="option__bullet" aria-hidden="true"></span>
+            Just getting started
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="stage" data-value="under_6f">
+            <span class="option__bullet" aria-hidden="true"></span>
+            Under 6 figures
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="stage" data-value="6f_plus">
+            <span class="option__bullet" aria-hidden="true"></span>
+            6+ figures
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="stage" data-value="7f_plus">
+            <span class="option__bullet" aria-hidden="true"></span>
+            7+ figures and beyond
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 2 · What they sell -->
+      <section class="step" data-step="2">
+        <p class="step__eyebrow">Tell me about your offer.</p>
+        <h1 class="step__title">What are you <em>building</em>?</h1>
+        <p class="step__sub">If it's more than one thing, pick what's bringing in the most right now.</p>
+        <div class="options" role="radiogroup" aria-label="What are you building">
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="offer" data-value="coaching">
+            <span class="option__bullet" aria-hidden="true"></span>
+            A coaching practice
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="offer" data-value="course">
+            <span class="option__bullet" aria-hidden="true"></span>
+            An online course
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="offer" data-value="membership">
+            <span class="option__bullet" aria-hidden="true"></span>
+            A membership
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="offer" data-value="group_program">
+            <span class="option__bullet" aria-hidden="true"></span>
+            A group coaching program
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="offer" data-value="service">
+            <span class="option__bullet" aria-hidden="true"></span>
+            A digital service business
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="offer" data-value="multiple">
+            <span class="option__bullet" aria-hidden="true"></span>
+            Several things at once
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 3 · Loudest lever -->
+      <section class="step" data-step="3">
+        <p class="step__eyebrow">Where it's loudest.</p>
+        <h1 class="step__title">What's <em>tripping you up</em> the most right now?</h1>
+        <p class="step__sub">Pick the one that hits hardest. We'll go deep on it inside the class.</p>
+        <div class="options" role="radiogroup" aria-label="What's tripping you up">
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="lever" data-value="offer_model">
+            <span class="option__bullet" aria-hidden="true"></span>
+            My offer + how I deliver it isn't dialled in
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="lever" data-value="messaging_sales">
+            <span class="option__bullet" aria-hidden="true"></span>
+            I can't say what I do, I freeze when I sell
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="lever" data-value="visibility_content">
+            <span class="option__bullet" aria-hidden="true"></span>
+            Shouting into crickets, content is hard
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="lever" data-value="launches">
+            <span class="option__bullet" aria-hidden="true"></span>
+            I launched and nothing happened
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="lever" data-value="energy_identity">
+            <span class="option__bullet" aria-hidden="true"></span>
+            I'm doing everything and still depleted
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 4 · Time per week -->
+      <section class="step" data-step="4">
+        <p class="step__eyebrow">Last one.</p>
+        <h1 class="step__title">How much <em>time</em> do you actually have for business in a week?</h1>
+        <p class="step__sub">Honest answer. This shapes what I show you next.</p>
+        <div class="options" role="radiogroup" aria-label="How much time per week">
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="time" data-value="under_10">
+            <span class="option__bullet" aria-hidden="true"></span>
+            Less than 10 hours
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="time" data-value="10_20">
+            <span class="option__bullet" aria-hidden="true"></span>
+            10 to 20 hours
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="time" data-value="20_40">
+            <span class="option__bullet" aria-hidden="true"></span>
+            20 to 40 hours
+          </button>
+          <button type="button" class="option" role="radio" aria-checked="false" data-q="time" data-value="40_plus">
+            <span class="option__bullet" aria-hidden="true"></span>
+            40+ hours
+          </button>
+        </div>
+      </section>
+
+      <!-- FINAL · Saving + redirect -->
+      <section class="step step--final" data-step="5">
+        <p class="step__eyebrow">Perfect.</p>
+        <h1 class="step__title">Setting up <em>your version</em> of the class.</h1>
+        <p class="step__sub">One moment.</p>
+        <span class="step__spinner" aria-hidden="true"></span>
+        <p class="signature">Tracy</p>
+      </section>
+
+    </main>
+
+    <div class="controls" id="controls">
+      <button type="button" class="control-back" id="backBtn" disabled>← Back</button>
+      <button type="button" class="control-next" id="nextBtn" disabled>Next →</button>
+    </div>
+
+    <footer class="footer">
+      Tracy Harris Co · The Freedom Filled Pathway™
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      var TOTAL_QUESTION_STEPS = 4;
+      var stage = document.getElementById('stage');
+      var steps = stage.querySelectorAll('.step');
+      var backBtn = document.getElementById('backBtn');
+      var nextBtn = document.getElementById('nextBtn');
+      var progressCount = document.getElementById('progressCount');
+      var progressFill = document.getElementById('progressFill');
+      var controls = document.getElementById('controls');
+
+      var current = 1;
+      var answers = JSON.parse(localStorage.getItem('thc_class_intro') || '{}');
+
+      function render() {
+        steps.forEach(function (s) {
+          var n = parseInt(s.getAttribute('data-step'), 10);
+          s.classList.toggle('is-active', n === current);
+        });
+
+        if (current <= TOTAL_QUESTION_STEPS) {
+          progressCount.textContent = 'Step ' + current + ' of ' + TOTAL_QUESTION_STEPS;
+          progressFill.style.width = (current / TOTAL_QUESTION_STEPS * 100) + '%';
+          backBtn.disabled = (current === 1);
+          var stepEl = stage.querySelector('.step[data-step="' + current + '"]');
+          var q = stepEl.querySelector('.option').getAttribute('data-q');
+          nextBtn.disabled = !answers[q];
+          nextBtn.textContent = (current === TOTAL_QUESTION_STEPS) ? 'See my version →' : 'Next →';
+          controls.style.display = '';
+        } else {
+          // final step: hide controls, write answers + redirect
+          progressCount.textContent = 'Step ' + TOTAL_QUESTION_STEPS + ' of ' + TOTAL_QUESTION_STEPS;
+          progressFill.style.width = '100%';
+          controls.style.display = 'none';
+          submitAndRedirect();
+        }
+      }
+
+      function selectOption(btn) {
+        var q = btn.getAttribute('data-q');
+        var v = btn.getAttribute('data-value');
+        answers[q] = v;
+        localStorage.setItem('thc_class_intro', JSON.stringify(answers));
+        var siblings = btn.parentNode.querySelectorAll('.option');
+        siblings.forEach(function (s) {
+          s.classList.toggle('is-selected', s === btn);
+          s.setAttribute('aria-checked', s === btn ? 'true' : 'false');
+        });
+        nextBtn.disabled = false;
+      }
+
+      stage.addEventListener('click', function (e) {
+        var btn = e.target.closest('.option');
+        if (!btn) return;
+        selectOption(btn);
+      });
+
+      nextBtn.addEventListener('click', function () {
+        if (current === TOTAL_QUESTION_STEPS) {
+          current = 5;
+        } else {
+          current += 1;
+        }
+        render();
+        // re-render selected state from stored answers
+        var stepEl = stage.querySelector('.step[data-step="' + current + '"]');
+        if (stepEl) {
+          var q = stepEl.querySelector('.option') && stepEl.querySelector('.option').getAttribute('data-q');
+          if (q && answers[q]) {
+            var match = stepEl.querySelector('.option[data-value="' + answers[q] + '"]');
+            if (match) selectOption(match);
+          }
+        }
+      });
+
+      backBtn.addEventListener('click', function () {
+        if (current > 1) {
+          current -= 1;
+          render();
+          var stepEl = stage.querySelector('.step[data-step="' + current + '"]');
+          var q = stepEl.querySelector('.option').getAttribute('data-q');
+          if (answers[q]) {
+            var match = stepEl.querySelector('.option[data-value="' + answers[q] + '"]');
+            if (match) {
+              var siblings = match.parentNode.querySelectorAll('.option');
+              siblings.forEach(function (s) {
+                s.classList.toggle('is-selected', s === match);
+                s.setAttribute('aria-checked', s === match ? 'true' : 'false');
+              });
+              nextBtn.disabled = false;
+            }
+          }
+        }
+      });
+
+      function submitAndRedirect() {
+        // Build the segment string + tag set for AC
+        var segmentTags = [
+          'stage:' + (answers.stage || 'unknown'),
+          'offer:' + (answers.offer || 'unknown'),
+          'lever:' + (answers.lever || 'unknown'),
+          'time:' + (answers.time || 'unknown')
+        ];
+        var payload = {
+          tags: segmentTags,
+          answers: answers,
+          ts: Date.now()
+        };
+
+        // POST to a Cloudflare Worker endpoint that writes tags to AC server-side.
+        // The endpoint URL is provisional; until the Worker ships, this just no-ops
+        // and we proceed to the class page with the segment in the query string.
+        var redirectUrl = '/pages/thc-class-page?segment=' + encodeURIComponent(segmentTags.join(','));
+
+        fetch('/api/segment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          credentials: 'same-origin'
+        }).catch(function () {
+          // ignore network errors at this stage, redirect happens regardless
+        }).finally(function () {
+          // small delay so the user sees the "Setting up your version" beat
+          setTimeout(function () {
+            localStorage.removeItem('thc_class_intro');
+            window.location.href = redirectUrl;
+          }, 1100);
+        });
+      }
+
+      // Initial render. Restore prior answers if present.
+      render();
+      // For each step that already has an answer, mark it selected so the user
+      // sees their prior choice if they navigate back into a partially filled flow.
+      Object.keys(answers).forEach(function (q) {
+        var btn = stage.querySelector('.option[data-q="' + q + '"][data-value="' + answers[q] + '"]');
+        if (btn) {
+          btn.classList.add('is-selected');
+          btn.setAttribute('aria-checked', 'true');
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
