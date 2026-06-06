@@ -283,12 +283,15 @@
       color: rgba(246, 244, 241, 0.45);
     }
 
-    /* ---------- Mobile: stop centering the question, pin question
-       to the top with the progress bar, keep controls + footer
-       sticky at the bottom inside the iOS safe area ---------- */
+    /* ---------- Mobile: question card sits centered in the viewport,
+       Back/Next floats fixed at the bottom inside the iOS safe area
+       so it's always reachable. ---------- */
     @media (max-width: 720px) {
+      body {
+        padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+      }
       .gatebar {
-        padding: clamp(12px, 2.4vw, 18px) 20px 8px;
+        padding: clamp(12px, 2.4vw, 18px) 20px 6px;
         gap: 18px;
       }
       .gatebar__logo { width: 64px; }
@@ -296,33 +299,37 @@
 
       .step-wrap {
         flex: 1;
-        align-items: flex-start;
-        padding: clamp(10px, 2vw, 18px) 20px 16px;
+        align-items: center;
+        padding: 12px 20px 12px;
       }
       .step__eyebrow { font-size: 14px; margin-bottom: 8px; }
       .step__title {
-        font-size: clamp(28px, 7.5vw, 36px);
-        margin-bottom: clamp(14px, 2.5vw, 20px);
+        font-size: clamp(26px, 7vw, 34px);
+        margin-bottom: clamp(12px, 2.4vw, 18px);
         max-width: 22ch;
       }
       .step__sub {
         font-size: 13px;
-        margin-bottom: clamp(16px, 3vw, 22px);
+        margin-bottom: clamp(14px, 2.8vw, 20px);
       }
       .options { gap: 8px; }
       .option {
-        padding: 14px 16px;
+        padding: 13px 16px;
         font-size: 14.5px;
       }
       .option__bullet { width: 16px; height: 16px; }
 
+      /* Fixed bottom controls, always visible above iOS chrome */
       .controls {
-        position: sticky;
+        position: fixed;
+        left: 0;
+        right: 0;
         bottom: 0;
-        background: linear-gradient(to top, var(--p-charcoal) 70%, transparent 100%);
-        padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px));
         margin: 0;
-        z-index: 5;
+        max-width: none;
+        background: linear-gradient(to top, var(--p-charcoal) 78%, rgba(16,16,16,0) 100%);
+        padding: 18px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+        z-index: 20;
       }
       .control-next { padding: 13px 24px; }
 
