@@ -202,19 +202,17 @@
       flex: 0 0 auto;
     }
 
-    /* Band 2 · Marquee, full-width, hairlines top + bottom */
+    /* Marquee = FULL HERO BACKGROUND (Karl 2026-06-06).
+       Photo carousel covers the entire hero behind a charcoal veil. */
     .hero__marquee-band {
-      position: relative;
-      width: calc(100% + clamp(48px, 10vw, 128px));
-      margin: 0 calc(-1 * clamp(24px, 5vw, 64px));
-      flex: 0 0 auto;
-      height: clamp(200px, 28vh, 300px);
-      border-top: 1px solid rgba(201, 164, 108, 0.5);
-      border-bottom: 1px solid rgba(201, 164, 108, 0.5);
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
     }
-    /* Marquee strip lives inside the band, full bleed, slight darken so
-       the headline + media above and below still feel like the lead. */
     .hero__marquee-band .hero__marquee-strip {
       position: absolute;
       inset: 0;
@@ -226,42 +224,37 @@
       animation: ldStripFadeDark 1400ms var(--ease-drawer) 500ms forwards;
     }
     .hero__marquee-band .hero__marquee-track {
-      align-items: center;
+      align-items: stretch;
       height: 100%;
     }
-    /* Thin overlay to keep the strip cohesive with the dark canvas
-       without losing the photo subjects. */
-    .hero__marquee-band::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg,
-        rgba(0, 0, 0, 0.18) 0%,
-        rgba(0, 0, 0, 0.08) 50%,
-        rgba(0, 0, 0, 0.18) 100%);
-      pointer-events: none;
-      z-index: 1;
+    .hero__marquee-band .hero__marquee-item {
+      height: 100%;
+      flex: 0 0 auto;
+    }
+    .hero__marquee-band .hero__marquee-item img {
+      height: 100%;
+      width: auto;
+      object-fit: cover;
+      display: block;
     }
     @keyframes ldStripFadeDark {
       from { opacity: 0; }
-      to   { opacity: 0.92; }
+      to   { opacity: 0.5; }
     }
 
-    /* Dark scrim covering Bands 1 + 3 only. Implemented as TWO blocks
-       so the marquee Band 2 between them stays unscrimmed. */
-    .hero__scrim-top,
-    .hero__scrim-bottom {
+    /* Charcoal veil sits over the photos, under the content. */
+    .hero__scrim-top {
       position: absolute;
-      left: 0;
-      right: 0;
+      inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: linear-gradient(to bottom,
-        rgba(16, 16, 16, 0.55) 0%,
-        rgba(16, 16, 16, 0.78) 100%);
+      background:
+        radial-gradient(ellipse 80% 75% at 50% 45%,
+          rgba(16, 16, 16, 0.55) 0%,
+          rgba(16, 16, 16, 0.78) 60%,
+          rgba(16, 16, 16, 0.92) 100%);
     }
-    .hero__scrim-top    { top: 0;    height: 35%; }
-    .hero__scrim-bottom { bottom: 0; height: 50%; background: linear-gradient(to top, rgba(16,16,16,0.78) 0%, rgba(16,16,16,0.55) 100%); }
+    .hero__scrim-bottom { display: none; }
 
     /* Animations on hero content */
     .hero__title,
@@ -497,8 +490,13 @@
       .hero__band-media {
         grid-template-columns: 1fr;
       }
-      .hero__marquee-band {
-        height: clamp(160px, 24vh, 220px);
+      /* Strengthen veil on mobile so text stays readable over photos */
+      .hero__scrim-top {
+        background:
+          radial-gradient(ellipse 95% 95% at 50% 45%,
+            rgba(16, 16, 16, 0.78) 0%,
+            rgba(16, 16, 16, 0.88) 60%,
+            rgba(16, 16, 16, 0.95) 100%);
       }
     }
 
@@ -1315,12 +1313,34 @@
        ============================================================ -->
   <section class="hero hero--marquee hero--dark-bands" data-brand="ffm" aria-label="The Freedom Filled Pathway mini class">
 
-    <!-- Dark scrims: top + bottom only. Marquee Band 2 between them
-         remains unscrimmed so the photos pop. -->
-    <div class="hero__scrim-top" aria-hidden="true"></div>
-    <div class="hero__scrim-bottom" aria-hidden="true"></div>
+    <!-- LAYER 0 · Photo marquee, full hero background -->
+    <div class="hero__marquee-band" aria-hidden="true">
+      <div class="hero__marquee-strip">
+        <div class="hero__marquee-track">
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
+        </div>
+      </div>
+    </div>
 
-    <!-- Foreground content: all three bands in DOM order -->
+    <!-- LAYER 1 · Charcoal veil over the photos, under the content -->
+    <div class="hero__scrim-top" aria-hidden="true"></div>
+
+    <!-- LAYER 2 · Foreground content -->
     <div class="hero__inner" id="content">
 
       <!-- BAND 1 · Headline block -->
@@ -1332,31 +1352,7 @@
         </p>
       </div>
 
-      <!-- BAND 2 · Full-width marquee with hairlines top + bottom -->
-      <div class="hero__marquee-band" aria-hidden="true">
-        <div class="hero__marquee-strip">
-          <div class="hero__marquee-track">
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
-            <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BAND 3 · Video LEFT + opt-in card RIGHT -->
+      <!-- BAND 2 · Video LEFT + opt-in card RIGHT -->
       <div class="hero__band-media">
 
         <!-- Video frame, 16:9, gold-mid hairline. Same Vimeo placeholder
