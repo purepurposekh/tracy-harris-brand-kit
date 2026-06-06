@@ -361,11 +361,16 @@
       text-wrap: pretty;
     }
 
-    /* Band 3 · video LEFT + opt-in card RIGHT, joined into a single
-       module with one shared frame, gold hairline divider between them. */
+    /* Band 3 · joined module: audience callout strip on top (full width),
+       video LEFT + opt-in card RIGHT below. One shared gold frame, gold
+       hairline divider between video and card. */
     .hero__band-media {
       display: grid;
       grid-template-columns: 58fr 42fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "callout callout"
+        "video card";
       gap: 0;
       align-items: stretch;
       width: 100%;
@@ -380,6 +385,23 @@
         0 30px 80px -30px rgba(201, 164, 108, 0.35),
         0 8px 24px -16px rgba(0, 0, 0, 0.6);
     }
+
+    /* Audience callout strip, spans both columns at the top of the module */
+    .hero__media-callout {
+      grid-area: callout;
+      padding: clamp(10px, 1.1vw, 14px) clamp(20px, 2vw, 28px);
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(13px, 1.05vw, 15px);
+      line-height: 1.45;
+      color: rgba(246, 244, 241, 0.82);
+      text-align: center;
+      background: rgba(201, 164, 108, 0.08);
+      border-bottom: 1px solid var(--p-gold-mid);
+    }
+
+    .hero__video-frame  { grid-area: video; }
+    .hero__optin-card   { grid-area: card; }
 
     /* Video frame sets the row height via its 16/9 aspect ratio; card
        fits to match. Border removed because the outer hero__band-media
@@ -571,6 +593,10 @@
       }
       .hero__band-media {
         grid-template-columns: 1fr;
+        grid-template-areas:
+          "callout"
+          "video"
+          "card";
       }
       /* Stacked: vertical divider becomes horizontal */
       .hero__video-frame {
@@ -1934,14 +1960,15 @@
         <p class="hero__sub">
           Your effort was never the problem. In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
         </p>
-
-        <p class="hero__supporting">
-          For the woman who built something real, and wants it to give her the freedom she built it for.
-        </p>
       </div>
 
-      <!-- BAND 2 · Video LEFT + opt-in card RIGHT -->
+      <!-- BAND 2 · Joined media module: callout strip on top, video LEFT + opt-in card RIGHT below -->
       <div class="hero__band-media">
+
+        <!-- Audience callout strip, full-width across both columns -->
+        <div class="hero__media-callout">
+          For the woman who built something real, and wants the freedom she built it for.
+        </div>
 
         <!-- Video frame, 16:9, gold-mid hairline. Wistia embed. -->
         <div class="hero__video-frame" aria-label="A 90-second word from Tracy">
