@@ -462,6 +462,16 @@
       gap: var(--sp-3);
       margin: 0;
     }
+    .hero__optin-card .opt-in__name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3);
+    }
+    @media (max-width: 480px) {
+      .hero__optin-card .opt-in__name-row {
+        grid-template-columns: 1fr;
+      }
+    }
     .hero__optin-card .opt-in__input {
       width: 100%;
       box-sizing: border-box;
@@ -528,7 +538,58 @@
     }
 
     /* ============================================================
-       SECTION 1B · Freedom-vision marquee
+       SECTION 1B · Credibility row (editorial)
+       Single horizontal row of stats separated by gold dots, on oatmeal.
+       ============================================================ */
+    .credibility-row {
+      background: var(--p-oatmeal);
+      padding: clamp(56px, 7vw, 88px) clamp(20px, 5vw, 64px);
+      text-align: center;
+    }
+    .credibility-row__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--p-mute);
+      margin: 0 0 clamp(20px, 2.5vw, 32px);
+    }
+    .credibility-row__stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(14px, 2vw, 28px);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .credibility-row__stat {
+      font-family: var(--f-serif-display);
+      font-style: italic;
+      font-size: clamp(18px, 1.8vw, 24px);
+      line-height: 1.2;
+      color: var(--p-charcoal);
+      letter-spacing: -0.005em;
+    }
+    .credibility-row__dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--p-gold-mid);
+      display: inline-block;
+      opacity: 0.7;
+    }
+    @media (max-width: 720px) {
+      .credibility-row__stats {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .credibility-row__dot { display: none; }
+    }
+
+    /* ============================================================
+       SECTION 1C · Freedom-vision marquee
        Standalone horizontal photo carousel. Sits right after the hero
        on a cream canvas. Carries the freedom premise visually before
        the social proof. Uses the kit's polaroid styling (rotation +
@@ -1425,15 +1486,34 @@
           <p class="opt-in__sub">Free 20-minute mini class</p>
           <h2 class="opt-in__title">Get the free <em>mini class</em></h2>
           <p class="opt-in__desc">
-            Drop your email, I'll send the four-chapter pathway straight to your inbox.
+            Drop your name and email, I'll send the four-chapter pathway straight to your inbox.
           </p>
           <form class="opt-in__form" action="/api/opt-in" method="post" data-redirect="/thanks">
+            <div class="opt-in__name-row">
+              <input
+                type="text"
+                name="first_name"
+                class="opt-in__input"
+                placeholder="First name"
+                aria-label="First name"
+                autocomplete="given-name"
+                required />
+              <input
+                type="text"
+                name="last_name"
+                class="opt-in__input"
+                placeholder="Last name"
+                aria-label="Last name"
+                autocomplete="family-name"
+                required />
+            </div>
             <input
               type="email"
               name="email"
               class="opt-in__input"
               placeholder="Your email"
               aria-label="Your email address"
+              autocomplete="email"
               required />
             <button type="submit" class="opt-in__btn">Send me the free mini class</button>
           </form>
@@ -1446,7 +1526,23 @@
   </section>
 
   <!-- ============================================================
-       SECTION 1B · Freedom-vision marquee
+       SECTION 1B · Credibility row (editorial)
+       ============================================================ -->
+  <section class="credibility-row" aria-label="Trusted by women building real businesses">
+    <p class="credibility-row__eyebrow">Trusted by women building real businesses</p>
+    <div class="credibility-row__stats">
+      <span class="credibility-row__stat">500+ podcast episodes</span>
+      <span class="credibility-row__dot" aria-hidden="true"></span>
+      <span class="credibility-row__stat">9 years mentoring women</span>
+      <span class="credibility-row__dot" aria-hidden="true"></span>
+      <span class="credibility-row__stat">6,000+ business owners served</span>
+      <span class="credibility-row__dot" aria-hidden="true"></span>
+      <span class="credibility-row__stat">7-figure business owner</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 1C · Freedom-vision marquee
        ============================================================ -->
   <section class="freedom-strip" data-brand="ffb" aria-label="What freedom-filled looks like">
     <div class="freedom-strip__intro">
@@ -1477,37 +1573,8 @@
   </section>
 
   <!-- ============================================================
-       SECTION 2 · Social proof strip (was v4 Section 3)
-       ============================================================ -->
-  <section class="proof-strip" aria-label="Trusted by">
-    <div class="proof-strip__inner">
-      <p class="proof-strip__eyebrow">Trusted by women in business</p>
-      <div class="proof-strip__row">
-        <div class="proof-strip__stat">
-          <span class="proof-strip__stat-value">9 <em>yrs</em></span>
-          <span class="proof-strip__stat-label">Hosting the podcast</span>
-        </div>
-        <span class="proof-strip__divider" aria-hidden="true"></span>
-        <div class="proof-strip__stat">
-          <span class="proof-strip__stat-value">500+</span>
-          <span class="proof-strip__stat-label">Episodes published</span>
-        </div>
-        <span class="proof-strip__divider" aria-hidden="true"></span>
-        <div class="proof-strip__stat">
-          <span class="proof-strip__stat-value">6,000+</span>
-          <span class="proof-strip__stat-label">Business owners served</span>
-        </div>
-        <span class="proof-strip__divider" aria-hidden="true"></span>
-        <div class="proof-strip__stat">
-          <span class="proof-strip__stat-value">7 <em>fig</em></span>
-          <span class="proof-strip__stat-label">Built on 20hr weeks</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SECTION 3 · 4-up testimonials (was v4 Section 4)
+       SECTION 2 · 4-up testimonials (was v4 Section 4)
+       Old stat-block proof-strip removed; credibility row above covers it.
        ============================================================ -->
   <section class="testimonials" data-brand="ffb" aria-label="Member testimonials">
     <header class="testimonials__header">
