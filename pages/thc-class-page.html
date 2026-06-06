@@ -637,10 +637,10 @@
       <p class="sec__lead" id="prectaDefault">Pick the one that matches where you actually are right now. Both lead to the same place: a business that fits the life you built it for.</p>
     </div>
 
-    <div class="twoup">
+    <div class="twoup" id="twoupCtas">
 
       <!-- WORKSHOP widget with cover photo, pulsing live label, countdown bar -->
-      <a class="ew" href="/workshop/register">
+      <a class="ew" data-card="workshop" href="/workshop/register">
         <div class="ew__media">
           <img class="ew__photo" src="../assets/photos/class-workshop-mockup.png" alt="Laptop on a marble desk showing The Freedom Filled Pathway Live Workshop, Build / Sell / Lead diagram on screen." loading="lazy" />
           <span class="ew__label ew__label--live">Next live workshop</span>
@@ -661,7 +661,7 @@
       </a>
 
       <!-- QUIZ widget with cover image, static label, no countdown -->
-      <a class="ew" href="/quiz">
+      <a class="ew" data-card="quiz" href="/quiz">
         <div class="ew__media">
           <img class="ew__photo" src="../assets/photos/class-quiz-mockup.png" alt="Tablet on a marble surface showing a Tracy-branded quiz titled Your loudest symptom." loading="lazy" />
           <span class="ew__label">5-minute diagnostic</span>
@@ -918,6 +918,24 @@
         personal.innerHTML = sentence;
         personal.hidden = false;
         fallback.hidden = true;
+      }
+
+      // ----------------------------------------------------------
+      // Reorder the two CTA cards so the recommended one appears first.
+      // ----------------------------------------------------------
+      var twoup = document.getElementById('twoupCtas');
+      if (twoup) {
+        var workshopCard = twoup.querySelector('[data-card="workshop"]');
+        var quizCard = twoup.querySelector('[data-card="quiz"]');
+        if (workshopCard && quizCard) {
+          if (preferQuiz) {
+            twoup.appendChild(quizCard);
+            twoup.appendChild(workshopCard);
+          } else {
+            twoup.appendChild(workshopCard);
+            twoup.appendChild(quizCard);
+          }
+        }
       }
 
       // ----------------------------------------------------------
