@@ -202,71 +202,8 @@
       flex: 0 0 auto;
     }
 
-    /* Marquee = FULL HERO BACKGROUND (Karl 2026-06-06).
-       Photo carousel covers the entire hero behind a charcoal veil. */
-    .hero__marquee-band {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .hero__marquee-band .hero__marquee-strip {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: 0;
-      animation: ldStripFadeDark 1400ms var(--ease-drawer) 500ms forwards;
-    }
-    .hero__marquee-band .hero__marquee-track {
-      align-items: stretch;
-      height: 100%;
-      gap: 0;
-      padding: 0;
-    }
-    /* Reset the kit polaroid defaults: no rotation, no rounded corners,
-       no shadow, no fixed 180x240. Each panel fills the hero height with
-       a consistent width so the scroll feels like a continuous background. */
-    .hero__marquee-band .hero__marquee-item,
-    .hero__marquee-band .hero__marquee-item:nth-child(odd),
-    .hero__marquee-band .hero__marquee-item:nth-child(even) {
-      flex: 0 0 auto;
-      width: clamp(320px, 32vw, 520px);
-      height: 100%;
-      transform: none;
-      border-radius: 0;
-      box-shadow: none;
-      overflow: hidden;
-    }
-    .hero__marquee-band .hero__marquee-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    @keyframes ldStripFadeDark {
-      from { opacity: 0; }
-      to   { opacity: 0.5; }
-    }
-
-    /* Charcoal veil sits over the photos, under the content. */
-    .hero__scrim-top {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 75% at 50% 45%,
-          rgba(16, 16, 16, 0.55) 0%,
-          rgba(16, 16, 16, 0.78) 60%,
-          rgba(16, 16, 16, 0.92) 100%);
-    }
-    .hero__scrim-bottom { display: none; }
+    /* Hero is now clean charcoal: no background marquee, no scrim layers.
+       Section 1B (freedom-strip) below carries the photo carousel. */
 
     /* Animations on hero content */
     .hero__title,
@@ -502,14 +439,65 @@
       .hero__band-media {
         grid-template-columns: 1fr;
       }
-      /* Strengthen veil on mobile so text stays readable over photos */
-      .hero__scrim-top {
-        background:
-          radial-gradient(ellipse 95% 95% at 50% 45%,
-            rgba(16, 16, 16, 0.78) 0%,
-            rgba(16, 16, 16, 0.88) 60%,
-            rgba(16, 16, 16, 0.95) 100%);
-      }
+    }
+
+    /* ============================================================
+       SECTION 1B · Freedom-vision marquee (dark)
+       Standalone horizontal photo carousel on charcoal, right after the
+       hero, before the oatmeal social-proof breath. Carries the freedom
+       premise visually. Uses the kit's polaroid styling.
+       ============================================================ */
+    .freedom-strip {
+      position: relative;
+      padding: clamp(72px, 9vw, 120px) 0 clamp(64px, 8vw, 96px);
+      background: var(--p-charcoal);
+      border-top: 1px solid rgba(201, 164, 108, 0.25);
+      overflow: hidden;
+    }
+    .freedom-strip__intro {
+      max-width: 720px;
+      margin: 0 auto clamp(40px, 5vw, 64px);
+      padding: 0 clamp(20px, 5vw, 64px);
+      text-align: center;
+    }
+    .freedom-strip__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--p-gold-mid);
+      margin: 0 0 var(--sp-3);
+    }
+    .freedom-strip__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--p-oatmeal);
+      margin: 0 0 var(--sp-3);
+      text-wrap: balance;
+    }
+    .freedom-strip__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-gold-mid);
+    }
+    .freedom-strip__sub {
+      font-family: var(--f-sans);
+      font-size: clamp(14px, 1.1vw, 16px);
+      line-height: 1.6;
+      color: rgba(246, 244, 241, 0.78);
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .freedom-strip__carousel {
+      position: relative;
+      height: clamp(260px, 32vw, 360px);
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
     }
 
     /* ============================================================
@@ -1325,34 +1313,6 @@
        ============================================================ -->
   <section class="hero hero--marquee hero--dark-bands" data-brand="ffm" aria-label="The Freedom Filled Pathway mini class">
 
-    <!-- LAYER 0 · Photo marquee, full hero background -->
-    <div class="hero__marquee-band" aria-hidden="true">
-      <div class="hero__marquee-strip">
-        <div class="hero__marquee-track">
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
-          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LAYER 1 · Charcoal veil over the photos, under the content -->
-    <div class="hero__scrim-top" aria-hidden="true"></div>
-
-    <!-- LAYER 2 · Foreground content -->
     <div class="hero__inner" id="content">
 
       <!-- BAND 1 · Headline block -->
@@ -1408,6 +1368,37 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ============================================================
+       SECTION 1B · Freedom-vision marquee (dark)
+       ============================================================ -->
+  <section class="freedom-strip" data-brand="ffm" aria-label="What freedom-filled looks like">
+    <div class="freedom-strip__intro">
+      <p class="freedom-strip__eyebrow">What freedom-filled looks like</p>
+      <h2 class="freedom-strip__title">A business that <em>fits</em> the life you actually want.</h2>
+      <p class="freedom-strip__sub">Slow mornings. Real money. A calendar with breathing room. The version most coaches don't believe is on the menu.</p>
+    </div>
+    <div class="freedom-strip__carousel">
+      <div class="hero__marquee-strip" aria-hidden="true" style="position:relative; bottom:auto; left:auto; right:auto; height:100%;">
+        <div class="hero__marquee-track">
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ============================================================
