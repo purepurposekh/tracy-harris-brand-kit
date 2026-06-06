@@ -649,11 +649,20 @@
        Marquee band stays full width with hairlines. */
     @media (max-width: 880px) {
       .hero.hero--marquee.hero--dark-bands {
-        padding-top: 12px;
+        padding-top: 0;
         min-height: auto;
       }
+      .hero.hero--marquee.hero--dark-bands .hero__inner {
+        gap: clamp(14px, 1.8vh, 22px);
+      }
+      .hero.hero--marquee.hero--dark-bands .hero__logo {
+        margin: 0 auto clamp(10px, 1.6vw, 18px);
+      }
+      .hero.hero--marquee.hero--dark-bands .hero__callout {
+        margin: 0 0 clamp(14px, 2vw, 22px);
+      }
       .hero.hero--marquee.hero--dark-bands .hero__title {
-        font-size: clamp(32px, 8vw, 44px);
+        font-size: clamp(40px, 10vw, 56px);
       }
       .hero__band-media {
         grid-template-columns: 1fr;
