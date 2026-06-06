@@ -353,8 +353,12 @@
     .pmstrip {
       max-width: 1100px;
       margin: 0 auto;
-      background: var(--p-charcoal);
+      background:
+        radial-gradient(ellipse 60% 80% at 15% 50%, rgba(201, 164, 108, 0.22) 0%, rgba(201, 164, 108, 0) 65%),
+        radial-gradient(ellipse 40% 70% at 100% 30%, rgba(123, 98, 60, 0.18) 0%, rgba(123, 98, 60, 0) 70%),
+        linear-gradient(135deg, var(--p-charcoal) 0%, rgba(48, 40, 30, 1) 100%);
       color: var(--p-oatmeal);
+      border: 1px solid rgba(201, 164, 108, 0.18);
       border-radius: 14px;
       padding: clamp(24px, 2.6vw, 36px);
       display: grid;
@@ -362,7 +366,7 @@
       gap: clamp(24px, 3vw, 40px);
       align-items: center;
       box-shadow:
-        0 20px 60px -30px rgba(0, 0, 0, 0.5),
+        0 20px 60px -30px rgba(123, 98, 60, 0.4),
         0 6px 20px -10px rgba(0, 0, 0, 0.3);
     }
     @media (max-width: 820px) {
