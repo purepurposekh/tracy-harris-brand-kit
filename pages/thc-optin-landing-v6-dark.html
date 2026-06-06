@@ -2359,6 +2359,14 @@
       max-width: 460px;
       margin: 28px auto 0;
     }
+    .fcta-name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 480px) {
+      .fcta-name-row { grid-template-columns: 1fr; }
+    }
     .fcta-form .fcta-input {
       width: 100%;
       box-sizing: border-box;
@@ -2736,7 +2744,10 @@
         <h2 class="fsec__h2">Send me the free mini class.</h2>
         <p class="fsec__lead">20 minutes. One sitting, start to finish.</p>
         <form class="fcta-form" action="/api/opt-in" method="post" data-redirect="/thanks">
-          <input class="fcta-input" name="first_name" type="text" autocomplete="given-name" placeholder="Your first name" required />
+          <div class="fcta-name-row">
+            <input class="fcta-input" name="first_name" type="text" autocomplete="given-name" placeholder="First name" required />
+            <input class="fcta-input" name="last_name" type="text" autocomplete="family-name" placeholder="Last name" required />
+          </div>
           <input class="fcta-input" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email address" required />
           <button class="fbtn" type="submit">Access the free class now</button>
           <p class="fcta-microcopy">Free, no credit card, no spam. The mini class is yours to keep.</p>
