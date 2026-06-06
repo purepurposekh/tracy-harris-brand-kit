@@ -280,6 +280,24 @@
       color: var(--p-mute);
     }
 
+    /* Named-system eyebrow above H1 */
+    .hero__eyebrow {
+      display: inline-block;
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+      margin: 0 0 clamp(14px, 1.6vw, 22px);
+    }
+    .hero__eyebrow sup {
+      font-size: 0.55em;
+      vertical-align: super;
+      margin-left: 2px;
+      letter-spacing: 0;
+    }
+
     .hero__title,
     .hero__supporting,
     .hero__sub-hook,
@@ -1871,10 +1889,11 @@
             <span class="hero__callout-label">women coached</span>
           </span>
         </div>
+        <p class="hero__eyebrow">The Freedom Filled Pathway<sup>&trade;</sup></p>
         <h1 class="hero__title">Your business was meant to give you <em>freedom</em>. Now it's taking up more of your life.</h1>
 
         <p class="hero__supporting">
-          The free 20-minute mini class for women who built something real and want it to fit the life they actually want.
+          A free 20-minute mini class for women in business who built something real and want it to fit the life they built it for.
         </p>
 
       </div>
