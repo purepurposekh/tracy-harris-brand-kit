@@ -410,7 +410,8 @@
       margin: 0 auto;
       flex: 0 0 auto;
       border: 1px solid var(--p-gold-mid);
-      border-radius: 8px;
+      border-bottom: 0;
+      border-radius: 8px 8px 0 0;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.04);
       box-shadow:
@@ -666,10 +667,12 @@
       text-align: center;
     }
     /* When the credibility row is rendered inline inside the hero,
-       it sits immediately under the joined media module with no extra
-       padding above and a long bottom buffer so the gradient has room
-       to fade to white before the Picture It section. */
+       it sits under the joined media module with breathing room above
+       (replaces the visual separation the gold line was providing) and
+       a long bottom buffer so the gradient has room to fade to white
+       before the Picture It section. */
     .credibility-row--inline {
+      margin-top: clamp(36px, 4vw, 60px);
       padding-bottom: clamp(120px, 14vw, 200px);
       border-top: 1px solid rgba(201, 164, 108, 0.18);
     }
