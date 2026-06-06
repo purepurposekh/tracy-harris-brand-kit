@@ -220,6 +220,12 @@
       margin: 0 auto;
       width: 100%;
     }
+    .hero__logo {
+      display: block;
+      width: clamp(150px, 14vw, 200px);
+      height: auto;
+      margin: 0 auto clamp(20px, 2.4vw, 32px);
+    }
 
     .hero__title,
     .hero__supporting,
@@ -1308,7 +1314,6 @@
 <body data-brand="ffb">
   <a href="#content" class="skip-link">Skip to content</a>
 
-  <span class="page-eyebrow">Tracy Harris Co</span>
 
   <!-- ============================================================
        SECTION 1 · HERO
@@ -1321,7 +1326,8 @@
 
       <!-- BAND 1 · Headline block -->
       <div class="hero__band-headline">
-        <h1 class="hero__title">Your business was supposed to give you your life back. Right now <em>it's eating it</em>.</h1>
+        <img class="hero__logo" src="../assets/logos/tracy/tracy-primary.svg" alt="Tracy Harris" />
+        <h1 class="hero__title">Your business was meant to give you <em>freedom</em>. Now it's taking up more of your life.</h1>
 
         <p class="hero__supporting">
           The free 20-minute mini class for women who built something real and want it to fit the life they actually want.
