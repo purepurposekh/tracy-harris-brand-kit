@@ -231,8 +231,8 @@
     .hero__callout {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 5px 16px 5px 6px;
+      gap: 10px;
+      padding: 4px 12px 4px 5px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.55);
       border: 1px solid rgba(201, 164, 108, 0.4);
@@ -245,28 +245,39 @@
       align-items: center;
     }
     .hero__callout-avatar {
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       border: 2px solid var(--p-oatmeal);
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
-      margin-left: -8px;
+      margin-left: -7px;
       box-shadow: 0 1px 3px rgba(16, 16, 16, 0.12);
     }
     .hero__callout-avatar:first-child { margin-left: 0; }
     .hero__callout-text {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
       font-family: var(--f-sans);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
       color: var(--p-ink);
       white-space: nowrap;
+      line-height: 1;
+      gap: 2px;
     }
     .hero__callout-text strong {
       color: var(--p-gold-dark);
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+    .hero__callout-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--p-mute);
     }
 
     .hero__title,
@@ -1375,7 +1386,10 @@
             <span class="hero__callout-avatar" style="background-image:url('https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg');"></span>
             <span class="hero__callout-avatar" style="background-image:url('https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg');"></span>
           </div>
-          <span class="hero__callout-text"><strong>6,000+</strong> women coached</span>
+          <span class="hero__callout-text">
+            <strong>6,000+</strong>
+            <span class="hero__callout-label">women coached</span>
+          </span>
         </div>
         <h1 class="hero__title">Your business was meant to give you <em>freedom</em>. Now it's taking up more of your life.</h1>
 
