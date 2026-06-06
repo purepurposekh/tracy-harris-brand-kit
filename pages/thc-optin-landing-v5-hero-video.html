@@ -200,26 +200,27 @@
       z-index: 2;
     }
 
-    /* Marquee strip, BOTTOM BAND only (was inset:0 in v4).
-       Lifted markup + animation verbatim from v4. The only change is
-       position: bottom band, height: ~25% of hero (min 180px so on tall
-       hero heights it stays legible). */
-    .hero.hero--marquee.hero--light-overlay .hero__marquee-strip {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: clamp(180px, 25vh, 260px);
-      width: 100%;
+    /* Marquee strip, MIDDLE BAND, normal flow (was absolute-positioned
+       bottom band in earlier v5; Karl moved it to middle 2026-06-06). The
+       strip sits in normal flow inside hero__inner between the headline
+       band and the video+opt-in band, framing the page's emotional heart
+       between the title and the offer. */
+    .hero.hero--marquee.hero--light-overlay .hero__marquee-strip--middle {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      height: clamp(200px, 28vh, 300px);
       overflow: hidden;
       pointer-events: none;
-      -webkit-mask-image: linear-gradient(to bottom,
-        transparent 0%, black 22%, black 100%);
-      mask-image: linear-gradient(to bottom,
-        transparent 0%, black 22%, black 100%);
+      -webkit-mask-image: linear-gradient(to right,
+        transparent 0%, black 6%, black 94%, transparent 100%);
+      mask-image: linear-gradient(to right,
+        transparent 0%, black 6%, black 94%, transparent 100%);
       opacity: 0;
       animation: ldStripFadeLight 1400ms var(--ease-drawer) 600ms forwards;
-      z-index: 0;
+      z-index: 1;
+      margin-block: clamp(20px, 3vw, 40px);
     }
     .hero.hero--marquee.hero--light-overlay .hero__marquee-track {
       align-items: center;
@@ -227,14 +228,15 @@
     }
     @keyframes ldStripFadeLight {
       from { opacity: 0; }
-      to   { opacity: 0.5; }
+      to   { opacity: 0.78; }
     }
-    /* Hairline separating Band 2 from Band 3, sits just above marquee */
-    .hero__marquee-hairline {
-      position: absolute;
-      left: clamp(24px, 5vw, 64px);
-      right: clamp(24px, 5vw, 64px);
-      bottom: clamp(180px, 25vh, 260px);
+    /* Gold hairlines above + below the marquee middle band */
+    .hero__marquee-hairline--top,
+    .hero__marquee-hairline--bottom {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
       height: 1px;
       background: linear-gradient(to right,
         rgba(201, 164, 108, 0) 0%,
@@ -245,16 +247,13 @@
       pointer-events: none;
     }
 
-    /* Cream scrim sits BEHIND content but ABOVE marquee.
-       Constrained to the top + middle bands so the bottom marquee band
-       reads clean. Achieved with linear gradient that fades at bottom. */
+    /* Cream scrim sits BEHIND content. Now covers the full hero since
+       the marquee is in normal flow inside hero__inner (no longer absolute
+       at the bottom band). */
     .hero__scrim {
       position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: clamp(180px, 25vh, 260px);
-      z-index: 1;
+      inset: 0;
+      z-index: 0;
       background:
         radial-gradient(ellipse 78% 75% at 50% 45%,
           rgba(246, 244, 241, 0.45) 0%,
@@ -263,19 +262,17 @@
       pointer-events: none;
     }
 
-    /* Hero inner: vertical stack of Band 1 (headline) + Band 2 (video+optin).
-       Band 3 (marquee) is positioned absolutely, so it doesn't participate
-       in this flow. */
+    /* Hero inner: vertical stack of Band 1 (headline) + Band 2 (middle
+       marquee) + Band 3 (video+optin). All three flow normally now. */
     .hero.hero--marquee.hero--light-overlay .hero__inner {
       position: relative;
       z-index: 3;
       max-width: 1240px;
       width: 100%;
       margin: 0 auto;
-      padding-bottom: clamp(196px, 27vh, 280px); /* leave room for Band 3 */
       display: flex;
       flex-direction: column;
-      gap: clamp(36px, 5vh, 56px);
+      gap: clamp(28px, 4vh, 48px);
       flex: 1;
     }
 
@@ -1351,12 +1348,31 @@
           The free 20-minute mini class for women who built something real and want it to fit the life they actually want.
         </p>
 
-        <p class="hero__sub-hook">
-          20 minutes, four chapters in one sitting. The clinical breakdown of why your business isn't freedom-filled yet, and what to do about it.
-        </p>
       </div>
 
-      <!-- BAND 2 · Video LEFT + opt-in card RIGHT -->
+      <!-- BAND 2 · Photo marquee, full-width middle band, gold hairlines above + below -->
+      <div class="hero__marquee-hairline hero__marquee-hairline--top" aria-hidden="true"></div>
+      <div class="hero__marquee-strip hero__marquee-strip--middle" aria-hidden="true">
+        <div class="hero__marquee-track">
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
+          <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
+        </div>
+      </div>
+      <div class="hero__marquee-hairline hero__marquee-hairline--bottom" aria-hidden="true"></div>
+
+      <!-- BAND 3 · Video LEFT + opt-in card RIGHT -->
       <div class="hero__band-media">
 
         <!-- Video frame, 16:9, gold-mid hairline. Same Vimeo placeholder
@@ -1399,29 +1415,6 @@
           <p class="opt-in__fine">Free. Instant access. No spam, just the mini class and what's coming next.</p>
         </aside>
 
-      </div>
-    </div>
-
-    <!-- BAND 3 · Compressed photo marquee, gold hairline above -->
-    <div class="hero__marquee-hairline" aria-hidden="true"></div>
-    <div class="hero__marquee-strip" aria-hidden="true">
-      <div class="hero__marquee-track">
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/kHCo0XC8Q1WrPV2iTqkOAQ/173187/web_mwh_coralsea_271022_382.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/NShgYBPuR2WEpef2w9H8rQ/173187/web_mwh_coralsea_271022_312.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Phc3esiZQtC8jORSzOTIbQ/173187/web_mwh_coralsea_251022_137.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/Yy3opX4aRY-pnfn17TTANA/173187/web_mwh_coralsea_271022_422.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/_4pCmLazRuuQR6q6BzjHIA/173187/web_mwh_coralsea_251022_270.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/aX9Bts4RQU26-yjaZj2k3g/173187/web_mwh_coralsea_251022_088.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/5M6nYNMVTkOjC2msh9iAEA/173187/web_mwh_coralsea_251022_217.jpg" alt="" /></div>
-        <div class="hero__marquee-item"><img src="https://static.showit.co/1200/VDgD-51eTBufkQQht6IU5A/173187/web_mwh_coralsea_251022_129.jpg" alt="" /></div>
       </div>
     </div>
 
