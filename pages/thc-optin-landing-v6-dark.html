@@ -157,22 +157,23 @@
        unscrimmed so the photos pop at full intensity.
        ============================================================ */
     /* Hero + credibility row sit inside a single gradient wrapper.
-       Charcoal holds through hero AND through the credibility row text
-       (white text needs the black background for contrast), then a
-       sharper transition runs to white at the very bottom edge. */
+       Charcoal holds through the hero AND through the credibility row
+       (white text needs the black background for contrast), then the
+       fade only kicks in below the credibility row, ending at white
+       by the very bottom edge. */
     .hero-and-creds-wrap {
       background: linear-gradient(
         to bottom,
         var(--p-charcoal) 0%,
-        var(--p-charcoal) 72%,
-        rgba(60, 56, 50, 1) 82%,
-        rgba(170, 160, 142, 1) 92%,
+        var(--p-charcoal) 82%,
+        rgba(70, 64, 56, 1) 88%,
+        rgba(170, 160, 142, 1) 94%,
         var(--p-white) 100%
       );
     }
     .hero.hero--marquee.hero--dark-bands {
       position: relative;
-      padding: clamp(24px, 3vh, 48px) clamp(24px, 5vw, 64px) clamp(40px, 5vh, 64px);
+      padding: clamp(24px, 3vh, 48px) clamp(24px, 5vw, 64px) clamp(8px, 1vh, 16px);
       display: flex;
       flex-direction: column;
       overflow: hidden;
