@@ -414,23 +414,32 @@
     }
 
     /* Audience callout strip above the video column.
-       Sans, uppercase tag style with letter-tracking so it reads as a label
-       (different register from the H1/sub serif and the body sans). */
+       Sans, sentence-case, single-line with white-space:nowrap so the
+       full line stays on one row inside the video column width.
+       Distinct from H1 (serif) and the body sans by size + gold tint. */
     .hero__media-callout {
       grid-area: callout;
-      padding: clamp(10px, 1.1vw, 14px) clamp(20px, 2vw, 28px);
+      padding: clamp(10px, 1.1vw, 14px) clamp(14px, 1.4vw, 20px);
       font-family: var(--f-sans);
       font-style: normal;
-      font-size: clamp(11px, 0.85vw, 12px);
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      line-height: 1.5;
-      color: rgba(246, 244, 241, 0.82);
+      font-size: clamp(11px, 1.05vw, 13px);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1.4;
+      color: rgba(246, 244, 241, 0.92);
       text-align: center;
-      background: rgba(201, 164, 108, 0.08);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: rgba(201, 164, 108, 0.1);
       border-right: 1px solid var(--p-gold-mid);
       border-bottom: 1px solid var(--p-gold-mid);
+    }
+    /* On mobile, restore wrap since the strip spans the full single column */
+    @media (max-width: 880px) {
+      .hero__media-callout {
+        white-space: normal;
+      }
     }
 
     .hero__video-frame  { grid-area: video; }
@@ -520,7 +529,7 @@
     }
     .hero__optin-card .opt-in__sub {
       font-family: var(--f-sans);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -530,7 +539,7 @@
     .hero__optin-card .opt-in__title {
       font-family: var(--f-serif-display);
       font-weight: 400;
-      font-size: clamp(18px, 1.7vw, 22px);
+      font-size: clamp(26px, 2.4vw, 34px);
       line-height: 1.15;
       letter-spacing: -0.015em;
       color: var(--p-oatmeal);
@@ -568,8 +577,8 @@
       width: 100%;
       box-sizing: border-box;
       font-family: var(--f-sans);
-      font-size: 14px;
-      padding: 11px 14px;
+      font-size: 15px;
+      padding: 14px 16px;
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 4px;
       background: rgba(255, 255, 255, 0.06);
@@ -585,9 +594,9 @@
     .hero__optin-card .opt-in__btn {
       width: 100%;
       box-sizing: border-box;
-      padding: 13px 22px;
+      padding: 16px 22px;
       font-family: var(--f-sans);
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -608,9 +617,9 @@
     }
     .hero__optin-card .opt-in__fine {
       font-family: var(--f-sans);
-      font-size: 11px;
-      line-height: 1.5;
-      color: rgba(246, 244, 241, 0.5);
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: rgba(246, 244, 241, 0.6);
       margin: 0;
     }
 
@@ -1999,10 +2008,8 @@
         <p class="hero__eyebrow">The Freedom Filled Pathway<sup>&trade;</sup></p>
         <h1 class="hero__title">Why your business feels like it's <em>running you</em>. And what to do first.</h1>
 
-        <p class="hero__emphasis">Your effort was never the problem.</p>
-
         <p class="hero__sub">
-          In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
+          Your effort was never the problem. In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
         </p>
       </div>
 
