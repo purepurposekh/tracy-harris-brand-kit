@@ -1359,7 +1359,20 @@
       }
       .hero__marquee-track { animation: none !important; }
     }
+
+    /* Wistia player styling: sit cleanly inside the gold-bordered frame */
+    .hero__video-frame wistia-player {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/4y4z7lx148/swatch');
+    }
+    .hero__video-frame wistia-player:not(:defined) {
+      filter: blur(5px);
+    }
   </style>
+  <script src="https://fast.wistia.com/player.js" async></script>
+  <script src="https://fast.wistia.com/embed/4y4z7lx148.js" async type="module"></script>
 </head>
 <body data-brand="ffm">
   <a href="#content" class="skip-link">Skip to content</a>
@@ -1399,22 +1412,9 @@
       <!-- BAND 2 · Video LEFT + opt-in card RIGHT -->
       <div class="hero__band-media">
 
-        <!-- Video frame, 16:9, gold-mid hairline. Same Vimeo placeholder
-             pattern as v5-light. -->
+        <!-- Video frame, 16:9, gold-mid hairline. Wistia embed. -->
         <div class="hero__video-frame" aria-label="A 90-second word from Tracy">
-          <iframe
-            src="https://player.vimeo.com/video/VIMEO_ID?title=0&byline=0&portrait=0&dnt=1"
-            title="A 90-second word from Tracy"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
-            loading="lazy"></iframe>
-
-          <div class="hero__video-placeholder" aria-hidden="true">
-            <span class="hero__video-play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-            </span>
-            <p class="hero__video-placeholder-label">Video preview · 90 seconds</p>
-          </div>
+          <wistia-player media-id="4y4z7lx148" aspect="1.7777777777777777"></wistia-player>
         </div>
 
         <!-- Opt-in card, dark glass, gold hairline, gold-dark CTA -->
