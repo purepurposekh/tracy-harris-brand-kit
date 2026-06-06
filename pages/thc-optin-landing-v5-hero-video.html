@@ -222,14 +222,26 @@
     .hero.hero--marquee.hero--light-overlay .hero__marquee-track {
       align-items: stretch;
       height: 100%;
+      gap: 0;
+      padding: 0;
     }
-    .hero.hero--marquee.hero--light-overlay .hero__marquee-item {
-      height: 100%;
+    /* Reset the kit polaroid defaults: no rotation, no rounded corners,
+       no shadow, no fixed 180x240. Each panel fills the hero height with
+       a consistent width so the scroll feels like a continuous background. */
+    .hero.hero--marquee.hero--light-overlay .hero__marquee-item,
+    .hero.hero--marquee.hero--light-overlay .hero__marquee-item:nth-child(odd),
+    .hero.hero--marquee.hero--light-overlay .hero__marquee-item:nth-child(even) {
       flex: 0 0 auto;
+      width: clamp(320px, 32vw, 520px);
+      height: 100%;
+      transform: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
     }
     .hero.hero--marquee.hero--light-overlay .hero__marquee-item img {
+      width: 100%;
       height: 100%;
-      width: auto;
       object-fit: cover;
       display: block;
     }
