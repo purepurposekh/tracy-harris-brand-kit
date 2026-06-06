@@ -156,6 +156,17 @@
        Scrim layer covers Bands 1 + 3 only. Marquee Band 2 is left
        unscrimmed so the photos pop at full intensity.
        ============================================================ */
+    /* Hero + credibility row sit inside a single gradient wrapper that
+       tapers from charcoal at the top through credibility row to oatmeal
+       at the bottom. So the hero itself goes transparent. */
+    .hero-and-creds-wrap {
+      background: linear-gradient(
+        to bottom,
+        var(--p-charcoal) 0%,
+        var(--p-charcoal) 72%,
+        var(--p-oatmeal) 100%
+      );
+    }
     .hero.hero--marquee.hero--dark-bands {
       position: relative;
       padding: clamp(24px, 3vh, 48px) clamp(24px, 5vw, 64px) clamp(40px, 5vh, 64px);
@@ -163,7 +174,7 @@
       flex-direction: column;
       overflow: hidden;
       isolation: isolate;
-      background: var(--p-charcoal);
+      background: transparent;
     }
     /* Subtle gold radial glow, full hero, sits behind everything */
     .hero.hero--marquee.hero--dark-bands::before {
@@ -298,13 +309,28 @@
       letter-spacing: 0;
     }
 
-    /* Authority-transfer sub-headline (sans, prominent, sits directly under H1) */
+    /* Emphasis line above the sub: "Your effort was never the problem."
+       Serif italic gold for a quiet, editorial lift. Sits between H1 and sub. */
+    .hero.hero--marquee.hero--dark-bands .hero__emphasis {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(22px, 2.1vw, 28px);
+      line-height: 1.3;
+      color: var(--p-gold-mid);
+      max-width: 36ch;
+      margin: 0 auto clamp(10px, 1.2vw, 16px);
+      text-wrap: balance;
+    }
+
+    /* Authority-transfer sub-headline (sans, prominent, sits directly under H1).
+       Bumped ~20% per Karl's ask. */
     .hero.hero--marquee.hero--dark-bands .hero__sub {
       font-family: var(--f-sans);
-      font-size: clamp(17px, 1.55vw, 19px);
+      font-size: clamp(20px, 1.85vw, 23px);
       line-height: 1.5;
       color: rgba(246, 244, 241, 0.94);
-      max-width: 56ch;
+      max-width: 58ch;
       margin: 0 auto;
       text-wrap: pretty;
     }
@@ -333,12 +359,12 @@
     .hero.hero--marquee.hero--dark-bands .hero__title {
       font-family: var(--f-serif-display);
       font-weight: 400;
-      font-size: clamp(36px, 5.2vw, 60px);
+      font-size: clamp(43px, 6.2vw, 72px);
       line-height: 1.05;
       letter-spacing: -0.015em;
       color: var(--p-oatmeal);
       text-wrap: balance;
-      max-width: 26ch;
+      max-width: 24ch;
       margin: 0 auto var(--sp-3);
     }
     .hero.hero--marquee.hero--dark-bands .hero__title em {
@@ -620,7 +646,7 @@
        Single horizontal row of stats separated by gold dots, on charcoal.
        ============================================================ */
     .credibility-row {
-      background: var(--p-charcoal);
+      background: transparent;
       padding: clamp(56px, 7vw, 88px) clamp(20px, 5vw, 64px);
       text-align: center;
       border-top: 1px solid rgba(201, 164, 108, 0.18);
@@ -1946,6 +1972,12 @@
 
 
   <!-- ============================================================
+       SECTION 1 + 2 wrap · gradient from charcoal at top of hero
+       through to oatmeal by the bottom of the credibility row.
+       ============================================================ -->
+  <div class="hero-and-creds-wrap">
+
+  <!-- ============================================================
        SECTION 1 · HERO, three-band composition, DARK
          Band 1: headline + sub-headline (no sub-hook line)
          Band 2: full-width marquee strip with hairlines top + bottom
@@ -1967,8 +1999,10 @@
         <p class="hero__eyebrow">The Freedom Filled Pathway<sup>&trade;</sup></p>
         <h1 class="hero__title">Why your business feels like it's <em>running you</em>. And what to do first.</h1>
 
+        <p class="hero__emphasis">Your effort was never the problem.</p>
+
         <p class="hero__sub">
-          Your effort was never the problem. In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
+          In this free 20-minute class, I'll show you what is, and the first step to a business that finally fits your life.
         </p>
       </div>
 
@@ -2042,7 +2076,16 @@
     </div>
   </section>
 
+  </div><!-- /.hero-and-creds-wrap -->
+
   <!-- ============================================================
+       SECTION 2 · "Picture it" marquee, temporarily disabled per
+       Karl's restructure 2026-06-06. New order: Hero, Credibility,
+       Testimonials, Meet Tracy, What you'll get, Final CTA. Restore
+       by removing the comment wrappers around the section.fmarquee
+       block immediately below.
+       ============================================================ -->
+  <!-- DISABLED MARQUEE START
        SECTION 2 · Freedom band (marquee)
        ============================================================ -->
   <section class="fmarquee" aria-label="What does a freedom-filled business look like">
@@ -2069,9 +2112,41 @@
       </div>
     </div>
   </section>
+  DISABLED MARQUEE END -->
 
   <!-- ============================================================
-       SECTION 3 · About Tracy
+       SECTION 3 · Testimonials (moved up from 5 per Karl 2026-06-06)
+       Placeholders pending real testimonial scrape supporting pathway,
+       clarity, and freedom-back themes.
+       ============================================================ -->
+  <section class="fsec" aria-label="Member testimonials">
+    <div class="fsec__wrap">
+      <div class="fsec__center">
+        <span class="tag">Testimonials</span>
+        <h2 class="fsec__h2">Real women, <em>real</em> businesses.</h2>
+      </div>
+      <div class="tcards">
+        <article class="tcard">
+          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
+          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
+        </article>
+        <article class="tcard">
+          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
+          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
+        </article>
+        <article class="tcard">
+          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
+          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 · Meet Tracy
        ============================================================ -->
   <section class="fsec fsec--alt" aria-label="About Tracy">
     <div class="fsec__wrap">
@@ -2096,9 +2171,10 @@
   </section>
 
   <!-- ============================================================
-       SECTION 4 · Problem + Solution
+       SECTION 5 · What you'll get (was "Is this you" / problem + solution).
+       Copy refresh pending per Karl 2026-06-06.
        ============================================================ -->
-  <section class="fsec" aria-label="Is this you">
+  <section class="fsec" aria-label="What you'll get">
     <div class="fsec__wrap">
       <div class="fsec__center">
         <span class="tag">Is this you?</span>
@@ -2127,35 +2203,6 @@
       </div>
       <div class="fsec__cta">
         <a class="fbtn" href="#join">Send me the free mini class</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SECTION 5 · Testimonials
-       ============================================================ -->
-  <section class="fsec fsec--alt" aria-label="Member testimonials">
-    <div class="fsec__wrap">
-      <div class="fsec__center">
-        <span class="tag">Testimonials</span>
-        <h2 class="fsec__h2">Real women, <em>real</em> businesses.</h2>
-      </div>
-      <div class="tcards">
-        <article class="tcard">
-          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
-          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
-        </article>
-        <article class="tcard">
-          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
-          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
-        </article>
-        <article class="tcard">
-          <div class="tcard__stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="tcard__quote">[Member name], [business type]. Real result paragraph in 2 to 3 sentences. Specific. Includes a number where possible.</p>
-          <div class="tcard__who"><span class="tcard__avatar" aria-hidden="true">M</span><span><span class="tcard__name">[Member name]</span><br><span class="tcard__role">[Business type]</span></span></div>
-        </article>
       </div>
     </div>
   </section>
