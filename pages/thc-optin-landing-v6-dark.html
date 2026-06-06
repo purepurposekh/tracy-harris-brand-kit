@@ -361,16 +361,17 @@
       text-wrap: pretty;
     }
 
-    /* Band 3 · joined module: audience callout strip on top (full width),
-       video LEFT + opt-in card RIGHT below. One shared gold frame, gold
-       hairline divider between video and card. */
+    /* Band 3 · joined module: audience callout strip sits above the VIDEO
+       column only; opt-in card column spans the full module height for
+       symmetry. One shared gold frame, vertical hairline divider between
+       the video column and the card column. */
     .hero__band-media {
       display: grid;
       grid-template-columns: 58fr 42fr;
       grid-template-rows: auto 1fr;
       grid-template-areas:
-        "callout callout"
-        "video card";
+        "callout card"
+        "video   card";
       gap: 0;
       align-items: stretch;
       width: 100%;
@@ -386,7 +387,7 @@
         0 8px 24px -16px rgba(0, 0, 0, 0.6);
     }
 
-    /* Audience callout strip, spans both columns at the top of the module.
+    /* Audience callout strip above the video column.
        Sans, uppercase tag style with letter-tracking so it reads as a label
        (different register from the H1/sub serif and the body sans). */
     .hero__media-callout {
@@ -402,6 +403,7 @@
       color: rgba(246, 244, 241, 0.82);
       text-align: center;
       background: rgba(201, 164, 108, 0.08);
+      border-right: 1px solid var(--p-gold-mid);
       border-bottom: 1px solid var(--p-gold-mid);
     }
 
@@ -603,7 +605,10 @@
           "video"
           "card";
       }
-      /* Stacked: vertical divider becomes horizontal */
+      /* Stacked: vertical dividers become horizontal */
+      .hero__media-callout {
+        border-right: 0;
+      }
       .hero__video-frame {
         border-right: 0;
         border-bottom: 1px solid var(--p-gold-mid);
