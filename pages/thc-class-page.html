@@ -154,6 +154,20 @@
       max-width: 62ch;
       text-wrap: pretty;
     }
+    .sec__lead--personal {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(16px, 1.4vw, 19px);
+      color: var(--p-charcoal);
+      opacity: 0.92;
+      margin: 0 auto clamp(10px, 1.2vw, 14px);
+    }
+    .sec__lead--personal strong {
+      font-style: normal;
+      font-family: var(--f-sans);
+      font-weight: 600;
+      color: var(--p-gold-dark);
+    }
 
     /* ---------- Two-up CTA widgets · cover image + label + countdown + body
                   Pattern lifted from links.tracyharris.co MDM widget (.ew). */
@@ -600,7 +614,7 @@
        Welcome + Video
        ============================================================ -->
   <section class="hero" aria-label="Your free class">
-    <p class="hero__eyebrow">Welcome lovely</p>
+    <p class="hero__eyebrow" id="heroEyebrow">Welcome lovely</p>
     <h1 class="hero__title">Your free class is <em>ready</em>.</h1>
     <p class="hero__sub">Hit play. We'll meet on the other side. I'll walk you through the 5 symptoms, the 3 traps, the Freedom Filled Pathway™, and the one place to start.</p>
 
@@ -618,7 +632,9 @@
     <div class="sec__head">
       <p class="sec__eyebrow">When you're ready</p>
       <h2 class="sec__title">Two ways to go <em>deeper</em>.</h2>
-      <p class="sec__lead">Pick the one that matches where you actually are right now. Both lead to the same place: a business that fits the life you built it for.</p>
+      <!-- Personalised pre-CTA paragraph, injected by JS when segment data is present -->
+      <p class="sec__lead sec__lead--personal" id="prectaPersonal" hidden></p>
+      <p class="sec__lead" id="prectaDefault">Pick the one that matches where you actually are right now. Both lead to the same place: a business that fits the life you built it for.</p>
     </div>
 
     <div class="twoup">
@@ -810,6 +826,82 @@
   </footer>
 
   <script>
+    // ============================================================
+    // Personalisation: greet by first name + build pre-CTA paragraph
+    // from the segmentation gate's tags. Both come in via URL params.
+    // first_name=Karen&segment=stage:6f_plus,offer:course,lever:launches,time:10_20
+    // ============================================================
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var firstName = (params.get('first_name') || params.get('name') || '').trim();
+      var segmentStr = params.get('segment') || '';
+
+      // Tidy the name (single word, capitalised).
+      if (firstName) {
+        firstName = firstName.split(/\s+/)[0];
+        firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+      }
+
+      // Personalise the hero eyebrow if we know her name.
+      if (firstName) {
+        var eyebrow = document.getElementById('heroEyebrow');
+        if (eyebrow) eyebrow.textContent = 'Welcome, ' + firstName;
+      }
+
+      if (!segmentStr) return;
+
+      // Parse segment string into a key/value map.
+      var seg = {};
+      segmentStr.split(',').forEach(function (kv) {
+        var pair = kv.split(':');
+        if (pair.length === 2) seg[pair[0]] = pair[1];
+      });
+
+      // Lever → preferred next step. Workshop wins for launches + identity
+      // (live application + Q&A). Quiz wins for everything else (fast clarity).
+      var workshopLevers = { launches: 1, energy_identity: 1 };
+      var preferQuiz = !workshopLevers[seg.lever];
+
+      // Time modifier: under 10 hrs/week → quiz wins regardless of lever.
+      if (seg.time === 'under_10') preferQuiz = true;
+      // 40+ hrs/week → workshop wins regardless (bandwidth for live Q&A).
+      if (seg.time === '40_plus') preferQuiz = false;
+
+      // Lever-specific recognition phrase. Tracy voice, hits her actual answer back.
+      var leverPhrases = {
+        offer_model:       'your offer and how you deliver it isn\'t dialled in yet',
+        messaging_sales:   'you can\'t say what you do and you freeze when it\'s time to sell',
+        visibility_content:'you\'re shouting into crickets and content feels hard',
+        launches:          'your launches haven\'t been landing',
+        energy_identity:   'you\'re doing everything and still depleted'
+      };
+      var leverPhrase = leverPhrases[seg.lever] || 'this is where you\'re at right now';
+
+      // Compose the sentence.
+      var openName = firstName ? firstName + ', ' : '';
+      var openCap  = firstName ? '' : 'L';
+      var sentence;
+
+      if (preferQuiz) {
+        sentence = openName + (openCap ? openCap + 'ovely' : '') +
+          'if ' + leverPhrase + ', your fastest path is <strong>the quiz</strong>. ' +
+          'Five minutes and you\'ll know your starting point, and whether Freedom Filled® Business is the right container for you.';
+      } else {
+        sentence = openName + (openCap ? openCap + 'ovely, ' : '') +
+          'since ' + leverPhrase + ', <strong>the workshop</strong> is where this lands hardest. ' +
+          'Live application plus Q&amp;A is what actually moves you.';
+      }
+
+      var personal = document.getElementById('prectaPersonal');
+      var fallback = document.getElementById('prectaDefault');
+      if (personal && fallback) {
+        personal.innerHTML = sentence;
+        personal.hidden = false;
+        fallback.hidden = true;
+      }
+    })();
+
+    // ============================================================
     // Countdown for the workshop widget, lifted from links.tracyharris.co .ew pattern
     (function () {
       var el = document.getElementById('workshopCount');

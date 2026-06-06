@@ -443,6 +443,12 @@
       var progressFill = document.getElementById('progressFill');
       var controls = document.getElementById('controls');
 
+      // Pick up first_name from opt-in redirect so we can pass it on to the class page.
+      var urlParams = new URLSearchParams(window.location.search);
+      var firstName = urlParams.get('first_name') || urlParams.get('name') || '';
+      if (firstName) localStorage.setItem('thc_first_name', firstName);
+      else firstName = localStorage.getItem('thc_first_name') || '';
+
       var current = 1;
       var answers = JSON.parse(localStorage.getItem('thc_class_intro') || '{}');
 
@@ -544,7 +550,9 @@
         // POST to a Cloudflare Worker endpoint that writes tags to AC server-side.
         // The endpoint URL is provisional; until the Worker ships, this just no-ops
         // and we proceed to the class page with the segment in the query string.
-        var redirectUrl = '/pages/thc-class-page?segment=' + encodeURIComponent(segmentTags.join(','));
+        var qsParts = ['segment=' + encodeURIComponent(segmentTags.join(','))];
+        if (firstName) qsParts.push('first_name=' + encodeURIComponent(firstName));
+        var redirectUrl = '/pages/thc-class-page?' + qsParts.join('&');
 
         fetch('/api/segment', {
           method: 'POST',
