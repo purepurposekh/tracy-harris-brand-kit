@@ -1902,18 +1902,18 @@
       line-height: 1;
     }
 
-    .wyg__rows { display: grid; gap: 18px; margin-bottom: 32px; }
+    .wyg__rows { display: grid; gap: 24px; margin-bottom: 32px; }
     .wyg__row {
       display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 22px;
-      padding: 22px 0;
+      grid-template-columns: 56px 1fr;
+      gap: 24px;
+      padding: 30px 0;
       border-bottom: 1px solid rgba(16,16,16,0.08);
       align-items: flex-start;
     }
     .wyg__row:last-child { border-bottom: 0; }
     .wyg__row-icon {
-      width: 44px; height: 44px;
+      width: 56px; height: 56px;
       border-radius: 50%;
       background: var(--p-gold-dark);
       color: var(--p-oatmeal);
@@ -1922,16 +1922,19 @@
       justify-content: center;
       flex-shrink: 0;
       box-shadow: 0 6px 16px -8px rgba(123, 98, 60, 0.45);
+      margin-top: 4px;
     }
-    .wyg__row-icon svg { width: 20px; height: 20px; }
+    .wyg__row-icon svg { width: 24px; height: 24px; }
     .wyg__row-copy { min-width: 0; }
     .wyg__row-title {
-      font-family: var(--f-sans);
-      font-size: clamp(17px, 1.5vw, 19px);
-      font-weight: 600;
-      line-height: 1.3;
+      font-family: var(--f-serif-display);
+      font-size: clamp(32px, 3.6vw, 48px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
       color: var(--p-charcoal);
-      margin: 0 0 6px;
+      margin: 0 0 10px;
+      text-wrap: balance;
     }
     .wyg__row-title em {
       font-family: var(--f-serif-italic);
@@ -1941,7 +1944,7 @@
     }
     .wyg__row-desc {
       font-family: var(--f-sans);
-      font-size: clamp(14px, 1.1vw, 15px);
+      font-size: clamp(15px, 1.2vw, 17px);
       line-height: 1.55;
       color: var(--p-ink, var(--p-charcoal));
       margin: 0;
@@ -2580,8 +2583,9 @@
         <h2 class="fsec__h2">Send me the free mini class.</h2>
         <p class="fsec__lead">20 minutes. One sitting, start to finish.</p>
         <form class="fcta-form" action="/api/opt-in" method="post" data-redirect="/thanks">
+          <input class="fcta-input" name="first_name" type="text" autocomplete="given-name" placeholder="Your first name" required />
           <input class="fcta-input" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email address" required />
-          <button class="fbtn" type="submit">Send me the free mini class</button>
+          <button class="fbtn" type="submit">Access the free class now</button>
           <p class="fcta-microcopy">Free, no credit card, no spam. The mini class is yours to keep.</p>
         </form>
       </div>
