@@ -1913,64 +1913,25 @@
       margin: 0 0 clamp(32px, 4vw, 44px);
       display: flex;
       flex-direction: column;
-      gap: clamp(28px, 3vw, 40px);
+      gap: clamp(26px, 3vw, 36px);
     }
+    /* Clean editorial italic line per bullet. No internal visual split.
+       The contrast lives in the words. The eye reads the period as the
+       pivot. Generous gap between bullets does the structural work. */
     .felt-section__bullets li {
-      display: block;
-      max-width: 56ch;
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(20px, 2vw, 25px);
+      line-height: 1.35;
+      max-width: 50ch;
       margin: 0 auto;
       text-wrap: balance;
     }
-    /* The "act" half: what she's done / what's currently true. Muted, small,
-       sans, neutral case. Sits as the SETUP, not the punch. */
-    .felt-section__act {
-      display: block;
-      font-family: var(--f-sans);
-      font-weight: 400;
-      font-size: clamp(13px, 1.1vw, 15px);
-      letter-spacing: 0.02em;
-      line-height: 1.55;
-      max-width: 52ch;
-      margin: 0 auto;
-    }
-    /* A small gold accent rule sits between act and truth, visualising the
-       pivot. Wider on hover-capable layouts, hairline on mobile. */
-    .felt-section__pivot {
-      display: block;
-      width: 32px;
-      height: 1px;
-      margin: 8px auto;
-      border-radius: 1px;
-    }
-    /* The "truth" half: the reality / the gap / the consequence. Italic,
-       larger, full strength. The punch the eye lands on. */
-    .felt-section__truth {
-      display: block;
-      font-family: var(--f-serif-italic);
-      font-style: italic;
-      font-size: clamp(19px, 1.85vw, 23px);
-      line-height: 1.3;
-      max-width: 50ch;
-      margin: 0 auto;
-    }
-    .felt-section--now .felt-section__act {
-      color: rgba(11, 13, 19, 0.5);
-    }
-    .felt-section--now .felt-section__pivot {
-      background: var(--p-gold-dark);
-      opacity: 0.55;
-    }
-    .felt-section--now .felt-section__truth {
+    .felt-section--now .felt-section__bullets li {
       color: var(--p-charcoal);
     }
-    .felt-section--future .felt-section__act {
-      color: rgba(246, 244, 241, 0.5);
-    }
-    .felt-section--future .felt-section__pivot {
-      background: var(--p-gold-mid);
-      opacity: 0.65;
-    }
-    .felt-section--future .felt-section__truth {
+    .felt-section--future .felt-section__bullets li {
       color: var(--p-oatmeal);
     }
     .felt-section__closer {
@@ -2789,31 +2750,11 @@
       <p class="felt-section__eyebrow">Read this slowly</p>
       <h2 class="felt-section__title">This <em>might</em> be you.</h2>
       <ul class="felt-section__bullets">
-        <li>
-          <span class="felt-section__act">You can explain your work deeply over coffee.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">The one-sentence version still feels slippery.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">Your content gets engagement.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">The buyers stay quiet.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">You keep improving the offer.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">It still feels like too much to explain.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">You added bonuses, calls, and access to make the offer feel worth it.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">Now the delivery eats your week.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">You built this business so you could be at school pickup.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">Today it's running you instead.</span>
-        </li>
+        <li>You can explain your work deeply over coffee. The one-sentence version still feels slippery.</li>
+        <li>Your content gets engagement. The buyers stay quiet.</li>
+        <li>You keep improving the offer. It still feels like too much to explain.</li>
+        <li>You added bonuses, calls, and access to make the offer feel worth it. The delivery now eats your week.</li>
+        <li>You built this business so you could be at school pickup. Today it's running you instead.</li>
       </ul>
       <p class="felt-section__closer">If any of those landed, this twenty minutes is yours.</p>
     </div>
@@ -2830,31 +2771,11 @@
       <p class="felt-section__eyebrow">And on the other side</p>
       <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
       <ul class="felt-section__bullets">
-        <li>
-          <span class="felt-section__act">Your offer makes sense in one sentence.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">You stop adding to it.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">The launch lands. The numbers move.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">You trust the promise again.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">Your content does the work it was actually meant to do.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">The rest of the day is yours.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">You work fewer days. You're home for school pickup.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">The launches happen on your terms.</span>
-        </li>
-        <li>
-          <span class="felt-section__act">Your business holds the life you built it for.</span>
-          <span class="felt-section__pivot" aria-hidden="true"></span>
-          <span class="felt-section__truth">Not the other way around.</span>
-        </li>
+        <li>Your offer makes sense in one sentence. You stop adding to it.</li>
+        <li>The launch lands. The numbers move. You trust the promise again.</li>
+        <li>Your content does the work it was actually meant to do. The rest of the day is yours.</li>
+        <li>You work fewer days. You're home for school pickup. The launches happen on your terms.</li>
+        <li>Your business holds the life you built it for. Not the other way around.</li>
       </ul>
       <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
     </div>
