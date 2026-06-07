@@ -688,12 +688,27 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 6px 24px -12px rgba(201, 164, 108, 0.55);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .hero__optin-card .opt-in__btn::after {
+      content: "→";
+      font-family: var(--f-sans);
+      font-size: 18px;
+      line-height: 1;
+      transform: translateX(0);
+      transition: transform 0.25s ease;
     }
     .hero__optin-card .opt-in__btn:hover {
       background: var(--p-gold-mid);
       color: var(--p-charcoal);
       transform: translateY(-1px);
       box-shadow: 0 10px 28px -10px rgba(201, 164, 108, 0.75);
+    }
+    .hero__optin-card .opt-in__btn:hover::after {
+      transform: translateX(4px);
     }
     .hero__optin-card .opt-in__fine {
       font-family: var(--f-sans);
@@ -1840,6 +1855,96 @@
       .fmarquee__strip { overflow-x: auto; }
     }
 
+    /* ============================================================
+       Paired felt-experience sections (Recognition + Aspiration).
+       Sits immediately under the hero, before the testimonial rail.
+       Mirror structure: same rhythm, same italic emphasis, opposite tense.
+       ============================================================ */
+    .felt-section {
+      padding: clamp(72px, 8.5vw, 112px) clamp(20px, 5vw, 64px);
+      text-align: center;
+      position: relative;
+    }
+    .felt-section--now {
+      background: #fbf6ec;
+      color: var(--p-charcoal);
+    }
+    .felt-section--future {
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+      border-top: 1px solid rgba(201, 164, 108, 0.18);
+    }
+    .felt-section__inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .felt-section__eyebrow {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+      margin: 0 0 18px;
+    }
+    .felt-section--future .felt-section__eyebrow {
+      color: var(--p-gold-mid);
+    }
+    .felt-section__title {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(30px, 3.5vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin: 0 0 clamp(36px, 4vw, 52px);
+      text-wrap: balance;
+    }
+    .felt-section__title em {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      color: var(--p-gold-dark);
+    }
+    .felt-section--future .felt-section__title em {
+      color: var(--p-gold-mid);
+    }
+    .felt-section__bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 clamp(32px, 4vw, 44px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(18px, 1.8vw, 24px);
+    }
+    .felt-section__bullets li {
+      font-family: var(--f-serif-display);
+      font-weight: 400;
+      font-size: clamp(18px, 1.7vw, 22px);
+      line-height: 1.45;
+      max-width: 56ch;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+    .felt-section--now .felt-section__bullets li {
+      color: rgba(11, 13, 19, 0.82);
+    }
+    .felt-section--future .felt-section__bullets li {
+      color: rgba(246, 244, 241, 0.86);
+    }
+    .felt-section__closer {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.4;
+      max-width: 48ch;
+      margin: 0 auto;
+    }
+    .felt-section--now .felt-section__closer {
+      color: var(--p-gold-dark);
+    }
+    .felt-section--future .felt-section__closer {
+      color: var(--p-gold-mid);
+    }
+
     /* ---------- Rolling testimonial rail (replaces static 3-card section) ---------- */
     .testi-rail {
       background: var(--p-white);
@@ -2344,7 +2449,10 @@
       margin-top: 34px;
     }
     .fbtn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       font-family: var(--f-sans);
       font-size: 13px;
       font-weight: 600;
@@ -2360,10 +2468,21 @@
       transition: background 0.2s, transform 0.2s, color 0.2s;
       box-shadow: 0 6px 24px -12px rgba(123, 98, 60, 0.55);
     }
+    .fbtn::after {
+      content: "→";
+      font-family: var(--f-sans);
+      font-size: 16px;
+      line-height: 1;
+      transform: translateX(0);
+      transition: transform 0.25s ease;
+    }
     .fbtn:hover {
       background: var(--p-charcoal);
       color: var(--p-oatmeal);
       transform: translateY(-1px);
+    }
+    .fbtn:hover::after {
+      transform: translateX(4px);
     }
 
     /* ---------- Testimonials ---------- */
@@ -2549,7 +2668,7 @@
 
         <!-- Audience callout strip, full-width across both columns -->
         <div class="hero__media-callout">
-          For the female coach who built something real, and wants the freedom she built it for.
+          For the woman whose work is already real, and whose business has grown heavier than the life it was meant to support.
         </div>
 
         <!-- Video frame, 16:9, gold-mid hairline. Wistia embed. -->
@@ -2559,7 +2678,7 @@
 
         <!-- Opt-in card, dark glass, gold hairline, gold-dark CTA -->
         <aside class="hero__optin-card" aria-label="Get the free mini class">
-          <p class="opt-in__sub">Free 20-minute mini class</p>
+          <p class="opt-in__sub">Your 20-minute starting point. Not more content.</p>
           <h2 class="opt-in__title">Get <em>immediate</em> access.</h2>
           <form class="opt-in__form" action="/api/opt-in" method="post" data-redirect="/pages/thc-class-intro">
             <div class="opt-in__name-row">
@@ -2588,9 +2707,9 @@
               aria-label="Your email address"
               autocomplete="email"
               required />
-            <button type="submit" class="opt-in__btn">Access the free class now</button>
+            <button type="submit" class="opt-in__btn">My next best step</button>
           </form>
-          <p class="opt-in__fine">Free. Instant access. No spam, just the class and what's coming next.</p>
+          <p class="opt-in__fine">No fluff. No pitch. Just the class, the map, and your first move.</p>
         </aside>
 
       </div>
@@ -2615,6 +2734,48 @@
   </section>
 
   </div><!-- /.hero-and-creds-wrap -->
+
+  <!-- ============================================================
+       SECTION 1B · Recognition (felt-experience entry, NOW state).
+       Mirror partner to Aspiration below (FUTURE state).
+       Honors Max's 4:1 customer-voice ratio: women self-describe
+       in felt-experience terms, not structural-diagnostic.
+       ============================================================ -->
+  <section class="felt-section felt-section--now" aria-label="This might be you">
+    <div class="felt-section__inner">
+      <p class="felt-section__eyebrow">Read this slowly</p>
+      <h2 class="felt-section__title">This <em>might</em> be you.</h2>
+      <ul class="felt-section__bullets">
+        <li>You can explain your work deeply over coffee. The one-sentence version still feels slippery.</li>
+        <li>Your content gets engagement. The buyers stay quiet.</li>
+        <li>You keep improving the offer. It still feels like too much to explain.</li>
+        <li>You added bonuses, calls, and access to make the offer feel worth it. Now the delivery eats your week.</li>
+        <li>You built this business so you could be at school pickup. Today it's running you instead.</li>
+      </ul>
+      <p class="felt-section__closer">If any of those landed, this twenty minutes is yours.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 1C · Aspiration (felt-experience entry, FUTURE state).
+       Mirror partner to Recognition above (NOW state).
+       Concrete future-state. Not vague "live your dream life."
+       Grounded in the actual outcomes FFB members report.
+       ============================================================ -->
+  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
+    <div class="felt-section__inner">
+      <p class="felt-section__eyebrow">And on the other side</p>
+      <h2 class="felt-section__title">When the business is <em>dialed in</em>.</h2>
+      <ul class="felt-section__bullets">
+        <li>The offer makes sense in one sentence. She stops adding to it.</li>
+        <li>The launch lands. The numbers move. She trusts the promise again.</li>
+        <li>Her content does the work it was actually meant to do. The rest of the day is hers.</li>
+        <li>She works fewer days. She's home for school pickup. The launches happen on her terms.</li>
+        <li>The business holds the life she built it for. Not the other way around.</li>
+      </ul>
+      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
+    </div>
+  </section>
 
   <!-- ============================================================
        SECTION 2 · Rolling testimonial rail (Karl 2026-06-06).
@@ -2749,7 +2910,7 @@
       <div class="wyg__content">
         <div class="wyg__head">
           <p class="wyg__eyebrow">Inside the class</p>
-          <h2 class="wyg__title">What you'll walk out with in <em>20 minutes</em>.</h2>
+          <h2 class="wyg__title">What you'll know about your business in <em>20 minutes</em>.</h2>
           <p class="wyg__script">Plus the Freedom Filled&reg; Pathway Map straight to your inbox.</p>
         </div>
 
@@ -2759,7 +2920,7 @@
             <span class="wyg__row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
             <div class="wyg__row-copy">
               <h3 class="wyg__row-title">The <em>five symptoms</em>.</h3>
-              <p class="wyg__row-desc">Most coaches mistake these for the problem. They're not. You'll learn what they actually are and which one usually shows up first.</p>
+              <p class="wyg__row-desc">Which one is loudest in your business, and why.</p>
             </div>
           </div>
 
@@ -2767,23 +2928,23 @@
             <span class="wyg__row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
             <div class="wyg__row-copy">
               <h3 class="wyg__row-title">The <em>three traps</em>.</h3>
-              <p class="wyg__row-desc">What women do trying to fix it themselves. None of them work, and you'll know why.</p>
+              <p class="wyg__row-desc">The trying-harder moves that quietly make it heavier.</p>
             </div>
           </div>
 
           <div class="wyg__row">
             <span class="wyg__row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 7 8 11 12 15 6 19 12 21 10"/><path d="M3 21h18"/></svg></span>
             <div class="wyg__row-copy">
-              <h3 class="wyg__row-title">The Freedom Filled <em>Pathway</em>™.</h3>
-              <p class="wyg__row-desc">The three-season map (Build, Sell, Lead) so you can see where you are and what comes next.</p>
+              <h3 class="wyg__row-title">The Freedom Filled<sup>&reg;</sup> <em>Pathway</em>.</h3>
+              <p class="wyg__row-desc">The three pillars every woman I mentor works through, and why they work.</p>
             </div>
           </div>
 
           <div class="wyg__row">
             <span class="wyg__row-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <div class="wyg__row-copy">
-              <h3 class="wyg__row-title">Where to <em>start</em>.</h3>
-              <p class="wyg__row-desc">Two clear ways to find your specific starting point, so you stop guessing.</p>
+              <h3 class="wyg__row-title">The <em>one</em> place to start.</h3>
+              <p class="wyg__row-desc">Your first move, sized for your week, picked for the symptom you nodded hardest at.</p>
             </div>
           </div>
 
@@ -2845,17 +3006,17 @@
   <section class="fsec" id="join" style="scroll-margin-top:24px;" aria-label="Get the free mini class">
     <div class="fsec__wrap">
       <div class="fcta">
-        <span class="tag">Start here</span>
-        <h2 class="fsec__h2">Send me the free mini class.</h2>
-        <p class="fsec__lead">20 minutes. One sitting, start to finish.</p>
+        <span class="tag">One more invitation</span>
+        <h2 class="fsec__h2">Twenty minutes between you and a business that <em>finally feels like yours</em>.</h2>
+        <p class="fsec__lead">You've seen what's been heavy. On the other side of these twenty minutes is the version of you running a beautiful business that fits the life you built it for. The first move starts here.</p>
         <form class="fcta-form" action="/api/opt-in" method="post" data-redirect="/pages/thc-class-intro">
           <div class="fcta-name-row">
             <input class="fcta-input" name="first_name" type="text" autocomplete="given-name" placeholder="First name" required />
             <input class="fcta-input" name="last_name" type="text" autocomplete="family-name" placeholder="Last name" required />
           </div>
           <input class="fcta-input" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email address" required />
-          <button class="fbtn" type="submit">Access the free class now</button>
-          <p class="fcta-microcopy">Free, no credit card, no spam. The mini class is yours to keep.</p>
+          <button class="fbtn" type="submit">My next best step</button>
+          <p class="fcta-microcopy">No fluff. No pitch. Just the class, the map, and your first move.</p>
         </form>
       </div>
     </div>
