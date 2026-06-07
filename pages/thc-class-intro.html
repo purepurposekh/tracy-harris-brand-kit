@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>One more thing · Tracy Harris</title>
+  <title>One more thing · The Freedom Filled Pathway</title>
   <meta name="description" content="A few quick questions so I can show you the right version of the class." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0b0d13" />
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -277,13 +281,29 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .footer {
-      padding: clamp(16px, 2vw, 24px) clamp(20px, 5vw, 64px);
+      padding: clamp(20px, 2.4vw, 30px) clamp(20px, 5vw, 64px);
       text-align: center;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(246, 244, 241, 0.45);
+      font-size: 11px;
+      color: rgba(246, 244, 241, 0.55);
+      font-family: var(--f-sans);
     }
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      justify-content: center;
+      margin: 0 0 10px;
+      padding: 0;
+      list-style: none;
+    }
+    .footer__links a {
+      color: rgba(246, 244, 241, 0.78);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201, 164, 108, 0.3);
+      padding-bottom: 1px;
+    }
+    .footer__links a:hover { color: var(--p-gold-mid); border-color: var(--p-gold-mid); }
+    .footer__legal { font-size: 10px; opacity: 0.7; margin: 0; }
 
     /* ---------- Mobile: question card sits centered in the viewport,
        Back/Next floats fixed at the bottom inside the iOS safe area
@@ -482,7 +502,13 @@
     </div>
 
     <footer class="footer">
-      Tracy Harris Co · The Freedom Filled Pathway™
+      <ul class="footer__links">
+        <li><a href="https://tracyharris.co/" rel="noopener">tracyharris.co</a></li>
+        <li><a href="https://tracyharris.co/contact/" rel="noopener">Contact</a></li>
+        <li><a href="https://tracyharris.co/privacy" rel="noopener">Privacy</a></li>
+        <li><a href="https://tracyharris.co/terms" rel="noopener">Terms</a></li>
+      </ul>
+      <p class="footer__legal">Tracy Harris Co · The Freedom Filled Pathway™ · &copy; <span id="footerYear"></span></p>
     </footer>
 
   </div>
@@ -664,6 +690,11 @@
         var iq = initStep.querySelector('.option').getAttribute('data-q');
         if (answers[iq]) nextBtn.disabled = false;
       }
+    })();
+
+    (function () {
+      var y = document.getElementById('footerYear');
+      if (y) y.textContent = new Date().getFullYear();
     })();
   </script>
 

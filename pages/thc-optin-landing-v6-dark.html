@@ -3,8 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Why your business feels like it's running you · Tracy Harris</title>
-  <meta name="description" content="A free 20-minute class for the woman who built something real and wants it to give her the freedom she built it for." />
+  <title>The Freedom Filled Pathway · Free 20-min class with Tracy Harris</title>
+  <meta name="description" content="A free 20-minute class for the woman who built something real and wants it to give her the freedom she built it for. Identify the 5 symptoms, the 3 traps, and your starting point." />
+  <link rel="canonical" href="https://tracyharris.co/the-freedom-filled-pathway" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0b0d13" />
+
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tracy Harris Co" />
+  <meta property="og:url" content="https://tracyharris.co/the-freedom-filled-pathway" />
+  <meta property="og:title" content="The Freedom Filled Pathway · Free 20-min class with Tracy Harris" />
+  <meta property="og:description" content="For the woman who built something real and wants it to give her the freedom she built it for. The 5 symptoms, the 3 traps, and your starting point." />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/class-workshop-mockup.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_AU" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tracyharrisco" />
+  <meta name="twitter:creator" content="@tracyharrisco" />
+  <meta name="twitter:title" content="The Freedom Filled Pathway · Free 20-min class" />
+  <meta name="twitter:description" content="For the woman who built something real and wants it to give her the freedom she built it for." />
+  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/class-workshop-mockup.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "The Freedom Filled Pathway",
+    "description": "A free 20-minute class for women who built something real and want it to give them the freedom they built it for. Identify the 5 symptoms, the 3 traps, and your starting point.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Tracy Harris Co",
+      "sameAs": "https://tracyharris.co"
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Tracy Harris",
+      "url": "https://tracyharris.co/about"
+    },
+    "isAccessibleForFree": true,
+    "inLanguage": "en",
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT20M"
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Female coaches, course creators, membership owners, and creatives building online businesses"
+    }
+  }
+  </script>
 
   <!--
     WIREFRAME · Tracy Harris Co opt-in landing v5-hero-video-DARK
@@ -2419,14 +2472,34 @@
 
     /* ---------- Footer ---------- */
     .sitefoot {
-      padding: clamp(32px, 5vw, 56px) clamp(20px, 5vw, 56px);
+      padding: clamp(40px, 5vw, 64px) clamp(20px, 5vw, 56px) clamp(28px, 3.5vw, 40px);
       text-align: center;
       background: var(--p-charcoal);
-      color: rgba(246, 244, 241, 0.7);
+      color: rgba(246, 244, 241, 0.65);
       font-family: var(--f-sans);
       font-size: 13px;
     }
+    .sitefoot__inner { max-width: 720px; margin: 0 auto; }
     .sitefoot p { margin: 0; }
+    .sitefoot__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 22px;
+      justify-content: center;
+      margin: 0 0 16px;
+      padding: 0;
+      list-style: none;
+    }
+    .sitefoot__links a {
+      color: rgba(246, 244, 241, 0.85);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201, 164, 108, 0.35);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .sitefoot__links a:hover { color: var(--p-gold-mid); border-color: var(--p-gold-mid); }
+    .sitefoot__legal { font-size: 11px; color: rgba(246, 244, 241, 0.5); line-height: 1.6; }
+    .sitefoot__legal em { font-style: italic; }
   </style>
   <script src="https://fast.wistia.com/player.js" async></script>
   <script src="https://fast.wistia.com/embed/4y4z7lx148.js" async type="module"></script>
@@ -2485,7 +2558,7 @@
         <aside class="hero__optin-card" aria-label="Get the free mini class">
           <p class="opt-in__sub">Free 20-minute mini class</p>
           <h2 class="opt-in__title">Get <em>immediate</em> access.</h2>
-          <form class="opt-in__form" action="/api/opt-in" method="post" data-redirect="/thanks">
+          <form class="opt-in__form" action="/api/opt-in" method="post" data-redirect="/pages/thc-class-intro">
             <div class="opt-in__name-row">
               <input
                 type="text"
@@ -2772,7 +2845,7 @@
         <span class="tag">Start here</span>
         <h2 class="fsec__h2">Send me the free mini class.</h2>
         <p class="fsec__lead">20 minutes. One sitting, start to finish.</p>
-        <form class="fcta-form" action="/api/opt-in" method="post" data-redirect="/thanks">
+        <form class="fcta-form" action="/api/opt-in" method="post" data-redirect="/pages/thc-class-intro">
           <div class="fcta-name-row">
             <input class="fcta-input" name="first_name" type="text" autocomplete="given-name" placeholder="First name" required />
             <input class="fcta-input" name="last_name" type="text" autocomplete="family-name" placeholder="Last name" required />
@@ -2789,7 +2862,17 @@
        Footer
        ============================================================ -->
   <footer class="sitefoot" role="contentinfo">
-    <p>&copy; <span id="yr"></span> Tracy Harris Co. Peace, Profit and Presence.</p>
+    <div class="sitefoot__inner">
+      <ul class="sitefoot__links">
+        <li><a href="https://tracyharris.co/" rel="noopener">tracyharris.co</a></li>
+        <li><a href="https://tracyharris.co/contact/" rel="noopener">Contact</a></li>
+        <li><a href="https://tracyharris.co/privacy" rel="noopener">Privacy</a></li>
+        <li><a href="https://tracyharris.co/terms" rel="noopener">Terms</a></li>
+        <li><a href="https://www.instagram.com/tracyharrisco/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+      <p>&copy; <span id="yr"></span> Tracy Harris Co. Peace, Profit and Presence.</p>
+      <p class="sitefoot__legal">Freedom Filled<sup>&reg;</sup>, F.R.E.S.H<sup>&reg;</sup> and The Social Method<sup>&reg;</sup> are registered trademarks of Tracy Harris and Pure Purpose Pty Ltd.</p>
+    </div>
   </footer>
 
   <script>
@@ -2798,18 +2881,46 @@
   </script>
 
   <script>
-    /* Minimal client-side form handling. Same pattern as v5-light. */
+    /* Minimal client-side form handling.
+       Passes first_name + email through to the segmentation gate, which
+       then carries them to the class page so personalisation works end-to-end.
+       Server-side AC write happens via /api/opt-in (Worker, TBD). */
     document.querySelectorAll('form.opt-in__form, form.fcta-form').forEach(function (form) {
       form.addEventListener('submit', function (event) {
         event.preventDefault();
         var emailField = form.querySelector('input[name="email"]');
+        var firstField = form.querySelector('input[name="first_name"]');
+        var lastField  = form.querySelector('input[name="last_name"]');
         var email = emailField ? emailField.value.trim() : '';
+        var first = firstField ? firstField.value.trim() : '';
+        var last  = lastField  ? lastField.value.trim()  : '';
         if (!email) {
           if (emailField) emailField.focus();
           return;
         }
-        var redirect = form.getAttribute('data-redirect') || '/thanks';
-        window.location.href = redirect + '?email=' + encodeURIComponent(email);
+
+        // Stash for the gate + class page even if the redirect strips params.
+        try {
+          if (first) localStorage.setItem('thc_first_name', first);
+          if (last)  localStorage.setItem('thc_last_name', last);
+          if (email) localStorage.setItem('thc_email', email);
+        } catch (e) {}
+
+        // Fire the server-side write but don't block the redirect on it.
+        try {
+          fetch('/api/opt-in', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ first_name: first, last_name: last, email: email, source: 'free-class' }),
+            keepalive: true
+          }).catch(function () {});
+        } catch (e) {}
+
+        var redirect = form.getAttribute('data-redirect') || '/pages/thc-class-intro';
+        var qs = [];
+        if (first) qs.push('first_name=' + encodeURIComponent(first));
+        if (email) qs.push('email=' + encodeURIComponent(email));
+        window.location.href = redirect + (qs.length ? ('?' + qs.join('&')) : '');
       });
     });
   </script>

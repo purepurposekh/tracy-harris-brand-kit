@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Freedom Filled Pathway · Free 20-min class · Tracy Harris</title>
-  <meta name="description" content="Your free 20-minute class. Watch now, download the Pathway Map, and find your next step." />
+  <title>The Freedom Filled Pathway · A 20-min class with Tracy Harris</title>
+  <meta name="description" content="The 20-minute class that maps the 5 symptoms, the 3 traps, and your starting point. Watch now, download the Pathway Map, and choose your next step." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0b0d13" />
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tracy Harris Co" />
+  <meta property="og:title" content="The Freedom Filled Pathway · A 20-minute class with Tracy Harris" />
+  <meta property="og:description" content="The 5 symptoms, the 3 traps, and your starting point. Watch the class, download the Pathway Map, choose your next step." />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/pathway-map-mockup.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Freedom Filled Pathway · A 20-minute class with Tracy Harris" />
+  <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/photos/pathway-map-mockup.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -802,16 +815,31 @@
     /* ---------- Footer ---------- */
     .sitefoot {
       background: var(--p-charcoal);
-      color: var(--p-oatmeal);
-      padding: clamp(28px, 3vw, 44px) clamp(20px, 5vw, 64px);
+      color: rgba(246, 244, 241, 0.65);
+      padding: clamp(36px, 4vw, 56px) clamp(20px, 5vw, 64px) clamp(28px, 3.5vw, 40px);
       text-align: center;
       font-family: var(--f-sans);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0.7;
+      font-size: 12px;
     }
+    .sitefoot__inner { max-width: 720px; margin: 0 auto; }
+    .sitefoot__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      justify-content: center;
+      margin: 0 0 14px;
+      padding: 0;
+      list-style: none;
+    }
+    .sitefoot__links a {
+      color: rgba(246, 244, 241, 0.85);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201, 164, 108, 0.32);
+      padding-bottom: 1px;
+    }
+    .sitefoot__links a:hover { color: var(--p-gold-mid); border-color: var(--p-gold-mid); }
+    .sitefoot__brand { margin: 0 0 6px; }
+    .sitefoot__legal { font-size: 10px; opacity: 0.7; margin: 0; line-height: 1.55; }
   </style>
 </head>
 <body data-brand="tracy">
@@ -823,10 +851,10 @@
   <!-- ============================================================
        Welcome + Video
        ============================================================ -->
-  <section class="hero" aria-label="Your free class">
-    <p class="hero__eyebrow" id="heroEyebrow">Welcome lovely</p>
-    <h1 class="hero__title">Your free class is <em>ready</em>.</h1>
-    <p class="hero__sub">Hit play. We'll meet on the other side. I'll walk you through the 5 symptoms, the 3 traps, the Freedom Filled Pathway™, and the one place to start.</p>
+  <section class="hero" aria-label="The Freedom Filled Pathway, a 20-minute class">
+    <p class="hero__eyebrow" id="heroEyebrow">A 20-minute class with Tracy Harris</p>
+    <h1 class="hero__title">The Freedom Filled <em>Pathway</em>.</h1>
+    <p class="hero__sub">Twenty minutes that map the 5 symptoms, the 3 traps, and the one place to start. Press play, then meet me on the other side.</p>
 
     <div class="video-wrap" aria-label="The Freedom Filled Pathway, free 20-minute class">
       <mux-player
@@ -1082,7 +1110,17 @@
        Footer
        ============================================================ -->
   <footer class="sitefoot" role="contentinfo">
-    Tracy Harris Co · Peace, Profit and Presence
+    <div class="sitefoot__inner">
+      <ul class="sitefoot__links">
+        <li><a href="https://tracyharris.co/" rel="noopener">tracyharris.co</a></li>
+        <li><a href="https://tracyharris.co/contact/" rel="noopener">Contact</a></li>
+        <li><a href="https://tracyharris.co/privacy" rel="noopener">Privacy</a></li>
+        <li><a href="https://tracyharris.co/terms" rel="noopener">Terms</a></li>
+        <li><a href="https://www.instagram.com/tracyharrisco/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+      <p class="sitefoot__brand">&copy; <span id="footerYear"></span> Tracy Harris Co. Peace, Profit and Presence.</p>
+      <p class="sitefoot__legal">Freedom Filled&reg;, F.R.E.S.H&reg; and The Social Method&reg; are registered trademarks of Tracy Harris and Pure Purpose Pty Ltd.</p>
+    </div>
   </footer>
 
   <script>
@@ -1238,6 +1276,11 @@
       }
       tick();
       setInterval(tick, 1000);
+    })();
+
+    (function () {
+      var y = document.getElementById('footerYear');
+      if (y) y.textContent = new Date().getFullYear();
     })();
 
     // ============================================================
