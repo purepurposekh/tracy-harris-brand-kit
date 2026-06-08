@@ -1914,13 +1914,9 @@
       text-align: center;
       position: relative;
     }
-    .felt-section--now {
+    .felt-section--bridge {
       background: #fbf6ec;
       color: var(--p-charcoal);
-    }
-    .felt-section--future {
-      background: var(--p-charcoal);
-      color: var(--p-oatmeal);
     }
     .felt-section__inner {
       max-width: 640px;
@@ -1934,9 +1930,6 @@
       text-transform: uppercase;
       color: var(--p-gold-dark);
       margin: 0 0 18px;
-    }
-    .felt-section--future .felt-section__eyebrow {
-      color: var(--p-gold-mid);
     }
     .felt-section__title {
       font-family: var(--f-serif-display);
@@ -1952,88 +1945,30 @@
       font-style: italic;
       color: var(--p-gold-dark);
     }
-    .felt-section--future .felt-section__title em {
-      color: var(--p-gold-mid);
-    }
-    /* Clay-flow list. Vertical accent rule down the LEFT, dot markers per
-       item, soft hairlines between items. Each line splits act-pivot-truth
-       with a coloured pivot word ("but" on NOW, "and" on FUTURE) doing
-       the visual light/shade work Karl asked for.
-       palette-scope-exempt: NOW variant intentionally pulls warm copper
-       accent (clay flow design Karl shipped) into an FFM page to heat the
-       recognition moment. FUTURE variant stays on gold (FFM-native). */
-    .felt-section .flow-list {
-      max-width: 640px;
-      margin: 0 auto clamp(28px, 3vw, 36px);
-      padding: 2px 0;
-      text-align: left;
-      border-left: 2px solid;
-      border-left-color: rgba(173, 118, 91, 0.30);  /* clay rule (light) */
-    }
-    .felt-section--future .flow-list {
-      border-left-color: rgba(201, 164, 108, 0.34); /* gold rule (dark) */
-    }
-    .felt-section .flow-item {
-      position: relative;
-      padding: clamp(14px, 1.4vw, 16px) 0 clamp(14px, 1.4vw, 16px) clamp(20px, 2vw, 26px);
-      font-family: var(--f-sans);
-      font-weight: 400;
-      font-size: clamp(16px, 1.45vw, 18px);
-      line-height: 1.5;
-      margin: 0;
-      text-wrap: pretty;
-    }
-    .felt-section .flow-item + .flow-item {
-      border-top: 1px solid;
-    }
-    .felt-section--now .flow-item + .flow-item {
-      border-top-color: rgba(49, 49, 49, 0.10);
-    }
-    .felt-section--future .flow-item + .flow-item {
-      border-top-color: rgba(246, 244, 241, 0.10);
-    }
-    .felt-section .flow-item::before {
-      content: "";
-      position: absolute;
-      left: -5px;
-      top: calc(clamp(14px, 1.4vw, 16px) + 8px);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .felt-section--now .flow-item::before  { background: #a04e37; } /* clay dot */
-    .felt-section--future .flow-item::before { background: var(--p-gold-mid); }
-    .felt-section .flow-a   { font-weight: 400; }
-    .felt-section .flow-but { font-weight: 500; }
-    .felt-section .flow-b   { font-weight: 600; }
-    .felt-section--now .flow-a   { color: var(--p-mute); }
-    .felt-section--now .flow-but { color: #a04e37; } /* clay pivot */
-    .felt-section--now .flow-b   { color: var(--p-charcoal); }
-
-    /* "Light and shade" two-column row treatment for the NOW recognition
-       section. Karl's voice note: visualise the to-and-fro between what
-       feels true (left, soft italic) and what's actually true (right,
-       bold sans). Vertical gold-rule between the two columns IS the
-       pivot, no pivot word styling needed. */
-    .felt-section .recog-rows {
+    /* Bridge row treatment for the merged NOW → COULD-FEEL section.
+       Karl 2026-06-08: collapse recognition + aspiration into one tight
+       block so the page doesn't ask anyone to read two essays. Each row
+       pairs NOW state on the left (soft serif italic, muted) with the
+       COULD-FEEL state on the right (bold sans, charcoal). Vertical
+       gold rule down the middle is the literal to-and-fro pivot. */
+    .felt-section .bridge-rows {
       display: flex;
       flex-direction: column;
-      max-width: 820px;
+      max-width: 920px;
       margin: 0 auto clamp(34px, 4vw, 46px);
+      border-top: 1px solid rgba(49, 49, 49, 0.10);
     }
-    .felt-section .recog-row {
+    .felt-section .bridge-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(18px, 2vw, 32px);
-      padding: clamp(18px, 2vw, 26px) 0;
+      gap: clamp(20px, 2.4vw, 36px);
+      padding: clamp(20px, 2.4vw, 28px) 0;
+      border-bottom: 1px solid rgba(49, 49, 49, 0.10);
       position: relative;
       align-items: center;
       text-align: left;
     }
-    .felt-section .recog-row + .recog-row {
-      border-top: 1px solid rgba(49, 49, 49, 0.10);
-    }
-    .felt-section .recog-row::before {
+    .felt-section .bridge-row::before {
       content: "";
       position: absolute;
       top: 22%;
@@ -2042,34 +1977,30 @@
       width: 1px;
       background: rgba(123, 98, 60, 0.32);
     }
-    .felt-section .recog-act {
+    .felt-section .bridge-now {
       font-family: var(--f-serif-italic);
       font-style: italic;
       font-size: clamp(15px, 1.45vw, 18px);
-      line-height: 1.45;
+      line-height: 1.5;
       color: var(--p-mute);
-      padding-right: clamp(12px, 1.8vw, 22px);
+      padding-right: clamp(14px, 2vw, 26px);
       margin: 0;
     }
-    .felt-section .recog-truth {
+    .felt-section .bridge-could {
       font-family: var(--f-sans);
       font-weight: 600;
       font-size: clamp(15px, 1.45vw, 18px);
-      line-height: 1.45;
+      line-height: 1.5;
       color: var(--p-charcoal);
-      padding-left: clamp(12px, 1.8vw, 22px);
+      padding-left: clamp(14px, 2vw, 26px);
       margin: 0;
     }
     @media (max-width: 720px) {
-      .felt-section .recog-row { grid-template-columns: 1fr; gap: 8px; }
-      .felt-section .recog-row::before { display: none; }
-      .felt-section .recog-act { padding-right: 0; padding-bottom: 6px; }
-      .felt-section .recog-truth { padding-left: 0; }
+      .felt-section .bridge-row { grid-template-columns: 1fr; gap: 8px; }
+      .felt-section .bridge-row::before { display: none; }
+      .felt-section .bridge-now { padding-right: 0; padding-bottom: 6px; }
+      .felt-section .bridge-could { padding-left: 0; }
     }
-
-    .felt-section--future .flow-a   { color: rgba(246, 244, 241, 0.62); }
-    .felt-section--future .flow-but { color: var(--p-gold-mid); }
-    .felt-section--future .flow-b   { color: var(--p-oatmeal); }
     .felt-section__closer {
       font-family: var(--f-serif-italic);
       font-style: italic;
@@ -2078,11 +2009,8 @@
       max-width: 48ch;
       margin: 0 auto;
     }
-    .felt-section--now .felt-section__closer {
+    .felt-section--bridge .felt-section__closer {
       color: var(--p-gold-dark);
-    }
-    .felt-section--future .felt-section__closer {
-      color: var(--p-gold-mid);
     }
 
     /* ---------- Rolling testimonial rail (replaces static 3-card section) ---------- */
@@ -2979,62 +2907,36 @@
   </section>
 
   <!-- ============================================================
-       SECTION 2B · Recognition (NOW state, felt-experience entry).
-       Brought back 2026-06-08 per Karl, in new location (sits AFTER
-       proof, BEFORE the aspirational outcome). Two-column "light and
-       shade" treatment: left half soft serif italic (what feels true),
-       right half bold sans (what's actually true), vertical gold rule
-       between them as the pivot. Karl's voice note: visualise the
-       to-and-fro, not just italicise.
+       SECTION 2B+3 · Bridge (NOW → COULD-FEEL, one merged section).
+       Consolidated 2026-06-08 per Karl: recognition + aspiration in a
+       single tight block so the page doesn't ask anyone to read two
+       essays before clicking. Paired rows: NOW state on the left (soft
+       serif italic), COULD-FEEL state on the right (bold sans charcoal),
+       vertical gold rule between them as the to-and-fro pivot.
        ============================================================ -->
-  <section class="felt-section felt-section--now" aria-label="This might be you">
+  <section class="felt-section felt-section--bridge" aria-label="This might be you, and this is what's possible">
     <div class="felt-section__inner">
       <p class="felt-section__eyebrow">Read this slowly</p>
-      <h2 class="felt-section__title">This <em>might</em> be you.</h2>
-      <div class="recog-rows">
-        <div class="recog-row">
-          <p class="recog-act">You can explain your work deeply over coffee,</p>
-          <p class="recog-truth">but the one-sentence version still feels slippery.</p>
+      <h2 class="felt-section__title">This <em>might</em> be you. This is what's <em>possible</em>.</h2>
+      <div class="bridge-rows">
+        <div class="bridge-row">
+          <p class="bridge-now">The one-sentence version of your offer still feels slippery.</p>
+          <p class="bridge-could">Your offer lands in one sentence. You stop adding to it.</p>
         </div>
-        <div class="recog-row">
-          <p class="recog-act">Your content gets engagement,</p>
-          <p class="recog-truth">but the buyers stay quiet.</p>
+        <div class="bridge-row">
+          <p class="bridge-now">Your content gets engagement. The buyers stay quiet.</p>
+          <p class="bridge-could">The launch lands. The numbers move. You trust the promise again.</p>
         </div>
-        <div class="recog-row">
-          <p class="recog-act">You keep improving the offer,</p>
-          <p class="recog-truth">but it still feels like too much to explain.</p>
+        <div class="bridge-row">
+          <p class="bridge-now">You added bonuses, calls, and access. The delivery eats your week.</p>
+          <p class="bridge-could">Your content does the work. The rest of the day is yours.</p>
         </div>
-        <div class="recog-row">
-          <p class="recog-act">You added bonuses, calls, and access to make it worth it,</p>
-          <p class="recog-truth">but the delivery now eats your week.</p>
-        </div>
-        <div class="recog-row">
-          <p class="recog-act">You built this business so you could be at school pickup,</p>
-          <p class="recog-truth">but today it's running you instead.</p>
+        <div class="bridge-row">
+          <p class="bridge-now">You built this for school pickup. Today the business runs you.</p>
+          <p class="bridge-could">You're home for school pickup. The business holds the life you built it for.</p>
         </div>
       </div>
-      <p class="felt-section__closer">If any of those landed, this twenty minutes is yours.</p>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SECTION 3 · Aspiration (FUTURE state · dark clay-flow).
-       Reordered 2026-06-08 per Karl: outcome BEFORE features so the
-       page paints desire first, then proves the class delivers it.
-       Hard edge from white testi-rail above into charcoal below.
-       ============================================================ -->
-  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
-    <div class="felt-section__inner">
-      <p class="felt-section__eyebrow">And on the other side</p>
-      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
-      <div class="flow-list">
-        <p class="flow-item"><span class="flow-a">Your offer makes sense in one sentence,</span> <span class="flow-but">and</span> <span class="flow-b">you stop adding to it.</span></p>
-        <p class="flow-item"><span class="flow-a">The launch lands, the numbers move,</span> <span class="flow-but">and</span> <span class="flow-b">you trust the promise again.</span></p>
-        <p class="flow-item"><span class="flow-a">Your content does the work it was meant to do,</span> <span class="flow-but">and</span> <span class="flow-b">the rest of the day is yours.</span></p>
-        <p class="flow-item"><span class="flow-a">You work fewer days, you're home for school pickup,</span> <span class="flow-but">and</span> <span class="flow-b">the launches happen on your terms.</span></p>
-        <p class="flow-item"><span class="flow-a">Your business holds the life you built it for,</span> <span class="flow-but">and</span> <span class="flow-b">not the other way around.</span></p>
-      </div>
-      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
+      <p class="felt-section__closer">This twenty minutes is the move from one column to the other.</p>
     </div>
   </section>
 
