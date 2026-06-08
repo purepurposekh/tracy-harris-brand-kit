@@ -2031,7 +2031,7 @@
     }
     .felt-section--prose .bridge-confession {
       font-family: var(--f-sans);
-      font-style: normal;
+      font-style: italic;
       font-weight: 400;
       font-size: clamp(15px, 1.4vw, 18px);
       line-height: 1.55;
@@ -2041,14 +2041,19 @@
       margin: clamp(20px, 2.4vw, 28px) 0 clamp(22px, 2.6vw, 30px) clamp(0px, 1vw, 14px);
       max-width: 38em;
     }
+    .felt-section--prose .bridge-closer-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 44ch;
+    }
     .felt-section--prose .bridge-closer {
       font-family: var(--f-sans);
       font-size: clamp(15px, 1.3vw, 17px);
-      line-height: 1.55;
+      line-height: 1.45;
       color: var(--p-charcoal);
       font-weight: 400;
       font-style: normal;
-      max-width: 44ch;
       margin: 0;
       text-align: left;
     }
@@ -3167,7 +3172,10 @@
           <p>It's a sign there are gaps quietly draining your business. <strong>They're fixable.</strong> And until now, no one has helped you name them.</p>
         </div>
         <div class="bridge-foot">
-          <p class="bridge-closer"><strong>Your effort was never the problem.</strong> This twenty minutes is where the work begins.</p>
+          <div class="bridge-closer-stack">
+            <p class="bridge-closer bridge-closer--hook"><strong>Your effort was never the problem.</strong></p>
+            <p class="bridge-closer">This twenty minutes is where the work begins.</p>
+          </div>
           <a class="bridge-cta" href="#join">My next best step
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
