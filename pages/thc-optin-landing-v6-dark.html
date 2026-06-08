@@ -1172,6 +1172,61 @@
       display: block;
       box-shadow: 0 24px 48px -24px rgba(123, 98, 60, 0.35);
     }
+
+    /* "Loving life" 3-photo collage. Replaces the single portrait so the
+       About section carries the visual story Karl pulled out of the old
+       Picture-It marquee. Asymmetric editorial stack: portrait Tracy up
+       top, landscape event mid (different aspect breaks vertical monotony),
+       lifestyle portrait bottom. Mild rotation + horizontal offsets give
+       the magazine-essay feel without slipping into scrapbook. */
+    .about-bio__collage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 1.6vw, 22px);
+      align-items: stretch;
+    }
+    .about-bio__collage-item {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 24px 48px -24px rgba(123, 98, 60, 0.35);
+    }
+    .about-bio__collage-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-bio__collage-item--lead {
+      aspect-ratio: 4 / 5;
+      transform: rotate(-0.6deg);
+    }
+    .about-bio__collage-item--wide {
+      aspect-ratio: 5 / 3;
+      width: 88%;
+      margin-left: 12%;
+      transform: rotate(0.45deg);
+    }
+    .about-bio__collage-item--lifestyle {
+      aspect-ratio: 4 / 5;
+      width: 82%;
+      margin-right: 18%;
+      transform: rotate(-0.4deg);
+    }
+    .about-bio__collage-caption {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(13px, 1.1vw, 15px);
+      color: var(--p-gold-dark);
+      text-align: center;
+      margin: clamp(16px, 1.8vw, 22px) 0 0;
+      letter-spacing: 0.02em;
+    }
+    @media (max-width: 880px) {
+      .about-bio__collage-item--wide { width: 100%; margin-left: 0; }
+      .about-bio__collage-item--lifestyle { width: 100%; margin-right: 0; }
+    }
     .about-bio__eyebrow {
       font-family: var(--f-sans);
       font-size: 11px;
@@ -2891,22 +2946,23 @@
   </section>
 
   <!-- ============================================================
-       SECTION 3 · Meet Tracy (kit: about-bio.split-editorial-polished)
+       SECTION 3 · Aspiration (FUTURE state · dark clay-flow).
+       Reordered 2026-06-08 per Karl: outcome BEFORE features so the
+       page paints desire first, then proves the class delivers it.
+       Hard edge from white testi-rail above into charcoal below.
        ============================================================ -->
-  <section class="about-bio" data-brand="tracy" aria-label="About Tracy">
-    <div class="about-bio__split">
-      <div class="about-bio__portrait">
-        <img src="../assets/photos/tracy-outfit8-39.jpg" alt="Tracy Harris, editorial portrait." width="1200" height="800" loading="lazy" decoding="async" />
+  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
+    <div class="felt-section__inner">
+      <p class="felt-section__eyebrow">And on the other side</p>
+      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
+      <div class="flow-list">
+        <p class="flow-item"><span class="flow-a">Your offer makes sense in one sentence,</span> <span class="flow-but">and</span> <span class="flow-b">you stop adding to it.</span></p>
+        <p class="flow-item"><span class="flow-a">The launch lands, the numbers move,</span> <span class="flow-but">and</span> <span class="flow-b">you trust the promise again.</span></p>
+        <p class="flow-item"><span class="flow-a">Your content does the work it was meant to do,</span> <span class="flow-but">and</span> <span class="flow-b">the rest of the day is yours.</span></p>
+        <p class="flow-item"><span class="flow-a">You work fewer days, you're home for school pickup,</span> <span class="flow-but">and</span> <span class="flow-b">the launches happen on your terms.</span></p>
+        <p class="flow-item"><span class="flow-a">Your business holds the life you built it for,</span> <span class="flow-but">and</span> <span class="flow-b">not the other way around.</span></p>
       </div>
-      <div class="about-bio__content">
-        <p class="about-bio__eyebrow">Meet Tracy</p>
-        <h2 class="about-bio__name">Tracy <em>Harris</em></h2>
-        <p class="about-bio__tagline">Mentor, podcaster, mum of two, builder of freedom-filled businesses.</p>
-        <p class="about-bio__body">I spent years building a business that looked successful on the outside but felt like a cage on the inside. Overworked, overwhelmed, and quietly wondering whether the version of success I was chasing was even the one I wanted.</p>
-        <p class="about-bio__body">Then I rebuilt the whole thing. Not just the strategy, the foundation. A business that runs on my terms, makes real money without burning me out, and gives me the freedom to actually show up for the people I love.</p>
-        <p class="about-bio__body"><strong>That's what I teach.</strong> Not burnout. Not grind. A business built by design, not by default. A Freedom Filled® life.</p>
-        <p class="about-bio__signature">Tracy</p>
-      </div>
+      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
     </div>
   </section>
 
@@ -2974,60 +3030,38 @@
   </section>
 
   <!-- ============================================================
-       SECTION 5A · Aspiration (FUTURE state · dark clay-flow mirror).
-       Moved here per Karl 2026-06-08 so it sits directly below the
-       "Inside the class" block and flows into it visually (soft white
-       top-fade carries the eye out of the white wyg into the charcoal).
-       Gold rule / gold dot / gold "and" pivot.
+       SECTION 5 · Meet Tracy (kit: about-bio.split-editorial-polished).
+       Reordered 2026-06-08 per Karl: About sits AFTER features (it's
+       reassurance, not pre-qualification, on an opt-in page). Single
+       portrait swapped for a 3-photo "loving life" collage built from
+       the dropped Picture-It marquee photos: editorial portrait → event
+       leadership → coastal lifestyle. Caption carries the original
+       marquee framing ("This is what freedom looks like for me").
        ============================================================ -->
-  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
-    <div class="felt-section__inner">
-      <p class="felt-section__eyebrow">And on the other side</p>
-      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
-      <div class="flow-list">
-        <p class="flow-item"><span class="flow-a">Your offer makes sense in one sentence,</span> <span class="flow-but">and</span> <span class="flow-b">you stop adding to it.</span></p>
-        <p class="flow-item"><span class="flow-a">The launch lands, the numbers move,</span> <span class="flow-but">and</span> <span class="flow-b">you trust the promise again.</span></p>
-        <p class="flow-item"><span class="flow-a">Your content does the work it was meant to do,</span> <span class="flow-but">and</span> <span class="flow-b">the rest of the day is yours.</span></p>
-        <p class="flow-item"><span class="flow-a">You work fewer days, you're home for school pickup,</span> <span class="flow-but">and</span> <span class="flow-b">the launches happen on your terms.</span></p>
-        <p class="flow-item"><span class="flow-a">Your business holds the life you built it for,</span> <span class="flow-but">and</span> <span class="flow-b">not the other way around.</span></p>
+  <section class="about-bio" data-brand="tracy" aria-label="About Tracy">
+    <div class="about-bio__split">
+      <div class="about-bio__portrait">
+        <div class="about-bio__collage">
+          <div class="about-bio__collage-item about-bio__collage-item--lead">
+            <img src="../assets/photos/marquee/tezza-7013.jpg" alt="Tracy Harris, editorial portrait." width="533" height="800" loading="lazy" decoding="async" />
+          </div>
+          <div class="about-bio__collage-item about-bio__collage-item--wide">
+            <img src="../assets/photos/marquee/th-event-2024-225.jpg" alt="Tracy speaking at a Mums With Hustle event, a room full of women." width="800" height="534" loading="lazy" decoding="async" />
+          </div>
+          <div class="about-bio__collage-item about-bio__collage-item--lifestyle">
+            <img src="../assets/photos/marquee/mwh-2025-nelson-bay-547.jpg" alt="Tracy enjoying coastal life in Nelson Bay." width="533" height="800" loading="lazy" decoding="async" />
+          </div>
+        </div>
+        <p class="about-bio__collage-caption">This is what freedom looks like for me.</p>
       </div>
-      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SECTION 5 · "Picture it" marquee (moved down per Karl 2026-06-06).
-       Sits as the final breath before the Send-me-the-class CTA.
-       ============================================================ -->
-  <section class="fmarquee" aria-label="What does a freedom-filled business look like">
-    <div class="fmarquee__head">
-      <p class="fmarquee__eyebrow">Picture it</p>
-      <p class="fmarquee__line">What does <span class="fm-script">freedom</span> look like for you?</p>
-      <p class="fmarquee__sub-line">This is what it looks like for me.</p>
-    </div>
-    <div class="fmarquee__strip" aria-hidden="true">
-      <div class="fmarquee__track">
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/tracy-048.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/th-pb-2024-outfit3-25.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/th-event-2024-225.jpg" alt="" width="800" height="534" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/mwh-2025-nelson-bay-547.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/tezza-7013.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/fresh-cooking-class.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/the-lawn.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/silent-disco.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/padel.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/tracy-082.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <!-- Duplicates for seamless loop -->
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/tracy-048.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/th-pb-2024-outfit3-25.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/th-event-2024-225.jpg" alt="" width="800" height="534" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/mwh-2025-nelson-bay-547.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/tezza-7013.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/fresh-cooking-class.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/the-lawn.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/silent-disco.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/padel.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
-        <div class="fmarquee__item"><img src="../assets/photos/marquee/tracy-082.jpg" alt="" width="533" height="800" loading="lazy" decoding="async" /></div>
+      <div class="about-bio__content">
+        <p class="about-bio__eyebrow">Meet Tracy</p>
+        <h2 class="about-bio__name">Tracy <em>Harris</em></h2>
+        <p class="about-bio__tagline">Mentor, podcaster, mum of two, builder of freedom-filled businesses.</p>
+        <p class="about-bio__body">I spent years building a business that looked successful on the outside but felt like a cage on the inside. Overworked, overwhelmed, and quietly wondering whether the version of success I was chasing was even the one I wanted.</p>
+        <p class="about-bio__body">Then I rebuilt the whole thing. Not just the strategy, the foundation. A business that runs on my terms, makes real money without burning me out, and gives me the freedom to actually show up for the people I love.</p>
+        <p class="about-bio__body"><strong>That's what I teach.</strong> Not burnout. Not grind. A business built by design, not by default. A Freedom Filled® life.</p>
+        <p class="about-bio__signature">Tracy</p>
       </div>
     </div>
   </section>
