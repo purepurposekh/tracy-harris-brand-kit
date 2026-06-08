@@ -1945,37 +1945,56 @@
       font-style: italic;
       color: var(--p-gold-dark);
     }
-    /* Bridge row treatment for the merged NOW → COULD-FEEL section.
+    /* Bridge row treatment for the merged NOW → ON-THE-OTHER-SIDE section.
        Karl 2026-06-08: collapse recognition + aspiration into one tight
-       block so the page doesn't ask anyone to read two essays. Each row
-       pairs NOW state on the left (soft serif italic, muted) with the
-       COULD-FEEL state on the right (bold sans, charcoal). Vertical
-       gold rule down the middle is the literal to-and-fro pivot. */
+       block. Three-column row (NOW | chevron | COULD), labelled column
+       strip above so the columns are explicit, gold chevron between
+       cells as the directional "becomes" verb. CTA button anchors the
+       section to the Final CTA form below. */
+
+    /* Column labels above the rows */
+    .felt-section .bridge-labels {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: clamp(20px, 2.4vw, 36px);
+      max-width: 920px;
+      margin: 0 auto clamp(10px, 1.2vw, 14px);
+      text-align: left;
+      align-items: center;
+    }
+    .felt-section .bridge-label {
+      font-family: var(--f-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .felt-section .bridge-label--now {
+      color: var(--p-mute);
+    }
+    .felt-section .bridge-label--next {
+      color: var(--p-gold-dark);
+    }
+    .felt-section .bridge-label-spacer {
+      width: 32px;
+    }
+
+    /* Rows */
     .felt-section .bridge-rows {
       display: flex;
       flex-direction: column;
       max-width: 920px;
-      margin: 0 auto clamp(34px, 4vw, 46px);
-      border-top: 1px solid rgba(49, 49, 49, 0.10);
+      margin: 0 auto clamp(28px, 3.4vw, 40px);
+      border-top: 1px solid rgba(49, 49, 49, 0.12);
     }
     .felt-section .bridge-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr auto 1fr;
       gap: clamp(20px, 2.4vw, 36px);
       padding: clamp(20px, 2.4vw, 28px) 0;
-      border-bottom: 1px solid rgba(49, 49, 49, 0.10);
-      position: relative;
+      border-bottom: 1px solid rgba(49, 49, 49, 0.12);
       align-items: center;
       text-align: left;
-    }
-    .felt-section .bridge-row::before {
-      content: "";
-      position: absolute;
-      top: 22%;
-      bottom: 22%;
-      left: 50%;
-      width: 1px;
-      background: rgba(123, 98, 60, 0.32);
     }
     .felt-section .bridge-now {
       font-family: var(--f-serif-italic);
@@ -1983,7 +2002,6 @@
       font-size: clamp(15px, 1.45vw, 18px);
       line-height: 1.5;
       color: var(--p-mute);
-      padding-right: clamp(14px, 2vw, 26px);
       margin: 0;
     }
     .felt-section .bridge-could {
@@ -1992,14 +2010,65 @@
       font-size: clamp(15px, 1.45vw, 18px);
       line-height: 1.5;
       color: var(--p-charcoal);
-      padding-left: clamp(14px, 2vw, 26px);
       margin: 0;
     }
+    .felt-section .bridge-chev {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: var(--p-gold-dark);
+      flex-shrink: 0;
+    }
+    .felt-section .bridge-chev svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* CTA button anchoring the section */
+    .felt-section .bridge-cta-wrap {
+      text-align: center;
+      margin-top: clamp(28px, 3vw, 40px);
+    }
+    .felt-section .bridge-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--p-oatmeal);
+      background: var(--p-charcoal);
+      border: 0;
+      cursor: pointer;
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform .18s, background .18s;
+    }
+    .felt-section .bridge-cta:hover {
+      transform: translateY(-1px);
+      background: var(--p-ink);
+    }
+    .felt-section .bridge-cta svg {
+      width: 14px;
+      height: 14px;
+      transition: transform .18s;
+    }
+    .felt-section .bridge-cta:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Mobile: stack the row to single column, hide labels (lose meaning
+       when stacked) and hide the chevron between rows. */
     @media (max-width: 720px) {
+      .felt-section .bridge-labels { display: none; }
       .felt-section .bridge-row { grid-template-columns: 1fr; gap: 8px; }
-      .felt-section .bridge-row::before { display: none; }
-      .felt-section .bridge-now { padding-right: 0; padding-bottom: 6px; }
-      .felt-section .bridge-could { padding-left: 0; }
+      .felt-section .bridge-chev { display: none; }
     }
     .felt-section__closer {
       font-family: var(--f-serif-italic);
@@ -2918,25 +2987,47 @@
     <div class="felt-section__inner">
       <p class="felt-section__eyebrow">Read this slowly</p>
       <h2 class="felt-section__title">This <em>might</em> be you. This is what's <em>possible</em>.</h2>
+      <div class="bridge-labels" aria-hidden="true">
+        <div class="bridge-label bridge-label--now">Right now</div>
+        <div class="bridge-label-spacer"></div>
+        <div class="bridge-label bridge-label--next">On the other side</div>
+      </div>
       <div class="bridge-rows">
         <div class="bridge-row">
           <p class="bridge-now">The one-sentence version of your offer still feels slippery.</p>
+          <span class="bridge-chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
           <p class="bridge-could">Your offer lands in one sentence. You stop adding to it.</p>
         </div>
         <div class="bridge-row">
           <p class="bridge-now">Your content gets engagement. The buyers stay quiet.</p>
+          <span class="bridge-chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
           <p class="bridge-could">The launch lands. The numbers move. You trust the promise again.</p>
         </div>
         <div class="bridge-row">
           <p class="bridge-now">You added bonuses, calls, and access. The delivery eats your week.</p>
+          <span class="bridge-chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
           <p class="bridge-could">Your content does the work. The rest of the day is yours.</p>
         </div>
         <div class="bridge-row">
           <p class="bridge-now">You built this for school pickup. Today the business runs you.</p>
-          <p class="bridge-could">You're home for school pickup. The business holds the life you built it for.</p>
+          <span class="bridge-chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+          <p class="bridge-could">The business holds the life you built it for. Not the other way around.</p>
         </div>
       </div>
       <p class="felt-section__closer">This twenty minutes is the move from one column to the other.</p>
+      <div class="bridge-cta-wrap">
+        <a class="bridge-cta" href="#join">My next best step
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
