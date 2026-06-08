@@ -220,12 +220,14 @@
        fade only kicks in below the credibility row, ending at white
        by the very bottom edge. */
     .hero-and-creds-wrap {
+      /* Bottom-anchored fade. Last 90px of the wrap transitions charcoal
+         to white. Everything above stays solid charcoal so the credibility
+         row text always sits on dark, regardless of how short the wrap is. */
       background: linear-gradient(
         to bottom,
         var(--p-charcoal) 0%,
-        var(--p-charcoal) 82%,
-        rgba(70, 64, 56, 1) 88%,
-        rgba(170, 160, 142, 1) 94%,
+        var(--p-charcoal) calc(100% - 90px),
+        rgba(170, 160, 142, 1) calc(100% - 28px),
         var(--p-white) 100%
       );
     }
@@ -797,7 +799,9 @@
        before the Picture It section. */
     .credibility-row--inline {
       margin-top: clamp(36px, 4vw, 60px);
-      padding-bottom: clamp(120px, 14vw, 200px);
+      /* Halved per Karl 2026-06-08, gradient is now bottom-anchored so the
+         credibility row text stays on solid charcoal even with a tighter buffer. */
+      padding-bottom: clamp(60px, 7vw, 100px);
     }
     .credibility-row__eyebrow {
       font-family: var(--f-sans);
@@ -1872,7 +1876,25 @@
     .felt-section--future {
       background: var(--p-charcoal);
       color: var(--p-oatmeal);
-      border-top: 1px solid rgba(201, 164, 108, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Soft top-fade so the dark aspirational lifts out of the white
+       "Inside the class" block above it instead of slamming on a hard
+       white-to-charcoal seam. ~120px of white→transparent at the top
+       lets the wyg breathe into the charcoal. */
+    .felt-section--future::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 120px;
+      background: linear-gradient(to bottom, var(--p-white) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .felt-section--future .felt-section__inner {
+      position: relative;
+      z-index: 1;
     }
     .felt-section__inner {
       max-width: 640px;
@@ -2981,6 +3003,28 @@
   </section>
 
   <!-- ============================================================
+       SECTION 5A · Aspiration (FUTURE state · dark clay-flow mirror).
+       Moved here per Karl 2026-06-08 so it sits directly below the
+       "Inside the class" block and flows into it visually (soft white
+       top-fade carries the eye out of the white wyg into the charcoal).
+       Gold rule / gold dot / gold "and" pivot.
+       ============================================================ -->
+  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
+    <div class="felt-section__inner">
+      <p class="felt-section__eyebrow">And on the other side</p>
+      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
+      <div class="flow-list">
+        <p class="flow-item"><span class="flow-a">Your offer makes sense in one sentence,</span> <span class="flow-but">and</span> <span class="flow-b">you stop adding to it.</span></p>
+        <p class="flow-item"><span class="flow-a">The launch lands, the numbers move,</span> <span class="flow-but">and</span> <span class="flow-b">you trust the promise again.</span></p>
+        <p class="flow-item"><span class="flow-a">Your content does the work it was meant to do,</span> <span class="flow-but">and</span> <span class="flow-b">the rest of the day is yours.</span></p>
+        <p class="flow-item"><span class="flow-a">You work fewer days, you're home for school pickup,</span> <span class="flow-but">and</span> <span class="flow-b">the launches happen on your terms.</span></p>
+        <p class="flow-item"><span class="flow-a">Your business holds the life you built it for,</span> <span class="flow-but">and</span> <span class="flow-b">not the other way around.</span></p>
+      </div>
+      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
        SECTION 5 · "Picture it" marquee (moved down per Karl 2026-06-06).
        Sits as the final breath before the Send-me-the-class CTA.
        ============================================================ -->
@@ -3018,31 +3062,9 @@
   </section>
 
   <!-- ============================================================
-       SECTION 5B · Aspiration (FUTURE state · dark clay-flow mirror).
-       Moved here per Karl 2026-06-08 so the page lifts into FUTURE
-       state then drops straight into the Final CTA form below.
-       Gold rule / gold dot / gold "and" pivot mirrors the cream
-       NOW-state recognition section at the top.
-       ============================================================ -->
-  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
-    <div class="felt-section__inner">
-      <p class="felt-section__eyebrow">And on the other side</p>
-      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
-      <div class="flow-list">
-        <p class="flow-item"><span class="flow-a">Your offer makes sense in one sentence,</span> <span class="flow-but">and</span> <span class="flow-b">you stop adding to it.</span></p>
-        <p class="flow-item"><span class="flow-a">The launch lands, the numbers move,</span> <span class="flow-but">and</span> <span class="flow-b">you trust the promise again.</span></p>
-        <p class="flow-item"><span class="flow-a">Your content does the work it was meant to do,</span> <span class="flow-but">and</span> <span class="flow-b">the rest of the day is yours.</span></p>
-        <p class="flow-item"><span class="flow-a">You work fewer days, you're home for school pickup,</span> <span class="flow-but">and</span> <span class="flow-b">the launches happen on your terms.</span></p>
-        <p class="flow-item"><span class="flow-a">Your business holds the life you built it for,</span> <span class="flow-but">and</span> <span class="flow-b">not the other way around.</span></p>
-      </div>
-      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
-    </div>
-  </section>
-
-  <!-- ============================================================
        SECTION 6 · Final CTA
        ============================================================ -->
-  <section class="fsec" id="join" style="scroll-margin-top:24px; background: var(--p-charcoal);" aria-label="Get the free mini class">
+  <section class="fsec" id="join" style="scroll-margin-top:24px;" aria-label="Get the free mini class">
     <div class="fsec__wrap">
       <div class="fcta">
         <span class="tag">One more invitation</span>
