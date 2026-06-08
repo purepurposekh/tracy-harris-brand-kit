@@ -2061,22 +2061,24 @@
       font-weight: 600;
     }
 
-    /* Two-column layout with image left, prose right */
+    /* Two-column layout with image left, prose right.
+       align-items: stretch + image height 100% so the image matches
+       the height of the prose column. Karl 2026-06-08. */
     .felt-section--prose .felt-section__inner {
       max-width: 1180px;
       display: grid;
       grid-template-columns: 5fr 7fr;
       gap: clamp(32px, 4vw, 64px);
-      align-items: start;
+      align-items: stretch;
     }
     .felt-section--prose .bridge-media {
-      position: sticky;
-      top: clamp(16px, 3vw, 32px);
+      height: 100%;
+      min-height: 0;
     }
     .felt-section--prose .bridge-media img,
     .felt-section--prose .bridge-media .bridge-media__placeholder {
       width: 100%;
-      aspect-ratio: 4 / 5;
+      height: 100%;
       border-radius: 6px;
       box-shadow: 0 20px 48px -22px rgba(123, 98, 60, 0.35);
       display: block;
