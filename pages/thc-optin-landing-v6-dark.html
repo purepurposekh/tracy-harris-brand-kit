@@ -220,16 +220,12 @@
        fade only kicks in below the credibility row, ending at white
        by the very bottom edge. */
     .hero-and-creds-wrap {
-      /* Bottom-anchored fade. Last 90px of the wrap transitions charcoal
-         to white. Everything above stays solid charcoal so the credibility
-         row text always sits on dark, regardless of how short the wrap is. */
-      background: linear-gradient(
-        to bottom,
-        var(--p-charcoal) 0%,
-        var(--p-charcoal) calc(100% - 90px),
-        rgba(170, 160, 142, 1) calc(100% - 28px),
-        var(--p-white) 100%
-      );
+      /* Solid charcoal, hard edge into the testi-rail below. Page uses
+         editorial cuts between sections everywhere else (hero, wyg,
+         marquee, testi-rail), so this matches. The earlier warm-mid
+         linear gradient produced a visible sepia band where charcoal
+         crossed the warm intermediate stop. Hard edge is cleaner. */
+      background: var(--p-charcoal);
     }
     .hero.hero--marquee.hero--dark-bands {
       position: relative;
@@ -731,13 +727,7 @@
       .hero-and-creds-wrap {
         margin: 0;
         padding: 0;
-        background: linear-gradient(
-          to bottom,
-          var(--p-charcoal) 0%,
-          var(--p-charcoal) 92%,
-          rgba(110, 100, 86, 1) 96%,
-          var(--p-white) 100%
-        );
+        background: var(--p-charcoal);
       }
       .credibility-row--inline { padding-bottom: clamp(60px, 12vw, 100px); }
 
