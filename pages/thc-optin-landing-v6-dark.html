@@ -1893,10 +1893,10 @@
     .felt-section__title {
       font-family: var(--f-serif-display);
       font-weight: 400;
-      font-size: clamp(30px, 3.5vw, 44px);
-      line-height: 1.15;
-      letter-spacing: -0.015em;
-      margin: 0 0 clamp(36px, 4vw, 52px);
+      font-size: clamp(30px, 3.5vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.018em;
+      margin: 0 0 clamp(24px, 2.8vw, 32px);
       text-wrap: balance;
     }
     .felt-section__title em {
@@ -1907,33 +1907,63 @@
     .felt-section--future .felt-section__title em {
       color: var(--p-gold-mid);
     }
-    .felt-section__bullets {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 clamp(32px, 4vw, 44px);
-      display: flex;
-      flex-direction: column;
-      gap: clamp(26px, 3vw, 36px);
+    /* Clay-flow list. Vertical accent rule down the LEFT, dot markers per
+       item, soft hairlines between items. Each line splits act-pivot-truth
+       with a coloured pivot word ("but" on NOW, "and" on FUTURE) doing
+       the visual light/shade work Karl asked for.
+       palette-scope-exempt: NOW variant intentionally pulls warm copper
+       accent (clay flow design Karl shipped) into an FFM page to heat the
+       recognition moment. FUTURE variant stays on gold (FFM-native). */
+    .felt-section .flow-list {
+      max-width: 640px;
+      margin: 0 auto clamp(28px, 3vw, 36px);
+      padding: 2px 0;
+      text-align: left;
+      border-left: 2px solid;
+      border-left-color: rgba(173, 118, 91, 0.30);  /* clay rule (light) */
     }
-    /* Clean editorial italic line per bullet. No internal visual split.
-       The contrast lives in the words. The eye reads the period as the
-       pivot. Generous gap between bullets does the structural work. */
-    .felt-section__bullets li {
-      font-family: var(--f-serif-italic);
-      font-style: italic;
+    .felt-section--future .flow-list {
+      border-left-color: rgba(201, 164, 108, 0.34); /* gold rule (dark) */
+    }
+    .felt-section .flow-item {
+      position: relative;
+      padding: clamp(14px, 1.4vw, 16px) 0 clamp(14px, 1.4vw, 16px) clamp(20px, 2vw, 26px);
+      font-family: var(--f-sans);
       font-weight: 400;
-      font-size: clamp(20px, 2vw, 25px);
-      line-height: 1.35;
-      max-width: 50ch;
-      margin: 0 auto;
-      text-wrap: balance;
+      font-size: clamp(16px, 1.45vw, 18px);
+      line-height: 1.5;
+      margin: 0;
+      text-wrap: pretty;
     }
-    .felt-section--now .felt-section__bullets li {
-      color: var(--p-charcoal);
+    .felt-section .flow-item + .flow-item {
+      border-top: 1px solid;
     }
-    .felt-section--future .felt-section__bullets li {
-      color: var(--p-oatmeal);
+    .felt-section--now .flow-item + .flow-item {
+      border-top-color: rgba(49, 49, 49, 0.10);
     }
+    .felt-section--future .flow-item + .flow-item {
+      border-top-color: rgba(246, 244, 241, 0.10);
+    }
+    .felt-section .flow-item::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: calc(clamp(14px, 1.4vw, 16px) + 8px);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .felt-section--now .flow-item::before  { background: #a04e37; } /* clay dot */
+    .felt-section--future .flow-item::before { background: var(--p-gold-mid); }
+    .felt-section .flow-a   { font-weight: 400; }
+    .felt-section .flow-but { font-weight: 500; }
+    .felt-section .flow-b   { font-weight: 600; }
+    .felt-section--now .flow-a   { color: var(--p-mute); }
+    .felt-section--now .flow-but { color: #a04e37; } /* clay pivot */
+    .felt-section--now .flow-b   { color: var(--p-charcoal); }
+    .felt-section--future .flow-a   { color: rgba(246, 244, 241, 0.62); }
+    .felt-section--future .flow-but { color: var(--p-gold-mid); }
+    .felt-section--future .flow-b   { color: var(--p-oatmeal); }
     .felt-section__closer {
       font-family: var(--f-serif-italic);
       font-style: italic;
@@ -2749,35 +2779,14 @@
     <div class="felt-section__inner">
       <p class="felt-section__eyebrow">Read this slowly</p>
       <h2 class="felt-section__title">This <em>might</em> be you.</h2>
-      <ul class="felt-section__bullets">
-        <li>You can explain your work deeply over coffee. The one-sentence version still feels slippery.</li>
-        <li>Your content gets engagement. The buyers stay quiet.</li>
-        <li>You keep improving the offer. It still feels like too much to explain.</li>
-        <li>You added bonuses, calls, and access to make the offer feel worth it. The delivery now eats your week.</li>
-        <li>You built this business so you could be at school pickup. Today it's running you instead.</li>
-      </ul>
+      <div class="flow-list">
+        <p class="flow-item"><span class="flow-a">You can explain your work deeply over coffee,</span> <span class="flow-but">but</span> <span class="flow-b">the one-sentence version still feels slippery.</span></p>
+        <p class="flow-item"><span class="flow-a">Your content gets engagement,</span> <span class="flow-but">but</span> <span class="flow-b">the buyers stay quiet.</span></p>
+        <p class="flow-item"><span class="flow-a">You keep improving the offer,</span> <span class="flow-but">but</span> <span class="flow-b">it still feels like too much to explain.</span></p>
+        <p class="flow-item"><span class="flow-a">You added bonuses, calls, and access to make it worth it,</span> <span class="flow-but">but</span> <span class="flow-b">the delivery now eats your week.</span></p>
+        <p class="flow-item"><span class="flow-a">You built this business so you could be at school pickup,</span> <span class="flow-but">but</span> <span class="flow-b">today it's running you instead.</span></p>
+      </div>
       <p class="felt-section__closer">If any of those landed, this twenty minutes is yours.</p>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SECTION 1C · Aspiration (felt-experience entry, FUTURE state).
-       Mirror partner to Recognition above (NOW state).
-       Concrete future-state. Not vague "live your dream life."
-       Grounded in the actual outcomes FFB members report.
-       ============================================================ -->
-  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
-    <div class="felt-section__inner">
-      <p class="felt-section__eyebrow">And on the other side</p>
-      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
-      <ul class="felt-section__bullets">
-        <li>Your offer makes sense in one sentence. You stop adding to it.</li>
-        <li>The launch lands. The numbers move. You trust the promise again.</li>
-        <li>Your content does the work it was actually meant to do. The rest of the day is yours.</li>
-        <li>You work fewer days. You're home for school pickup. The launches happen on your terms.</li>
-        <li>Your business holds the life you built it for. Not the other way around.</li>
-      </ul>
-      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
     </div>
   </section>
 
@@ -3005,9 +3014,31 @@
   </section>
 
   <!-- ============================================================
+       SECTION 5B · Aspiration (FUTURE state · dark clay-flow mirror).
+       Moved here per Karl 2026-06-08 so the page lifts into FUTURE
+       state then drops straight into the Final CTA form below.
+       Gold rule / gold dot / gold "and" pivot mirrors the cream
+       NOW-state recognition section at the top.
+       ============================================================ -->
+  <section class="felt-section felt-section--future" aria-label="When the business is dialed in">
+    <div class="felt-section__inner">
+      <p class="felt-section__eyebrow">And on the other side</p>
+      <h2 class="felt-section__title">When your business is <em>dialed in</em>.</h2>
+      <div class="flow-list">
+        <p class="flow-item"><span class="flow-a">Your offer makes sense in one sentence,</span> <span class="flow-but">and</span> <span class="flow-b">you stop adding to it.</span></p>
+        <p class="flow-item"><span class="flow-a">The launch lands, the numbers move,</span> <span class="flow-but">and</span> <span class="flow-b">you trust the promise again.</span></p>
+        <p class="flow-item"><span class="flow-a">Your content does the work it was meant to do,</span> <span class="flow-but">and</span> <span class="flow-b">the rest of the day is yours.</span></p>
+        <p class="flow-item"><span class="flow-a">You work fewer days, you're home for school pickup,</span> <span class="flow-but">and</span> <span class="flow-b">the launches happen on your terms.</span></p>
+        <p class="flow-item"><span class="flow-a">Your business holds the life you built it for,</span> <span class="flow-but">and</span> <span class="flow-b">not the other way around.</span></p>
+      </div>
+      <p class="felt-section__closer">That isn't a fantasy. It's the pathway, working.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
        SECTION 6 · Final CTA
        ============================================================ -->
-  <section class="fsec" id="join" style="scroll-margin-top:24px;" aria-label="Get the free mini class">
+  <section class="fsec" id="join" style="scroll-margin-top:24px; background: var(--p-charcoal);" aria-label="Get the free mini class">
     <div class="fsec__wrap">
       <div class="fcta">
         <span class="tag">One more invitation</span>
