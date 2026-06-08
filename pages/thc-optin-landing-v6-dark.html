@@ -2009,6 +2009,64 @@
     .felt-section--now .flow-a   { color: var(--p-mute); }
     .felt-section--now .flow-but { color: #a04e37; } /* clay pivot */
     .felt-section--now .flow-b   { color: var(--p-charcoal); }
+
+    /* "Light and shade" two-column row treatment for the NOW recognition
+       section. Karl's voice note: visualise the to-and-fro between what
+       feels true (left, soft italic) and what's actually true (right,
+       bold sans). Vertical gold-rule between the two columns IS the
+       pivot, no pivot word styling needed. */
+    .felt-section .recog-rows {
+      display: flex;
+      flex-direction: column;
+      max-width: 820px;
+      margin: 0 auto clamp(34px, 4vw, 46px);
+    }
+    .felt-section .recog-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(18px, 2vw, 32px);
+      padding: clamp(18px, 2vw, 26px) 0;
+      position: relative;
+      align-items: center;
+      text-align: left;
+    }
+    .felt-section .recog-row + .recog-row {
+      border-top: 1px solid rgba(49, 49, 49, 0.10);
+    }
+    .felt-section .recog-row::before {
+      content: "";
+      position: absolute;
+      top: 22%;
+      bottom: 22%;
+      left: 50%;
+      width: 1px;
+      background: rgba(123, 98, 60, 0.32);
+    }
+    .felt-section .recog-act {
+      font-family: var(--f-serif-italic);
+      font-style: italic;
+      font-size: clamp(15px, 1.45vw, 18px);
+      line-height: 1.45;
+      color: var(--p-mute);
+      padding-right: clamp(12px, 1.8vw, 22px);
+      margin: 0;
+    }
+    .felt-section .recog-truth {
+      font-family: var(--f-sans);
+      font-weight: 600;
+      font-size: clamp(15px, 1.45vw, 18px);
+      line-height: 1.45;
+      color: var(--p-charcoal);
+      padding-left: clamp(12px, 1.8vw, 22px);
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .felt-section .recog-row { grid-template-columns: 1fr; gap: 8px; }
+      .felt-section .recog-row::before { display: none; }
+      .felt-section .recog-act { padding-right: 0; padding-bottom: 6px; }
+      .felt-section .recog-truth { padding-left: 0; }
+    }
+
     .felt-section--future .flow-a   { color: rgba(246, 244, 241, 0.62); }
     .felt-section--future .flow-but { color: var(--p-gold-mid); }
     .felt-section--future .flow-b   { color: var(--p-oatmeal); }
@@ -2818,31 +2876,6 @@
   </div><!-- /.hero-and-creds-wrap -->
 
   <!-- ============================================================
-       SECTION 1B · Recognition (felt-experience entry, NOW state).
-       Mirror partner to Aspiration below (FUTURE state).
-       Honors Max's 4:1 customer-voice ratio: women self-describe
-       in felt-experience terms, not structural-diagnostic.
-       ============================================================ -->
-  <!-- Hidden 2026-06-08 per Karl. Markup kept inline so it can be flipped
-       back on by removing the wrapper comment. Do not delete. -->
-  <!--
-  <section class="felt-section felt-section--now" aria-label="This might be you">
-    <div class="felt-section__inner">
-      <p class="felt-section__eyebrow">Read this slowly</p>
-      <h2 class="felt-section__title">This <em>might</em> be you.</h2>
-      <div class="flow-list">
-        <p class="flow-item"><span class="flow-a">You can explain your work deeply over coffee,</span> <span class="flow-but">but</span> <span class="flow-b">the one-sentence version still feels slippery.</span></p>
-        <p class="flow-item"><span class="flow-a">Your content gets engagement,</span> <span class="flow-but">but</span> <span class="flow-b">the buyers stay quiet.</span></p>
-        <p class="flow-item"><span class="flow-a">You keep improving the offer,</span> <span class="flow-but">but</span> <span class="flow-b">it still feels like too much to explain.</span></p>
-        <p class="flow-item"><span class="flow-a">You added bonuses, calls, and access to make it worth it,</span> <span class="flow-but">but</span> <span class="flow-b">the delivery now eats your week.</span></p>
-        <p class="flow-item"><span class="flow-a">You built this business so you could be at school pickup,</span> <span class="flow-but">but</span> <span class="flow-b">today it's running you instead.</span></p>
-      </div>
-      <p class="felt-section__closer">If any of those landed, this twenty minutes is yours.</p>
-    </div>
-  </section>
-  -->
-
-  <!-- ============================================================
        SECTION 2 · Rolling testimonial rail (Karl 2026-06-06).
        First section under the hero. Replaces the previous static 3-card
        Testimonials section that lived further down the page. 8 unique
@@ -2946,6 +2979,45 @@
   </section>
 
   <!-- ============================================================
+       SECTION 2B · Recognition (NOW state, felt-experience entry).
+       Brought back 2026-06-08 per Karl, in new location (sits AFTER
+       proof, BEFORE the aspirational outcome). Two-column "light and
+       shade" treatment: left half soft serif italic (what feels true),
+       right half bold sans (what's actually true), vertical gold rule
+       between them as the pivot. Karl's voice note: visualise the
+       to-and-fro, not just italicise.
+       ============================================================ -->
+  <section class="felt-section felt-section--now" aria-label="This might be you">
+    <div class="felt-section__inner">
+      <p class="felt-section__eyebrow">Read this slowly</p>
+      <h2 class="felt-section__title">This <em>might</em> be you.</h2>
+      <div class="recog-rows">
+        <div class="recog-row">
+          <p class="recog-act">You can explain your work deeply over coffee,</p>
+          <p class="recog-truth">but the one-sentence version still feels slippery.</p>
+        </div>
+        <div class="recog-row">
+          <p class="recog-act">Your content gets engagement,</p>
+          <p class="recog-truth">but the buyers stay quiet.</p>
+        </div>
+        <div class="recog-row">
+          <p class="recog-act">You keep improving the offer,</p>
+          <p class="recog-truth">but it still feels like too much to explain.</p>
+        </div>
+        <div class="recog-row">
+          <p class="recog-act">You added bonuses, calls, and access to make it worth it,</p>
+          <p class="recog-truth">but the delivery now eats your week.</p>
+        </div>
+        <div class="recog-row">
+          <p class="recog-act">You built this business so you could be at school pickup,</p>
+          <p class="recog-truth">but today it's running you instead.</p>
+        </div>
+      </div>
+      <p class="felt-section__closer">If any of those landed, this twenty minutes is yours.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
        SECTION 3 · Aspiration (FUTURE state · dark clay-flow).
        Reordered 2026-06-08 per Karl: outcome BEFORE features so the
        page paints desire first, then proves the class delivers it.
@@ -3032,27 +3104,13 @@
   <!-- ============================================================
        SECTION 5 · Meet Tracy (kit: about-bio.split-editorial-polished).
        Reordered 2026-06-08 per Karl: About sits AFTER features (it's
-       reassurance, not pre-qualification, on an opt-in page). Single
-       portrait swapped for a 3-photo "loving life" collage built from
-       the dropped Picture-It marquee photos: editorial portrait → event
-       leadership → coastal lifestyle. Caption carries the original
-       marquee framing ("This is what freedom looks like for me").
+       reassurance, not pre-qualification, on an opt-in page). Reverted
+       to single portrait after the collage experiment read random.
        ============================================================ -->
   <section class="about-bio" data-brand="tracy" aria-label="About Tracy">
     <div class="about-bio__split">
       <div class="about-bio__portrait">
-        <div class="about-bio__collage">
-          <div class="about-bio__collage-item about-bio__collage-item--lead">
-            <img src="../assets/photos/marquee/tezza-7013.jpg" alt="Tracy Harris, editorial portrait." width="533" height="800" loading="lazy" decoding="async" />
-          </div>
-          <div class="about-bio__collage-item about-bio__collage-item--wide">
-            <img src="../assets/photos/marquee/th-event-2024-225.jpg" alt="Tracy speaking at a Mums With Hustle event, a room full of women." width="800" height="534" loading="lazy" decoding="async" />
-          </div>
-          <div class="about-bio__collage-item about-bio__collage-item--lifestyle">
-            <img src="../assets/photos/marquee/mwh-2025-nelson-bay-547.jpg" alt="Tracy enjoying coastal life in Nelson Bay." width="533" height="800" loading="lazy" decoding="async" />
-          </div>
-        </div>
-        <p class="about-bio__collage-caption">This is what freedom looks like for me.</p>
+        <img src="../assets/photos/tracy-outfit8-39.jpg" alt="Tracy Harris, editorial portrait." width="1200" height="800" loading="lazy" decoding="async" />
       </div>
       <div class="about-bio__content">
         <p class="about-bio__eyebrow">Meet Tracy</p>
