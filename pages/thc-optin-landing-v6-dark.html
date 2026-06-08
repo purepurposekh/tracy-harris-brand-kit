@@ -2010,6 +2010,34 @@
       align-items: stretch;
       text-align: left;
     }
+    /* Single-column variant: 5 symptom bricks stacked. No chevron, no second column.
+       Karl 2026-06-08: section's job is now diagnosis only, not the to-and-fro. */
+    .felt-section .bridge-row--single {
+      display: block;
+      padding: 16px 22px;
+    }
+    .felt-section .bridge-symptom {
+      font-family: var(--f-sans);
+      font-size: clamp(14px, 1.2vw, 16px);
+      line-height: 1.5;
+      color: var(--p-ink);
+      margin: 0;
+    }
+    .felt-section .bridge-symptom-label {
+      display: inline-block;
+      font-family: var(--f-sans);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+      margin-right: 14px;
+      padding: 3px 9px;
+      background: rgba(123, 98, 60, 0.10);
+      border-radius: 3px;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
     .felt-section .bridge-now,
     .felt-section .bridge-could {
       display: flex;
@@ -3023,47 +3051,29 @@
        serif italic), COULD-FEEL state on the right (bold sans charcoal),
        vertical gold rule between them as the to-and-fro pivot.
        ============================================================ -->
-  <section class="felt-section felt-section--bridge" aria-label="This might be you, and this is what's possible">
+  <section class="felt-section felt-section--bridge felt-section--symptoms" aria-label="If any of these sound like you, this class is your first move">
     <div class="felt-section__inner">
       <p class="felt-section__eyebrow">Read this slowly</p>
-      <h2 class="felt-section__title">This <em>might</em> be you. This is what's <em>possible</em>.</h2>
-      <div class="bridge-labels" aria-hidden="true">
-        <div class="bridge-label bridge-label--now">Right now</div>
-        <div class="bridge-label-spacer"></div>
-        <div class="bridge-label bridge-label--next">On the other side</div>
-      </div>
+      <h2 class="felt-section__title">This <em>might</em> be you.</h2>
       <div class="bridge-rows">
-        <div class="bridge-row">
-          <p class="bridge-now">The one-sentence version of your offer still feels slippery.</p>
-          <span class="bridge-chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-          <p class="bridge-could">Your offer lands in one sentence. You stop adding to it.</p>
+        <div class="bridge-row bridge-row--single">
+          <p class="bridge-symptom"><span class="bridge-symptom-label">Offer</span>You can explain your work deeply over coffee. The one-sentence version still feels slippery.</p>
         </div>
-        <div class="bridge-row">
-          <p class="bridge-now">Your content gets engagement. The buyers stay quiet.</p>
-          <span class="bridge-chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-          <p class="bridge-could">The launch lands. The numbers move. You trust the promise again.</p>
+        <div class="bridge-row bridge-row--single">
+          <p class="bridge-symptom"><span class="bridge-symptom-label">Content</span>Posts get engagement. The buyers stay quiet.</p>
         </div>
-        <div class="bridge-row">
-          <p class="bridge-now">You added bonuses, calls, and access. The delivery eats your week.</p>
-          <span class="bridge-chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-          <p class="bridge-could">Your content does the work. The rest of the day is yours.</p>
+        <div class="bridge-row bridge-row--single">
+          <p class="bridge-symptom"><span class="bridge-symptom-label">Launches</span>You launched. Almost nothing happened. Now you're scared to launch again.</p>
         </div>
-        <div class="bridge-row">
-          <p class="bridge-now">You built this for school pickup. Today the business runs you.</p>
-          <span class="bridge-chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-          <p class="bridge-could">The business holds the life you built it for. Not the other way around.</p>
+        <div class="bridge-row bridge-row--single">
+          <p class="bridge-symptom"><span class="bridge-symptom-label">Delivery</span>You added bonuses, calls, and access. You look up and the week is gone.</p>
+        </div>
+        <div class="bridge-row bridge-row--single">
+          <p class="bridge-symptom"><span class="bridge-symptom-label">You</span>You built this business for school pickup, presence, and freedom by design. Today it's running you instead.</p>
         </div>
       </div>
       <div class="bridge-foot">
-        <p class="bridge-closer">This twenty minutes is the move from one column to the <em>other</em>.</p>
+        <p class="bridge-closer">If any of these landed, this is the twenty minutes I <em>built for you</em>.</p>
         <a class="bridge-cta" href="#join">My next best step
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
