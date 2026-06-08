@@ -1879,16 +1879,17 @@
       position: relative;
       overflow: hidden;
     }
-    /* Soft top-fade so the dark aspirational lifts out of the white
-       "Inside the class" block above it instead of slamming on a hard
-       white-to-charcoal seam. ~120px of white→transparent at the top
-       lets the wyg breathe into the charcoal. */
+    /* Top-fade that lifts the dark aspirational out of the oatmeal
+       "Inside the class" block above it. Starts at oatmeal (matching
+       the wyg's actual background, NOT white). A white start creates a
+       visible band against the cream above. Resolves to charcoal over
+       a generous 200px so the seam is invisible. */
     .felt-section--future::before {
       content: "";
       position: absolute;
       inset: 0 0 auto 0;
-      height: 120px;
-      background: linear-gradient(to bottom, var(--p-white) 0%, rgba(255, 255, 255, 0) 100%);
+      height: 200px;
+      background: linear-gradient(to bottom, var(--p-oatmeal) 0%, var(--p-charcoal) 100%);
       pointer-events: none;
       z-index: 0;
     }
