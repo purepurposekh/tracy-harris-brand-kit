@@ -39,6 +39,25 @@
   .item .next b { font-family: var(--f-sans-label); font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--p-gold-dark); display: block; margin-bottom: 3px; }
   .item a { color: var(--p-gold-dark); }
   footer { margin-top: 48px; font-size: 12px; color: var(--p-mute); }
+
+  /* quick-access directory */
+  details.dir { background: var(--p-white); border: 1px solid rgba(16,16,16,.07); border-radius: 18px; margin-bottom: 10px; overflow: hidden; }
+  details.dir summary {
+    cursor: pointer; list-style: none; padding: 16px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--f-serif-display); font-size: 17px; color: var(--p-charcoal);
+  }
+  details.dir summary::-webkit-details-marker { display: none; }
+  details.dir summary .count { margin-left: auto; font-family: var(--f-sans-label); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--p-mute); }
+  details.dir summary::after { content: "+"; font-family: var(--f-sans); color: var(--p-gold-dark); font-size: 18px; margin-left: 8px; }
+  details.dir[open] summary::after { content: "\2212"; }
+  details.dir .inner { padding: 0 20px 16px; border-top: 1px solid rgba(16,16,16,.06); }
+  .lnk { display: flex; align-items: baseline; gap: 8px; padding: 7px 0; border-bottom: 1px solid rgba(16,16,16,.05); font-size: 14px; flex-wrap: wrap; }
+  .lnk:last-child { border-bottom: none; }
+  .lnk a { color: var(--p-gold-dark); text-decoration: none; font-weight: 500; }
+  .lnk a:hover { text-decoration: underline; }
+  .lnk .note { color: var(--p-mute); font-size: 12.5px; }
+  .lnk .where { font-family: var(--f-sans-label); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--p-mute); }
 </style>
 </head>
 <body data-brand="ffm">
@@ -55,6 +74,80 @@
       <span class="chip c-pause"><span class="d"></span>Paused / parked</span>
     </div>
   </header>
+
+  <h2>0 · Quick access: every page, clickable</h2>
+  <p class="h2sub">Tap a section to expand. Every link verified live tonight. Preview URLs use the stable branch alias so they survive redeploys.</p>
+
+  <details class="dir" open>
+    <summary>The class funnel pages<span class="count">7 pages</span></summary>
+    <div class="inner">
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v6-dark">Opt-in landing · v6 FFM dark</a><span class="note">the approved direction, recognition section + chosen image wired</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v6-ffb">Opt-in landing · v6 FFB light</a><span class="note">same copy, FFB brand treatment</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-class-intro">Segmentation gate</a><span class="note">"one more thing" questions between opt-in and class, feeds AC tags</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-class-page">Class video page</a><span class="note">personalised by gate answers; video slot waits on Friday's recording + Mux</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/funnel-map">Funnel map</a><span class="note">the whole-funnel visual built for Tracy's walkthrough</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v5-hero-video">Earlier directions · v5 hero-video</a> <a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v4-oatmeal-gold">v4</a> <a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v3-dark">v3 dark</a><span class="note">history, for comparison only</span></div>
+      <div class="lnk"><span class="where">Scripts</span><span class="note">teaser, class v2, 3 deep-dives, audit welcome: delivered in the Assessment Build thread, recording Friday</span></div>
+    </div>
+  </details>
+
+  <details class="dir" open>
+    <summary>The Pathway Audit<span class="count">2 builds + demos</span></summary>
+    <div class="inner">
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/pathway-audit">Audit v1 · FFM editorial</a><span class="note">full 24-question flow, working engine</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/pathway-audit-v2">Audit v2 · bubble dashboard</a><span class="note">29 questions incl. the measured F.R.E.S.H block, health rings</span></div>
+      <div class="lnk"><span class="where">v2 sample results</span><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/pathway-audit-v2?demo=ffb">FFB-ready</a> <a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/pathway-audit-v2?demo=workshop">Workshop</a> <a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/pathway-audit-v2?demo=fresh">FRESH-first</a> <a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/pathway-audit-v2?demo=nurture">Nurture</a></div>
+      <div class="lnk"><a href="https://github.com/purepurposekh/tracy-harris-brand-kit/blob/feature/brand-assets-discovery/pages/pathway-audit-design-handoff.md">Design handoff doc</a> <a href="https://github.com/purepurposekh/tracy-harris-brand-kit/blob/feature/brand-assets-discovery/pages/pathway-audit-sample-payloads.json">Sample data payloads</a><span class="note">for your Claude Design session (public repo, opens on phone)</span></div>
+    </div>
+  </details>
+
+  <details class="dir">
+    <summary>F.R.E.S.H. Reset (built April, unshipped)<span class="count">3 surfaces</span></summary>
+    <div class="inner">
+      <div class="lnk"><a href="https://tracy-harris-co.pages.dev/fresh-reset-looks/retreat-journal-short/">Sales page · canonical look</a><span class="note">3 more look variants exist at /fresh-reset-looks/</span></div>
+      <div class="lnk"><a href="https://tracy-harris-co.pages.dev/fresh-reset/welcome/">Welcome page</a></div>
+      <div class="lnk"><a href="https://tracy-harris-co.pages.dev/fresh-reset/portal/?d=5&preview=1">5-day portal · all days unlocked preview</a><span class="note">includes the Leadership Deck game + progress ring</span></div>
+      <div class="lnk"><span class="where">Blocked on</span><span class="note">Tracy's voice review of the 6 drafted emails (in the vault), $47 USD checkout conversion, AC automation build</span></div>
+    </div>
+  </details>
+
+  <details class="dir">
+    <summary>Quizzes + legacy diagnostics<span class="count">4 links</span></summary>
+    <div class="inner">
+      <div class="lnk"><a href="https://purepurposekh.github.io/ffb-quiz-v3c/">FFB Quiz v3 · A</a> <a href="https://purepurposekh.github.io/ffb-quiz-v3c/variant-b.html">B</a> <a href="https://purepurposekh.github.io/ffb-quiz-v3c/variant-c.html">C</a> <a href="https://purepurposekh.github.io/ffb-quiz-v3c/compare.html">side-by-side</a><span class="note">your verdict never landed; retires when the audit ships</span></div>
+      <div class="lnk"><a href="https://tracy-harris-co.pages.dev/hd/results/manifesting-generator/">HD bodygraph sample result</a><span class="note">Freedom by Design v2: live-or-archive call pending since April</span></div>
+    </div>
+  </details>
+
+  <details class="dir">
+    <summary>Live tools + dashboards<span class="count">6 links</span></summary>
+    <div class="inner">
+      <div class="lnk"><a href="https://ffb.tracyharris.co/ask">FFB coaching question form</a><span class="note">live, Phase 1+2 shipped</span></div>
+      <div class="lnk"><a href="https://tracy-admin.netlify.app/leads">Hot Leads cockpit /leads</a><span class="note">login required (your owner account works)</span></div>
+      <div class="lnk"><a href="https://workshop.tracyharris.co/access/">MDM instant-access page</a><span class="note">live, evergreen-ready</span></div>
+      <div class="lnk"><a href="https://dashboard.tracyharris.com.au/launch/mdm-jun26">MDM launch dashboard</a> <a href="https://dashboard.tracyharris.com.au/finance">Finance dashboard</a><span class="note">login required</span></div>
+      <div class="lnk"><a href="https://workshop.tracyharris.co/_builder-wireframe/">Launch Builder wireframe</a><span class="note">clickable 4-tab concept, no backend</span></div>
+    </div>
+  </details>
+
+  <details class="dir">
+    <summary>Brand kit + team surfaces<span class="count">5 links</span></summary>
+    <div class="inner">
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/all-components">All components</a><span class="note">the 138-variant library</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/components/compose/">Page Composer</a><span class="note">assemble pages from variants</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/brand/">Brand page</a><span class="note">palettes, type, FRESH accents</span></div>
+      <div class="lnk"><a href="https://feature-brand-assets-discove-c5jt.tracy-harris-brand-kit.pages.dev/pages/team-onboarding">Team onboarding portal v1</a></div>
+      <div class="lnk"><span class="where">This board</span><span class="note">bookmark: the alias URL always serves the latest version of this page</span></div>
+    </div>
+  </details>
+
+  <details class="dir">
+    <summary>Strategy docs delivered today<span class="count">5 documents</span></summary>
+    <div class="inner">
+      <div class="lnk"><span class="where">PDFs</span><span class="note">Audience Evidence Report, Social Method Repurpose Brief, Stories That Sell spec, Close Week Content Strategy: all attached in the Make More $$ and content threads. Revenue docs (Pain Map, Demand Signals, Source Log) same thread. Kept off public URLs because they hold member names and pricing.</span></div>
+      <div class="lnk"><span class="where">Vault</span><span class="note">Social Method rebuild canon: Products/SocialMethod/ (decisions D-1..D-17, curriculum v2 draft awaiting your review)</span></div>
+    </div>
+  </details>
 
   <h2>1 · The class funnel (the big machine)</h2>
   <p class="h2sub">One connected system: opt-in, class, audit, routes. Friday's recording session is the unlock for most of it.</p>
