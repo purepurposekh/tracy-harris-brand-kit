@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Freedom Filled® Pathway Audit</title>
+  <meta name="description" content="Which parts of your business are holding strong, which one needs your attention first, and your next best step. One step. Not nine." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#f6f4f1" />
+  <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/assets/logos/tracy/tracy-brandmark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; min-height: 100%; }
+    body {
+      font-family: var(--f-sans);
+      background:
+        radial-gradient(ellipse 50% 40% at 85% 0%, rgba(201, 164, 108, 0.14) 0%, rgba(201, 164, 108, 0) 70%),
+        radial-gradient(ellipse 45% 40% at 5% 100%, rgba(110, 142, 119, 0.10) 0%, rgba(110, 142, 119, 0) 70%),
+        var(--p-oatmeal);
+      background-attachment: fixed;
+      color: var(--p-ink);
+      font-size: var(--s-md);
+      line-height: var(--l-relaxed);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .screen { display: none; min-height: 100vh; }
+    .screen.is-active { display: flex; flex-direction: column; animation: pop .4s ease both; }
+    @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.995); } to { opacity: 1; transform: none; } }
+
+    .shell { width: 100%; max-width: 1060px; margin: 0 auto; padding: clamp(20px, 4vw, 44px); flex: 1; display: flex; flex-direction: column; }
+
+    .label {
+      font-family: var(--f-sans-label);
+      font-size: 11px;
+      font-weight: var(--w-medium);
+      letter-spacing: var(--t-widest);
+      text-transform: uppercase;
+      color: var(--p-gold-dark);
+    }
+
+    h1, h2, .serif {
+      font-family: var(--f-serif-display);
+      font-weight: var(--w-regular);
+      color: var(--p-charcoal);
+      letter-spacing: var(--t-tight);
+    }
+
+    /* ---------- pills + chips (the Crextio language) ---------- */
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--f-sans);
+      font-size: var(--s-sm);
+      font-weight: var(--w-medium);
+      border-radius: var(--r-pill);
+      padding: 10px 20px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .pill--gold { background: var(--p-gold-mid); color: var(--p-charcoal); }
+    .pill--dark { background: var(--p-charcoal); color: var(--p-oatmeal); }
+    .pill--hatch {
+      background: repeating-linear-gradient(135deg,
+        rgba(123, 98, 60, 0.18) 0 2px, rgba(123, 98, 60, 0) 2px 7px);
+      border-color: rgba(123, 98, 60, 0.3);
+      color: var(--p-gold-dark);
+    }
+    .pill--ghost { border-color: rgba(16, 16, 16, 0.16); color: var(--p-mute); background: rgba(255,255,255,0.5); }
+    .pill--sage { background: rgba(110, 142, 119, 0.18); color: #44604e; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--f-sans);
+      font-weight: var(--w-medium);
+      font-size: var(--s-md);
+      color: var(--p-oatmeal);
+      background: var(--p-charcoal);
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 16px 36px;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+      text-decoration: none;
+    }
+    .btn .arr {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
+      background: var(--p-gold-mid);
+      color: var(--p-charcoal);
+      border-radius: 50%;
+      font-size: 14px;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(16, 16, 16, 0.18); }
+    .btn--gold { background: var(--p-gold-mid); color: var(--p-charcoal); }
+    .btn--gold .arr { background: var(--p-charcoal); color: var(--p-gold-mid); }
+
+    .card {
+      background: var(--p-white);
+      border-radius: 28px;
+      padding: clamp(24px, 3.4vw, 40px);
+      box-shadow: 0 1px 2px rgba(16, 16, 16, 0.04), 0 14px 40px rgba(16, 16, 16, 0.05);
+    }
+    .card--dark {
+      background: var(--p-charcoal);
+      color: var(--p-oatmeal);
+    }
+    .card--dark .serif, .card--dark h2, .card--dark h3 { color: var(--p-oatmeal); }
+
+    /* ---------- intro ---------- */
+    .intro-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: clamp(24px, 4vw, 56px);
+      align-items: center;
+      padding: clamp(24px, 5vw, 64px) 0;
+    }
+    @media (max-width: 820px) { .intro-grid { grid-template-columns: 1fr; } }
+    .intro-h {
+      font-size: clamp(38px, 5.6vw, 64px);
+      line-height: 1.05;
+      margin: 18px 0 0;
+    }
+    .intro-h .scripted {
+      font-family: var(--f-script);
+      color: var(--p-gold-dark);
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 1;
+      display: block;
+      margin-top: 6px;
+    }
+    .intro-copy { max-width: 480px; margin-top: 22px; color: var(--p-ink); }
+    .intro-copy p { margin: 0 0 12px; }
+    .intro-form { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .intro-form input {
+      font-family: var(--f-sans);
+      font-size: var(--s-md);
+      padding: 15px 26px;
+      width: min(280px, 100%);
+      background: var(--p-white);
+      border: 1px solid rgba(16, 16, 16, 0.12);
+      border-radius: var(--r-pill);
+      color: var(--p-charcoal);
+      outline: none;
+    }
+    .intro-form input:focus { border-color: var(--p-gold-mid); }
+    .intro-meta { margin-top: 16px; font-size: var(--s-sm); color: var(--p-mute); }
+
+    /* floating bubble cluster */
+    .bubble-cluster { position: relative; min-height: 380px; }
+    .fb {
+      position: absolute;
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      font-family: var(--f-sans-label);
+      font-size: 11px;
+      letter-spacing: var(--t-wider);
+      text-transform: uppercase;
+      animation: floaty 6s ease-in-out infinite;
+    }
+    .fb .big { font-family: var(--f-serif-display); font-size: 22px; letter-spacing: 0; text-transform: none; }
+    .fb--1 { width: 150px; height: 150px; top: 4%; left: 8%; background: var(--p-charcoal); color: var(--p-oatmeal); animation-delay: 0s; }
+    .fb--2 { width: 130px; height: 130px; top: 16%; right: 10%; background: var(--p-gold-mid); color: var(--p-charcoal); animation-delay: 1.2s; }
+    .fb--3 { width: 120px; height: 120px; bottom: 22%; left: 16%; background: var(--p-white); color: var(--p-charcoal); box-shadow: 0 14px 40px rgba(16,16,16,.08); animation-delay: 2.1s; }
+    .fb--4 { width: 165px; height: 165px; bottom: 2%; right: 16%; border: 1.5px solid var(--p-gold-dark); color: var(--p-gold-dark); background: rgba(255,255,255,.55); animation-delay: 3s; }
+    @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @media (max-width: 820px) { .bubble-cluster { display: none; } }
+
+    /* ---------- topbar with chapter pills ---------- */
+    .topbar {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding-bottom: clamp(16px, 3vw, 28px);
+    }
+    .topbar .wordmark { font-family: var(--f-serif-display); font-size: var(--s-lg); color: var(--p-charcoal); margin-right: auto; }
+    .chapter-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ---------- chapter intro ---------- */
+    .chapter-stage { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .chapter-bubble {
+      width: min(560px, 92vw);
+      aspect-ratio: 1.6 / 1;
+      border-radius: 48px;
+      background: var(--p-white);
+      box-shadow: 0 20px 60px rgba(16, 16, 16, 0.08);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: clamp(28px, 5vw, 56px);
+      position: relative;
+      overflow: hidden;
+    }
+    .chapter-bubble::before {
+      content: "";
+      position: absolute;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: rgba(201, 164, 108, 0.16);
+      top: -90px; right: -70px;
+    }
+    .chapter-bubble.dark { background: var(--p-charcoal); }
+    .chapter-bubble.dark h2 { color: var(--p-oatmeal); }
+    .chapter-bubble.dark p { color: rgba(246, 244, 241, 0.8); }
+    .chapter-bubble h2 { font-size: clamp(30px, 4.4vw, 44px); margin: 14px 0 8px; position: relative; }
+    .chapter-bubble p { margin: 0; max-width: 40ch; position: relative; }
+    .chapter-bubble .btn { margin-top: 26px; position: relative; }
+
+    /* ---------- question ---------- */
+    .qstage { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding-top: clamp(8px, 2vw, 24px); }
+    .qcard { width: min(720px, 100%); border-radius: 36px; }
+    .q-count { color: var(--p-mute); font-size: var(--s-sm); margin-bottom: 10px; }
+    .qtext { font-size: clamp(22px, 3.2vw, 30px); line-height: 1.25; margin: 0 0 26px; }
+    .opts { display: flex; flex-direction: column; gap: 10px; }
+    .opt {
+      display: flex; align-items: center; gap: 14px;
+      width: 100%;
+      text-align: left;
+      font-family: var(--f-sans);
+      font-size: var(--s-base);
+      line-height: var(--l-normal);
+      color: var(--p-ink);
+      background: var(--p-oatmeal);
+      border: 1px solid transparent;
+      border-radius: 22px;
+      padding: 16px 22px;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .opt:hover { background: #fdfcfa; border-color: var(--p-gold-mid); transform: translateY(-1px); }
+    .opt .dot {
+      flex: 0 0 auto;
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--p-gold-dark);
+      border-radius: 50%;
+    }
+    .opt.is-picked { background: var(--p-white); border-color: var(--p-charcoal); }
+    .opt.is-picked .dot { background: var(--p-gold-mid); border-color: var(--p-charcoal); }
+    .qnav { margin-top: 22px; display: flex; justify-content: space-between; font-size: var(--s-sm); }
+    .qnav a { color: var(--p-mute); cursor: pointer; text-decoration: none; }
+    .qnav a:hover { color: var(--p-gold-dark); }
+
+    /* free text */
+    textarea.ft {
+      width: 100%; min-height: 130px;
+      font-family: var(--f-sans);
+      font-size: var(--s-md);
+      color: var(--p-ink);
+      background: var(--p-oatmeal);
+      border: 1px solid transparent;
+      border-radius: 22px;
+      padding: 18px 22px;
+      resize: vertical; outline: none;
+    }
+    textarea.ft:focus { background: var(--p-white); border-color: var(--p-gold-mid); }
+    .ft-helper { color: var(--p-mute); font-size: var(--s-base); margin: -12px 0 18px; }
+    .ft-actions { margin-top: 22px; display: flex; align-items: center; gap: 22px; }
+    .skip-link { font-size: var(--s-sm); color: var(--p-mute); text-decoration: underline; cursor: pointer; }
+
+    /* ---------- transition ---------- */
+    .transition-stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .transition-stage .tk-script-accent--hero { color: var(--p-gold-dark); }
+    .transition-copy { max-width: 440px; margin-top: 18px; color: var(--p-ink); }
+    .ringload {
+      margin-top: 32px; width: 56px; height: 56px; border-radius: 50%;
+      border: 3px solid rgba(123, 98, 60, 0.18);
+      border-top-color: var(--p-gold-dark);
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- result dashboard ---------- */
+    .r-head { padding: clamp(8px, 2vw, 20px) 0 clamp(20px, 3vw, 30px); }
+    .r-head h1 { font-size: clamp(30px, 4.4vw, 48px); line-height: 1.1; margin: 12px 0 0; max-width: 24ch; }
+    .season-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .season-script {
+      font-family: var(--f-script);
+      font-size: clamp(32px, 3vw, 40px);
+      line-height: 1;
+      color: var(--p-gold-dark);
+    }
+    .r-grid { display: grid; gap: 18px; }
+
+    /* health ring cards */
+    .rings { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    @media (max-width: 920px) { .rings { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .rings { grid-template-columns: 1fr; } }
+    .ring-card { text-align: center; padding: 26px 18px; border-radius: 28px; }
+    .ring-card.fresh-card { background: var(--p-oatmeal); border: 1.5px solid var(--p-gold-mid); box-shadow: none; }
+    .ring-wrap { position: relative; width: 124px; height: 124px; margin: 14px auto 10px; }
+    .ring-wrap svg { transform: rotate(-90deg); }
+    .ring-state {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-sans-label);
+      font-size: 11px;
+      letter-spacing: var(--t-wide);
+      text-transform: uppercase;
+      color: var(--p-charcoal);
+      padding: 0 18px; text-align: center;
+    }
+    .ring-card h4 { font-family: var(--f-serif-display); font-weight: var(--w-regular); font-size: 21px; margin: 4px 0 2px; color: var(--p-charcoal); }
+    .ring-card .sub { font-size: var(--s-xs); color: var(--p-mute); margin: 0; }
+
+    /* focus + secondary */
+    .focus-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+    @media (max-width: 820px) { .focus-grid { grid-template-columns: 1fr; } }
+    .focus-card h3 { font-family: var(--f-serif-display); font-weight: var(--w-regular); font-size: clamp(24px, 3vw, 32px); margin: 14px 0 8px; color: var(--p-charcoal); }
+    .focus-card .meaning { color: var(--p-ink); margin: 0 0 18px; }
+    .fix-block {
+      background: var(--p-oatmeal);
+      border-radius: 22px;
+      padding: 20px 24px;
+      margin-top: 6px;
+    }
+    .fix-block .label { display: block; margin-bottom: 6px; }
+    .secondary-stack { display: flex; flex-direction: column; gap: 18px; }
+    .secondary-card { border-radius: 28px; padding: 22px 26px; }
+    .secondary-card h4 { font-family: var(--f-serif-display); font-weight: var(--w-regular); font-size: 20px; margin: 10px 0 4px; color: var(--p-charcoal); }
+    .secondary-card p { margin: 0; font-size: var(--s-base); color: var(--p-ink); }
+    .strengths-card { background: rgba(110, 142, 119, 0.1); box-shadow: none; border: 1px solid rgba(110, 142, 119, 0.25); }
+
+    /* fresh letters */
+    .letters-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 18px; }
+    .letter-bubble {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-serif-display);
+      font-size: 22px;
+      position: relative;
+    }
+    .letter-bubble.l3 { background: rgba(110, 142, 119, 0.7); color: var(--p-white); }
+    .letter-bubble.l2 { background: rgba(110, 142, 119, 0.28); color: #44604e; }
+    .letter-bubble.l1 { background: rgba(201, 164, 108, 0.4); color: var(--p-gold-dark); }
+    .letter-bubble.l0 { background: var(--p-gold-mid); color: var(--p-charcoal); box-shadow: 0 0 0 4px rgba(201, 164, 108, 0.3); }
+    .letters-note { font-size: var(--s-sm); color: var(--p-mute); }
+
+    /* diagnosis dark panel */
+    .diag .scripted { font-family: var(--f-script); font-size: clamp(32px, 3vw, 38px); color: var(--p-gold-mid); display: block; margin-bottom: 14px; line-height: 1; }
+    .diag p { margin: 0 0 13px; color: rgba(246, 244, 241, 0.85); }
+    .diag p:last-child { margin: 0; }
+    .diag strong { color: var(--p-oatmeal); font-weight: var(--w-medium); }
+
+    /* pathway rows */
+    .path-rows { display: grid; gap: 12px; margin-top: 20px; }
+    .path-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .path-row .dom-pill { width: 86px; justify-content: center; }
+    .area-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: var(--s-sm);
+      border-radius: var(--r-pill);
+      padding: 9px 16px;
+      background: var(--p-white);
+      border: 1px solid rgba(16, 16, 16, 0.08);
+      color: var(--p-ink);
+    }
+    .area-chip .st { width: 9px; height: 9px; border-radius: 50%; }
+    .area-chip .st.strong { background: #6e8e77; }
+    .area-chip .st.steady { background: #b9b2a6; }
+    .area-chip .st.attention { background: var(--p-gold-dark); }
+    .area-chip.is-primary { border: 1.5px solid var(--p-charcoal); background: var(--p-gold-mid); color: var(--p-charcoal); font-weight: var(--w-medium); }
+    .area-chip.is-secondary { border: 1.5px dashed var(--p-gold-dark); }
+
+    /* bridge */
+    .bridge-card { border-radius: 36px; }
+    .bridge-card .scripted { font-family: var(--f-script); font-size: clamp(34px, 3.4vw, 44px); color: var(--p-gold-mid); display: block; line-height: 1; margin-bottom: 16px; }
+    .bridge-card p { margin: 0 0 13px; color: rgba(246, 244, 241, 0.85); }
+    .bridge-card strong { color: var(--p-oatmeal); font-weight: var(--w-medium); }
+    .bridge-card .btn { margin-top: 14px; }
+    .mdm-inline {
+      margin-top: 24px;
+      border: 1px solid rgba(201, 164, 108, 0.4);
+      border-radius: 22px;
+      padding: 18px 22px;
+      font-size: var(--s-base);
+      color: rgba(246, 244, 241, 0.85);
+    }
+    .mdm-inline .t { font-family: var(--f-serif-display); color: var(--p-gold-mid); display: block; margin-bottom: 4px; }
+
+    .sect-gap { margin-top: 18px; }
+    .sect-label { margin: 30px 0 14px; }
+
+    .internals { margin-top: 36px; }
+    .internals details {
+      border: 1px dashed rgba(16, 16, 16, 0.25);
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: var(--s-sm);
+      color: var(--p-mute);
+      background: rgba(255,255,255,.5);
+    }
+    .internals summary { cursor: pointer; font-family: var(--f-sans-label); letter-spacing: var(--t-wide); text-transform: uppercase; font-size: 11px; }
+    .internals table { border-collapse: collapse; margin: 12px 0; }
+    .internals td, .internals th { border: 1px solid rgba(16,16,16,.12); padding: 4px 10px; text-align: left; font-weight: var(--w-regular); }
+    .internals code { font-size: 12px; }
+    .footer-row { text-align: center; padding: 28px 0 40px; font-size: var(--s-sm); color: var(--p-mute); }
+    .footer-row a { color: var(--p-mute); cursor: pointer; }
+  </style>
+</head>
+<body data-brand="ffm">
+
+  <!-- ================= INTRO ================= -->
+  <section class="screen is-active" id="screen-intro">
+    <div class="shell">
+      <div class="topbar"><div class="wordmark">The Freedom Filled&reg; Pathway Audit</div></div>
+      <div class="intro-grid">
+        <div>
+          <span class="label">A health check for your beautiful business</span>
+          <h1 class="intro-h">Let&rsquo;s find your <span class="scripted">next best step</span></h1>
+          <div class="intro-copy">
+            <p>This takes about 10 minutes, and it&rsquo;s worth doing slowly. There are no wrong answers here, and there&rsquo;s no grade at the end.</p>
+            <p>Just answer with what&rsquo;s actually happening in your business right now, not what you&rsquo;re aiming for. At the end you&rsquo;ll see which parts are holding strong, which one needs your attention first, and your next best step. <strong>One step. Not nine.</strong></p>
+          </div>
+          <form class="intro-form" id="intro-form">
+            <input type="text" id="first-name" autocomplete="given-name" placeholder="Your first name" aria-label="Your first name" />
+            <button type="submit" class="btn"><span>Begin</span><span class="arr">&rarr;</span></button>
+          </form>
+          <div class="intro-meta">29 questions across Build, Sell, Lead, and you &middot; your snapshot at the end</div>
+        </div>
+        <div class="bubble-cluster" aria-hidden="true">
+          <div class="fb fb--1"><span class="big">Build</span><span>your foundation</span></div>
+          <div class="fb fb--2"><span class="big">Sell</span><span>your pathway</span></div>
+          <div class="fb fb--3"><span class="big">Lead</span><span>your business</span></div>
+          <div class="fb fb--4"><span class="big">F.R.E.S.H</span><span>the woman in it</span></div>
+        </div>
+      </div>
+      <div class="footer-row">
+        Prototype preview, not customer-facing &middot; jump to a sample result:
+        <a href="?demo=ffb">FFB-ready</a> &middot; <a href="?demo=workshop">Workshop-fit</a> &middot;
+        <a href="?demo=fresh">F.R.E.S.H-first</a> &middot; <a href="?demo=nurture">Free nurture</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHAPTER INTRO ================= -->
+  <section class="screen" id="screen-chapter">
+    <div class="shell">
+      <div class="topbar">
+        <div class="wordmark">Pathway Audit</div>
+        <div class="chapter-pills" id="ch-pills"></div>
+      </div>
+      <div class="chapter-stage">
+        <div class="chapter-bubble" id="ch-bubble">
+          <span class="label" id="ch-count"></span>
+          <h2 id="ch-title"></h2>
+          <p id="ch-copy"></p>
+          <button class="btn" id="ch-go"><span>Let&rsquo;s go</span><span class="arr">&rarr;</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUESTION ================= -->
+  <section class="screen" id="screen-question">
+    <div class="shell">
+      <div class="topbar">
+        <div class="wordmark">Pathway Audit</div>
+        <div class="chapter-pills" id="q-pills"></div>
+      </div>
+      <div class="qstage">
+        <div class="card qcard">
+          <div class="q-count" id="q-count"></div>
+          <h2 class="qtext" id="q-text"></h2>
+          <div class="opts" id="q-opts"></div>
+          <div class="qnav">
+            <a id="q-back" style="visibility:hidden">&larr; Back</a>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FREE TEXT ================= -->
+  <section class="screen" id="screen-freetext">
+    <div class="shell">
+      <div class="topbar"><div class="wordmark">Pathway Audit</div></div>
+      <div class="qstage">
+        <div class="card qcard">
+          <span class="label">Optional &middot; in your own words</span>
+          <h2 class="qtext" id="ft-text" style="margin-top:10px"></h2>
+          <p class="ft-helper" id="ft-helper"></p>
+          <textarea class="ft" id="ft-input"></textarea>
+          <div class="ft-actions">
+            <button class="btn btn--gold" id="ft-continue" type="button"><span>Continue</span><span class="arr">&rarr;</span></button>
+            <a class="skip-link" id="ft-skip">Skip this one</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRANSITION ================= -->
+  <section class="screen" id="screen-transition">
+    <div class="shell">
+      <div class="transition-stage">
+        <div class="tk-script-accent tk-script-accent--hero">That&rsquo;s it, lovely.</div>
+        <div class="transition-copy">
+          <p>You just did something most women avoid. You looked at the whole thing honestly.</p>
+          <p>Give me a moment to put your snapshot together.</p>
+        </div>
+        <div class="ringload" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESULT ================= -->
+  <section class="screen" id="screen-result">
+    <div class="shell">
+      <div class="topbar"><div class="wordmark">The Freedom Filled&reg; Pathway Audit</div></div>
+
+      <div class="r-head">
+        <span class="label">Your Pathway snapshot</span>
+        <h1 id="r-headline"></h1>
+        <div class="season-row">
+          <span class="season-script" id="r-season"></span>
+          <span class="pill pill--ghost" id="r-season-sub"></span>
+        </div>
+      </div>
+
+      <div class="rings" id="r-rings"></div>
+
+      <span class="label sect-label">Where we start</span>
+      <div class="focus-grid">
+        <div class="card focus-card">
+          <span class="pill pill--gold">Start here</span>
+          <h3 id="r-focus-name"></h3>
+          <p class="meaning" id="r-focus-meaning"></p>
+          <div class="fix-block">
+            <span class="label">Your first business fix</span>
+            <span id="r-fix-copy"></span>
+          </div>
+        </div>
+        <div class="secondary-stack" id="r-secondaries"></div>
+      </div>
+
+      <span class="label sect-label">Why we&rsquo;re starting here</span>
+      <div class="card card--dark diag" id="r-diagnosis"></div>
+
+      <span class="label sect-label">The woman carrying it</span>
+      <div class="card" id="r-support-card">
+        <div id="r-support"></div>
+        <div class="letters-row" id="r-letters"></div>
+        <p class="letters-note" style="margin-top:12px">F.R.E.S.H is the foundation under the pathway, not a fourth pillar. The deepest circle is where we&rsquo;d support you first.</p>
+      </div>
+
+      <span class="label sect-label">The Freedom Filled&reg; Pathway</span>
+      <div class="card">
+        <p style="margin:0 0 6px; max-width: 60ch;">Every business on this pathway moves through the same three territories, in order. Here&rsquo;s where yours is asking for attention, and where it&rsquo;s already holding.</p>
+        <div class="path-rows" id="r-path"></div>
+        <p class="letters-note" style="margin-top:18px">Your personalised Pathway Map is on its way to your inbox. Print it. Put it where you plan.</p>
+      </div>
+
+      <div class="sect-gap"></div>
+      <div class="card card--dark bridge-card">
+        <span class="scripted" id="r-bridge-script"></span>
+        <div id="r-bridge-copy"></div>
+        <a class="btn btn--gold" id="r-bridge-cta" href="#"><span id="r-bridge-cta-label"></span><span class="arr">&rarr;</span></a>
+        <div class="mdm-inline" id="r-mdm" style="display:none"></div>
+      </div>
+
+      <div class="internals">
+        <details>
+          <summary>Prototype internals &middot; never customer-facing</summary>
+          <div id="r-internals"></div>
+        </details>
+      </div>
+      <div class="footer-row"><a id="r-restart">Start the audit again</a></div>
+    </div>
+  </section>
+
+  <script src="pathway-audit-engine-v2.js"></script>
+  <script>
+  (function () {
+    var E = window.AuditEngineV2;
+    var AREAS = E.AREAS, ORDER = E.AREA_ORDER, QS = E.QUESTIONS, FQS = E.FRESH_QUESTIONS;
+
+    /* ---------- copy ---------- */
+    var CHAPTERS = [
+      { key: 'BUILD', title: 'Build', count: '8 questions', copy: 'First, the business itself. Your offer, your message, your model. The things everything else stands on.', from: 0, to: 7 },
+      { key: 'SELL', title: 'Sell', count: '8 questions', copy: 'Now, how she finds you. Who’s arriving in your world, and what happens after she leans in.', from: 8, to: 15 },
+      { key: 'LEAD', title: 'Lead', count: '8 questions', copy: 'Then, how you hold it all. The experience you deliver, and what it’s quietly costing you.', from: 16, to: 23 },
+      { key: 'FRESH', title: 'You', count: 'Last five', copy: 'These aren’t about the business. They’re about the woman running it. Answer these the most honestly of all.', from: 24, to: 28, dark: true }
+    ];
+
+    var NEXT_STEP = {
+      B1: 'to clarify your offer', B2: 'to tighten your message', B3: 'to simplify your business model',
+      S1: 'to attract the right people', S2: 'to create a cleaner sales pathway', S3: 'to improve what is already working',
+      L1: 'to strengthen your client experience', L2: 'to facilitate without overgiving', L3: 'to lead with clearer boundaries'
+    };
+    var STATE_LABEL = { strong: 'Strong', steady: 'Steady', attention: 'Needs attention' };
+    var STATE_RING = { strong: 'Holding', steady: 'Steady', attention: 'Needs you' };
+    var STATE_MEANING = {
+      strong: 'This part of your business is holding. Keep doing what you’re doing here.',
+      steady: 'Working, with room to grow. Not where we start.',
+      attention: 'This is where energy and revenue are quietly going missing.'
+    };
+    var RING_COLOR = { strong: '#6e8e77', steady: '#b9b2a6', attention: '#c9a46c' };
+    var DOMAIN_SUBS = { BUILD: 'Offer · message · model', SELL: 'Attract · pathway · improve', LEAD: 'Experience · capacity · boundaries', FRESH: 'The woman carrying it' };
+
+    var FIXES = {
+      B1: 'Write the one-sentence promise of your offer: who it’s for, what it changes for her, and the next step to take. If your buyer can’t repeat it to her partner, it’s not ready yet.',
+      B2: 'Run your message through the Million Dollar Message™ lens: one core message, said the same way, everywhere, until the right woman leans in. Stop re-deciding what you stand for every morning.',
+      B3: 'List everything you currently sell and deliver. Circle the one offer that creates the deepest result with the cleanest delivery. Everything else either feeds it or waits.',
+      S1: 'Pick one channel for the next 30 days. Build one repeatable content rhythm that speaks to the woman your offer is actually for, and stop performing for everyone else.',
+      S2: 'Map what happens after a woman says “tell me more.” Write the exact next step she’s invited into, then make that step visible without her having to ask.',
+      S3: 'Before you build anything new, review your last launch or promotion. Keep what worked, fix one thing, run it again. Repetition is a strategy. Reinvention usually isn’t.',
+      L1: 'Choose one recurring piece of your client journey and document it: what happens, when, and what “done well” looks like. Consistency is what lets the business grow past your memory.',
+      L2: 'Name one unpaid extra you keep giving and either build it into the offer properly or retire it. Generosity by design, not by guilt.',
+      L3: 'Choose one boundary for the next seven days, then move or remove the business activity that usually breaks it. The business learns how to treat you from what you allow.'
+    };
+
+    var BANDS = {
+      foundation: { name: 'The Foundation Season', sub: 'Starting clean is an advantage',
+        hero: 'You’re in what I call The Foundation Season. And before you sigh at that, hear me: you are not behind. You’re at the beginning, and beginnings are the one season where you get to build it right the first time.' },
+      momentum: { name: 'The Momentum Season', sub: 'The pieces exist, now they connect',
+        hero: 'You’re in The Momentum Season. The pieces are real: the skill, the offer, the people who need you. What’s missing isn’t effort. It’s the connection between the pieces.' },
+      refinement: { name: 'The Refinement Season', sub: 'The business works, now it refines',
+        hero: 'You’re in The Refinement Season. This is the season most women never get told they’re in, because everyone is busy selling them the beginner fix. Your business works. The question now is what it costs you to run it.' },
+      leadership: { name: 'The Leadership Season', sub: 'The business holds, now you steward it',
+        hero: 'You’re in The Leadership Season. The business holds. What you’re refining now isn’t survival. It’s stewardship. How the thing you built serves the life it was meant to fund.' }
+    };
+
+    /* ---------- state ---------- */
+    var answers = [], freeText = { a: '', b: '' }, current = 0, firstName = '', chapterIdx = 0;
+
+    var screens = {
+      intro: document.getElementById('screen-intro'),
+      chapter: document.getElementById('screen-chapter'),
+      question: document.getElementById('screen-question'),
+      freetext: document.getElementById('screen-freetext'),
+      transition: document.getElementById('screen-transition'),
+      result: document.getElementById('screen-result')
+    };
+    function show(name) {
+      Object.keys(screens).forEach(function (k) { screens[k].classList.toggle('is-active', k === name); });
+      window.scrollTo(0, 0);
+    }
+    function chapterOf(qIdx) {
+      for (var i = 0; i < CHAPTERS.length; i++) if (qIdx >= CHAPTERS[i].from && qIdx <= CHAPTERS[i].to) return i;
+      return CHAPTERS.length - 1;
+    }
+    function questionData(i) { return i < 24 ? QS[i] : FQS[i - 24]; }
+
+    /* ---------- chapter pills ---------- */
+    function renderPills(el, activeIdx) {
+      el.innerHTML = '';
+      CHAPTERS.forEach(function (c, i) {
+        var cls = i < activeIdx ? 'pill pill--dark' : (i === activeIdx ? 'pill pill--gold' : 'pill pill--hatch');
+        var s = document.createElement('span');
+        s.className = cls;
+        s.textContent = c.title;
+        el.appendChild(s);
+      });
+    }
+
+    /* ---------- chapter intro ---------- */
+    function showChapter(i) {
+      chapterIdx = i;
+      var c = CHAPTERS[i];
+      document.getElementById('ch-count').textContent = 'Part ' + (i + 1) + ' of 4 · ' + c.count;
+      document.getElementById('ch-title').textContent = c.title;
+      document.getElementById('ch-copy').textContent = c.copy;
+      document.getElementById('ch-bubble').classList.toggle('dark', !!c.dark);
+      renderPills(document.getElementById('ch-pills'), i);
+      show('chapter');
+    }
+    document.getElementById('ch-go').addEventListener('click', function () {
+      current = CHAPTERS[chapterIdx].from;
+      show('question');
+      renderQuestion();
+    });
+
+    /* ---------- questions ---------- */
+    function renderQuestion() {
+      var q = questionData(current);
+      var ch = CHAPTERS[chapterOf(current)];
+      document.getElementById('q-count').textContent = ch.title + ' · question ' + (current - ch.from + 1) + ' of ' + (ch.to - ch.from + 1);
+      document.getElementById('q-text').textContent = q.text;
+      renderPills(document.getElementById('q-pills'), chapterOf(current));
+      document.getElementById('q-back').style.visibility = current === 0 ? 'hidden' : 'visible';
+
+      var box = document.getElementById('q-opts');
+      box.innerHTML = '';
+      q.o.forEach(function (opt, idx) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt' + (answers[current] === idx ? ' is-picked' : '');
+        b.innerHTML = '<span class="dot"></span><span>' + opt.t + '</span>';
+        b.addEventListener('click', function () {
+          answers[current] = idx;
+          b.classList.add('is-picked');
+          setTimeout(advance, 200);
+        });
+        box.appendChild(b);
+      });
+    }
+    function advance() {
+      if (current === 7) { current++; showFreeText('a'); return; }       // FT-A after Build
+      if (current === 28) { showFreeText('b'); return; }                 // FT-B after the FRESH block
+      current++;
+      if (current === 8 || current === 16 || current === 24) { showChapter(chapterOf(current)); return; }
+      renderQuestion();
+    }
+    document.getElementById('q-back').addEventListener('click', function () {
+      if (current > 0) { current--; renderQuestion(); }
+    });
+
+    /* ---------- free text ---------- */
+    var ftCurrent = 'a';
+    var FT_COPY = {
+      a: { text: 'In your own words: what do you sell, and who is it really for?', helper: 'Don’t polish it. Whatever you’d actually say is exactly what I want to see.' },
+      b: { text: 'Imagine it’s twelve months from now and your business finally fits your life. What’s different?', helper: 'Paint the picture. What does a normal Tuesday look like?' }
+    };
+    function showFreeText(which) {
+      ftCurrent = which;
+      document.getElementById('ft-text').textContent = FT_COPY[which].text;
+      document.getElementById('ft-helper').textContent = FT_COPY[which].helper;
+      document.getElementById('ft-input').value = freeText[which];
+      show('freetext');
+    }
+    function leaveFreeText(save) {
+      if (save) freeText[ftCurrent] = document.getElementById('ft-input').value.trim();
+      if (ftCurrent === 'a') { showChapter(1); }
+      else { finish(); }
+    }
+    document.getElementById('ft-continue').addEventListener('click', function () { leaveFreeText(true); });
+    document.getElementById('ft-skip').addEventListener('click', function () { leaveFreeText(false); });
+
+    function finish() {
+      show('transition');
+      setTimeout(function () { renderResult(E.compute(answers)); show('result'); }, 2400);
+    }
+
+    /* ---------- result helpers ---------- */
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+    function lcArea(code) { return AREAS[code].name.charAt(0).toLowerCase() + AREAS[code].name.slice(1); }
+    function joinNames(codes, lower) {
+      var names = codes.map(function (c) { return lower ? lcArea(c) : AREAS[c].name; });
+      if (names.length <= 1) return names.join('');
+      return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+    }
+    function p(t) { return '<p>' + t + '</p>'; }
+
+    function ringSVG(score, state) {
+      var rad = 52, circ = 2 * Math.PI * rad;
+      var fill = Math.max(0.04, score / 100) * circ;
+      return '<svg width="124" height="124" viewBox="0 0 124 124">' +
+        '<circle cx="62" cy="62" r="' + rad + '" fill="none" stroke="rgba(16,16,16,0.08)" stroke-width="10"/>' +
+        '<circle cx="62" cy="62" r="' + rad + '" fill="none" stroke="' + RING_COLOR[state] + '" stroke-width="10" stroke-linecap="round" stroke-dasharray="' + fill + ' ' + circ + '"/>' +
+        '</svg>';
+    }
+
+    function diagnosisCopy(res) {
+      var prim = lcArea(res.primary);
+      var html = '<span class="scripted">read this slowly</span>';
+      if (res.band === 'foundation') {
+        html += p('Your snapshot is going to show several areas asking for attention. That’s not a red flag. That’s what a foundation season looks like, for every woman who’s ever built one of these.');
+        html += p('You don’t fix nine things. You take one step. <strong>This one.</strong>');
+      } else if (res.band === 'momentum') {
+        if (res.strengths.length) {
+          html += p('Here’s what I see in your snapshot. Some parts of your business are genuinely holding: ' + joinNames(res.strengths, true) + '. And a few parts are working harder than they should, because ' + prim + ' isn’t carrying its share yet.');
+        } else {
+          html += p('Here’s what I see in your snapshot. Parts of your business are working harder than they should, because ' + prim + ' isn’t carrying its share yet.');
+        }
+        html += p('This is usually where freedom starts leaking. Not because anything is broken, but because effort is flowing into places that can’t hold it yet.');
+        html += p('<strong>You are not the problem here.</strong> The connection point is. And connection points are fixable.');
+      } else if (res.band === 'refinement') {
+        html += p('Most of your snapshot is strong or steady. Read that again, because I know you skimmed past it.');
+        html += p('But there’s one place where freedom is quietly leaking out of a business that’s otherwise holding: ' + prim + '. Close that, and you don’t just earn more. You get your evenings back. You stop re-earning your clarity every Monday.');
+        html += p('There is work to do. <strong>AND the next move is exactly one thing.</strong>');
+      } else {
+        if (res.allStrong) {
+          html += p('Nothing here needs rescue. So we go where the next layer of freedom is: ' + prim + '. Not because it’s weak, but because it’s next.');
+        } else {
+          html += p('Almost everything in your snapshot is holding. So this result isn’t a repair list. It’s a leadership question.');
+          html += p(AREAS[res.primary].name + ' is the one place still taking more from you than it gives back. At your stage, that’s not a flaw. It’s simply the next thing you’ve earned the right to refine.');
+        }
+      }
+      if (res.NA >= 6 && res.band !== 'foundation') {
+        html += p('And one more thing: your snapshot shows several areas asking for attention at once. That’s normal for this season. The plan is still one step, not nine.');
+      }
+      return html;
+    }
+
+    function supportCopy(res) {
+      var label = res.supportLabel.charAt(0).toLowerCase() + res.supportLabel.slice(1);
+      if (res.freshLevel === 'first') {
+        return p('Before we talk strategy at all, this matters more: <strong>' + label + '</strong>.') +
+          p('Your answers told me the woman running this business is running low. So your next step starts with you, not with funnels. More on that just below.');
+      }
+      if (res.freshLevel === 'elevated') {
+        return p('Your answers told me something about you, not just your business. The business work will land better with one support line held alongside it: <strong>' + label + '</strong>.') +
+          p('Strategy that costs you your health isn’t freedom. We don’t build that way.');
+      }
+      return p('Your foundation is holding well. One quiet note as you take this next step: ' + label + '. The pathway works best when the woman walking it stays supported.');
+    }
+
+    var BRIDGES = {
+      ffb: { script: 'your route forward', cta: 'Apply for Freedom Filled® Business',
+        copy: function (n, res) {
+          return p('Here’s what I want you to know, ' + (n || 'lovely') + '.') +
+            p('Your answers don’t describe a woman who needs another course. They describe a woman who’s done piecing it together alone, with a business that’s ready for real mentorship.') +
+            p('<strong>Freedom Filled® Business</strong> is where I take women exactly where you are and walk the whole pathway with them: BUILD, SELL, LEAD, in order, with me in the room.') +
+            p('It’s application-based, because it has to be. The work is real and the room is intentional.') +
+            p('If you’re ready to stop circling, apply. It’s a brave decision. The right ones usually are.');
+        }},
+      workshop: { script: 'your route forward', cta: 'Save your seat for the next workshop',
+        copy: function (n, res) {
+          return p('You’re closer than you think, ' + (n || 'lovely') + '. What you need next isn’t more information. It’s to see the pathway working, live, with your business in mind.') +
+            p('That’s exactly what my workshops are for. Come, bring your snapshot, and I’ll show you how women like you turn ' + lcArea(res.primary) + ' around without blowing everything up and starting again.');
+        }},
+      fresh: { script: 'before strategy, you', cta: 'Start the F.R.E.S.H. Reset',
+        copy: function (n, res) {
+          return p(cap(n || 'lovely') + ', I want to say something before we talk strategy. Because your answers told me something more important than where your business needs work.') +
+            p('<strong>They told me the woman running it is running on empty.</strong>') +
+            p('You are not broken, and you have not failed. You’ve been under-supported, carrying a whole business on your own back, and calling the exhaustion a personal flaw. It isn’t one.') +
+            p('So we’re not starting with funnels. We’re starting with you. My F.R.E.S.H. framework is how I rebuild the foundation underneath a business: your energy, your relationships, your rhythm. The strategy will still be here. It lands better when you’re resourced enough to hold it.');
+        }},
+      nurture: { script: 'your route forward', cta: 'Start with Tracy’s free teaching',
+        copy: function (n, res) {
+          return p(cap(n || 'lovely') + ', you’re at the very start, and I mean this: that is not a bad place to be.') +
+            p('You don’t need a mentorship yet. You don’t need a funnel. You need language, examples, and a little time letting the shape of your business come into focus.') +
+            p('Start with my free teaching. Let it give shape to what’s already stirring in you. When the foundation pieces are in place, the pathway will still be here, and so will I.');
+        }}
+    };
+
+    /* ---------- result render ---------- */
+    function renderResult(res) {
+      var band = BANDS[res.band];
+      var lead = firstName ? cap(firstName) + ', your' : 'Your';
+      document.getElementById('r-headline').textContent = lead + ' next best step is ' + NEXT_STEP[res.primary] + '.';
+      document.getElementById('r-season').textContent = band.name;
+      document.getElementById('r-season-sub').textContent = band.sub;
+
+      // health rings
+      var rings = document.getElementById('r-rings');
+      rings.innerHTML = '';
+      ['BUILD', 'SELL', 'LEAD', 'FRESH'].forEach(function (d) {
+        var sc = res.domainScores[d], st = res.domainStates[d];
+        var card = document.createElement('div');
+        card.className = 'card ring-card' + (d === 'FRESH' ? ' fresh-card' : '');
+        card.innerHTML =
+          '<span class="label">' + (d === 'FRESH' ? 'F.R.E.S.H' : cap(d.toLowerCase())) + '</span>' +
+          '<div class="ring-wrap">' + ringSVG(sc, st) + '<div class="ring-state">' + STATE_RING[st] + '</div></div>' +
+          '<h4>' + STATE_LABEL[st] + '</h4>' +
+          '<p class="sub">' + DOMAIN_SUBS[d] + '</p>';
+        rings.appendChild(card);
+      });
+
+      // focus card
+      document.getElementById('r-focus-name').textContent = AREAS[res.primary].name;
+      document.getElementById('r-focus-meaning').textContent = STATE_MEANING[res.states[res.primary]];
+      document.getElementById('r-fix-copy').textContent = FIXES[res.primary];
+
+      // secondaries + strengths
+      var sec = document.getElementById('r-secondaries');
+      sec.innerHTML = '';
+      res.secondaries.forEach(function (code) {
+        var c = document.createElement('div');
+        c.className = 'card secondary-card';
+        c.innerHTML = '<span class="pill pill--ghost">Then</span><h4>' + AREAS[code].name + '</h4><p>' + STATE_MEANING[res.states[code]] + '</p>';
+        sec.appendChild(c);
+      });
+      if (res.strengths.length) {
+        var s = document.createElement('div');
+        s.className = 'card secondary-card strengths-card';
+        s.innerHTML = '<span class="pill pill--sage">Holding strong</span><h4 style="font-size:17px; font-family: var(--f-sans); font-weight: 500;">' + joinNames(res.strengths, false) + '</h4><p>Built, not lucky. We protect these while we work.</p>';
+        sec.appendChild(s);
+      }
+
+      // diagnosis + support
+      document.getElementById('r-diagnosis').innerHTML = diagnosisCopy(res);
+      document.getElementById('r-support').innerHTML = supportCopy(res);
+
+      // letter bubbles (fill encodes her 0-3 on each letter, no numbers)
+      var lr = document.getElementById('r-letters');
+      lr.innerHTML = '';
+      ['F', 'R', 'E', 'S', 'H'].forEach(function (L) {
+        var v = res.letterScores[L];
+        var b = document.createElement('div');
+        b.className = 'letter-bubble l' + v;
+        b.title = E.FRESH_LABELS[L];
+        b.textContent = L;
+        lr.appendChild(b);
+      });
+
+      // pathway rows
+      var path = document.getElementById('r-path');
+      path.innerHTML = '';
+      ['BUILD', 'SELL', 'LEAD'].forEach(function (dom) {
+        var row = document.createElement('div');
+        row.className = 'path-row';
+        var domPill = document.createElement('span');
+        domPill.className = 'pill dom-pill ' + (res.domainStates[dom] === 'attention' ? 'pill--gold' : (res.domainStates[dom] === 'strong' ? 'pill--sage' : 'pill--ghost'));
+        domPill.textContent = cap(dom.toLowerCase());
+        row.appendChild(domPill);
+        ORDER.filter(function (c) { return AREAS[c].domain === dom; }).forEach(function (code) {
+          var chip = document.createElement('span');
+          var cls = 'area-chip';
+          if (code === res.primary) cls += ' is-primary';
+          else if (res.secondaries.indexOf(code) !== -1) cls += ' is-secondary';
+          chip.className = cls;
+          chip.innerHTML = '<span class="st ' + res.states[code] + '"></span>' + AREAS[code].name + (code === res.primary ? ' · start here' : '');
+          row.appendChild(chip);
+        });
+        path.appendChild(row);
+      });
+      // FRESH foundation row
+      var frow = document.createElement('div');
+      frow.className = 'path-row';
+      frow.innerHTML = '<span class="pill dom-pill ' + (res.freshState === 'attention' ? 'pill--gold' : 'pill--dark') + '">F.R.E.S.H</span>' +
+        '<span class="area-chip"><span class="st ' + res.freshState + '"></span>The foundation underneath it all' + (res.route === 'fresh' ? ' · where we begin' : '') + '</span>';
+      path.appendChild(frow);
+
+      // bridge
+      var bridge = BRIDGES[res.route];
+      document.getElementById('r-bridge-script').textContent = bridge.script;
+      document.getElementById('r-bridge-copy').innerHTML = bridge.copy(firstName, res);
+      document.getElementById('r-bridge-cta-label').textContent = bridge.cta;
+      var mdm = document.getElementById('r-mdm');
+      mdm.style.display = 'none';
+      if (res.mdmFit && res.route === 'ffb') {
+        mdm.style.display = '';
+        mdm.innerHTML = '<span class="t">While you’re deciding</span>If your message is the wall you keep hitting, the Million Dollar Message™ Workshop is the fastest fix I teach. While you’re deciding, start there.';
+      }
+      if (res.mdmFit && res.route === 'workshop') {
+        document.getElementById('r-bridge-copy').innerHTML += p('Your snapshot says your message is the place to start. The next Million Dollar Message™ Workshop is built for exactly that.');
+        document.getElementById('r-bridge-cta-label').textContent = 'Save your seat for the Million Dollar Message™ Workshop';
+      }
+
+      // internals
+      var rows = ORDER.map(function (c) {
+        return '<tr><td>' + c + ' ' + AREAS[c].name + '</td><td>' + res.scores[c] + '</td><td>' + res.states[c] + '</td></tr>';
+      }).join('');
+      document.getElementById('r-internals').innerHTML =
+        '<table><tr><th>Area</th><th>Internal score</th><th>State</th></tr>' + rows + '</table>' +
+        '<div>Domains: <code>' + JSON.stringify(res.domainScores) + '</code> &middot; FRESH letters (0-3): <code>' + JSON.stringify(res.letterScores) + '</code> &middot; support letter: <code>' + res.supportLetter + '</code></div>' +
+        '<div>R: <code>' + res.R + '</code> &middot; Band: <code>' + res.band + '</code> &middot; Route: <code>' + res.route + '</code> &middot; NA: <code>' + res.NA + '</code> &middot; Q24: <code>' + res.q24 + '</code> &middot; FRESH score: <code>' + res.freshScore + '</code> &middot; legacy DF: <code>' + res.depletionCount + '</code> &middot; level: <code>' + res.freshLevel + '</code> &middot; mdm_fit: <code>' + res.mdmFit + '</code></div>' +
+        '<div>Fired tags: <code>' + res.tags.join(', ') + '</code></div>' +
+        '<div>AC tags: <code>' + res.acTags.join(', ') + '</code></div>' +
+        '<div>Free text A: <code>' + (freeText.a || '(skipped)') + '</code> &middot; B: <code>' + (freeText.b || '(skipped)') + '</code></div>' +
+        '<div style="margin-top:8px">v2 engine: 29 questions (24 business + 5 FRESH). FRESH-first route fires on measured FRESH health &lt; 45 or legacy depletion flags &ge; 4. CTA links are placeholders.</div>';
+    }
+
+    /* ---------- intro / restart / demo ---------- */
+    document.getElementById('intro-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      firstName = document.getElementById('first-name').value.trim();
+      answers = [];
+      showChapter(0);
+    });
+    document.getElementById('r-restart').addEventListener('click', function () {
+      window.location.href = window.location.pathname;
+    });
+    document.getElementById('r-bridge-cta').addEventListener('click', function (e) { e.preventDefault(); });
+
+    // Demo presets (29 answers: 24 business + F,R,E,S,H)
+    var DEMOS = {
+      ffb: { name: 'Leah', a: [3,3,2,0,0,1,3,2,2,3,3,3,2,3,3,2,2,3,3,2,3,3,3,3, 2,3,2,3,3] },
+      workshop: { name: 'Leah', a: [2,1,2,1,2,2,1,2,1,2,2,1,2,2,1,2,2,1,2,2,1,2,2,2, 2,2,1,2,2] },
+      fresh: { name: 'Leah', a: [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,3,2,2,3, 0,1,1,0,1] },
+      nurture: { name: 'Leah', a: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,2,2,0,2,2,2, 2,2,2,2,2] }
+    };
+    var demo = new URLSearchParams(window.location.search).get('demo');
+    if (demo && DEMOS[demo]) {
+      firstName = DEMOS[demo].name;
+      answers = DEMOS[demo].a.slice();
+      renderResult(E.compute(answers));
+      show('result');
+    }
+  })();
+  </script>
+</body>
+</html>
