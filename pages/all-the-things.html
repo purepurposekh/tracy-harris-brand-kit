@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All The Things · built but not shipped · Tracy Harris Co</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: var(--f-sans); background: var(--p-oatmeal); color: var(--p-ink);
+    font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: clamp(24px, 5vw, 56px) clamp(16px, 4vw, 32px) 80px; }
+  header h1 { font-family: var(--f-serif-display); font-weight: 400; font-size: clamp(30px, 5vw, 44px); color: var(--p-charcoal); margin: 8px 0 4px; }
+  .kicker { font-family: var(--f-sans-label); font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--p-gold-dark); }
+  .sub { color: var(--p-mute); max-width: 60ch; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }
+
+  .chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-sans-label); font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
+  .chip .d { width: 8px; height: 8px; border-radius: 50%; }
+  .c-now { background: rgba(110,142,119,.18); color: #3d5a47; } .c-now .d { background: #6e8e77; }
+  .c-push { background: rgba(201,164,108,.28); color: var(--p-gold-dark); } .c-push .d { background: #c9a46c; }
+  .c-call { background: rgba(16,16,16,.85); color: var(--p-oatmeal); } .c-call .d { background: var(--p-gold-mid); }
+  .c-scope { background: rgba(16,16,16,.07); color: var(--p-mute); } .c-scope .d { background: #b9b2a6; }
+  .c-pause { background: rgba(192,113,82,.15); color: #8a4a31; } .c-pause .d { background: #c07152; }
+
+  h2 { font-family: var(--f-serif-display); font-weight: 400; font-size: clamp(21px, 3vw, 27px); color: var(--p-charcoal); margin: 44px 0 4px; }
+  .h2sub { color: var(--p-mute); font-size: 13px; margin: 0 0 16px; }
+
+  .item { background: var(--p-white); border: 1px solid rgba(16,16,16,.07); border-radius: 18px; padding: 18px 20px; margin-bottom: 12px; }
+  .item .top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .item h3 { font-family: var(--f-serif-display); font-weight: 400; font-size: 18px; color: var(--p-charcoal); margin: 0; flex: 1; min-width: 200px; }
+  .item .sum { margin: 8px 0 0; }
+  .item .next { margin: 10px 0 0; padding: 10px 14px; background: var(--p-oatmeal); border-radius: 12px; font-size: 13.5px; }
+  .item .next b { font-family: var(--f-sans-label); font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--p-gold-dark); display: block; margin-bottom: 3px; }
+  .item a { color: var(--p-gold-dark); }
+  footer { margin-top: 48px; font-size: 12px; color: var(--p-mute); }
+</style>
+</head>
+<body data-brand="ffm">
+<div class="wrap">
+  <header>
+    <div class="kicker">Tracy Harris Co · internal · 10 June 2026</div>
+    <h1>All the things</h1>
+    <p class="sub">Everything created and not yet shipped, from the vault, memory, repos and thread history. Grouped by how close it is to live. Each card: what it is, then exactly what stands between it and the world.</p>
+    <div class="legend">
+      <span class="chip c-now"><span class="d"></span>Ready now</span>
+      <span class="chip c-push"><span class="d"></span>One push from live</span>
+      <span class="chip c-call"><span class="d"></span>Needs your call</span>
+      <span class="chip c-scope"><span class="d"></span>Scoped only</span>
+      <span class="chip c-pause"><span class="d"></span>Paused / parked</span>
+    </div>
+  </header>
+
+  <h2>1 · The class funnel (the big machine)</h2>
+  <p class="h2sub">One connected system: opt-in, class, audit, routes. Friday's recording session is the unlock for most of it.</p>
+
+  <div class="item">
+    <div class="top"><h3>Opt-in landing page (Hero Freebie, v6)</h3><span class="chip c-push"><span class="d"></span>One push</span></div>
+    <p class="sum">Both variants built and approved on preview (FFM dark + FFB), recognition section + chosen image wired. Copy locked. <a href="https://d03fa89c.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v6-dark">FFM</a> · <a href="https://d03fa89c.tracy-harris-brand-kit.pages.dev/pages/thc-optin-landing-v6-ffb">FFB</a></p>
+    <div class="next"><b>To go live</b>Tracy records the teaser Friday (script ready) → wire opt-in form to AC → pick the production URL → deploy + smoke test. Mostly my work, one Karl call on the URL.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>20-minute class + segmentation gate + class page</h3><span class="chip c-push"><span class="d"></span>One push</span></div>
+    <p class="sum">Class script v2 done and voice-checked (teleprompter package delivered). Segmentation gate and personalised class page built on preview. Mux token in hand for video hosting.</p>
+    <div class="next"><b>To go live</b>Tracy records Friday → I upload to Mux, wire the class page, connect gate answers to AC tags → live behind the opt-in.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>The Freedom Filled® Pathway Audit</h3><span class="chip c-push"><span class="d"></span>One push</span></div>
+    <p class="sum">Engine built and tested against every scoring case. Two working prototypes live (v1 FFM-editorial, v2 bubble dashboard with measured F.R.E.S.H). Deep-dive result videos on Friday's recording list. Your Claude Design round in flight.</p>
+    <div class="next"><b>To go live</b>You pick the visual direction → I rebuild on the kit + production backend (submissions, AC tags, route URLs) → wire as the post-class step. The only funnel piece with real build left.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Launch + nurture emails</h3><span class="chip c-push"><span class="d"></span>One push</span></div>
+    <p class="sum">8 launch emails were placed in the calendar (Jun 9 session) and the funnel decisions doc carries the nurture sequences.</p>
+    <div class="next"><b>To go live</b>Confirm the email calendar against the actual record/go-live dates and load into AC. Needs the cart close date you still haven't confirmed (I'm carrying "Jun 16, presumed").</div>
+  </div>
+
+  <h2>2 · Freebies and opt-ins built earlier, never shipped</h2>
+
+  <div class="item">
+    <div class="top"><h3>F.R.E.S.H. Reset (5-day experience)</h3><span class="chip c-call"><span class="d"></span>Your call</span></div>
+    <p class="sum">The most complete unshipped asset in the house: 4 sales-page variants, welcome page, 5-day tabbed portal with the Leadership Deck game, AC list + 9 tags built, 6 emails drafted. Sat since late April. Now locked to become the $47 USD paid taster in the funnel plan.</p>
+    <div class="next"><b>To go live</b>1) Tracy voice-reviews the 6 emails (the blocker since April). 2) Convert checkout to $47 USD. 3) AC automation built in the dashboard UI (manual work). 4) Wire the form, test end to end, live.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>MDM Custom GPT</h3><span class="chip c-now"><span class="d"></span>Ready now</span></div>
+    <p class="sum">Delivery pack committed with a 10-minute setup README. You chose OpenAI's GPT Builder, handed to workshop attendees. Never set up on Tracy's OpenAI account.</p>
+    <div class="next"><b>To go live</b>10 minutes: you or Tracy follow the README, publish, drop the link to the 22 MDM buyers. The fastest single ship on this page, and it lands on exactly the people we want to bridge to FFB.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Micro Magnet (IG comment-to-DM lead engine)</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">May project off Taki's playbook. The GPT concept it chose (Million Dollar Message Builder) effectively became the MDM Custom GPT above. The distribution half (contrarian carousel + comment-to-DM automation + DM delivery + workshop bridge) was never built.</p>
+    <div class="next"><b>To go live</b>Revive as the public distribution layer FOR the MDM GPT: one carousel, one automation (ManyChat or Meta native), DM delivers the GPT, bridge to the next workshop. Decision needed: greenlight + automation tool choice.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>FFB Quiz v2 + legacy SMS quiz</h3><span class="chip c-call"><span class="d"></span>Your call</span></div>
+    <p class="sum">FFB Quiz v2 built on the v4 brand (GitHub Pages). Legacy SMS-era quiz still live, deliberately, until the unified replacement ships. The Pathway Audit IS that replacement.</p>
+    <div class="next"><b>To go live (or die)</b>When the audit ships: retire both, redirect to the audit. No new work, just the teardown decision already locked in the quiz plan.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Freedom by Design v2 / HD bodygraph</h3><span class="chip c-call"><span class="d"></span>Your call</span></div>
+    <p class="sum">HD chart pages render correctly on the Pages preview (natal-engine SVG). The product around them has been in limbo since April ("is FBD v2 deprecated now that HD lives on the Astro site?"). Never answered.</p>
+    <div class="next"><b>To go live (or die)</b>One decision: ship as a freebie/lead asset, fold into the audit ecosystem, or archive the repo. I'd archive until the main funnel is live; it's a distraction this month.</div>
+  </div>
+
+  <h2>3 · Products waiting on a GO (today's briefs)</h2>
+
+  <div class="item">
+    <div class="top"><h3>The Social Method® v2</h3><span class="chip c-call"><span class="d"></span>Your call</span></div>
+    <p class="sum">Complete curriculum draft (4 modules, AI tool modes, FFB hand-off cards) waiting for your review since May 1. 17 decisions already locked.</p>
+    <div class="next"><b>To go live</b>You review the draft + lock $497 or $697 → Tracy records 5 videos in one session → I build in Circle with locked nav → August standalone open.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Launch In A Day ($500-750 intensive)</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">Your one-day idea, scoped in today's brief: Tracy runs her own launch method live, everyone leaves with their launch skeleton built. 20-40 seats, $10-30K per run, manual pilot of the Launch Builder idea.</p>
+    <div class="next"><b>To go live</b>Greenlight + a July date Tracy can hold → I build the run-of-day + sales page → presell privately to MDM buyers and FFB alumni.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Social Scripts Vault ($47-97)</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">One curated swipe product harvested from the proven dormant sellers (Reels That Sell 1,124 sales, Stand-Out Stories 520, Captions/DM scripts) with AI prompt companions.</p>
+    <div class="next"><b>To go live</b>Scope approval → I curate + modernise from the Kajabi archive → checkout + one email. Post-cart (Jun 17+).</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Story Scripts relaunch + MDM evergreen replay</h3><span class="chip c-now"><span class="d"></span>Ready now</span></div>
+    <p class="sum">Both proven, both effectively dormant checkouts. The evidence report's top two plays. MDM instant-access page is already live at workshop.tracyharris.co/access.</p>
+    <div class="next"><b>To go live</b>Your GO → re-open Story Scripts checkout + one email and IG push; point MDM evergreen emails at the live access page. Timed post-cart per the report's sequencing rule.</div>
+  </div>
+
+  <h2>4 · Tools and infrastructure in flight</h2>
+
+  <div class="item">
+    <div class="top"><h3>Lead enrichment: Monday board writes</h3><span class="chip c-push"><span class="d"></span>One push</span></div>
+    <p class="sum">All 49 Hot lead dossiers + summary drafts done and committed. The agent writing 49 Lead Context updates + 6 scannable board columns was killed by the quota pause. Only Cynthia's example update is live.</p>
+    <div class="next"><b>To go live</b>Your resume-GO → one agent run posts the remaining 48 updates + columns. Format already approved.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Personalised Video System (/video)</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">iPhone recorder + Mux + send-via-AC, scoped and refined (task #57). Awaiting greenlight since Jun 9.</p>
+    <div class="next"><b>To go live</b>Greenlight → build in tracy-admin alongside /leads.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>Launch Builder (The Social Method app)</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">Clickable wireframe live (Interview / Strategy Map / Refinement / Power Tools). The Tracy-coaching system prompt, the actual IP, was never drafted.</p>
+    <div class="next"><b>To go live</b>Recommendation stands: validate manually with Launch In A Day first, then build. No code until the intensive proves the demand.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>tracyharris.co website rebuild (Astro)</h3><span class="chip c-call"><span class="d"></span>Your call</span></div>
+    <p class="sum">Site built. The one-character brand-token bug I found May 26 (data-brand="tracy-harris-co" vs "tracy") is still in the layout, fix awaiting your nod. Cutover plan to the live domain never scheduled.</p>
+    <div class="next"><b>To go live</b>Say go on the one-line fix → rebuild + redeploy → then a cutover decision for the domain. The fix itself is minutes.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>socialmethodsociety.com redirect</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">Locked decision D-12: keep the domain, 301 to tracyharris.co/sms. Nothing exists at /sms yet.</p>
+    <div class="next"><b>To go live</b>Ships with The Social Method® v2 page. Five minutes of DNS when there's a destination.</div>
+  </div>
+
+  <div class="item">
+    <div class="top"><h3>IG-to-Notion content archive</h3><span class="chip c-scope"><span class="d"></span>Scoped</span></div>
+    <p class="sum">Research complete (May 31): Graph API for posts/reels, story-expiry webhooks, media re-hosting required. No build decision made.</p>
+    <div class="next"><b>To go live</b>Decision: build (n8n or Worker), or park. I'd park until the funnel ships.</div>
+  </div>
+
+  <h2>5 · Deliberately paused (your standing calls)</h2>
+  <div class="item">
+    <div class="top"><h3>Parked by decision</h3><span class="chip c-pause"><span class="d"></span>Paused</span></div>
+    <p class="sum"><b style="font-weight:500">Sequence</b> (paused Apr 23, migrate to thc.db when revived) · <b style="font-weight:500">analytics build / PostHog</b> (awaiting greenlight) · <b style="font-weight:500">DAM on Bunny</b> (after Astro ships) · <b style="font-weight:500">50 SEO articles + stories bank</b> (April queue, stale) · <b style="font-weight:500">webinar execution sprint</b> (in the report, run only if capacity allows after the first two plays) · <b style="font-weight:500">SMS member migration</b> (timed to Social Method® v2 shipping, locked).</p>
+  </div>
+
+  <footer>
+    Compiled by Kira from vault canon, memory, repo state, Kajabi API and thread history · 10 June 2026.<br>
+    Sources verified where possible; the email-calendar state and which site currently serves tracyharris.co are flagged for confirmation.
+  </footer>
+</div>
+</body>
+</html>
