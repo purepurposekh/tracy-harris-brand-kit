@@ -1,0 +1,548 @@
+{
+  "ffb": {
+    "firstName": "Leah",
+    "heroHeadline": "Leah, your next best step is to tighten your message.",
+    "season": {
+      "key": "refinement",
+      "name": "The Refinement Season"
+    },
+    "route": "ffb",
+    "primaryFocus": {
+      "code": "B2",
+      "name": "Tighten your message",
+      "domain": "BUILD",
+      "state": "attention"
+    },
+    "secondaryFocus": [
+      {
+        "code": "B3",
+        "name": "Simplify your business model",
+        "domain": "BUILD",
+        "state": "strong"
+      },
+      {
+        "code": "S3",
+        "name": "Improve what is already working",
+        "domain": "SELL",
+        "state": "strong"
+      }
+    ],
+    "areas": [
+      {
+        "code": "B1",
+        "name": "Clarify your offer",
+        "domain": "BUILD",
+        "state": "strong",
+        "internalScore": 89
+      },
+      {
+        "code": "B2",
+        "name": "Tighten your message",
+        "domain": "BUILD",
+        "state": "attention",
+        "internalScore": 11
+      },
+      {
+        "code": "B3",
+        "name": "Simplify your business model",
+        "domain": "BUILD",
+        "state": "strong",
+        "internalScore": 83
+      },
+      {
+        "code": "S1",
+        "name": "Attract the right people",
+        "domain": "SELL",
+        "state": "strong",
+        "internalScore": 89
+      },
+      {
+        "code": "S2",
+        "name": "Create a cleaner sales pathway",
+        "domain": "SELL",
+        "state": "strong",
+        "internalScore": 89
+      },
+      {
+        "code": "S3",
+        "name": "Improve what is already working",
+        "domain": "SELL",
+        "state": "strong",
+        "internalScore": 83
+      },
+      {
+        "code": "L1",
+        "name": "Strengthen client experience",
+        "domain": "LEAD",
+        "state": "strong",
+        "internalScore": 83
+      },
+      {
+        "code": "L2",
+        "name": "Facilitate without overgiving",
+        "domain": "LEAD",
+        "state": "strong",
+        "internalScore": 89
+      },
+      {
+        "code": "L3",
+        "name": "Lead with clearer boundaries",
+        "domain": "LEAD",
+        "state": "strong",
+        "internalScore": 100
+      }
+    ],
+    "strengths": [
+      "Clarify your offer",
+      "Simplify your business model",
+      "Attract the right people",
+      "Create a cleaner sales pathway",
+      "Improve what is already working",
+      "Strengthen client experience",
+      "Facilitate without overgiving",
+      "Lead with clearer boundaries"
+    ],
+    "needsAttentionCount": 1,
+    "fresh": {
+      "level": "quiet",
+      "dominantLetter": null,
+      "supportLabel": null,
+      "depletionFlags": 0
+    },
+    "mdmFit": true,
+    "internalReadiness": 79,
+    "firedTags": [
+      "offer_clear",
+      "one_sentence_fail",
+      "blank_page_content",
+      "content_treadmill",
+      "selling_freeze",
+      "ready_now"
+    ],
+    "acTags": [
+      "quiz_audit_completed",
+      "quiz_audit_band_refinement",
+      "quiz_audit_route_ffb",
+      "quiz_audit_area_primary_tighten_your_message",
+      "quiz_audit_mdm_fit",
+      "quiz_audit_tag_offer_clear",
+      "quiz_audit_tag_one_sentence_fail",
+      "quiz_audit_tag_blank_page_content",
+      "quiz_audit_tag_content_treadmill",
+      "quiz_audit_tag_selling_freeze",
+      "quiz_audit_tag_ready_now"
+    ]
+  },
+  "workshop": {
+    "firstName": "Leah",
+    "heroHeadline": "Leah, your next best step is to simplify your business model.",
+    "season": {
+      "key": "momentum",
+      "name": "The Momentum Season"
+    },
+    "route": "workshop",
+    "primaryFocus": {
+      "code": "B3",
+      "name": "Simplify your business model",
+      "domain": "BUILD",
+      "state": "steady"
+    },
+    "secondaryFocus": [
+      {
+        "code": "S3",
+        "name": "Improve what is already working",
+        "domain": "SELL",
+        "state": "steady"
+      },
+      {
+        "code": "L1",
+        "name": "Strengthen client experience",
+        "domain": "LEAD",
+        "state": "steady"
+      }
+    ],
+    "areas": [
+      {
+        "code": "B1",
+        "name": "Clarify your offer",
+        "domain": "BUILD",
+        "state": "steady",
+        "internalScore": 56
+      },
+      {
+        "code": "B2",
+        "name": "Tighten your message",
+        "domain": "BUILD",
+        "state": "steady",
+        "internalScore": 56
+      },
+      {
+        "code": "B3",
+        "name": "Simplify your business model",
+        "domain": "BUILD",
+        "state": "steady",
+        "internalScore": 50
+      },
+      {
+        "code": "S1",
+        "name": "Attract the right people",
+        "domain": "SELL",
+        "state": "steady",
+        "internalScore": 56
+      },
+      {
+        "code": "S2",
+        "name": "Create a cleaner sales pathway",
+        "domain": "SELL",
+        "state": "steady",
+        "internalScore": 56
+      },
+      {
+        "code": "S3",
+        "name": "Improve what is already working",
+        "domain": "SELL",
+        "state": "steady",
+        "internalScore": 50
+      },
+      {
+        "code": "L1",
+        "name": "Strengthen client experience",
+        "domain": "LEAD",
+        "state": "steady",
+        "internalScore": 50
+      },
+      {
+        "code": "L2",
+        "name": "Facilitate without overgiving",
+        "domain": "LEAD",
+        "state": "steady",
+        "internalScore": 56
+      },
+      {
+        "code": "L3",
+        "name": "Lead with clearer boundaries",
+        "domain": "LEAD",
+        "state": "steady",
+        "internalScore": 67
+      }
+    ],
+    "strengths": [],
+    "needsAttentionCount": 0,
+    "fresh": {
+      "level": "quiet",
+      "dominantLetter": null,
+      "supportLabel": null,
+      "depletionFlags": 0
+    },
+    "mdmFit": false,
+    "internalReadiness": 56,
+    "firedTags": [
+      "inclusion_stacking",
+      "one_sentence_fail",
+      "price_softening",
+      "too_many_offers",
+      "wrong_fit_leads",
+      "proof_invisible",
+      "ready_for_support"
+    ],
+    "acTags": [
+      "quiz_audit_completed",
+      "quiz_audit_band_momentum",
+      "quiz_audit_route_workshop",
+      "quiz_audit_area_primary_simplify_your_business_model",
+      "quiz_audit_tag_inclusion_stacking",
+      "quiz_audit_tag_one_sentence_fail",
+      "quiz_audit_tag_price_softening",
+      "quiz_audit_tag_too_many_offers",
+      "quiz_audit_tag_wrong_fit_leads",
+      "quiz_audit_tag_proof_invisible",
+      "quiz_audit_tag_ready_for_support"
+    ]
+  },
+  "fresh": {
+    "firstName": "Leah",
+    "heroHeadline": "Leah, your next best step is to lead with clearer boundaries.",
+    "season": {
+      "key": "leadership",
+      "name": "The Leadership Season"
+    },
+    "route": "fresh",
+    "primaryFocus": {
+      "code": "L3",
+      "name": "Lead with clearer boundaries",
+      "domain": "LEAD",
+      "state": "attention"
+    },
+    "secondaryFocus": [
+      {
+        "code": "L2",
+        "name": "Facilitate without overgiving",
+        "domain": "LEAD",
+        "state": "attention"
+      },
+      {
+        "code": "B1",
+        "name": "Clarify your offer",
+        "domain": "BUILD",
+        "state": "strong"
+      }
+    ],
+    "areas": [
+      {
+        "code": "B1",
+        "name": "Clarify your offer",
+        "domain": "BUILD",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "B2",
+        "name": "Tighten your message",
+        "domain": "BUILD",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "B3",
+        "name": "Simplify your business model",
+        "domain": "BUILD",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "S1",
+        "name": "Attract the right people",
+        "domain": "SELL",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "S2",
+        "name": "Create a cleaner sales pathway",
+        "domain": "SELL",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "S3",
+        "name": "Improve what is already working",
+        "domain": "SELL",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "L1",
+        "name": "Strengthen client experience",
+        "domain": "LEAD",
+        "state": "strong",
+        "internalScore": 100
+      },
+      {
+        "code": "L2",
+        "name": "Facilitate without overgiving",
+        "domain": "LEAD",
+        "state": "attention",
+        "internalScore": 33
+      },
+      {
+        "code": "L3",
+        "name": "Lead with clearer boundaries",
+        "domain": "LEAD",
+        "state": "attention",
+        "internalScore": 0
+      }
+    ],
+    "strengths": [
+      "Clarify your offer",
+      "Tighten your message",
+      "Simplify your business model",
+      "Attract the right people",
+      "Create a cleaner sales pathway",
+      "Improve what is already working",
+      "Strengthen client experience"
+    ],
+    "needsAttentionCount": 2,
+    "fresh": {
+      "level": "first",
+      "dominantLetter": "S",
+      "supportLabel": "Put yourself back into the rhythm",
+      "depletionFlags": 4
+    },
+    "mdmFit": false,
+    "internalReadiness": 83,
+    "firedTags": [
+      "offer_clear",
+      "overgiving",
+      "under_supported",
+      "always_on",
+      "decision_fatigue",
+      "ready_now"
+    ],
+    "acTags": [
+      "quiz_audit_completed",
+      "quiz_audit_band_leadership",
+      "quiz_audit_route_fresh",
+      "quiz_audit_area_primary_lead_with_clearer_boundaries",
+      "quiz_audit_fresh_support",
+      "quiz_audit_tag_offer_clear",
+      "quiz_audit_tag_overgiving",
+      "quiz_audit_tag_under_supported",
+      "quiz_audit_tag_always_on",
+      "quiz_audit_tag_decision_fatigue",
+      "quiz_audit_tag_ready_now"
+    ]
+  },
+  "nurture": {
+    "firstName": "Leah",
+    "heroHeadline": "Leah, your next best step is to clarify your offer.",
+    "season": {
+      "key": "foundation",
+      "name": "The Foundation Season"
+    },
+    "route": "nurture",
+    "primaryFocus": {
+      "code": "B1",
+      "name": "Clarify your offer",
+      "domain": "BUILD",
+      "state": "attention"
+    },
+    "secondaryFocus": [
+      {
+        "code": "B2",
+        "name": "Tighten your message",
+        "domain": "BUILD",
+        "state": "attention"
+      },
+      {
+        "code": "B3",
+        "name": "Simplify your business model",
+        "domain": "BUILD",
+        "state": "attention"
+      }
+    ],
+    "areas": [
+      {
+        "code": "B1",
+        "name": "Clarify your offer",
+        "domain": "BUILD",
+        "state": "attention",
+        "internalScore": 0
+      },
+      {
+        "code": "B2",
+        "name": "Tighten your message",
+        "domain": "BUILD",
+        "state": "attention",
+        "internalScore": 0
+      },
+      {
+        "code": "B3",
+        "name": "Simplify your business model",
+        "domain": "BUILD",
+        "state": "attention",
+        "internalScore": 0
+      },
+      {
+        "code": "S1",
+        "name": "Attract the right people",
+        "domain": "SELL",
+        "state": "attention",
+        "internalScore": 0
+      },
+      {
+        "code": "S2",
+        "name": "Create a cleaner sales pathway",
+        "domain": "SELL",
+        "state": "attention",
+        "internalScore": 0
+      },
+      {
+        "code": "S3",
+        "name": "Improve what is already working",
+        "domain": "SELL",
+        "state": "attention",
+        "internalScore": 33
+      },
+      {
+        "code": "L1",
+        "name": "Strengthen client experience",
+        "domain": "LEAD",
+        "state": "attention",
+        "internalScore": 0
+      },
+      {
+        "code": "L2",
+        "name": "Facilitate without overgiving",
+        "domain": "LEAD",
+        "state": "attention",
+        "internalScore": 44
+      },
+      {
+        "code": "L3",
+        "name": "Lead with clearer boundaries",
+        "domain": "LEAD",
+        "state": "steady",
+        "internalScore": 67
+      }
+    ],
+    "strengths": [],
+    "needsAttentionCount": 8,
+    "fresh": {
+      "level": "quiet",
+      "dominantLetter": "E",
+      "supportLabel": "Create a calmer working environment",
+      "depletionFlags": 0
+    },
+    "mdmFit": true,
+    "internalReadiness": 17,
+    "firedTags": [
+      "offer_unclear",
+      "selling_the_method",
+      "price_softening",
+      "one_sentence_fail",
+      "blank_page_content",
+      "content_treadmill",
+      "selling_freeze",
+      "too_many_offers",
+      "time_for_money",
+      "visibility_crickets",
+      "spread_thin",
+      "no_capture",
+      "followup_avoidance",
+      "no_visible_doorway",
+      "flying_blind",
+      "inconsistent_delivery",
+      "proof_invisible",
+      "under_supported",
+      "business_depends_on_me",
+      "ready_for_support"
+    ],
+    "acTags": [
+      "quiz_audit_completed",
+      "quiz_audit_band_foundation",
+      "quiz_audit_route_nurture",
+      "quiz_audit_area_primary_clarify_your_offer",
+      "quiz_audit_mdm_fit",
+      "quiz_audit_tag_offer_unclear",
+      "quiz_audit_tag_selling_the_method",
+      "quiz_audit_tag_price_softening",
+      "quiz_audit_tag_one_sentence_fail",
+      "quiz_audit_tag_blank_page_content",
+      "quiz_audit_tag_content_treadmill",
+      "quiz_audit_tag_selling_freeze",
+      "quiz_audit_tag_too_many_offers",
+      "quiz_audit_tag_time_for_money",
+      "quiz_audit_tag_visibility_crickets",
+      "quiz_audit_tag_spread_thin",
+      "quiz_audit_tag_no_capture",
+      "quiz_audit_tag_followup_avoidance",
+      "quiz_audit_tag_no_visible_doorway",
+      "quiz_audit_tag_flying_blind",
+      "quiz_audit_tag_inconsistent_delivery",
+      "quiz_audit_tag_proof_invisible",
+      "quiz_audit_tag_under_supported",
+      "quiz_audit_tag_business_depends_on_me",
+      "quiz_audit_tag_ready_for_support"
+    ]
+  }
+}
