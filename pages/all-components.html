@@ -4789,6 +4789,7 @@
       el.textContent = 'Copied ✓';
       setTimeout(function() { el.textContent = prev; }, 1400);
     }
+    var NL = String.fromCharCode(10);
     async function fetchText(url) { var r = await fetch(url); return r.text(); }
     async function variantCss(relPath) {
       var doc = new DOMParser().parseFromString(await fetchText(relPath), 'text/html');
@@ -4798,34 +4799,24 @@
         var href = l.getAttribute('href') || '';
         if (href.indexOf('http') === 0 || href.indexOf('tokens.css') !== -1 || href.indexOf('fonts.css') !== -1) continue;
         var url = new URL(href, new URL(relPath, location.href)).href;
-        parts.push('/* from ' + href.replace(/\.\.\//g, '') + ' */
-' + await fetchText(url));
+        parts.push('/* from ' + href.split('../').join('') + ' */' + NL + await fetchText(url));
       }
       doc.querySelectorAll('style').forEach(function(s) {
         var css = s.textContent.trim();
-        if (css && css.indexOf('margin: 0; font-family: var(--f-sans)') === -1) parts.push('/* inline variant css */
-' + css);
+        if (css && css.indexOf('margin: 0; font-family: var(--f-sans)') === -1) parts.push('/* inline variant css */' + NL + css);
       });
-      var header = '/* Tracy Harris Co brand kit component CSS.
-   Requires the shared token + font sheets:
-   ' +
-        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css">
-   ' +
-        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css">
-   ' +
-        'and a data-brand="tracy|ffb|ffm|fresh" attribute on a wrapper. */
-
-';
-      return header + parts.join('
-
-');
+      var header = ['/* Tracy Harris Co brand kit component CSS.',
+        '   Requires the shared token + font sheets:',
+        '   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css">',
+        '   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css">',
+        '   and a data-brand="tracy|ffb|ffm|fresh" attribute on a wrapper. */', '', ''].join(NL);
+      return header + parts.join(NL + NL);
     }
     async function variantHtml(relPath) {
       var doc = new DOMParser().parseFromString(await fetchText(relPath), 'text/html');
       var attrs = '';
       for (var a of doc.body.attributes) attrs += ' ' + a.name + '="' + a.value + '"';
-      return '<!-- brand kit component. Wrapper context:' + (attrs || ' (none)') + ' -->
-' + doc.body.innerHTML.trim();
+      return '<!-- brand kit component. Wrapper context:' + (attrs || ' (none)') + ' -->' + NL + doc.body.innerHTML.trim();
     }
     document.addEventListener('click', function(e) {
       var h = e.target.closest('[data-ac-copyhtml]');
