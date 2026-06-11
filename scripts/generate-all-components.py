@@ -158,6 +158,8 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
                 <td class="ac-cell ac-cell--title">{html.escape(v.title)}</td>
                 <td class="ac-cell ac-cell--size">{v.size_kb:.1f} KB</td>
                 <td class="ac-cell ac-cell--actions">
+                  <a class="ac-link" data-ac-copyhtml="{html.escape(v.rel_path)}" href="#" title="Copy this variant's HTML markup">HTML</a>
+                  <a class="ac-link" data-ac-copycss="{html.escape(v.rel_path)}" href="#" title="Copy this variant's CSS">CSS</a>
                   <a class="ac-link" href="{html.escape(v.rel_path)}" data-ac-preview data-ac-title="{html.escape(v.title)}" data-ac-copy="{html.escape(v.copy_id)}">Open →</a>
                 </td>
               </tr>
@@ -171,6 +173,7 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
                 <div class="ac-tile__meta">
                   <code class="ac-copy ac-copy--tile" data-copy="{html.escape(v.copy_id)}">{html.escape(v.copy_id)}</code>
                   <p class="ac-tile__title">{html.escape(v.title)}</p>
+                  <p class="ac-tile__actions"><a class="ac-link" href="#" data-ac-copyhtml="{html.escape(v.rel_path)}">Copy HTML</a> · <a class="ac-link" href="#" data-ac-copycss="{html.escape(v.rel_path)}">Copy CSS</a></p>
                 </div>
               </article>
             ''')
@@ -365,6 +368,12 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     .ac-cell--id {{ width: 32%; }}
     .ac-cell--title {{ width: 42%; color: var(--p-ink); }}
     .ac-cell--size {{ width: 10%; color: var(--p-mute); font-variant-numeric: tabular-nums; }}
+    .ac-downloads {{ display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0 0; }}
+    .ac-btn {{ display: inline-block; font-size: 12px; font-weight: 500; letter-spacing: .04em; padding: 8px 16px; border-radius: 999px; background: var(--p-charcoal); color: var(--p-oatmeal); text-decoration: none; }}
+    .ac-btn:hover {{ background: var(--p-gold-dark); }}
+    .ac-downloads__note {{ font-size: 12px; color: var(--p-mute); }}
+    .ac-tile__actions {{ margin: 4px 0 0; font-size: 11.5px; }}
+    .ac-cell--actions .ac-link {{ margin-left: 8px; }}
     .ac-cell--actions {{ width: 16%; text-align: right; }}
 
     code.ac-copy {{
@@ -518,6 +527,12 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     <div class="ac-main">
       <div class="ac-intro">
         <p>Every visual component in the brand kit, in one place. Naming convention: <code style="font-size: 12px; background: var(--p-white); padding: 3px 7px; border-radius: 3px; border: 1px solid rgba(16,16,16,0.08);">category.variant-slug</code>. Click a name to copy it, click Open to preview the live variant.</p>
+        <p class="ac-downloads">
+          <a class="ac-btn" href="../exports/brand-kit-components.zip" download>Download all components (.zip)</a>
+          <a class="ac-btn" href="../exports/components-master.md" download>Master file for AI tools (.md)</a>
+          <a class="ac-btn" href="../styles/tokens.css" download>Design tokens (.css)</a>
+          <span class="ac-downloads__note">Copy HTML / Copy CSS on any variant grabs that exact component to your clipboard.</span>
+        </p>
         <p>Updated whenever the <code style="font-size: 12px;">components/</code> tree changes. Run <code style="font-size: 12px;">python3 scripts/generate-all-components.py</code> after adding a new variant to refresh this page.</p>
         <div class="ac-intro__stats">
           <div>
@@ -725,6 +740,51 @@ def render(sections: list[tuple[str, list[Variant]]]) -> str:
     var modalTitle = document.getElementById('ac-preview-title');
     var modalCopy = document.getElementById('ac-preview-copy');
     var modalOpen = document.getElementById('ac-preview-open');
+    // --- Copy HTML / Copy CSS from any variant ---
+    function flashCopied(el) {{
+      var prev = el.textContent;
+      el.textContent = 'Copied ✓';
+      setTimeout(function() {{ el.textContent = prev; }}, 1400);
+    }}
+    async function fetchText(url) {{ var r = await fetch(url); return r.text(); }}
+    async function variantCss(relPath) {{
+      var doc = new DOMParser().parseFromString(await fetchText(relPath), 'text/html');
+      var parts = [];
+      var links = doc.querySelectorAll('link[rel="stylesheet"]');
+      for (var l of links) {{
+        var href = l.getAttribute('href') || '';
+        if (href.indexOf('http') === 0 || href.indexOf('tokens.css') !== -1 || href.indexOf('fonts.css') !== -1) continue;
+        var url = new URL(href, new URL(relPath, location.href)).href;
+        parts.push('/* from ' + href.replace(/\.\.\//g, '') + ' */\n' + await fetchText(url));
+      }}
+      doc.querySelectorAll('style').forEach(function(s) {{
+        var css = s.textContent.trim();
+        if (css && css.indexOf('margin: 0; font-family: var(--f-sans)') === -1) parts.push('/* inline variant css */\n' + css);
+      }});
+      var header = '/* Tracy Harris Co brand kit component CSS.\n   Requires the shared token + font sheets:\n   ' +
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/fonts.css">\n   ' +
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/purepurposekh/tracy-harris-brand-kit@main/styles/tokens.css">\n   ' +
+        'and a data-brand="tracy|ffb|ffm|fresh" attribute on a wrapper. */\n\n';
+      return header + parts.join('\n\n');
+    }}
+    async function variantHtml(relPath) {{
+      var doc = new DOMParser().parseFromString(await fetchText(relPath), 'text/html');
+      var attrs = '';
+      for (var a of doc.body.attributes) attrs += ' ' + a.name + '="' + a.value + '"';
+      return '<!-- brand kit component. Wrapper context:' + (attrs || ' (none)') + ' -->\n' + doc.body.innerHTML.trim();
+    }}
+    document.addEventListener('click', function(e) {{
+      var h = e.target.closest('[data-ac-copyhtml]');
+      var c = e.target.closest('[data-ac-copycss]');
+      if (!h && !c) return;
+      e.preventDefault();
+      var el = h || c;
+      var fn = h ? variantHtml : variantCss;
+      fn(el.getAttribute(h ? 'data-ac-copyhtml' : 'data-ac-copycss')).then(function(text) {{
+        navigator.clipboard.writeText(text).then(function() {{ flashCopied(el); }});
+      }});
+    }});
+
     var modalIframe = document.getElementById('ac-preview-iframe');
     var modalClose = document.getElementById('ac-preview-close');
     document.addEventListener('click', function (e) {{
