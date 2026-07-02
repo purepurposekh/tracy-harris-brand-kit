@@ -1,0 +1,39 @@
+{
+  "name": "calendar",
+  "description": "Tracy Harris Co branded month, week and day calendar views.",
+  "brands": ["tracy"],
+  "variants": ["month", "week", "day"],
+  "tokens": {
+    "required": [
+      "--surface-canvas",
+      "--surface-elevated",
+      "--ink-heading",
+      "--ink-body",
+      "--ink-mute",
+      "--accent",
+      "--accent-on",
+      "--accent-hover",
+      "--border-hairline",
+      "--f-serif-display",
+      "--f-serif-italic",
+      "--f-sans",
+      "--f-sans-label"
+    ]
+  },
+  "slots": [
+    "calendar-showcase",
+    "calendar-demo",
+    "calendar-demo__top",
+    "calendar-month",
+    "calendar-week",
+    "calendar-day",
+    "calendar-event"
+  ],
+  "accessibility": {
+    "notes": [
+      "Use semantic headings for each view.",
+      "Provide aria labels for calendar control groups.",
+      "Keep action buttons at least 40px high in compact contexts and 44px where used on mobile pages."
+    ]
+  }
+}

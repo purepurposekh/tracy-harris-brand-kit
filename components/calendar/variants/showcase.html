@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendar Showcase, Tracy Harris Co</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../styles/fonts.css" />
+  <link rel="stylesheet" href="../../../styles/tokens.css" />
+  <link rel="stylesheet" href="../calendar.css" />
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: var(--surface-canvas); }
+  </style>
+</head>
+<body data-brand="tracy">
+  <main class="calendar-showcase">
+    <div class="calendar-showcase__inner">
+      <p class="calendar-showcase__eyebrow">Tracy Harris Co component study</p>
+      <h1 class="calendar-showcase__title">Editorial calendars for <em>quiet authority</em></h1>
+      <p class="calendar-showcase__intro">
+        A Tracy Harris branded recreation of the Untitled UI calendar patterns, translated into the brand kit token system. It keeps the useful month, week and day structures, while shifting the tone away from SaaS purple toward dark green, oatmeal surfaces, serif hierarchy and calm spacing.
+      </p>
+
+      <div class="calendar-showcase__grid" aria-label="Calendar view examples">
+        <section class="calendar-demo" aria-labelledby="month-title">
+          <header class="calendar-demo__top">
+            <div class="calendar-demo__date">
+              <div class="calendar-demo__date-card" aria-hidden="true"><span>Jun</span><span>04</span></div>
+              <div>
+                <h2 class="calendar-demo__heading" id="month-title">June 2026</h2>
+                <p class="calendar-demo__period">Month view, campaign planning, client calls and delivery rhythms.</p>
+              </div>
+            </div>
+            <div class="calendar-demo__actions" aria-label="Month view controls">
+              <button class="calendar-demo__button" type="button" aria-label="Previous month">‹</button>
+              <button class="calendar-demo__button calendar-demo__button--primary" type="button">Today</button>
+              <button class="calendar-demo__button" type="button" aria-label="Next month">›</button>
+              <div class="calendar-demo__view-toggle" role="group" aria-label="Calendar view">
+                <button class="calendar-demo__view" type="button" aria-pressed="true">Month</button>
+                <button class="calendar-demo__view" type="button">Week</button>
+                <button class="calendar-demo__view" type="button">Day</button>
+              </div>
+            </div>
+          </header>
+
+          <div class="calendar-month" role="grid" aria-label="June 2026 month calendar">
+            <div class="calendar-month__weekday" role="columnheader">Mon</div>
+            <div class="calendar-month__weekday" role="columnheader">Tue</div>
+            <div class="calendar-month__weekday" role="columnheader">Wed</div>
+            <div class="calendar-month__weekday" role="columnheader">Thu</div>
+            <div class="calendar-month__weekday" role="columnheader">Fri</div>
+            <div class="calendar-month__weekday" role="columnheader">Sat</div>
+            <div class="calendar-month__weekday" role="columnheader">Sun</div>
+
+            <div class="calendar-month__day"><span class="calendar-month__number">1</span><div class="calendar-event-stack"><span class="calendar-event">Team priorities</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">2</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="soft">Content review</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">3</span><div class="calendar-event-stack"><span class="calendar-event">Strategy sync</span><span class="calendar-event" data-tone="warm">Deep work</span></div></div>
+            <div class="calendar-month__day" data-current="true"><span class="calendar-month__number">4</span><div class="calendar-event-stack"><span class="calendar-event">Mastermind room</span><span class="calendar-event" data-tone="soft">Member call</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">5</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="warm">Ops tidy</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">6</span><div class="calendar-event-stack"><span class="calendar-event">Family margin</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">7</span></div>
+
+            <div class="calendar-month__day"><span class="calendar-month__number">8</span><div class="calendar-event-stack"><span class="calendar-event">Launch planning</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">9</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">10</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="soft">Podcast prep</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">11</span><div class="calendar-event-stack"><span class="calendar-event">Client intensive</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">12</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">13</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="warm">Creative review</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">14</span></div>
+
+            <div class="calendar-month__day"><span class="calendar-month__number">15</span><div class="calendar-event-stack"><span class="calendar-event">Leadership note</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">16</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="soft">Workshop rehearsal</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">17</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">18</span><div class="calendar-event-stack"><span class="calendar-event">Live Q and A</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">19</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">20</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">21</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="warm">Review week</span></div></div>
+
+            <div class="calendar-month__day"><span class="calendar-month__number">22</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">23</span><div class="calendar-event-stack"><span class="calendar-event">Planning day</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">24</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">25</span><div class="calendar-event-stack"><span class="calendar-event" data-tone="soft">Founder call</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">26</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">27</span></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">28</span></div>
+
+            <div class="calendar-month__day"><span class="calendar-month__number">29</span><div class="calendar-event-stack"><span class="calendar-event">Next month map</span></div></div>
+            <div class="calendar-month__day"><span class="calendar-month__number">30</span></div>
+            <div class="calendar-month__day" data-outside="true"><span class="calendar-month__number">1</span></div>
+            <div class="calendar-month__day" data-outside="true"><span class="calendar-month__number">2</span></div>
+            <div class="calendar-month__day" data-outside="true"><span class="calendar-month__number">3</span></div>
+            <div class="calendar-month__day" data-outside="true"><span class="calendar-month__number">4</span></div>
+            <div class="calendar-month__day" data-outside="true"><span class="calendar-month__number">5</span></div>
+          </div>
+        </section>
+
+        <section class="calendar-demo" aria-labelledby="week-title">
+          <header class="calendar-demo__top">
+            <div class="calendar-demo__date">
+              <div class="calendar-demo__date-card" aria-hidden="true"><span>Jun</span><span>04</span></div>
+              <div>
+                <h2 class="calendar-demo__heading" id="week-title">Week of Jun 1</h2>
+                <p class="calendar-demo__period">Week view, a time-grid rhythm for delivery, calls and focus blocks.</p>
+              </div>
+            </div>
+            <div class="calendar-demo__actions" aria-label="Week view controls">
+              <button class="calendar-demo__button" type="button">Search</button>
+              <button class="calendar-demo__button calendar-demo__button--primary" type="button">Add event</button>
+            </div>
+          </header>
+
+          <div class="calendar-week" aria-label="Week view calendar">
+            <div class="calendar-week__head">
+              <div class="calendar-week__spacer"></div>
+              <div class="calendar-week__weekday">Mon <span class="calendar-week__day-number">1</span></div>
+              <div class="calendar-week__weekday">Tue <span class="calendar-week__day-number">2</span></div>
+              <div class="calendar-week__weekday">Wed <span class="calendar-week__day-number">3</span></div>
+              <div class="calendar-week__weekday" data-current="true">Thu <span class="calendar-week__day-number">4</span></div>
+              <div class="calendar-week__weekday">Fri <span class="calendar-week__day-number">5</span></div>
+              <div class="calendar-week__weekday">Sat <span class="calendar-week__day-number">6</span></div>
+              <div class="calendar-week__weekday">Sun <span class="calendar-week__day-number">7</span></div>
+            </div>
+            <div class="calendar-time-grid">
+              <div class="calendar-time">8 AM</div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event"><span class="calendar-event__time">8:30</span> Voice notes</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-time">9 AM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event">Team priorities</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="soft">Member call</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-time">10 AM</div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="warm">Creative review</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event">Delivery check</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-now"><span>Now</span></div>
+              <div class="calendar-time">11 AM</div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="soft">Podcast prep</span></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event">Mastermind room</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-time">12 PM</div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="warm">Lunch and reset</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-time">1 PM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="soft">Copy polish</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event">Offer review</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-time">2 PM</div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event">Client intensive</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+              <div class="calendar-time">3 PM</div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="warm">Admin closeout</span></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div><div class="calendar-slot"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="calendar-demo" aria-labelledby="day-title">
+          <header class="calendar-demo__top">
+            <div class="calendar-demo__date">
+              <div class="calendar-demo__date-card" aria-hidden="true"><span>Jun</span><span>04</span></div>
+              <div>
+                <h2 class="calendar-demo__heading" id="day-title">Thursday, June 4</h2>
+                <p class="calendar-demo__period">Day view, high clarity for one demanding delivery day.</p>
+              </div>
+            </div>
+            <div class="calendar-demo__actions" aria-label="Day view controls">
+              <button class="calendar-demo__button" type="button">Copy day</button>
+              <button class="calendar-demo__button calendar-demo__button--primary" type="button">Add event</button>
+            </div>
+          </header>
+          <div class="calendar-day" aria-label="Day view calendar">
+            <div class="calendar-day__head">
+              <span class="calendar-day__date-badge">4</span>
+              <div>
+                <h3>Thursday</h3>
+                <p>Founder calendar with room for actual work, not just meetings.</p>
+              </div>
+            </div>
+            <div class="calendar-time-grid calendar-time-grid--day">
+              <div class="calendar-time">8 AM</div><div class="calendar-slot"></div>
+              <div class="calendar-time">9 AM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="soft"><span class="calendar-event__time">9:00</span> Member call and notes</span></div>
+              <div class="calendar-time">10 AM</div><div class="calendar-slot"></div>
+              <div class="calendar-time">11 AM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event"><span class="calendar-event__time">11:00</span> Mastermind room</span></div>
+              <div class="calendar-time">12 PM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="warm"><span class="calendar-event__time">12:30</span> Lunch and reset</span></div>
+              <div class="calendar-time">1 PM</div><div class="calendar-slot"></div>
+              <div class="calendar-time">2 PM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event"><span class="calendar-event__time">2:00</span> Offer and copy review</span></div>
+              <div class="calendar-time">3 PM</div><div class="calendar-slot"></div>
+              <div class="calendar-time">4 PM</div><div class="calendar-slot calendar-slot--with-event"><span class="calendar-event" data-tone="soft"><span class="calendar-event__time">4:00</span> Next day map</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
