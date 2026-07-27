@@ -22,7 +22,7 @@ Vercel Hobby is legally unusable for Tracy Harris Co (non-commercial clause). Ve
 2. **Free tier allows commercial use.** Netlify Free is legal for a business dashboard. Vercel Hobby is not, Vercel's ToS restricts Hobby to "personal or non-commercial use." Any Tracy Harris Co dashboard on Vercel requires Pro at $20/month on day one.
 3. **Next 16 is supported.** Netlify's runtime deploys Next.js 16 today via OpenNext ([Netlify changelog, Oct 2025](https://www.netlify.com/changelog/next-js-16-deploy-on-netlify/)). The official Adapter API (shipped in Next 16.2) is being added this year with zero-config rollout to existing projects.
 4. **Every SDK in our stack runs on Node by default.** `stripe`, `@hubspot/api-client`, `posthog-node`, the AC fetch wrapper, all Node runtime, all "just works" on Netlify Functions. No edge-runtime gymnastics. Already validated in `dashboard-integration-check-2026-04-17.md`.
-5. **Credentials + infra familiarity.** Kira already holds the Netlify API key (`nfp_6ZKFEcy6Lp6EZ2wwm5DySabbHFz3hcxUca45`). Karl runs ops across Netlify + Cloudflare already. No new surface area.
+5. **Credentials + infra familiarity.** Kira already holds the Netlify API key (`nfp_REDACTED-revoked`). Karl runs ops across Netlify + Cloudflare already. No new surface area.
 
 ---
 
